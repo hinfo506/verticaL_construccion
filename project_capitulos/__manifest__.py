@@ -10,6 +10,12 @@
     "version": "14.0.1.1.0",
     "license": "AGPL-3",
     "depends": ["project"],
-    "data": ["views/project.xml"],
+    "data": [
+        'security/ir.model.access.csv',
+        # "views/project.xml",
+        "views/menu.xml",
+        "views/view_capitulo.xml",
+        "views/view_subcapitulo.xml",
+    ],
     "application": False,
 }
