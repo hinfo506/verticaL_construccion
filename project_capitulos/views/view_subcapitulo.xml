@@ -12,14 +12,14 @@
                             <field name="descripcion"/>
                             <field name="total"/>
                             <field name="fecha_finalizacion"/>
-                            <field name="capitulo_id"/>
+<!--                            <field name="capitulo_id"/>-->
                             <field name="item_capitulo_id">
                                 <tree editable="bottom">
                                     <field name="name"/>
                                     <field name="descripcion"/>
                                     <field name="total"/>
                                     <field name="fecha_finalizacion"/>
-                                    <field name="capitulo_id"/>
+<!--                                    <field name="capitulo_id"/>-->
                                 </tree>
                             </field>
 
@@ -38,7 +38,7 @@
                     <field name="descripcion"/>
                     <field name="total"/>
                     <field name="fecha_finalizacion"/>
-                    <field name="capitulo_id"/>
+<!--                    <field name="capitulo_id"/>-->
                 </tree>
             </field>
         </record>
