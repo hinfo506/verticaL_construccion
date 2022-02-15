@@ -9,6 +9,11 @@ class Subcapitulo(models.Model):
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
+    item_capitulo_id = fields.One2many(
+        comodel_name='item.capitulo',
+        inverse_name='subcapitulo_id',
+        string='Item capitulos',
+        required=False)
 
 
 class ItemCapitulo(models.Model):
@@ -19,3 +24,4 @@ class ItemCapitulo(models.Model):
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
+    subcapitulo_id = fields.Many2one('sub.capitulo', string='Capitulo')
