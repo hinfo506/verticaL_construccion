@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_capitulo,capitulo.capitulo,model_capitulo_capitulo,,1,1,1,1
+access_sub_capitulo,sub.capitulo,model_sub_capitulo,,1,1,1,1
+access_item_capitulo,item_capitulo,model_item_capitulo,,1,1,1,1

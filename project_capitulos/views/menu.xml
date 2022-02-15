@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Capitulos-->
+        <record id="capitulos_action" model="ir.actions.act_window">
+            <field name="name">Capitulo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">capitulo.capitulo</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Subcapitulo-->
+        <record id="subcapitulo_action" model="ir.actions.act_window">
+            <field name="name">SubCapitulo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sub.capitulo</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Capitulos" id="capitulo_root_menu" />
+        <menuitem name="Capitulos" id="capitulo_menu" parent="capitulo_root_menu" action="capitulos_action"/>
+        <menuitem name="SubCapitulos" id="subcapitulo_menu" parent="capitulo_root_menu" action="subcapitulo_action"/>
+
+    </data>
+</odoo>
