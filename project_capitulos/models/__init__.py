@@ -2,3 +2,4 @@
 
 from . import capitulo
 from . import subcapitulo
+from . import project_inherit
