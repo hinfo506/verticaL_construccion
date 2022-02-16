@@ -11,8 +11,8 @@ class Capitulo(models.Model):
     project_id = fields.Many2one('project.project', string='Proyecto')
     descripcion = fields.Text('Descripción del Capitulo')
 
-    item_subcapitulo_ids = fields.One2many(
-        comodel_name='item.capitulo',
+    subcapitulo_ids = fields.One2many(
+        comodel_name='sub.capitulo',
         inverse_name='capitulo_id',
-        string='Item capitulos',
+        string='Subcapitulos',
         required=False)

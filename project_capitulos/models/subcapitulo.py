@@ -8,7 +8,7 @@ class Subcapitulo(models.Model):
     descripcion = fields.Text('Descripción del Sub-Capitulo')
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
-    # capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
+    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     item_capitulo_id = fields.One2many(
         comodel_name='item.capitulo',
         inverse_name='subcapitulo_id',

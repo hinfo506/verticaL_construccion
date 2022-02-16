@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="project_view_inherit" model="ir.ui.view">
+            <field name="name">Proyectos</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet//div//button" position="before">
+                    <button name="met_capitulos" type="object" class="oe_stat_button" icon="fa-area-chart">
+                            <span class="o_stat_text">
+                                Capitulos
+                            </span>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
