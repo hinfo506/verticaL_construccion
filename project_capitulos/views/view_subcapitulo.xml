@@ -13,7 +13,10 @@
                             <field name="total"/>
                             <field name="fecha_finalizacion"/>
 <!--                            <field name="capitulo_id"/>-->
-                            <field name="item_capitulo_id">
+                        </group>
+                        <notebook>
+                            <page string="Item subcapitulos">
+                                <field name="item_capitulo_id">
                                 <tree editable="bottom">
                                     <field name="name"/>
                                     <field name="descripcion"/>
@@ -22,8 +25,8 @@
 <!--                                    <field name="capitulo_id"/>-->
                                 </tree>
                             </field>
-
-                        </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

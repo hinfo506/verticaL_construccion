@@ -8,6 +8,12 @@
             <field name="arch" type="xml">
                 <form string="capitulos_form">
                     <sheet>
+<!--                        <field name="subcapitulos_count"/>-->
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="met_subcapitulos" type="object" icon="fa-archive">
+                                <field name="sub_count" string="Subcapitulos" widget="statinfo"/>
+                            </button>
+                        </div>
                         <group>
                             <field name="name"/>
                             <field name="cantidad"/>
@@ -15,17 +21,20 @@
                             <field name="fecha_finalizacion"/>
                             <field name="project_id"/>
                             <field name="descripcion"/>
-                            <field name="subcapitulo_ids">
-                                <tree editable="bottom">
-                                    <field name="name"/>
-                                    <field name="descripcion"/>
-                                    <field name="total"/>
-                                    <field name="fecha_finalizacion"/>
-<!--                                    <field name="capitulo_id"/>-->
-                                </tree>
-                            </field>
-
                         </group>
+                        <notebook>
+                            <page string="SubCapitulos">
+                                <field name="subcapitulo_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="descripcion"/>
+                                        <field name="total"/>
+                                        <field name="fecha_finalizacion"/>
+    <!--                                    <field name="capitulo_id"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
