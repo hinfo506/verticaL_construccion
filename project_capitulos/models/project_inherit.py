@@ -15,7 +15,7 @@ class ProyectosInherit(models.Model):
             'name': 'Capitulos',
             'res_model': 'capitulo.capitulo',
             'view_mode': 'tree,form',
-            # 'domain': [('id', 'in', self.project_id.ids)],
+            'domain': [('id', 'in', self.project_id.ids)],
             # 'context': dict(self._context, default_vehiculo=self.vehicle_id.id, default_inscription_id=self.id,
             #                 default_partner_id=self.purchaser_id.id)
         }
