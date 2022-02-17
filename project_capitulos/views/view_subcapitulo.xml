@@ -9,14 +9,17 @@
                     <sheet>
                         <group>
                             <field name="name"/>
-<!--                            <field name="descripcion"/>-->
                             <field name="total"/>
                             <field name="fecha_finalizacion"/>
                             <field name="capitulo_id"/>
+                            <field name="descripcion"/>
                         </group>
                         <notebook>
-                            <page string="Item subcapitulos">
-                                <field name="item_capitulo_id">
+<!--                            <page string="Descripcion Capitulo">-->
+<!--                                <field name="descripcion"/>-->
+<!--                            </page>-->
+                            <page string="Materiales">
+                                <field name="item_capitulo_materiales_ids" context="{'default_job_type':'material'}">
                                     <tree editable="bottom">
                                         <field name="name"/>
                                         <field name="descripcion"/>
@@ -26,8 +29,27 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page string="Descripcion Capitulo">
-                                <field name="descripcion"/>
+                            <page string="Mano de Obra">
+                                <field name="item_mano_obra_ids" context="{'default_job_type':'labour'}">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="descripcion"/>
+                                        <field name="total"/>
+                                        <field name="fecha_finalizacion"/>
+    <!--                                    <field name="capitulo_id"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Gastos Generales">
+                                <field name="item_capitulo_fastos_generales" context="{'default_job_type':'overhead'}">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="descripcion"/>
+                                        <field name="total"/>
+                                        <field name="fecha_finalizacion"/>
+    <!--                                    <field name="capitulo_id"/>-->
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
