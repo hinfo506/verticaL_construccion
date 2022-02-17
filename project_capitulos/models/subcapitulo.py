@@ -9,11 +9,26 @@ class Subcapitulo(models.Model):
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
-    item_capitulo_id = fields.One2many(
+
+    item_capitulo_materiales_ids = fields.One2many(
         comodel_name='item.capitulo',
         inverse_name='subcapitulo_id',
-        string='Item capitulos',
-        required=False)
+        string='Materiales',
+        domain=[('job_type', '=', 'material')],
+    )
+    item_mano_obra_ids = fields.One2many(
+        comodel_name='item.capitulo',
+        inverse_name='subcapitulo_id',
+        string='Mano de Obra',
+        domain=[('job_type', '=', 'labour')],
+    )
+    item_capitulo_fastos_generales = fields.One2many(
+        comodel_name='item.capitulo',
+        inverse_name='subcapitulo_id',
+        string='Gatos Generales',
+        copy=False,
+        domain=[('job_type', '=', 'overhead')],
+    )
 
 
 class ItemCapitulo(models.Model):
@@ -25,3 +40,11 @@ class ItemCapitulo(models.Model):
     fecha_finalizacion = fields.Date('Fecha Finalización')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Capitulo')
+
+    job_type = fields.Selection(
+        selection=[('material', 'Materiales'),
+                   ('labour', 'Mano de Obra'),
+                   ('overhead', 'Gastos Generales')],
+        string="Tipo de Costo",
+        required=False,
+    )

@@ -10,14 +10,24 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//sheet//div//button" position="before">
-<!--                    <button name="met_capitulos" type="object" class="oe_stat_button" icon="fa-area-chart">-->
-<!--                        <span class="o_stat_text">-->
-<!--                            Capitulos-->
-<!--                        </span>-->
-<!--                    </button>-->
                     <button class="oe_stat_button" name="met_capitulos" type="object" icon="fa-archive">
                         <field name="capitulos_count" string="Capitulos" widget="statinfo"/>
                     </button>
+                </xpath>
+
+                <xpath expr="//notebook//page" position="before">
+                    <page string="Capitulos">
+                        <field name="capitulos_id">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="cantidad"/>
+                                <field name="total"/>
+                                <field name="fecha_finalizacion"/>
+                                <field name="descripcion"/>
+<!--                                <field name="sub_count"/>-->
+                            </tree>
+                        </field>
+                    </page>
                 </xpath>
 
             </field>
