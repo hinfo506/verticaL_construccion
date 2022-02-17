@@ -5,6 +5,15 @@ class Capitulo(models.Model):
     _name = 'capitulo.capitulo'
 
     name = fields.Char(string='Capitulo', required=True)
+    numero_capitulo = fields.Char(string=u'Número capítulo', readonly=True,default='New')
+    @api.model
+    def create(self,vals):
+        if vals.get('numero_capitulo','New') == 'New':
+            vals['numero_capitulo']=self.env['ir.sequence'].next_by_code('task.lfpv') or 'New'
+        result = super(Capitulo, self).create(vals)
+        return result
+
+
     cantidad = fields.Integer('Cantidad')
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')

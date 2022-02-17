@@ -15,15 +15,17 @@
                             </button>
                         </div>
                         <group>
+                            <field name="numero_capitulo"/>
                             <field name="name"/>
                             <field name="cantidad"/>
                             <field name="total"/>
                             <field name="fecha_finalizacion"/>
                             <field name="project_id"/>
-                            <field name="descripcion"/>
+<!--                            <field name="descripcion"/>-->
                         </group>
                         <notebook>
                             <page string="SubCapitulos">
+
                                 <field name="subcapitulo_ids">
                                     <tree editable="bottom">
                                         <field name="name"/>
@@ -33,6 +35,9 @@
     <!--                                    <field name="capitulo_id"/>-->
                                     </tree>
                                 </field>
+                            </page>
+                            <page string="Descripcion Capitulo">
+                                <field name="descripcion"/>
                             </page>
                         </notebook>
                     </sheet>

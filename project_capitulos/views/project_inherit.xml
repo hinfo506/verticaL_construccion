@@ -18,14 +18,14 @@
                 <xpath expr="//notebook//page" position="before">
                     <page string="Capitulos">
                         <field name="capitulos_id">
-<!--                            <tree editable="bottom">-->
-<!--                                <field name="name"/>-->
-<!--                                <field name="cantidad"/>-->
-<!--                                <field name="total"/>-->
-<!--                                <field name="fecha_finalizacion"/>-->
-<!--                                <field name="descripcion"/>-->
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="cantidad"/>
+                                <field name="total"/>
+                                <field name="fecha_finalizacion"/>
+                                <field name="descripcion"/>
 <!--                                <field name="sub_count"/>-->
-<!--                            </tree>-->
+                            </tree>
                         </field>
                     </page>
                 </xpath>
