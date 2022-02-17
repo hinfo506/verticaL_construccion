@@ -10,7 +10,7 @@ class Capitulo(models.Model):
     fecha_finalizacion = fields.Date('Fecha Finalización')
     project_id = fields.Many2one('project.project', string='Proyecto')
     descripcion = fields.Text('Descripción del Capitulo')
-    sub_count = fields.Integer(string='subc_count', required=False)
+    sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False,compute='subcapitulos_count')
     subcapitulo_ids = fields.One2many(
         comodel_name='sub.capitulo',
         inverse_name='capitulo_id',
@@ -18,7 +18,7 @@ class Capitulo(models.Model):
         required=False)
 
     def subcapitulos_count(self):
-        count = self.env['sub.capitulo'].search_count([('subcapitulo_ids', '=', self.id)])
+        count = self.env['sub.capitulo'].search_count([('capitulo_id', '=', self.id)])
         self.sub_count = count
 
     def met_subcapitulos(self):
@@ -28,7 +28,7 @@ class Capitulo(models.Model):
             'res_model': 'sub.capitulo',
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.subcapitulo_ids.ids)],
-            'context': dict(self._context, default_subcapitulo_ids=self.id),
+            'context': dict(self._context, default_capitulo_id=self.id),
             # 'context': dict(self._context, default_vehiculo=self.vehicle_id.id, default_inscription_id=self.id,
             #                 default_partner_id=self.purchaser_id.id)
         }
