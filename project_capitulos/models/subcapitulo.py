@@ -1,23 +1,5 @@
 from odoo import fields, models, api
-# import logging
-# import pytz
-# import threading
-# from collections import OrderedDict, defaultdict
-# from datetime import date, datetime, timedelta
-# from psycopg2 import sql
-#
-# from odoo import api, fields, models, tools, SUPERUSER_ID
-# from odoo.addons.iap.tools import iap_tools
-# from odoo.addons.mail.tools import mail_validation
-# from odoo.addons.phone_validation.tools import phone_validation
-# from odoo.exceptions import UserError, AccessError
-# from odoo.osv import expression
-# from odoo.tools.translate import _
-# from odoo.tools import date_utils, email_re, email_split, is_html_empty
-
-# from . import crm_stage
-
-# _logger = logging.getLogger(__name__)
+from odoo.exceptions import UserError, ValidationError,RedirectWarning
 
 class Subcapitulo(models.Model):
     _name = 'sub.capitulo'
@@ -28,8 +10,17 @@ class Subcapitulo(models.Model):
     fecha_finalizacion = fields.Date('Fecha Finalización')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
 
-    number = fields.Char(string='Number', required=True, copy=False,
-                       default=lambda self: self.env['ir.sequence'].next_by_code('task.lfpv'))
+    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
+                       default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
+    
+    numero = fields.Char(string='Numero', required=False)
+
+    @api.onchange('number')
+    def _onchange_FIELD_NAME(self):
+
+
+        # raise ValidationError(self.capitulo_id.numero_capitulo)
+        self.numero = str(self.capitulo_id.numero_capitulo) + "." + str(self.number)
 
     material_total = fields.Float(string='Total Coste Materiales', readonly='True')
     labor_total = fields.Float(string='Total Coste Horas', readonly='True')

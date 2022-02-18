@@ -9,7 +9,7 @@ class Capitulo(models.Model):
     @api.model
     def create(self,vals):
         if vals.get('numero_capitulo','New') == 'New':
-            vals['numero_capitulo']=self.env['ir.sequence'].next_by_code('task.lfpv') or 'New'
+            vals['numero_capitulo'] = self.env['ir.sequence'].next_by_code('secuencia.capitulo') or 'New'
         result = super(Capitulo, self).create(vals)
         return result
 

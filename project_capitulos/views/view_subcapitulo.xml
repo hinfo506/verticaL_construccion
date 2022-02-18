@@ -8,7 +8,8 @@
                 <form string="subcapitulo_form">
                     <sheet>
                         <group>
-                            <field name="number"/>
+                            <field name="numero" readonly="1"/>
+<!--                            <field name="number"/>-->
                             <field name="name"/>
                             <field name="total"/>
                             <field name="fecha_finalizacion"/>

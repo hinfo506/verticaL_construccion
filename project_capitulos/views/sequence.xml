@@ -4,11 +4,18 @@
 
         <record id="ir_sequence_numero_capitulo" model="ir.sequence">
             <field name="name">Secuencia de Capitulos</field>
-            <field name="code">task.lfpv</field>
+            <field name="code">secuencia.capitulo</field>
             <field name="padding">1</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
-<!--            <field name="cantidad" eval="False"/>-->
+        </record>
+
+        <record id="ir_sequence_numero_subcapitulo" model="ir.sequence">
+            <field name="name">Secuencia de SubCapitulos</field>
+            <field name="code">secuencia.subcapitulo</field>
+            <field name="padding">1</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
         </record>
 
     </data>
