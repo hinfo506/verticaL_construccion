@@ -8,6 +8,7 @@
                 <form string="subcapitulo_form">
                     <sheet>
                         <group>
+                            <field name="number"/>
                             <field name="name"/>
                             <field name="total"/>
                             <field name="fecha_finalizacion"/>
@@ -52,6 +53,12 @@
                                 </field>
                             </page>
                         </notebook>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="jobcost_total">
+                            <field name="material_total" widget="monetary"/>
+                            <field name="labor_total" widget="monetary"/>
+                            <field name="overhead_total" widget="monetary"/>
+                            <field name="jobcost_total" widget="monetary"/>
+                        </group>
                     </sheet>
                 </form>
             </field>
