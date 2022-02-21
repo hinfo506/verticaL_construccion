@@ -14,7 +14,6 @@
                             <field name="total"/>
                             <field name="fecha_finalizacion"/>
                             <field name="capitulo_id"/>
-                            <field name="descripcion"/>
                         </group>
                         <notebook>
 <!--                            <page string="Descripcion Capitulo">-->
@@ -53,6 +52,7 @@
                                     </tree>
                                 </field>
                             </page>
+                            <page string="Descripción"><field name="descripcion"/></page>
                         </notebook>
                         <group class="oe_subtotal_footer oe_right" colspan="2" name="jobcost_total">
                             <field name="material_total" widget="monetary"/>

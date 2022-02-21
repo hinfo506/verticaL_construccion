@@ -24,6 +24,8 @@
                                 <field name="total"/>
                                 <field name="fecha_finalizacion"/>
                                 <field name="descripcion"/>
+                                <button type="object" name="ir_id_capitulo" string="Agregar Linea"
+                                        class="btn btn-primary" context="{'id_record':id}"/>
 <!--                                <field name="sub_count"/>-->
                             </tree>
                         </field>

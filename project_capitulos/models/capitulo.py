@@ -41,3 +41,16 @@ class Capitulo(models.Model):
             # 'context': dict(self._context, default_vehiculo=self.vehicle_id.id, default_inscription_id=self.id,
             #                 default_partner_id=self.purchaser_id.id)
         }
+
+    def ir_id_capitulo(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Capitulo',
+            'res_model': 'capitulo.capitulo',
+            'view_mode': 'tree,form',
+            'res_id': self._context.get('id_record', False)
+            # 'domain': [('id', 'in', self.capitulos_id.id)],
+            # 'context': dict(self._context, default_capitulo_id=self.id),
+            # 'context': dict(self._context, default_vehiculo=self.vehicle_id.id, default_inscription_id=self.id,
+            #                 default_partner_id=self.purchaser_id.id)
+        }
