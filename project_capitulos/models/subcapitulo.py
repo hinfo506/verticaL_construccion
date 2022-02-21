@@ -58,6 +58,19 @@ class ItemCapitulo(models.Model):
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Capitulo')
 
+    # Agregados del modulo original
+    date = fields.Date(string='Date',required=True,copy=False,)
+    reference = fields.Char(string='Reference', copy=False,)
+    product_qty = fields.Float(string='Planned Qty',copy=False,)
+    uom_id = fields.Many2one('uom.uom', string='Uom',)
+    cost_price = fields.Float(string='Cost / Unit',copy=False,)
+
+    # actual_quantity = fields.Float(string='Actual Purchased Quantity',compute='_compute_actual_quantity',)
+    actual_quantity = fields.Float(string='Actual Purchased Quantity',)
+
+    # total_cost = fields.Float(string='Cost Price Sub Total',compute='_compute_total_cost',store=True,)
+    total_cost = fields.Float(string='Cost Price Sub Total',store=True,)
+
     job_type = fields.Selection(
         selection=[('material', 'Materiales'),
                    ('labour', 'Mano de Obra'),

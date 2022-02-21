@@ -20,13 +20,20 @@
 <!--                                <field name="descripcion"/>-->
 <!--                            </page>-->
                             <page string="Materiales">
-                                <field name="item_capitulo_materiales_ids" context="{'default_job_type':'material'}">
+                                <field name="item_capitulo_materiales_ids" nolabel="1" context="{'default_job_type':'material'}">
                                     <tree editable="bottom">
-                                        <field name="name"/>
-                                        <field name="descripcion"/>
-                                        <field name="total"/>
-                                        <field name="fecha_finalizacion"/>
-    <!--                                    <field name="capitulo_id"/>-->
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="descripcion"/>-->
+<!--                                        <field name="total"/>-->
+<!--                                        <field name="fecha_finalizacion"/>-->
+                                        <field name="date"/>
+                                        <field name="reference"/>
+                                        <field name="product_qty"/>
+                                        <field name="uom_id"/>
+                                        <field name="cost_price"/>
+                                        <field name="actual_quantity"/>
+                                        <field name="total_cost"/>
+<!--                                        <field name="analytic_id"/>-->
                                     </tree>
                                 </field>
                             </page>
