@@ -27,6 +27,8 @@
 <!--                                        <field name="total"/>-->
 <!--                                        <field name="fecha_finalizacion"/>-->
                                         <field name="date"/>
+                                        <field name="subcapitulo_id"/>
+                                        <field name="descripcion"/>
                                         <field name="reference"/>
                                         <field name="product_qty"/>
                                         <field name="uom_id"/>
@@ -40,22 +42,38 @@
                             <page string="Mano de Obra">
                                 <field name="item_mano_obra_ids" context="{'default_job_type':'labour'}">
                                     <tree editable="bottom">
-                                        <field name="name"/>
-                                        <field name="descripcion"/>
-                                        <field name="total"/>
-                                        <field name="fecha_finalizacion"/>
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="descripcion"/>-->
+<!--                                        <field name="total"/>-->
+<!--                                        <field name="fecha_finalizacion"/>-->
     <!--                                    <field name="capitulo_id"/>-->
+                                        <field name="date"/>
+                                        <field name="subcapitulo_id"/>
+                                        <field name="descripcion"/>
+                                        <field name="reference"/>
+                                        <field name="hours"/>
+                                        <field name="cost_price"/>
+                                        <field name="total_cost"/>
                                     </tree>
                                 </field>
                             </page>
                             <page string="Gastos Generales">
                                 <field name="item_capitulo_fastos_generales" context="{'default_job_type':'overhead'}">
                                     <tree editable="bottom">
-                                        <field name="name"/>
-                                        <field name="descripcion"/>
-                                        <field name="total"/>
-                                        <field name="fecha_finalizacion"/>
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="descripcion"/>-->
+<!--                                        <field name="total"/>-->
+<!--                                        <field name="fecha_finalizacion"/>-->
     <!--                                    <field name="capitulo_id"/>-->
+                                        <field name="date"/>
+                                        <field name="subcapitulo_id"/>
+                                        <field name="descripcion"/>
+                                        <field name="reference"/>
+                                        <field name="product_qty"/>
+                                        <field name="uom_id"/>
+                                        <field name="cost_price"/>
+                                        <field name="actual_quantity"/>
+                                        <field name="total_cost"/>
                                     </tree>
                                 </field>
                             </page>

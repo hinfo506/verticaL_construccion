@@ -71,10 +71,13 @@ class ItemCapitulo(models.Model):
     # total_cost = fields.Float(string='Cost Price Sub Total',compute='_compute_total_cost',store=True,)
     total_cost = fields.Float(string='Cost Price Sub Total',store=True,)
 
+    hours = fields.Char(string='Hours', required=False)
+    actual_timesheet = fields.Char(string='Actual Timesheet Hours', required=False)
+    basis = fields.Char(string='Basis', required=False)
+
     job_type = fields.Selection(
         selection=[('material', 'Materiales'),
                    ('labour', 'Mano de Obra'),
                    ('overhead', 'Gastos Generales')],
         string="Tipo de Costo",
-        required=False,
-    )
+        required=False,)
