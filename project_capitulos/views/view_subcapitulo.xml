@@ -28,6 +28,7 @@
 <!--                                        <field name="fecha_finalizacion"/>-->
                                         <field name="date"/>
                                         <field name="subcapitulo_id"/>
+                                        <field name="product_id"/>
                                         <field name="descripcion"/>
                                         <field name="reference"/>
                                         <field name="product_qty"/>
@@ -49,6 +50,7 @@
     <!--                                    <field name="capitulo_id"/>-->
                                         <field name="date"/>
                                         <field name="subcapitulo_id"/>
+                                        <field name="product_id"/>
                                         <field name="descripcion"/>
                                         <field name="reference"/>
                                         <field name="hours"/>
@@ -67,6 +69,7 @@
     <!--                                    <field name="capitulo_id"/>-->
                                         <field name="date"/>
                                         <field name="subcapitulo_id"/>
+                                        <field name="product_id"/>
                                         <field name="descripcion"/>
                                         <field name="reference"/>
                                         <field name="product_qty"/>

@@ -9,7 +9,7 @@
     "category": "Project Management",
     "version": "14.0.1.1.0",
     "license": "AGPL-3",
-    "depends": ["project"],
+    "depends": ["project","stock"],
     "data": [
         'security/ir.model.access.csv',
         # "views/project.xml",
