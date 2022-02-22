@@ -8,50 +8,86 @@
                 <form string="subcapitulo_form">
                     <sheet>
                         <group>
+                            <field name="numero" readonly="1"/>
+<!--                            <field name="number"/>-->
                             <field name="name"/>
                             <field name="total"/>
                             <field name="fecha_finalizacion"/>
                             <field name="capitulo_id"/>
-                            <field name="descripcion"/>
                         </group>
                         <notebook>
 <!--                            <page string="Descripcion Capitulo">-->
 <!--                                <field name="descripcion"/>-->
 <!--                            </page>-->
                             <page string="Materiales">
-                                <field name="item_capitulo_materiales_ids" context="{'default_job_type':'material'}">
+                                <field name="item_capitulo_materiales_ids" nolabel="1" context="{'default_job_type':'material'}">
                                     <tree editable="bottom">
-                                        <field name="name"/>
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="descripcion"/>-->
+<!--                                        <field name="total"/>-->
+<!--                                        <field name="fecha_finalizacion"/>-->
+                                        <field name="date"/>
+                                        <field name="subcapitulo_id"/>
+                                        <field name="product_id"/>
                                         <field name="descripcion"/>
-                                        <field name="total"/>
-                                        <field name="fecha_finalizacion"/>
-    <!--                                    <field name="capitulo_id"/>-->
+                                        <field name="reference"/>
+                                        <field name="product_qty"/>
+                                        <field name="uom_id"/>
+                                        <field name="cost_price"/>
+                                        <field name="actual_quantity"/>
+                                        <field name="total_cost"/>
+<!--                                        <field name="analytic_id"/>-->
                                     </tree>
                                 </field>
                             </page>
                             <page string="Mano de Obra">
                                 <field name="item_mano_obra_ids" context="{'default_job_type':'labour'}">
                                     <tree editable="bottom">
-                                        <field name="name"/>
-                                        <field name="descripcion"/>
-                                        <field name="total"/>
-                                        <field name="fecha_finalizacion"/>
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="descripcion"/>-->
+<!--                                        <field name="total"/>-->
+<!--                                        <field name="fecha_finalizacion"/>-->
     <!--                                    <field name="capitulo_id"/>-->
+                                        <field name="date"/>
+                                        <field name="subcapitulo_id"/>
+                                        <field name="product_id"/>
+                                        <field name="descripcion"/>
+                                        <field name="reference"/>
+                                        <field name="hours"/>
+                                        <field name="cost_price"/>
+                                        <field name="total_cost"/>
                                     </tree>
                                 </field>
                             </page>
                             <page string="Gastos Generales">
                                 <field name="item_capitulo_fastos_generales" context="{'default_job_type':'overhead'}">
                                     <tree editable="bottom">
-                                        <field name="name"/>
-                                        <field name="descripcion"/>
-                                        <field name="total"/>
-                                        <field name="fecha_finalizacion"/>
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="descripcion"/>-->
+<!--                                        <field name="total"/>-->
+<!--                                        <field name="fecha_finalizacion"/>-->
     <!--                                    <field name="capitulo_id"/>-->
+                                        <field name="date"/>
+                                        <field name="subcapitulo_id"/>
+                                        <field name="product_id"/>
+                                        <field name="descripcion"/>
+                                        <field name="reference"/>
+                                        <field name="product_qty"/>
+                                        <field name="uom_id"/>
+                                        <field name="cost_price"/>
+                                        <field name="actual_quantity"/>
+                                        <field name="total_cost"/>
                                     </tree>
                                 </field>
                             </page>
+                            <page string="Descripción"><field name="descripcion"/></page>
                         </notebook>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="jobcost_total">
+                            <field name="material_total" widget="monetary"/>
+                            <field name="labor_total" widget="monetary"/>
+                            <field name="overhead_total" widget="monetary"/>
+                            <field name="jobcost_total" widget="monetary"/>
+                        </group>
                     </sheet>
                 </form>
             </field>
