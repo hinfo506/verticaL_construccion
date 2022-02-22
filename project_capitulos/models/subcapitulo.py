@@ -57,25 +57,25 @@ class ItemCapitulo(models.Model):
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Capitulo')
 
-    descripcion = fields.Text('Descripción del Sub-Capitulo')
+    descripcion = fields.Text(u'Descripción')
 
     # Agregados del modulo original
-    date = fields.Date(string='Date',required=True,copy=False,)
-    reference = fields.Char(string='Reference', copy=False,)
-    product_qty = fields.Float(string='Planned Qty',copy=False,)
+    date = fields.Date(string='Fecha',required=True,copy=False,)
+    reference = fields.Char(string='Referencia', copy=False,)
+    product_qty = fields.Float(string='Cantidad Planificada',copy=False,)
     uom_id = fields.Many2one('uom.uom', string='Uom',)
     cost_price = fields.Float(string='Cost / Unit',copy=False,)
     product_id = fields.Many2many(comodel_name='product.product', string='Producto')
 
     # actual_quantity = fields.Float(string='Actual Purchased Quantity',compute='_compute_actual_quantity',)
-    actual_quantity = fields.Float(string='Actual Purchased Quantity',)
+    actual_quantity = fields.Float(string='Cantidad Comprada Actual',)
 
     # total_cost = fields.Float(string='Cost Price Sub Total',compute='_compute_total_cost',store=True,)
-    total_cost = fields.Float(string='Cost Price Sub Total',store=True,)
+    total_cost = fields.Float(string='Precio Costo Sub Total',store=True,)
 
-    hours = fields.Char(string='Hours', required=False)
-    actual_timesheet = fields.Char(string='Actual Timesheet Hours', required=False)
-    basis = fields.Char(string='Basis', required=False)
+    hours = fields.Char(string='Horas', required=False)
+    actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
+    basis = fields.Char(string='Base', required=False)
 
     job_type = fields.Selection(
         selection=[('material', 'Materiales'),
