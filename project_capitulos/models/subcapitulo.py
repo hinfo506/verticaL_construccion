@@ -61,11 +61,11 @@ class ItemCapitulo(models.Model):
 
     # Agregados del modulo original
     date = fields.Date(string='Fecha',required=True,copy=False,)
+    product_id = fields.Many2one(comodel_name='product.product', string='Producto')
     reference = fields.Char(string='Referencia', copy=False,)
     product_qty = fields.Float(string='Cantidad Planificada',copy=False,)
     uom_id = fields.Many2one('uom.uom', string='Uom',)
     cost_price = fields.Float(string='Cost / Unit',copy=False,)
-    product_id = fields.Many2one(comodel_name='product.product', string='Producto')
 
     # actual_quantity = fields.Float(string='Actual Purchased Quantity',compute='_compute_actual_quantity',)
     actual_quantity = fields.Float(string='Cantidad Comprada Actual',)

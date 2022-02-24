@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="itemsubcapitulo_view_form" model="ir.ui.view">
+            <field name="name">itemsubcapitulo_view_form</field>
+            <field name="model">item.capitulo</field>
+            <field name="arch" type="xml">
+                <form string="itemsubcapitulo_form">
+                    <sheet>
+                        <group>
+                            <field name="date"/>
+                            <field name="product_id"/>
+                            <field name="reference"/>
+                            <field name="descripcion"/>
+                            <field name="product_qty"/>
+                            <field name="uom_id"/>
+                            <field name="cost_price"/>
+                            <field name="total_cost"/>
+
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    
+    </data>
+</odoo>
