@@ -39,6 +39,7 @@
                                             <field name="cost_price"/>
                                             <field name="actual_quantity"/>
                                             <field name="total_cost"/>
+                                            <field name="job_type" invisible="1"/>
                                         </group>
                                     </form>
                                 </field>
@@ -63,6 +64,7 @@
                                             <field name="hours"/>
                                             <field name="cost_price"/>
                                             <field name="total_cost"/>
+                                            <field name="job_type" invisible="1"/>
                                         </group>
                                     </form>
                                 </field>
@@ -91,6 +93,7 @@
                                             <field name="cost_price"/>
                                             <field name="actual_quantity"/>
                                             <field name="total_cost"/>
+                                            <field name="job_type" invisible="1"/>
                                         </group>
                                     </form>
                                 </field>
