@@ -39,7 +39,7 @@ class Subcapitulo(models.Model):
         string='Mano de Obra',
         domain=[('job_type', '=', 'labour')],
     )
-    item_capitulo_fastos_generales = fields.One2many(
+    item_capitulo_gastos_generales = fields.One2many(
         comodel_name='item.capitulo',
         inverse_name='subcapitulo_id',
         string='Gatos Generales',
