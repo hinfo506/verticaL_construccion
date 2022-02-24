@@ -10,8 +10,13 @@
                     <sheet>
                         <group>
                             <field name="date"/>
-                            <field name="product_id"/>
+                            <field name="job_type"/>
+<!--                            <field name="product_id" attrs="{'invisible': [('active', '=', True)]}" domain="[('detailed_type', '=', 'consu')]"/>-->
+                            <field name="product_id" domain="[('detailed_type', '=', 'consu')]" attrs="{'invisible': [('job_type', '!=', 'material')]}"/>
+<!--                            <field name="product_id" domain="[('detailed_type', '=', 'service')]" attrs="{'invisible': [('job_type', '!=', 'labour')]}"/>-->
+<!--                            <field name="product_id" domain="[('detailed_type', '=', 'product')]" attrs="{'invisible': [('job_type', '!=', 'overhead')]}"/>-->
                             <field name="reference"/>
+                            <field name="hours" attrs="{'invisible': [('job_type', '!=', 'labour')]}"/>
                             <field name="descripcion"/>
                             <field name="product_qty"/>
                             <field name="uom_id"/>
