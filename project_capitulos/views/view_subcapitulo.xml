@@ -10,26 +10,16 @@
                         <group>
                             <field name="numero" readonly="1"/>
                             <field name="capitulo_id"/>
-                            <!--                            <field name="number"/>-->
                             <field name="name"/>
                             <field name="fecha_finalizacion"/>
                             <field name="total"/>
                         </group>
                         <notebook>
-<!--                            <page string="Descripcion Capitulo">-->
-<!--                                <field name="descripcion"/>-->
-<!--                            </page>-->
                             <page string="Materiales">
                                 <field name="item_capitulo_materiales_ids" nolabel="1" context="{'default_job_type':'material'}">
                                     <tree>
-<!--                                        <field name="name"/>-->
-<!--                                        <field name="descripcion"/>-->
-<!--                                        <field name="total"/>-->
-<!--                                        <field name="fecha_finalizacion"/>-->
                                         <field name="date"/>
-<!--                                        <field name="subcapitulo_id"/>-->
-<!--                                        <field name="product_id" domain="{'detailed_type', '=', 'consu'}"/>-->
-                                        <field name="product_id" domain="[('detailed_type', '=', 'consu')]"/>
+                                        <field name="product_id"/>
                                         <field name="descripcion"/>
                                         <field name="reference"/>
                                         <field name="product_qty"/>
@@ -37,17 +27,10 @@
                                         <field name="cost_price"/>
                                         <field name="actual_quantity"/>
                                         <field name="total_cost"/>
-<!--                                        <field name="analytic_id"/>-->
                                     </tree>
                                     <form>
                                         <group>
-    <!--                                        <field name="name"/>-->
-    <!--                                        <field name="descripcion"/>-->
-    <!--                                        <field name="total"/>-->
-    <!--                                        <field name="fecha_finalizacion"/>-->
                                             <field name="date"/>
-    <!--                                        <field name="subcapitulo_id"/>-->
-    <!--                                        <field name="product_id" domain="{'detailed_type', '=', 'consu'}"/>-->
                                             <field name="product_id" domain="[('detailed_type', '=', 'consu')]"/>
                                             <field name="descripcion"/>
                                             <field name="reference"/>
@@ -56,7 +39,6 @@
                                             <field name="cost_price"/>
                                             <field name="actual_quantity"/>
                                             <field name="total_cost"/>
-    <!--                                        <field name="analytic_id"/>-->
                                         </group>
                                     </form>
                                 </field>
@@ -64,15 +46,8 @@
                             <page string="Mano de Obra">
                                 <field name="item_mano_obra_ids" context="{'default_job_type':'labour'}">
                                     <tree>
-<!--                                        <field name="name"/>-->
-<!--                                        <field name="descripcion"/>-->
-<!--                                        <field name="total"/>-->
-<!--                                        <field name="fecha_finalizacion"/>-->
-    <!--                                    <field name="capitulo_id"/>-->
                                         <field name="date"/>
-<!--                                        <field name="subcapitulo_id"/>-->
-<!--                                        <field name="product_id" domain="{'detailed_type', '=', 'service'}"/>-->
-                                        <field name="product_id" domain="[('detailed_type', '=', 'service')]"/>
+                                        <field name="product_id"/>
                                         <field name="descripcion"/>
                                         <field name="reference"/>
                                         <field name="hours"/>
@@ -81,14 +56,7 @@
                                     </tree>
                                     <form>
                                         <group>
-    <!--                                        <field name="name"/>-->
-    <!--                                        <field name="descripcion"/>-->
-    <!--                                        <field name="total"/>-->
-    <!--                                        <field name="fecha_finalizacion"/>-->
-        <!--                                    <field name="capitulo_id"/>-->
                                             <field name="date"/>
-    <!--                                        <field name="subcapitulo_id"/>-->
-    <!--                                        <field name="product_id" domain="{'detailed_type', '=', 'service'}"/>-->
                                             <field name="product_id" domain="[('detailed_type', '=', 'service')]"/>
                                             <field name="descripcion"/>
                                             <field name="reference"/>
@@ -102,15 +70,8 @@
                             <page string="Gastos Generales">
                                 <field name="item_capitulo_gastos_generales" context="{'default_job_type':'overhead'}">
                                     <tree>
-<!--                                        <field name="name"/>-->
-<!--                                        <field name="descripcion"/>-->
-<!--                                        <field name="total"/>-->
-<!--                                        <field name="fecha_finalizacion"/>-->
-    <!--                                    <field name="capitulo_id"/>-->
                                         <field name="date"/>
-<!--                                        <field name="subcapitulo_id"/>-->
-<!--                                        <field name="product_id" domain="{'detailed_type', '=', 'product'}"/>-->
-                                        <field name="product_id" domain="[('detailed_type', '=', 'product')]"/>
+                                        <field name="product_id"/>
                                         <field name="descripcion"/>
                                         <field name="reference"/>
                                         <field name="product_qty"/>
@@ -121,14 +82,7 @@
                                     </tree>
                                     <form>
                                         <group>
-    <!--                                        <field name="name"/>-->
-    <!--                                        <field name="descripcion"/>-->
-    <!--                                        <field name="total"/>-->
-    <!--                                        <field name="fecha_finalizacion"/>-->
-        <!--                                    <field name="capitulo_id"/>-->
                                             <field name="date"/>
-    <!--                                        <field name="subcapitulo_id"/>-->
-    <!--                                        <field name="product_id" domain="{'detailed_type', '=', 'product'}"/>-->
                                             <field name="product_id" domain="[('detailed_type', '=', 'product')]"/>
                                             <field name="descripcion"/>
                                             <field name="reference"/>
@@ -163,7 +117,6 @@
                     <field name="descripcion"/>
                     <field name="total"/>
                     <field name="fecha_finalizacion"/>
-<!--                    <field name="capitulo_id"/>-->
                 </tree>
             </field>
         </record>
