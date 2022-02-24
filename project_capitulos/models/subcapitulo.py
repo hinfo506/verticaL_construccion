@@ -51,11 +51,28 @@ class Subcapitulo(models.Model):
 class ItemCapitulo(models.Model):
     _name = 'item.capitulo'
 
-    name = fields.Char(string='Sub-Capitulo', required=True)
+    # name = fields.Char(string='Sub-Capitulo', required=True)
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Capitulo')
+
+
+    #############################################################################
+
+    # Precio Total
+    @api.depends('product_qty', 'cost_price')
+    def _compute_total_costo(self):
+        for rec in self:
+            if rec.job_type == 'labour':
+                rec.product_qty = 0.0
+                rec.total_cost = rec.hours * rec.cost_price
+            else:
+                rec.hours = 0.0
+                rec.total_cost = rec.product_qty * rec.cost_price
+
+    # total_cost = fields.Float(string='Cost Price Sub Total',compute='_compute_total_costo',store=True,)
+    total_cost = fields.Float(string='Precio Costo Sub Total', store=True, compute='_compute_total_costo')
 
     descripcion = fields.Text(u'Descripción')
 
@@ -70,9 +87,6 @@ class ItemCapitulo(models.Model):
     # actual_quantity = fields.Float(string='Actual Purchased Quantity',compute='_compute_actual_quantity',)
     actual_quantity = fields.Float(string='Cantidad Comprada Actual',)
 
-    # total_cost = fields.Float(string='Cost Price Sub Total',compute='_compute_total_cost',store=True,)
-    total_cost = fields.Float(string='Precio Costo Sub Total',store=True,)
-
     hours = fields.Char(string='Horas', required=False)
     actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
     basis = fields.Char(string='Base', required=False)
@@ -83,3 +97,11 @@ class ItemCapitulo(models.Model):
                    ('overhead', 'Gastos Generales')],
         string="Tipo de Costo",
         required=False,)
+
+    @api.onchange('product_id')
+    def _onchan_product_id(self):
+        for rec in self:
+            rec.descripcion = rec.product_id.name
+            rec.product_qty = 1.0
+            rec.uom_id = rec.product_id.uom_id.id
+            rec.cost_price = rec.product_id.standard_price  # lst_price
