@@ -65,7 +65,7 @@ class ItemCapitulo(models.Model):
     product_qty = fields.Float(string='Cantidad Planificada',copy=False,)
     uom_id = fields.Many2one('uom.uom', string='Uom',)
     cost_price = fields.Float(string='Cost / Unit',copy=False,)
-    product_id = fields.Many2many(comodel_name='product.product', string='Producto')
+    product_id = fields.Many2one(comodel_name='product.product', string='Producto')
 
     # actual_quantity = fields.Float(string='Actual Purchased Quantity',compute='_compute_actual_quantity',)
     actual_quantity = fields.Float(string='Cantidad Comprada Actual',)
