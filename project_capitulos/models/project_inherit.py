@@ -9,13 +9,12 @@ class ProyectosInherit(models.Model):
     capitulos_count = fields.Integer(string='Contador de Capitulos', compute='get_count_capitulos')
 
     def get_count_capitulos(self):
-        count = self.env['capitulo.capitulo'].search_count([('project_id', '=', self.id)])
-        self.capitulos_count = count
+        for r in self:
+            count = self.env['capitulo.capitulo'].search_count([('project_id', '=', self.id)])
+            r.capitulos_count = count if count else 0
 
 
     def met_capitulos(self):
-        # raise ValidationError("estoy dentrop")
-        # self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
             'name': 'Capitulos',

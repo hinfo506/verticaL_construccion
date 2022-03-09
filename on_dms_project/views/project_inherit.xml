@@ -10,7 +10,7 @@
 
                 <xpath expr="//sheet//div//button" position="before">
                     <button class="oe_stat_button" name="met_directorios" type="object" icon="fa-archive" string="Directorios">
-                        <!--field name="capitulos_count" string="Capitulos" widget="statinfo"/-->
+                        <field name="directory_count" string="Directorios" widget="statinfo"/>
                     </button>
                 </xpath>
 
