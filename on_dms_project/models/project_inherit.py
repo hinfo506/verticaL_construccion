@@ -21,7 +21,7 @@ class Proyecto(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'Directorios',
             'res_model': 'dms.directory',
-            'view_mode': 'tree,form',
+            'view_mode': 'kanban,tree,form',
             'domain': [('id', 'in', self.directorios_id.ids)],
             'context': dict(self._context, default_project_id=self.id),
         }
