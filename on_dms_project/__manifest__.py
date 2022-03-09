@@ -18,16 +18,12 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'dms', 'project'],
+    'depends': ['base', 'dms', 'project_capitulos'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/project_inherit.xml',
-        'views/templates.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+
 }
