@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="capitulos_view_form" model="ir.ui.view">
+            <field name="name">capitulos_view_form</field>
+            <field name="model">capitulo.capitulo</field>
+            <field name="inherit_id" ref="project_capitulos.subcapitulo_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="met_directorios" type="object" icon="fa-archive">
+                            <field name="directory_count"   string="Directorios" widget="statinfo"/>
+                        </button>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        
+    </data>
+</odoo>
