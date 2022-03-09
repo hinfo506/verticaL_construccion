@@ -24,6 +24,8 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/project_inherit.xml',
+        'views/view_capitulo.xml',
+        'views/view_subcapitulo.xml',
     ],
 
 }
