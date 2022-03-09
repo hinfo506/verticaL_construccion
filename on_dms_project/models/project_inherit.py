@@ -8,7 +8,7 @@ class Proyecto(models.Model):
     directorios_id = fields.One2many(comodel_name='dms.directory', inverse_name='project_id', string='Directorios',
                                    required=False)
 
-    directory_count = fields.Integer(string='Contador de Capitulos', compute='get_count_capitulos')
+    directory_count = fields.Integer(string='Contador de Capitulos', compute='get_directory_count')
 
     def get_directory_count(self):
         for r in self:
