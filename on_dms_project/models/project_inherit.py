@@ -10,7 +10,7 @@ class Proyecto(models.Model):
 
     directory_count = fields.Integer(string='Contador de Capitulos', compute='get_count_capitulos')
 
-    def get_count_capitulos(self):
+    def get_directory_count(self):
         for r in self:
             count = self.env['dms.directory'].search_count([('project_id', '=', self.id)])
             r.directory_count = count if count else 0
