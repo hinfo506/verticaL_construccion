@@ -4,8 +4,8 @@
 
 
         <record id="capitulos_view_form" model="ir.ui.view">
-            <field name="name">capitulos_view_form</field>
-            <field name="model">capitulo.capitulo</field>
+            <field name="name">sub_capitulo_form</field>
+            <field name="model">sub.capitulo</field>
             <field name="inherit_id" ref="project_capitulos.subcapitulo_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//sheet" position="before">
