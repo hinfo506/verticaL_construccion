@@ -20,13 +20,10 @@
                         <field name="capitulos_id">
                             <tree>
                                 <field name="name"/>
-<!--                                <button type="object" name="ir_id_capitulo" string="Ir capitulo"-->
-<!--                                        class="btn btn-primary" context="{'id_record':id}"/>-->
                                 <field name="cantidad"/>
                                 <field name="total"/>
                                 <field name="fecha_finalizacion"/>
                                 <field name="descripcion"/>
-<!--                                <field name="sub_count"/>-->
                             </tree>
                         </field>
                     </page>

@@ -5,7 +5,7 @@
             <field name="name">subcapitulo_view_form</field>
             <field name="model">sub.capitulo</field>
             <field name="arch" type="xml">
-                <form string="subcapitulo_form">
+                <form string="Sub Capitulos">
                     <sheet>
                         <group>
                             <field name="numero" readonly="1"/>
@@ -115,7 +115,7 @@
             <field name="name">subcapitulo_view_tree</field>
             <field name="model">sub.capitulo</field>
             <field name="arch" type="xml">
-                <tree string="subcapitulo_tree">
+                <tree string="Sub Capitulos">
                     <field name="name"/>
                     <field name="descripcion"/>
                     <field name="total"/>

@@ -6,7 +6,7 @@
             <field name="name">itemsubcapitulo_view_form</field>
             <field name="model">item.capitulo</field>
             <field name="arch" type="xml">
-                <form string="itemsubcapitulo_form">
+                <form string="Items">
                     <sheet>
                         <group>
                             <field name="date"/>

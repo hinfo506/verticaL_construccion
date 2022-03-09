@@ -6,7 +6,7 @@
             <field name="name">capitulos_view_form</field>
             <field name="model">capitulo.capitulo</field>
             <field name="arch" type="xml">
-                <form string="capitulos_form">
+                <form string="Capitulos">
                     <sheet>
 <!--                        <field name="subcapitulos_count"/>-->
                         <div class="oe_button_box" name="button_box">
@@ -50,7 +50,7 @@
             <field name="name">capitulos_view_tree</field>
             <field name="model">capitulo.capitulo</field>
             <field name="arch" type="xml">
-                <tree string="capitulos_tree">
+                <tree string="Capitulos">
                     <field name="name"/>
                     <field name="cantidad"/>
                     <field name="total"/>
