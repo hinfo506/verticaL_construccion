@@ -4,7 +4,7 @@ from odoo.exceptions import UserError, ValidationError,RedirectWarning
 class Subcapitulo(models.Model):
     _inherit = 'sub.capitulo'
 
-    directorios_ids = fields.One2many(comodel_name='dms.directory', inverse_name='project_id', string='Directorios',
+    directorios_ids = fields.One2many(comodel_name='dms.directory', inverse_name='sub_capitulo_id', string='Directorios',
                                      required=False)
 
     directory_count = fields.Integer(string='Directorios', compute='get_directory_count')
