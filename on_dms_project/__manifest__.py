@@ -26,6 +26,7 @@
         'views/project_inherit.xml',
         'views/view_capitulo.xml',
         'views/view_subcapitulo.xml',
+        'views/directory_inherit_view.xml',
     ],
 
 }
