@@ -1,0 +1,907 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_activities_management_basic
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-18 10:56+0000\n"
+"PO-Revision-Date: 2021-05-18 10:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "&amp;nbsp;"
+msgstr "&amp;nbsp;"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "&times;"
+msgstr "&times;"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+msgid ""
+"<span>&amp;laquo;</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"sr-only\">Previous</span>"
+msgstr ""
+"<span>&amp;laquo;</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"sr-only\">以前的</span>"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid ""
+"<span>&amp;laquo;</span>\n"
+"\t                                        <span class=\"sr-only\">Previous</span>"
+msgstr ""
+"<span>&amp;laquo;</span>\n"
+"\t                                        <span class=\"sr-only\">以前的</span>"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+msgid ""
+"<span>&amp;raquo;</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"sr-only\">Next</span>"
+msgstr ""
+"<span>&amp;raquo;</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"sr-only\">下一個</span>"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid ""
+"<span>&amp;raquo;</span>\n"
+"\t                                        <span class=\"sr-only\">Next</span>"
+msgstr ""
+"<span>&amp;raquo;</span>\n"
+"\t                                        <span class=\"sr-only\">下一個</span>"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "<strong>Recommended Activities</strong>"
+msgstr "<strong>建議活動</strong>"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "Action"
+msgstr "行動"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__active
+msgid "Active"
+msgstr "積極的"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_schedule_activity_view_tree
+msgid "Activities"
+msgstr "活動"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/js/activity_dashboard.js:0
+#: code:addons/sh_activities_management_basic/static/src/js/activity_dashboard.js:0
+#: model:ir.model,name:sh_activities_management_basic.model_mail_activity
+#: model:ir.ui.menu,name:sh_activities_management_basic.sh_activity
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+#, python-format
+msgid "Activity"
+msgstr "活動"
+
+#. module: sh_activities_management_basic
+#: model:ir.actions.client,name:sh_activities_management_basic.sh_action_activity_dashboard
+#: model:ir.model,name:sh_activities_management_basic.model_activity_dashboard
+#: model:ir.module.category,description:sh_activities_management_basic.module_activity_category
+#: model:ir.module.category,name:sh_activities_management_basic.module_activity_category
+#: model:ir.ui.menu,name:sh_activities_management_basic.sh_activity_dashboard
+msgid "Activity Dashboard"
+msgstr "活動儀表板"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#: model:ir.actions.act_window,name:sh_activities_management_basic.feedback_wizard_action
+#: model:ir.actions.act_window,name:sh_activities_management_basic.mark_as_done_feedback_wizard_action
+#: model:ir.model,name:sh_activities_management_basic.model_activity_feedback
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.feedback_wizard_view
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.mark_as_done_feedback_wizard_view
+#, python-format
+msgid "Activity Feedback"
+msgstr "活動反饋"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_res_config_settings_mail_activity_form_inherit
+msgid "Activity Management"
+msgstr "活動管理"
+
+#. module: sh_activities_management_basic
+#: model:res.groups,name:sh_activities_management_basic.group_activity_manager
+msgid "Activity Manager"
+msgstr "活動經理"
+
+#. module: sh_activities_management_basic
+#: model:res.groups,name:sh_activities_management_basic.group_activity_supervisor
+msgid "Activity Supervisor"
+msgstr "活動主管"
+
+#. module: sh_activities_management_basic
+#: model:ir.actions.act_window,name:sh_activities_management_basic.sh_activity_tags_action
+msgid "Activity Tag"
+msgstr "活動標籤"
+
+#. module: sh_activities_management_basic
+#: model:ir.model,name:sh_activities_management_basic.model_sh_activity_tags
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__sh_activity_tags
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__sh_activity_tags
+#: model:ir.ui.menu,name:sh_activities_management_basic.sh_activity_tags
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_search
+msgid "Activity Tags"
+msgstr "活動標籤"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__sh_activity_type_id
+msgid "Activity Type"
+msgstr "活動類型"
+
+#. module: sh_activities_management_basic
+#: model:res.groups,name:sh_activities_management_basic.group_activity_user
+msgid "Activity User"
+msgstr "活動用戶"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/js/activity_dashboard.js:0
+#: model:ir.actions.act_window,name:sh_activities_management_basic.sh_all_activity_action
+#: model:ir.actions.act_window,name:sh_activities_management_basic.sh_reporting_action
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_all_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_all_activities_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_all_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_all_activities_table
+#: model:ir.ui.menu,name:sh_activities_management_basic.all_activity
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_count_box
+#, python-format
+msgid "All Activities"
+msgstr "所有活動"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_all_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_all_table
+msgid "All Activities Table Limit"
+msgstr "所有活動表限制"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "Archived"
+msgstr "存檔"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_search
+msgid "Archived Activities"
+msgstr "存檔的活動"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__sh_user_ids
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__sh_user_ids
+msgid "Assign Multi Users"
+msgstr "分配多用戶"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "Assigned To"
+msgstr "分配給"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__sh_user_id
+msgid "Assigned to"
+msgstr "分配給"
+
+#. module: sh_activities_management_basic
+#: code:addons/sh_activities_management_basic/models/mail_activity.py:0
+#, python-format
+msgid ""
+"Assigned user %s has no access to the document and is not able to handle "
+"this activity."
+msgstr ""
+"分配的用戶％s無法訪問該文檔，並且無法處理此活動。"
+
+#. module: sh_activities_management_basic
+#: model:ir.actions.server,name:sh_activities_management_basic.sh_cancel_activity_action
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.feedback_wizard_view
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.mark_as_done_feedback_wizard_view
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_management_popup_view
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "Cancel"
+msgstr "取消"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields.selection,name:sh_activities_management_basic.selection__mail_activity__state__cancel
+msgid "Cancelled"
+msgstr "取消"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/js/activity_dashboard.js:0
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_cancelled_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_cancelled_activities_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_cancelled_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_cancelled_activities_table
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_count_box
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_search
+#, python-format
+msgid "Cancelled Activities"
+msgstr "取消活動"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_cancel_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_cancel_table
+msgid "Cancelled Activities Table Limit"
+msgstr "取消活動表限制"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Close"
+msgstr "關"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_activity_tags__color
+msgid "Color"
+msgstr "顏色"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__color
+msgid "Color Index"
+msgstr "顏色索引"
+
+#. module: sh_activities_management_basic
+#: model:ir.model,name:sh_activities_management_basic.model_res_company
+msgid "Companies"
+msgstr "公司"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__company_id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/js/activity_dashboard.js:0
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_completed_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_completed_activities_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_completed_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_completed_activities_table
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_count_box
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_search
+#, python-format
+msgid "Completed Activities"
+msgstr "完成活動"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_completed_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_completed_table
+msgid "Completed Activities Table Limit"
+msgstr "完成的活動表限制"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__date_done
+msgid "Completed Date"
+msgstr "完成日期"
+
+#. module: sh_activities_management_basic
+#: model:ir.model,name:sh_activities_management_basic.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置設置"
+
+#. module: sh_activities_management_basic
+#: model:ir.ui.menu,name:sh_activities_management_basic.menu_config
+msgid "Configuration"
+msgstr "配置"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_res_config_settings_mail_activity_form_inherit
+msgid "Counter"
+msgstr "櫃檯"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.actions.act_window,help:sh_activities_management_basic.sh_activity_tags_action
+msgid "Create a new Tag"
+msgstr "創建一個新標記"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_dashboard__create_uid
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_feedback__create_uid
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_activity_tags__create_uid
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__create_uid
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mark_as_done__create_uid
+msgid "Created by"
+msgstr "由...製作"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_dashboard__create_date
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_feedback__create_date
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_activity_tags__create_date
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__create_date
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mark_as_done__create_date
+msgid "Created on"
+msgstr "創建於"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Current Month"
+msgstr "這個月"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Current Week"
+msgstr "本週"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Current Year"
+msgstr "今年"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Custom"
+msgstr "風俗"
+
+#. module: sh_activities_management_basic
+#: model:ir.ui.menu,name:sh_activities_management_basic.sh_menu_activity_dashboard
+msgid "Dashboard"
+msgstr "儀表板"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_res_config_settings_mail_activity_form_inherit
+msgid "Dashboard Configuration"
+msgstr "儀表板配置"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_res_config_settings_mail_activity_form_inherit
+msgid "Data Table"
+msgstr "數據表"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "Deadline Date"
+msgstr "截止日期"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_schedule_activity_view_kanban
+msgid "Delete"
+msgstr "刪除"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_res_config_settings_mail_activity_form_inherit
+msgid "Display Dashboard Counter and Data Table Configuration"
+msgstr "顯示儀表板計數器和數據表配置"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_multi_user
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_multi_user
+msgid "Display Multi Users ?"
+msgstr "顯示多用戶？"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_dashboard__display_name
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_feedback__display_name
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__display_name
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__display_name
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_users__display_name
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_activity_tags__display_name
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__display_name
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mark_as_done__display_name
+msgid "Display Name"
+msgstr "顯示名稱"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#: model:ir.model.fields.selection,name:sh_activities_management_basic.selection__mail_activity__state__done
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.feedback_wizard_view
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.mark_as_done_feedback_wizard_view
+#, python-format
+msgid "Done"
+msgstr "完畢"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "Done & Launch Next"
+msgstr "完成並啟動下一個"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.feedback_wizard_view
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "Done & Schedule Next"
+msgstr "完成＆附表"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_feedback__done_button_pressed
+msgid "Done Button Pressed"
+msgstr "完成按鈕按下"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_schedule_activity_view_kanban
+msgid "Dropdown menu"
+msgstr "下拉式菜單"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_due_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_due_table
+msgid "Due Activities Table Limit"
+msgstr "適當活動表限制"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_tree
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_schedule_activity_view_kanban
+msgid "Edit"
+msgstr "編輯"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_feedback__feedback
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__feedback
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mark_as_done__feedback
+#, python-format
+msgid "Feedback"
+msgstr "回饋"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_dashboard__id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_feedback__id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_users__id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_activity_tags__id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mark_as_done__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__sh_create_individual_activity
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__sh_create_individual_activity
+msgid "Individual activities for multi users ?"
+msgstr "多用戶的個人活動？"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_dashboard____last_update
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_feedback____last_update
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity____last_update
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company____last_update
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_users____last_update
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_activity_tags____last_update
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity____last_update
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mark_as_done____last_update
+msgid "Last Modified on"
+msgstr "最後修改了"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_dashboard__write_uid
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_feedback__write_uid
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_activity_tags__write_uid
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__write_uid
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mark_as_done__write_uid
+msgid "Last Updated by"
+msgstr "最後更新"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_dashboard__write_date
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_activity_feedback__write_date
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_activity_tags__write_date
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__write_date
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mark_as_done__write_date
+msgid "Last Updated on"
+msgstr "上次更新了"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "Log a note..."
+msgstr "記錄一下......"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "Log an Activity"
+msgstr "記錄活動"
+
+#. module: sh_activities_management_basic
+#: model:ir.model,name:sh_activities_management_basic.model_sh_mark_as_done
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "Mark As Done"
+msgstr "標記為已完成"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "Mark as Done"
+msgstr "標記為已完成"
+
+#. module: sh_activities_management_basic
+#: model:ir.actions.act_window,name:sh_activities_management_basic.mass_mark_as_done_multi_action
+msgid "Mark as done"
+msgstr "標記為已完成"
+
+#. module: sh_activities_management_basic
+#: model:res.groups,name:sh_activities_management_basic.group_assign_multiple_activity_management
+msgid "Mass Activities Dynamic Action"
+msgstr "大眾活動動態動作"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_res_config_settings_mail_activity_form_inherit
+msgid "Multi Users in Activity Configuration"
+msgstr "活動配置中的多用戶"
+
+#. module: sh_activities_management_basic
+#: model:ir.actions.act_window,name:sh_activities_management_basic.sh_action_my_activities
+#: model:ir.ui.menu,name:sh_activities_management_basic.sh_my_activity
+msgid "My Activities"
+msgstr "我的活動"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "Name"
+msgstr "名稱"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "Next"
+msgstr "下一個"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "No Any Data Available"
+msgstr "沒有任何數據可用"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__sh_note
+msgid "Note"
+msgstr "筆記"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__text_note
+msgid "Notes In Char format "
+msgstr "Char格式的註釋"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_tree
+msgid "Origin"
+msgstr "起源"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/js/activity_dashboard.js:0
+#, python-format
+msgid "Origin Activity"
+msgstr "起源活動"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/js/activity_dashboard.js:0
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_overdue_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_overdue_activities_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_overdue_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_overdue_activities_table
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_count_box
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#, python-format
+msgid "Overdue Activities"
+msgstr "逾期活動"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "Page navigation example"
+msgstr "頁面導航榜樣"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/js/activity_dashboard.js:0
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_planned_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_display_planned_activities_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_planned_activities_counter
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_display_planned_activities_table
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_count_box
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+#, python-format
+msgid "Planned Activities"
+msgstr "計劃開展的活動"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_company__sh_planned_table
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_res_config_settings__sh_planned_table
+msgid "Planned Activities Table Limit"
+msgstr "計劃活動表限制"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "Previous"
+msgstr "以前的"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Previous Month"
+msgstr "前一個月"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Previous Week"
+msgstr "上個禮拜"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Previous Year"
+msgstr "上一年"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "Related Document Model"
+msgstr "相關文檔模型"
+
+#. module: sh_activities_management_basic
+#: model:ir.ui.menu,name:sh_activities_management_basic.reporting
+msgid "Reporting"
+msgstr "報告"
+
+#. module: sh_activities_management_basic
+#: model:ir.model,name:sh_activities_management_basic.model_sh_mail_activity
+msgid "SH Mail Activity"
+msgstr "SH郵件活動"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_management_popup_view
+msgid "Schedule"
+msgstr "日程"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_schedule_activity_view_calendar
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_schedule_activity_view_graph
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_schedule_activity_view_pivot
+msgid "Schedule Activity"
+msgstr "安排活動"
+
+#. module: sh_activities_management_basic
+#: model:ir.actions.act_window,name:sh_activities_management_basic.sh_action_mail_activity_popup
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_management_popup_view
+msgid "Schedule Multiple Activity"
+msgstr "安排多個活動"
+
+#. module: sh_activities_management_basic
+#: code:addons/sh_activities_management_basic/models/mail_activity.py:0
+#: code:addons/sh_activities_management_basic/models/mail_activity.py:0
+#: code:addons/sh_activities_management_basic/wizard/feedback.py:0
+#, python-format
+msgid "Schedule an Activity"
+msgstr "安排活動"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Select Date"
+msgstr "選擇日期"
+
+#. module: sh_activities_management_basic
+#: model:ir.actions.act_window,name:sh_activities_management_basic.activity_config_settings_action
+#: model:ir.ui.menu,name:sh_activities_management_basic.menu_config_activity
+msgid "Settings"
+msgstr "設置"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__sh_display_multi_user
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__sh_display_multi_user
+msgid "Sh Display Multi User"
+msgstr "SH顯示多用戶"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__state
+msgid "State"
+msgstr "狀態"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__state_compute
+msgid "State Compute"
+msgstr "國家計算"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+msgid "Status"
+msgstr "地位"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__sh_summary
+msgid "Summary"
+msgstr "概括"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_mail_activity__supervisor_id
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_mail_activity__sh_supervisor_id
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "Supervisor"
+msgstr "導師"
+
+#. module: sh_activities_management_basic
+#: model:ir.actions.act_window,name:sh_activities_management_basic.sh_supervisor_activity_action
+#: model:ir.ui.menu,name:sh_activities_management_basic.sh_supervisor_activity
+msgid "Supervisor Activities"
+msgstr "主管活動"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Supervisors"
+msgstr "監督員"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.fields,field_description:sh_activities_management_basic.field_sh_activity_tags__name
+msgid "Tag Name"
+msgstr "標籤名"
+
+#. module: sh_activities_management_basic
+#: model:ir.model.constraint,message:sh_activities_management_basic.constraint_sh_activity_tags_name_uniq
+msgid "Tag name already exists !"
+msgstr "標籤名稱已存在！"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_activity_tags_view_tree
+msgid "Tags"
+msgstr "標籤"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Today"
+msgstr "今天"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+msgid "Unarchive"
+msgstr "未加工"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "User A"
+msgstr "用戶A."
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "User B"
+msgstr "用戶B."
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "User C"
+msgstr "用戶C."
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#: model:ir.model,name:sh_activities_management_basic.model_res_users
+#, python-format
+msgid "Users"
+msgstr "用戶"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_all_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_completed_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_overdue_tbl
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_crm_db_activity_todo_tbl
+msgid "View"
+msgstr "看法"
+
+#. module: sh_activities_management_basic
+#. openerp-web
+#: code:addons/sh_activities_management_basic/static/src/xml/activity_dashboard.xml:0
+#, python-format
+msgid "Yesterday"
+msgstr "昨天"
+
+#. module: sh_activities_management_basic
+#: model_terms:ir.ui.view,arch_db:sh_activities_management_basic.sh_mail_activity_view_form
+msgid "e.g. Discuss proposal"
+msgstr "例如討論提案"
