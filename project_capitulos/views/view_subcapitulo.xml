@@ -7,6 +7,11 @@
             <field name="arch" type="xml">
                 <form string="Sub Capitulos">
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="met_activi_subcapitulo" type="object" icon="fa-archive">
+                                <field name="activ_count"   string="Actividades" widget="statinfo"/>
+                            </button>
+                        </div>
                         <group>
                             <field name="numero" readonly="1"/>
                             <field name="capitulo_id"/>
