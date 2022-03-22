@@ -19,6 +19,7 @@ class ProductPack(models.Model):
             "pack_parent_line_id": line.id,
             "pack_depth": line.pack_depth + 1,
             "pack_modifiable": line.product_id.pack_modifiable,
+            "job_type":'material'
         }
         sol = line.new(line_vals)
         #sol.product_id_change()

@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="project_capitulos.subcapitulo_view_form" />
         <field name="arch" type="xml">
             <xpath
-                expr="//field[@name='item_mano_obra_ids']/tree//field[@name='hours']"
+                expr="//field[@name='item_capitulo_materiales_ids']/tree//field[@name='product_qty']"
                 position="after"
             >
                 <field name="pack_modifiable" invisible="True" />
