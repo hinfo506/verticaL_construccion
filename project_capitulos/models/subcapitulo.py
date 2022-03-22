@@ -97,7 +97,7 @@ class ItemCapitulo(models.Model):
     descripcion = fields.Text(u'Descripción')
 
     # Agregados del modulo original
-    date = fields.Date(string='Fecha',required=True,copy=False,)
+    date = fields.Date(string='Fecha',default=lambda self: fields.Date.today())
     product_id = fields.Many2one(comodel_name='product.product', string='Producto')
     reference = fields.Char(string='Referencia', copy=False,)
     product_qty = fields.Float(string='Cantidad Planificada',copy=False,)
