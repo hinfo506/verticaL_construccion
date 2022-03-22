@@ -41,7 +41,7 @@ class ProductPack(models.Model):
         vals.update(
             {
                # "discount": sale_discount,
-                "descripcion": "> "+sol.product_id.descripcion,
+                "descripcion": "> "+sol.product_id.display_name,
             }
         )
         return vals

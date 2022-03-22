@@ -5,21 +5,17 @@
 
     <record id="subcapitulo_view_form" model="ir.ui.view">
         <field name="model">sub.capitulo</field>
-        <field name="inherit_id" ref="project_capitulos.subcapitulo_view_form" />
+        <field name="inherit_id" ref="project_capitulos.subcapitulo_view_form"/>
         <field name="arch" type="xml">
-            <xpath
-                expr="//field[@name='item_capitulo_materiales_ids']/tree//field[@name='product_qty']"
-                position="after"
-            >
-                <field name="pack_modifiable" invisible="True" />
-                <field name="pack_parent_line_id" invisible="True" />
-                <button
-                    string="Parent Pack is not modifiable"
-                    name="action_open_parent_pack_product_view"
-                    type="object"
-                    attrs="{'invisible': ['|', ('pack_parent_line_id', '=', False), ('pack_modifiable', '=', True)]}"
-                    icon="fa-lock"
-                />
+            <xpath expr="//field[@name='item_capitulo_materiales_ids']/tree//field[@name='product_qty']" position="after"  >
+                <field name="pack_modifiable" invisible="True"/>
+                <field name="pack_parent_line_id" invisible="True"/>
+                <button string="Parent Pack is not modifiable"
+                        name="action_open_parent_pack_product_view" type="object"  attrs="{'invisible': ['|', ('pack_parent_line_id', '=', False), ('pack_modifiable', '=', True)]}"
+                        icon="fa-lock"  />
+            </xpath>
+            <xpath expr="//field[@name='item_capitulo_materiales_ids']/tree//field[@name='product_id']" position="attributes">
+                <attribute name="attrs">{'invisible': [('pack_parent_line_id', '!=', False)]}</attribute>
             </xpath>
         </field>
     </record>
