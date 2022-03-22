@@ -40,7 +40,7 @@ class ProductPack(models.Model):
         vals.update(
             {
                # "discount": sale_discount,
-                "name": "{}{}".format("> " * (line.pack_depth + 1), sol.descripcion),
+                "descripcion": "{}{}".format("> " * (line.pack_depth + 1), sol.descripcion),
             }
         )
         return vals
