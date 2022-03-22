@@ -39,7 +39,7 @@ class ItemCapitulo(models.Model):
         vals_list = []
         if self.product_id.pack_ok and self.pack_type == "detailed":
             for subline in self.product_id.get_pack_lines():
-                vals = subline.get_sale_order_line_vals(self, self.order_id)
+                vals = subline.get_subcapitulo_id_line_vals(self, self.subcapitulo_id)
                 vals["sequence"] = self.sequence
                 if write:
                     existing_subline = self.search(
