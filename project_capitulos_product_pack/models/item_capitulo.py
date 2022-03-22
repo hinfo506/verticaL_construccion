@@ -70,29 +70,10 @@ class ItemCapitulo(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
-        if "product_id" in vals or "product_uom_qty" in vals:
+        if "product_id" in vals:
             for record in self:
                 record.expand_pack_line(write=True)
         return res
-
-    @api.onchange(
-        "product_id",
-        "product_uom_qty",
-        "product_uom",
-        "price_unit",
-        "discount",
-        "name",
-        "tax_id",
-    )
-    def check_pack_line_modify(self):
-        """Do not let to edit a sale order line if this one belongs to pack"""
-        if self._origin.pack_parent_line_id and not self._origin.pack_modifiable:
-            raise UserError(
-                _(
-                    "You can not change this line because is part of a pack"
-                    " included in this order"
-                )
-            )
 
     def action_open_parent_pack_product_view(self):
         domain = [
