@@ -12,7 +12,7 @@ class ProductPack(models.Model):
 
     def get_subcapitulo_id_line_vals(self, line, subcapitulo_id):
         self.ensure_one()
-        quantity = self.quantity * line.product_uom_qty
+        ##quantity = self.quantity * line.product_uom_qty
         line_vals = {
             "subcapitulo_id": subcapitulo_id.id,
             "product_id": self.product_id.id or False,
