@@ -28,18 +28,18 @@ class ProductPack(models.Model):
         vals = sol._convert_to_write(sol._cache)
         pack_price_types = {"totalized", "ignored"}
         sale_discount = 0.0
-        if line.product_id.pack_component_price == "detailed":
-            sale_discount = 100.0 - (
-                (100.0 - sol.discount) * (100.0 - self.sale_discount) / 100.0
-            )
-        elif (
-            line.product_id.pack_type == "detailed"
-            and line.product_id.pack_component_price in pack_price_types
-        ):
-            vals["price_unit"] = 0.0
+        #if line.product_id.pack_component_price == "detailed":
+        #    sale_discount = 100.0 - (
+        #        (100.0 - sol.discount) * (100.0 - self.sale_discount) / 100.0
+        #    )
+       # elif (
+        #    line.product_id.pack_type == "detailed"
+        #    and line.product_id.pack_component_price in pack_price_types
+        #):
+        #    vals["price_unit"] = 0.0
         vals.update(
             {
-                "discount": sale_discount,
+               # "discount": sale_discount,
                 "name": "{}{}".format("> " * (line.pack_depth + 1), sol.name),
             }
         )
