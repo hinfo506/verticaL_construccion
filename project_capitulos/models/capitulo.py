@@ -54,3 +54,23 @@ class Capitulo(models.Model):
             # 'context': dict(self._context, default_vehiculo=self.vehicle_id.id, default_inscription_id=self.id,
             #                 default_partner_id=self.purchaser_id.id)
         }
+
+    ######################
+    #### Actividades #####
+    ######################
+    activi_count = fields.Integer(string='Contador Actividades', compute='get_acti_count')
+
+    def get_acti_count(self):
+        for r in self:
+            count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','capitulo.capitulo')])
+            r.activi_count = count if count else 0
+
+    def met_activi_capitulos(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Actividades',
+            'res_model': 'mail.activity',
+            'view_mode': 'kanban,tree,form',
+            'domain': [('res_id', '=',  self.id),('res_model','=','capitulo.capitulo')],
+            #'context': dict(self._context, default_directory_id=self.id),
+        }
