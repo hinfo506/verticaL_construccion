@@ -15,7 +15,7 @@
                     </button>
                 </xpath>
 
-                <xpath expr="//notebook//page" position="before">
+                <xpath expr="//notebook//page" position="after">
                     <page string="Capitulos">
                         <field name="capitulos_id">
                             <tree>

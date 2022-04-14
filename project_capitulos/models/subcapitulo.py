@@ -6,6 +6,7 @@ class Subcapitulo(models.Model):
 
     name = fields.Char(string='Sub-Capitulo', required=True)
     descripcion = fields.Text('Descripción del Sub-Capitulo')
+    cantidad = fields.Integer('Cantidad')
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
