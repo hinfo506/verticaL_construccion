@@ -6,7 +6,7 @@ class ProyectosInherit(models.Model):
     _inherit = 'project.project'
 
     capitulos_id = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='project_id', string='Capitulos_id', required=False)
-    capitulos_count = fields.Integer(string='Contador de Capitulos', compute='get_count_capitulos')
+    capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
 
     def get_count_capitulos(self):
         for r in self:

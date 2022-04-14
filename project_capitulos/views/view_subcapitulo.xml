@@ -12,13 +12,15 @@
                                 <field name="activ_count"   string="Actividades" widget="statinfo"/>
                             </button>
                         </div>
-                        <group>
-                            <field name="numero" readonly="1"/>
-                            <field name="capitulo_id"/>
-                            <field name="name"/>
-                            <field name="fecha_finalizacion"/>
-                            <field name="total"/>
-                        </group>
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                </group>
+                                <group>
+                                <field name="total"/>
+                                </group>
+                            </group>
+                        
                         <notebook>
                             <page string="Materiales">
                                 <field name="item_capitulo_materiales_ids" nolabel="1" context="{'default_job_type':'material'}">
@@ -103,7 +105,21 @@
                                     </form>
                                 </field>
                             </page>
-                            <page string="Descripción"><field name="descripcion"/></page>
+                            <page string="Datos del Subcapítulo">
+                             
+                              <group>
+                                  <field name="numero" readonly="1"/>
+                                  <field name="capitulo_id"/>
+                                  <field name="name"/>
+                                  <field name="fecha_finalizacion"/>
+                                  <field name="total"/>
+                              </group>
+                              <group>
+                                  <field name="descripcion"/>
+                             </group>
+                             
+                            </page>
+
                         </notebook>
                         <group class="oe_subtotal_footer oe_right" colspan="2" name="jobcost_total">
                             <field name="material_total" widget="monetary"/>
