@@ -111,6 +111,7 @@
                                   <field name="numero" readonly="1"/>
                                   <field name="capitulo_id"/>
                                   <field name="name"/>
+                                  <field name="cantidad"/>
                                   <field name="fecha_finalizacion"/>
                                   <field name="total"/>
                               </group>
@@ -139,6 +140,7 @@
                 <tree string="Sub Capitulos">
                     <field name="name"/>
                     <field name="descripcion"/>
+                    <field name="cantidad"/>
                     <field name="total"/>
                     <field name="fecha_finalizacion"/>
                 </tree>
