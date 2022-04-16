@@ -4,11 +4,12 @@ from odoo.exceptions import UserError, ValidationError,RedirectWarning
 class Subcapitulo(models.Model):
     _name = 'sub.capitulo'
 
-    name = fields.Char(string='Sub-Capitulo', required=True)
-    descripcion = fields.Text('Descripción del Sub-Capitulo')
+    name = fields.Char(string='Subcapítulo', required=True)
+    descripcion = fields.Text('Descripción del Subcapítulo')
     cantidad = fields.Integer('Cantidad')
     total = fields.Float('Importe Total')
-    fecha_finalizacion = fields.Date('Fecha Finalización')
+    fecha_inicio = fields.Date('Fecha Inicio')
+    fecha_finalizacion = fields.Date('Acaba el')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
 
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
@@ -76,7 +77,7 @@ class ItemCapitulo(models.Model):
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
-    subcapitulo_id = fields.Many2one('sub.capitulo', string='Capitulo')
+    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo')
     longitud = fields.Float('Longitud', default = 1)
     ancho = fields.Float('Ancho', default = 1)
     alto = fields.Float('Alto', default = 1)
