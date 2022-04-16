@@ -32,7 +32,7 @@
                                 <group>
                                     <group>
                                         <field name="numero_capitulo"/>
-                                        <field name="total"/>
+                                        <field name="total" attrs="{'readonly': [('id', '!=', False)]}"/>
                                     </group>
                                      <group>
                                         <label for="fecha_inicio" string="Fecha"/>
