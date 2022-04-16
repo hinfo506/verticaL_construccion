@@ -158,10 +158,10 @@
 	                                            <button style="cursor: pointer;" class="btn-success mark-cancel">Cancel</button>
 												&amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-view">View</button>
+	                                            <!-- &amp;nbsp;
+	                                             <button style="cursor: pointer;" class="btn-success mark-edit">Edit</button> 
 	                                            &amp;nbsp;
-	                                            <button style="cursor: pointer;" class="btn-success mark-edit">Edit</button>
-	                                            &amp;nbsp;
-	                                            <button style="cursor: pointer;" class="btn-success mark-origin">Origin</button>
+	                                            <button style="cursor: pointer;" class="btn-success mark-origin">Origin</button> -->
 	                                        </td>
 	                                    </t>
 	                                    <t t-if="activity.state in ['done']">
@@ -285,10 +285,10 @@
 	                                            <button style="cursor: pointer;" class="btn-success mark-cancel">Cancel</button>
 												&amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-view">View</button>
-	                                            &amp;nbsp;
+	                                            <!-- &amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-edit">Edit</button>
 	                                            &amp;nbsp;
-	                                            <button style="cursor: pointer;" class="btn-success mark-origin">Origin</button>
+	                                            <button style="cursor: pointer;" class="btn-success mark-origin">Origin</button> -->
 	                                        </td>
 	                                    </t>
 	                                    <t t-if="activity.state in ['done']">
@@ -567,10 +567,10 @@
 	                                            <button style="cursor: pointer;" class="btn-success mark-cancel">Cancel</button>
 												&amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-view">View</button>
-	                                            &amp;nbsp;
+	                                            <!-- &amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-edit">Edit</button>
 	                                            &amp;nbsp;
-												<button style="cursor: pointer;" class="btn-success mark-origin">Origin</button>
+												<button style="cursor: pointer;" class="btn-success mark-origin">Origin</button> -->
 	                                        </td>
 	                                    </t>
 	                                    <t t-if="activity.state in ['done','cancel']">
