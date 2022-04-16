@@ -71,39 +71,59 @@ class Subcapitulo(models.Model):
 
 class ItemCapitulo(models.Model):
     _name = 'item.capitulo'
-
+        
     # name = fields.Char(string='Sub-Capitulo', required=True)
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Capitulo')
-
+    longitud = fields.Float('Longitud', default = 1)
+    ancho = fields.Float('Ancho', default = 1)
+    alto = fields.Float('Alto', default = 1)
 
     #############################################################################
 
-    # Precio Total
-    @api.depends('product_qty', 'cost_price')
+# Cantidad (Uds * LONGITUD * ANCHURA * ALTURA)
+
+    @api.depends('product_qty', 'longitud', 'ancho', 'alto')
+    def _compute_cantidad_costo(self):
+        for rec in self:           
+                rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto
+ 
+    # Precio Total Subcapitulo Materiales
+    @api.depends('product_qty', 'cost_price', 'cantidad_cost')
     def _compute_total_costo(self):
         for rec in self:
-            if rec.job_type == 'labour':
-                rec.product_qty = 0.0
-                rec.total_cost = rec.hours * rec.cost_price
-            else:
-                rec.hours = 0.0
-                rec.total_cost = rec.product_qty * rec.cost_price
+                rec.total_cost = rec.cantidad_cost * rec.cost_price
 
+    # Precio Total
+    # @api.depends('product_qty', 'cost_price')
+    # def _compute_total_costo(self):
+    #     for rec in self:
+    #         if rec.job_type == 'labour':
+    #             rec.product_qty = 0.0
+    #             rec.total_cost = rec.hours * rec.cost_price
+    #         else:
+    #             rec.hours = 0.0
+    #             rec.total_cost = rec.product_qty * rec.cost_price
+
+    # declaracion de variables calculadas
+
+    total_cost = fields.Float(string='Total Subcapitulo', store=False, compute='_compute_total_costo')
+    cantidad_cost = fields.Float(string='Cantidad Por LO-AN-AL', store=False, compute='_compute_cantidad_costo')
+    descripcion = fields.Text('Descripción')
     # total_cost = fields.Float(string='Cost Price Sub Total',compute='_compute_total_costo',store=True,)
-    total_cost = fields.Float(string='Precio Costo Sub Total', store=True, compute='_compute_total_costo')
-
-    descripcion = fields.Text(u'Descripción')
 
     # Agregados del modulo original
     date = fields.Date(string='Fecha',default=lambda self: fields.Date.today())
     product_id = fields.Many2one(comodel_name='product.product', string='Producto')
     reference = fields.Char(string='Referencia', copy=False,)
     product_qty = fields.Float(string='Cantidad Planificada',copy=False,)
-    uom_id = fields.Many2one('uom.uom', string='Uom',)
-    cost_price = fields.Float(string='Cost / Unit',copy=False,)
+    uom_id = fields.Many2one('uom.uom', string='Unid. de Medida',)
+    cost_price = fields.Float(string='Precio Coste',copy=False,)
+    longitud = fields.Float(string='Longitud', required=False)
+    ancho = fields.Float(string='Ancho', required=False)
+    altura = fields.Float(string='Altura', required=False)
 
     # actual_quantity = fields.Float(string='Actual Purchased Quantity',compute='_compute_actual_quantity',)
     actual_quantity = fields.Float(string='Cantidad Comprada Actual',)

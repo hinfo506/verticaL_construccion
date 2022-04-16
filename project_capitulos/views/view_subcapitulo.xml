@@ -28,24 +28,32 @@
                                         <field name="date"/>
                                         <field name="product_id"/>
                                         <field name="descripcion"/>
-                                        <field name="reference"/>
                                         <field name="product_qty"/>
-                                        <field name="uom_id"/>
+                                        <field name="reference" invisible="1"/>
+                                        <field name="longitud"/>
+                                        <field name="ancho"/>
+                                        <field name="alto"/>
                                         <field name="cost_price"/>
-                                        <field name="actual_quantity"/>
+                                        <!--<field name="actual_quantity"/> -->
                                         <field name="total_cost"/>
+                                        <!-- <field name="cantidad_cost"/> -->
+                                        <field name="uom_id"/>
                                     </tree>
                                     <form>
                                         <group>
                                             <field name="date"/>
                                             <field name="product_id" domain="[('detailed_type', '=', 'consu')]"/>
                                             <field name="descripcion"/>
-                                            <field name="reference"/>
                                             <field name="product_qty"/>
-                                            <field name="uom_id"/>
+                                            <field name="reference" invisible="1"/>
+                                            <field name="longitud"/>
+                                            <field name="ancho"/>
+                                            <field name="alto"/>
+                                            <!-- <field name="cantidad_cost"/> -->
                                             <field name="cost_price"/>
-                                            <field name="actual_quantity"/>
+                                            <!-- <field name="actual_quantity"/> -->
                                             <field name="total_cost"/>
+                                            <field name="uom_id"/>
                                             <field name="job_type" invisible="1"/>
                                         </group>
                                     </form>
