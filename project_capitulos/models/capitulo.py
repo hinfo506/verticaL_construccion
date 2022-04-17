@@ -16,7 +16,8 @@ class Capitulo(models.Model):
 
     cantidad = fields.Integer('Cantidad')
     total = fields.Float('Importe Total')
-    fecha_finalizacion = fields.Date('Fecha Finalización')
+    fecha_inicio = fields.Date('Fecha Inicio')
+    fecha_finalizacion = fields.Date('Acaba el')
     project_id = fields.Many2one('project.project', string='Proyecto')
     descripcion = fields.Text('Descripción del Capitulo')
     sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False,compute='subcapitulos_count')

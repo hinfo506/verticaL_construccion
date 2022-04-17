@@ -44,24 +44,7 @@
 	                    </div>
 	                </div>
                 </t>
-                <t t-if="request.env.company.sh_display_completed_activities_counter">
-	                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col">
-	                    <div class="card card_3 custom-card" href="#">
-	                        <div class="sh-card-body dash1 badge-success">
-	                            <div class="media">
-	                                <i class="fa fa-clock-o fs-20 text-white align-self-center mr-3"></i>
-	                                <div class="media-body text-white">
-	                                    <h3 class="mt-0">
-	                                        <t t-esc="completed_activities_count" />
-	                                    </h3>
-	                                    <p>Completed Activities</p>
-	                                </div>
-	                               	<input type="text" id="completed_activity" t-att-name="completed_activities" t-att-value="completed_activities" style="display: none;" />
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </t>
+ 
                 <t t-if="request.env.company.sh_display_overdue_activities_counter">
 	                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col">
 	                    <div class="card card_4 custom-card" href="#">
@@ -80,6 +63,24 @@
 	                    </div>
 	                </div>
                 </t>
+               <t t-if="request.env.company.sh_display_completed_activities_counter">
+	                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col">
+	                    <div class="card card_3 custom-card" href="#">
+	                        <div class="sh-card-body dash1 badge-success">
+	                            <div class="media">
+	                                <i class="fa fa-clock-o fs-20 text-white align-self-center mr-3"></i>
+	                                <div class="media-body text-white">
+	                                    <h3 class="mt-0">
+	                                        <t t-esc="completed_activities_count" />
+	                                    </h3>
+	                                    <p>Completed Activities</p>
+	                                </div>
+	                               	<input type="text" id="completed_activity" t-att-name="completed_activities" t-att-value="completed_activities" style="display: none;" />
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </t>
                 <t t-if="request.env.company.sh_display_cancelled_activities_counter">
 						<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col">
 							<div class="card card_5 custom-card" href="#">
@@ -158,10 +159,10 @@
 	                                            <button style="cursor: pointer;" class="btn-success mark-cancel">Cancel</button>
 												&amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-view">View</button>
+	                                            <!-- &amp;nbsp;
+	                                             <button style="cursor: pointer;" class="btn-success mark-edit">Edit</button> 
 	                                            &amp;nbsp;
-	                                            <button style="cursor: pointer;" class="btn-success mark-edit">Edit</button>
-	                                            &amp;nbsp;
-	                                            <button style="cursor: pointer;" class="btn-success mark-origin">Origin</button>
+	                                            <button style="cursor: pointer;" class="btn-success mark-origin">Origin</button> -->
 	                                        </td>
 	                                    </t>
 	                                    <t t-if="activity.state in ['done']">
@@ -285,10 +286,10 @@
 	                                            <button style="cursor: pointer;" class="btn-success mark-cancel">Cancel</button>
 												&amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-view">View</button>
-	                                            &amp;nbsp;
+	                                            <!-- &amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-edit">Edit</button>
 	                                            &amp;nbsp;
-	                                            <button style="cursor: pointer;" class="btn-success mark-origin">Origin</button>
+	                                            <button style="cursor: pointer;" class="btn-success mark-origin">Origin</button> -->
 	                                        </td>
 	                                    </t>
 	                                    <t t-if="activity.state in ['done']">
@@ -567,10 +568,10 @@
 	                                            <button style="cursor: pointer;" class="btn-success mark-cancel">Cancel</button>
 												&amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-view">View</button>
-	                                            &amp;nbsp;
+	                                            <!-- &amp;nbsp;
 	                                            <button style="cursor: pointer;" class="btn-success mark-edit">Edit</button>
 	                                            &amp;nbsp;
-												<button style="cursor: pointer;" class="btn-success mark-origin">Origin</button>
+												<button style="cursor: pointer;" class="btn-success mark-origin">Origin</button> -->
 	                                        </td>
 	                                    </t>
 	                                    <t t-if="activity.state in ['done','cancel']">

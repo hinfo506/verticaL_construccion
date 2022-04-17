@@ -17,7 +17,7 @@
                                     <field name="name"/>
                                 </group>
                                 <group>
-                                <field name="total"/>
+                                    <field name="total"/>
                                 </group>
                             </group>
                         
@@ -28,24 +28,32 @@
                                         <field name="date"/>
                                         <field name="product_id"/>
                                         <field name="descripcion"/>
-                                        <field name="reference"/>
                                         <field name="product_qty"/>
-                                        <field name="uom_id"/>
+                                        <field name="reference" invisible="1"/>
+                                        <field name="longitud"/>
+                                        <field name="ancho"/>
+                                        <field name="alto"/>
                                         <field name="cost_price"/>
-                                        <field name="actual_quantity"/>
+                                        <!--<field name="actual_quantity"/> -->
                                         <field name="total_cost"/>
+                                        <!-- <field name="cantidad_cost"/> -->
+                                        <field name="uom_id"/>
                                     </tree>
                                     <form>
                                         <group>
                                             <field name="date"/>
                                             <field name="product_id" domain="[('detailed_type', '=', 'consu')]"/>
                                             <field name="descripcion"/>
-                                            <field name="reference"/>
                                             <field name="product_qty"/>
-                                            <field name="uom_id"/>
+                                            <field name="reference" invisible="1"/>
+                                            <field name="longitud"/>
+                                            <field name="ancho"/>
+                                            <field name="alto"/>
+                                            <!-- <field name="cantidad_cost"/> -->
                                             <field name="cost_price"/>
-                                            <field name="actual_quantity"/>
+                                            <!-- <field name="actual_quantity"/> -->
                                             <field name="total_cost"/>
+                                            <field name="uom_id"/>
                                             <field name="job_type" invisible="1"/>
                                         </group>
                                     </form>
@@ -108,15 +116,26 @@
                             <page string="Datos del Subcapítulo">
                              
                               <group>
+                                <group>
                                   <field name="numero" readonly="1"/>
+                                  
+                                  <field name="cantidad" string="Cantidad"/>
+                                  <field name="total"/>
+                                 </group>
+                                 <group> 
+                                  <label for="fecha_inicio" string="Fecha"/>
+                                    <div name="dates" class="o_row">
+                                        <field name="fecha_inicio" widget="daterange" options="{&quot;related_end_date&quot;: &quot;fecha_finalizacion&quot;}"/>
+                                        <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon" title="Arrow"/>
+                                        <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('fecha_inicio', '=', False), ('fecha_finalizacion', '=', False)]}"/>
+                                        <field name="fecha_finalizacion" widget="daterange" options="{&quot;related_start_date&quot;: &quot;fecha_inicio&quot;}"/>
+                                    </div>
                                   <field name="capitulo_id"/>
                                   <field name="name"/>
-                                  <field name="cantidad"/>
-                                  <field name="fecha_finalizacion"/>
-                                  <field name="total"/>
+                                  </group>
                               </group>
                               <group>
-                                  <field name="descripcion"/>
+                                  <field name="descripcion" string="Descripción"/>
                              </group>
                              
                             </page>
@@ -138,11 +157,12 @@
             <field name="model">sub.capitulo</field>
             <field name="arch" type="xml">
                 <tree string="Sub Capitulos">
+                    <field name="fecha_finalizacion" string="Finaliza"/>
+                    <field name="cantidad" string="Cantidad"/>
                     <field name="name"/>
                     <field name="descripcion"/>
-                    <field name="cantidad"/>
-                    <field name="total"/>
-                    <field name="fecha_finalizacion"/>
+                    <field name="total" string="Total"/>
+                    
                 </tree>
             </field>
         </record>
