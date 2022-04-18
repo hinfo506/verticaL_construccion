@@ -47,9 +47,12 @@
 			                		class="mk_apps_sidebar_icon" 
 			                		src="/muk_web_theme/static/img/default_icon.png"
 			                	/>
+								<!-- Muestra los nombres de los campos
+
 						        <span class="mk_apps_sidebar_name">
 						            <t t-esc="app.name"/>
-						        </span>
+						        </span>-->
+								
 			            	 </a>
 			            </li>
 			    	</t>
