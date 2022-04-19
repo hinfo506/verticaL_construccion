@@ -18,8 +18,7 @@ class Subcapitulo(models.Model):
     numero = fields.Char(string='Numero', required=False)
 
     @api.onchange('number','capitulo_id')
-    def _onchange_FIELD_NAME(self):
-        # raise ValidationError(self.capitulo_id.numero_capitulo)
+    def _onchange_join_number(self):
         self.numero = str(self.capitulo_id.numero_capitulo) + "." + str(self.number)
 
     material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all' ,readonly='True')
