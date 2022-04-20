@@ -117,8 +117,9 @@
                              
                               <group>
                                 <group>
-                                  <field name="numero" readonly="1"/>
-                                  
+<!--                                  <field name="numero" readonly="1"/>-->
+                                  <field name="numero"/>
+
                                   <field name="cantidad" string="Cantidad"/>
                                   <field name="total"/>
                                  </group>

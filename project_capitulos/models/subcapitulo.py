@@ -17,17 +17,35 @@ class Subcapitulo(models.Model):
     
     numero = fields.Char(string='Numero', required=False)
 
-    @api.onchange('number')
-    def _onchange_FIELD_NAME(self):
-
-
-        # raise ValidationError(self.capitulo_id.numero_capitulo)
+    @api.onchange('number','capitulo_id')
+    def _onchange_join_number(self):
         self.numero = str(self.capitulo_id.numero_capitulo) + "." + str(self.number)
 
-    material_total = fields.Float(string='Total Coste Materiales', readonly='True')
+    material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all' ,readonly='True')
     labor_total = fields.Float(string='Total Coste Horas', readonly='True')
     overhead_total = fields.Float(string='Total Costes Generales', readonly='True')
     jobcost_total = fields.Float(string='Total Coste', readonly='True')
+
+    # Calculos
+    @api.depends('item_capitulo_materiales_ids')
+    def _amount_all(self):
+        """
+        Compute the total amounts of the SO.
+        """
+        for order in self:
+            amount_untaxed = material_total = 0.0
+            for line in order.item_capitulo_materiales_ids:
+                # amount_untaxed += 1
+                # amount_untaxed += line.price_subtotal
+                material_total += line.total_cost
+            order.update({
+                # 'amount_untaxed': amount_untaxed,
+                'material_total': material_total,
+                # 'amount_total': amount_untaxed + amount_tax,
+                # 'amount_total': amount_untaxed,
+            })
+
+
 
     item_capitulo_materiales_ids = fields.One2many(
         comodel_name='item.capitulo',
