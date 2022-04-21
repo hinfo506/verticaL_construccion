@@ -23,7 +23,6 @@
                             <field name="cost_price"/>
                             <field name="total_cost"/>
 
-
                         </group>
                     </sheet>
                 </form>

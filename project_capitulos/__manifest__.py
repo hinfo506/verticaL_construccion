@@ -19,6 +19,7 @@
         "views/project_inherit.xml",
         # "views/view_item_capitulo.xml",
         "views/sequence.xml",
+        
     ],
     "application": False,
 }
