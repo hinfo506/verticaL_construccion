@@ -167,7 +167,7 @@ class ItemCapitulo(models.Model):
     job_type = fields.Selection(
         selection=[('material', 'Materiales'),
                    ('labour', 'Mano de Obra'),
-                   ('overhead', 'Gastos Generales')],
+                   ('overhead', 'Gastos Generales'),
                    ('machinery', 'Gastos Generales')],
         string="Tipo de Costo",
         required=False,)
