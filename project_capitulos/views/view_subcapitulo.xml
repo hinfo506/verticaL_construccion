@@ -88,14 +88,14 @@
                                     <tree>
                                         <field name="date"/>
                                         <field name="product_id"/>
-                                        <field name="cost_price" string="Porcentage"/>
+                                        <field name="product_qty" string="Porcentage"/>
                                         <field name="total_cost"/>
                                     </tree>
                                     <form>
                                         <group>
                                             <field name="date"/>
                                             <field name="product_id" domain="[('detailed_type', '=', 'consu')]"/>
-                                            <field name="cost_price"/>
+                                            <field name="product_qty"/>
                                             <field name="total_cost"/>
                                             <field name="job_type" invisible="1"/>
                                         </group>

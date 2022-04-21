@@ -124,8 +124,10 @@ class ItemCapitulo(models.Model):
             if rec.job_type == 'material':
                 rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto
                 rec.total_cost = rec.cantidad_cost * rec.cost_price
-            else:
+            elif rec.job_type == 'labour':
                 rec.total_cost = rec.product_qty * rec.cost_price
+            elif rec.job_type == 'machinery':
+                rec.total_cost = rec.product_qty * 3
 
     # Precio Total
     # @api.depends('product_qty', 'cost_price')
