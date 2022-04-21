@@ -22,7 +22,8 @@ class Subcapitulo(models.Model):
         self.numero = str(self.capitulo_id.numero_capitulo) + "." + str(self.number)
 
     material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all' ,readonly='True')
-    labor_total = fields.Float(string='Total Coste Horas', readonly='True')
+    labor_total = fields.Float(string='Total Coste Mano de Obra', readonly='True')
+    machinerycost_total = fields.Float(string='Total Coste Maquinaria', readonly='True')
     overhead_total = fields.Float(string='Total Costes Generales', readonly='True')
     jobcost_total = fields.Float(string='Total Coste', readonly='True')
 
@@ -62,9 +63,16 @@ class Subcapitulo(models.Model):
     item_capitulo_gastos_generales = fields.One2many(
         comodel_name='item.capitulo',
         inverse_name='subcapitulo_id',
-        string='Gatos Generales',
+        string='Gastos Generales',
         copy=False,
         domain=[('job_type', '=', 'overhead')],
+    )
+
+    item_capitulo_maquinaria = fields.One2many(
+        comodel_name='item.capitulo',
+        inverse_name='subcapitulo_id',
+        string='Maquinaria',
+        domain=[('job_type', '=', 'machinery')],
     )
 
     ###############
@@ -104,16 +112,20 @@ class ItemCapitulo(models.Model):
 
 # Cantidad (Uds * LONGITUD * ANCHURA * ALTURA)
 
-    @api.depends('product_qty', 'longitud', 'ancho', 'alto')
-    def _compute_cantidad_costo(self):
-        for rec in self:           
-                rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto
+    # @api.depends('product_qty', 'longitud', 'ancho', 'alto')
+    # def _compute_cantidad_costo(self):
+        # for rec in self:           
+                # rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto
  
     # Precio Total Subcapitulo Materiales
-    @api.depends('product_qty', 'cost_price', 'cantidad_cost')
+    @api.depends('product_qty', 'cost_price', 'cantidad_cost', 'total_cost', 'longitud', 'ancho', 'alto')
     def _compute_total_costo(self):
         for rec in self:
+            if rec.job_type == 'material':
+                rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto
                 rec.total_cost = rec.cantidad_cost * rec.cost_price
+            else:
+                rec.total_cost = rec.product_qty * rec.cost_price
 
     # Precio Total
     # @api.depends('product_qty', 'cost_price')
@@ -143,6 +155,7 @@ class ItemCapitulo(models.Model):
     longitud = fields.Float(string='Longitud', required=False)
     ancho = fields.Float(string='Ancho', required=False)
     altura = fields.Float(string='Altura', required=False)
+    
 
     # actual_quantity = fields.Float(string='Actual Purchased Quantity',compute='_compute_actual_quantity',)
     actual_quantity = fields.Float(string='Cantidad Comprada Actual',)
@@ -155,6 +168,7 @@ class ItemCapitulo(models.Model):
         selection=[('material', 'Materiales'),
                    ('labour', 'Mano de Obra'),
                    ('overhead', 'Gastos Generales')],
+                   ('machinery', 'Gastos Generales')],
         string="Tipo de Costo",
         required=False,)
 
