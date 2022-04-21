@@ -122,12 +122,13 @@ class ItemCapitulo(models.Model):
     def _compute_total_costo(self):
         for rec in self:
             if rec.job_type == 'material':
-                rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto
-                rec.total_cost = rec.cantidad_cost * rec.cost_price
+                # rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto // INCLUIDO LONGITUD, ANCHO Y ALTO: VOLUMETRIA
+                # rec.total_cost = rec.cantidad_cost * rec.cost_price
+                rec.total_cost = rec.product_qty * rec.cost_price
             elif rec.job_type == 'labour':
                 rec.total_cost = rec.product_qty * rec.cost_price
             elif rec.job_type == 'machinery':
-                rec.total_cost = rec.product_qty * 3
+                rec.total_cost = rec.product_qty * 3 # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
 
     # Precio Total
     # @api.depends('product_qty', 'cost_price')

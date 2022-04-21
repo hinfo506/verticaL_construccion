@@ -30,9 +30,9 @@
                                         <field name="descripcion"/>
                                         <field name="product_qty"/>
                                         <field name="reference" invisible="1"/>
-                                        <field name="longitud"/>
-                                        <field name="ancho"/>
-                                        <field name="alto"/>
+                                        <field name="longitud" invisible="1"/>
+                                        <field name="ancho" invisible="1"/>
+                                        <field name="alto" invisible="1"/>
                                         <field name="cost_price"/>
                                         <!--<field name="actual_quantity"/> -->
                                         <field name="total_cost"/>
@@ -46,9 +46,9 @@
                                             <field name="descripcion"/>
                                             <field name="product_qty"/>
                                             <field name="reference" invisible="1"/>
-                                            <field name="longitud"/>
-                                            <field name="ancho"/>
-                                            <field name="alto"/>
+                                            <field name="longitud" invisible="1"/>
+                                            <field name="ancho" invisible="1"/>
+                                            <field name="alto" invisible="1"/>
                                             <!-- <field name="cantidad_cost"/> -->
                                             <field name="cost_price"/>
                                             <!-- <field name="actual_quantity"/> -->
@@ -90,6 +90,7 @@
                                         <field name="product_id"/>
                                         <field name="product_qty" string="Porcentage"/>
                                         <field name="total_cost"/>
+                                        <field name="uom_id"/>
                                     </tree>
                                     <form>
                                         <group>
@@ -97,6 +98,7 @@
                                             <field name="product_id" domain="[('detailed_type', '=', 'consu')]"/>
                                             <field name="product_qty"/>
                                             <field name="total_cost"/>
+                                            <field name="uom_id"/>
                                             <field name="job_type" invisible="1"/>
                                         </group>
                                     </form>
