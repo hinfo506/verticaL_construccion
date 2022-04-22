@@ -29,6 +29,29 @@
                 </form>
             </field>
         </record>
+
+        <record id="itemsubcapitulo_view_tree" model="ir.ui.view">
+            <field name="name">item.capitulo.tree</field>
+            <field name="model">item.capitulo</field>
+            <field name="arch" type="xml">
+                <tree string="Items">
+                    <field name="date"/>
+                    <field name="job_type"/>
+                    <field name="product_id"/>
+                    <field name="descripcion"/>
+                    <field name="product_qty"/>
+                    <field name="reference" invisible="1"/>
+                    <field name="longitud" invisible="1"/>
+                    <field name="ancho" invisible="1"/>
+                    <field name="alto" invisible="1"/>
+                    <field name="cost_price"/>
+                    <field name="actual_quantity"/> -->
+                    <field name="total_cost"/>
+                    <field name="cantidad_cost"/> -->
+                    <field name="uom_id"/>
+                </tree>
+            </field>
+        </record>
     
     </data>
 </odoo>
