@@ -118,7 +118,7 @@ class ItemCapitulo(models.Model):
                 # rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto
  
     # Precio Total Subcapitulo Materiales
-    @api.depends('product_qty', 'cost_price', 'cantidad_cost', 'total_cost', 'longitud', 'ancho', 'alto')
+    @api.depends('product_qty', 'cost_price', 'cantidad_cost', 'longitud', 'ancho', 'alto')
     def _compute_total_costo(self):
         for rec in self:
             if rec.job_type == 'material':
