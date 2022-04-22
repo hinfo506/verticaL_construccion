@@ -75,6 +75,12 @@ class Subcapitulo(models.Model):
         domain=[('job_type', '=', 'machinery')],
     )
 
+    item_count = fields.Integer(string='Contador Item', compute='get_item_count')
+
+    def get_item_count(self):
+        for r in self:
+            r.item_count = self.env['item.capitulo'].search_count([('subcapitulo_id', '=',  self.id)])
+
     ###############
     # Actividades #
     ###############
@@ -85,6 +91,9 @@ class Subcapitulo(models.Model):
             count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','sub.capitulo')])
             r.activ_count = count if count else 0
 
+
+
+
     def met_activi_subcapitulo(self):
         return {
             'type': 'ir.actions.act_window',
@@ -93,6 +102,16 @@ class Subcapitulo(models.Model):
             'view_mode': 'kanban,tree,form',
             'domain': [('res_id', '=',  self.id),('res_model','=','sub.capitulo')],
             #'context': dict(self._context, default_directory_id=self.id),
+        }
+
+    def action_view_item(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Items',
+            'res_model': 'item.capitulo',
+            'view_mode': 'tree,form',
+            'domain': [('subcapitulo_id', '=',  self.id)],
+            'context': dict(self._context, default_subcapitulo_id=self.id),
         }
 
 
