@@ -8,6 +8,9 @@
                 <form string="Sub Capitulos">
                     <sheet>
                         <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="action_view_item" type="object" icon="fa-archive">
+                                <field name="item_count"   string="Item" widget="statinfo"/>
+                            </button>
                             <button class="oe_stat_button" name="met_activi_subcapitulo" type="object" icon="fa-archive">
                                 <field name="activ_count"   string="Actividades" widget="statinfo"/>
                             </button>
@@ -22,118 +25,7 @@
                             </group>
                         
                         <notebook>
-                            <page string="Materiales">
-                                <field name="item_capitulo_materiales_ids" nolabel="1" context="{'default_job_type':'material'}">
-                                    <tree>
-                                        <field name="date"/>
-                                        <field name="product_id"/>
-                                        <field name="descripcion"/>
-                                        <field name="product_qty"/>
-                                        <field name="reference" invisible="1"/>
-                                        <field name="longitud" invisible="1"/>
-                                        <field name="ancho" invisible="1"/>
-                                        <field name="alto" invisible="1"/>
-                                        <field name="cost_price"/>
-                                        <!--<field name="actual_quantity"/> -->
-                                        <field name="total_cost"/>
-                                        <!-- <field name="cantidad_cost"/> -->
-                                        <field name="uom_id"/>
-                                    </tree>
-                                    <form>
-                                        <group>
-                                            <field name="date"/>
-                                            <field name="product_id" domain="[('detailed_type', '=', 'consu')]"/>
-                                            <field name="descripcion"/>
-                                            <field name="product_qty"/>
-                                            <field name="reference" invisible="1"/>
-                                            <field name="longitud" invisible="1"/>
-                                            <field name="ancho" invisible="1"/>
-                                            <field name="alto" invisible="1"/>
-                                            <!-- <field name="cantidad_cost"/> -->
-                                            <field name="cost_price"/>
-                                            <!-- <field name="actual_quantity"/> -->
-                                            <field name="total_cost"/>
-                                            <field name="uom_id"/>
-                                            <field name="job_type" invisible="1"/>
-                                        </group>
-                                    </form>
-                                </field>
-                            </page>
-                            <page string="Mano de Obra">
-                                <field name="item_mano_obra_ids" context="{'default_job_type':'labour'}">
-                                    <tree>
-                                        <field name="date"/>
-                                        <field name="product_id"/>
-                                        <field name="product_qty"/>
-                                        <field name="cost_price"/>
-                                        <field name="total_cost"/>
-                                        <field name="uom_id"/>
-                                    </tree>
-                                    <form>
-                                        <group>
-                                            <field name="date"/>
-                                            <field name="product_id" domain="[('detailed_type', '=', 'service')]"/>
-                                            <field name="product_qty"/>
-                                            <field name="cost_price"/>
-                                            <field name="total_cost"/>
-                                            <field name="uom_id"/>
-                                            <field name="job_type" invisible="1"/>
-                                        </group>
-                                    </form>
-                                </field>
-                            </page>
-                            
-                            <page string="Maquinaria">
-                                <field name="item_capitulo_maquinaria" context="{'default_job_type':'machinery'}">
-                                    <tree>
-                                        <field name="date"/>
-                                        <field name="product_id"/>
-                                        <field name="product_qty" string="Porcentage"/>
-                                        <field name="total_cost"/>
-                                        <field name="uom_id"/>
-                                    </tree>
-                                    <form>
-                                        <group>
-                                            <field name="date"/>
-                                            <field name="product_id" domain="[('detailed_type', '=', 'consu')]"/>
-                                            <field name="product_qty"/>
-                                            <field name="total_cost"/>
-                                            <field name="uom_id"/>
-                                            <field name="job_type" invisible="1"/>
-                                        </group>
-                                    </form>
-                                </field>
-                            </page>
 
-                            <page string="Gastos Generales">
-                                <field name="item_capitulo_gastos_generales" context="{'default_job_type':'overhead'}">
-                                    <tree>
-                                        <field name="date"/>
-                                        <field name="product_id"/>
-                                        <field name="descripcion"/>
-                                        <field name="reference"/>
-                                        <field name="product_qty"/>
-                                        <field name="uom_id"/>
-                                        <field name="cost_price"/>
-                                        <field name="actual_quantity"/>
-                                        <field name="total_cost"/>
-                                    </tree>
-                                    <form>
-                                        <group>
-                                            <field name="date"/>
-                                            <field name="product_id" domain="[('detailed_type', '=', 'product')]"/>
-                                            <field name="descripcion"/>
-                                            <field name="reference"/>
-                                            <field name="product_qty"/>
-                                            <field name="uom_id"/>
-                                            <field name="cost_price"/>
-                                            <field name="actual_quantity"/>
-                                            <field name="total_cost"/>
-                                            <field name="job_type" invisible="1"/>
-                                        </group>
-                                    </form>
-                                </field>
-                            </page>
                             <page string="Datos del Subcapítulo">
                              
                               <group>
