@@ -118,7 +118,7 @@ class ItemCapitulo(models.Model):
                 # rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto
  
     # Precio Total Subcapitulo Materiales
-    @api.depends('product_qty', 'cost_price', 'cantidad_cost', 'longitud', 'ancho', 'alto')
+    @api.depends('product_qty', 'cost_price', 'longitud', 'ancho', 'alto')
     def _compute_total_costo(self):
         for rec in self:
             if rec.job_type == 'material':
@@ -130,22 +130,13 @@ class ItemCapitulo(models.Model):
             elif rec.job_type == 'machinery':
                 rec.total_cost = rec.product_qty * 3 # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
 
-    # Precio Total
-    # @api.depends('product_qty', 'cost_price')
-    # def _compute_total_costo(self):
-    #     for rec in self:
-    #         if rec.job_type == 'labour':
-    #             rec.product_qty = 0.0
-    #             rec.total_cost = rec.hours * rec.cost_price
-    #         else:
-    #             rec.hours = 0.0
-    #             rec.total_cost = rec.product_qty * rec.cost_price
+   
 
     # declaracion de variables calculadas
 
-    total_cost = fields.Float(string='Total Subcapitulo', store=False, compute='_compute_total_costo')
-    cantidad_cost = fields.Float(string='Cantidad Por LO-AN-AL', store=False, compute='_compute_cantidad_costo')
+    total_cost = fields.Float(string='Total Subcapitulo', store=False, compute='_compute_total_costo')  
     descripcion = fields.Text('Descripción')
+    # cantidad_cost = fields.Float(string='Cantidad Por LO-AN-AL', store=False, compute='_compute_cantidad_costo')
     # total_cost = fields.Float(string='Cost Price Sub Total',compute='_compute_total_costo',store=True,)
 
     # Agregados del modulo original
