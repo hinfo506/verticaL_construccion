@@ -29,6 +29,8 @@
                         </field>
                     </page>
                 </xpath>
+            </field>
+        </record>
 
                         <!-- Inherit Form View to Modify it -->
         <record id="kanban_iherit_view" model="ir.ui.view">
@@ -48,7 +50,5 @@
             </field>
         </record>
 
-            </field>
-        </record>
     </data>
 </odoo>
