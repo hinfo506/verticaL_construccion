@@ -44,6 +44,31 @@
                         <button class="btn btn-primary" icon="fa-hand-o-right" string="Capítulos" name="met_capitulos" type="object">
                             Capítulos
                         </button>
+<!--                        <a class="o_project_kanban_box" name="met_capitulos" type="object">-->
+<!--                            <div>-->
+<!--&lt;!&ndash;                                <span class="o_value"><t t-esc="record.task_count.value"/></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <span class="o_label"><t t-esc="record.label_tasks.value"/></span>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                        </a>-->
+
+                        <div class="o_kanban_record_bottom mt-3">
+                            <div class="oe_kanban_bottom_left">
+                                <div class="o_project_kanban_boxes">
+                                    <a class="o_project_kanban_box" name="met_capitulos" type="object">
+                                        <div>
+                                            <span class="o_value"><t t-esc="record.task_count.value"/></span>
+                                            <span class="o_label">Capitulos</span>
+                                        </div>
+                                    </a>
+                                </div>
+<!--                                <field name="activity_ids" widget="kanban_activity"/>-->
+                            </div>
+                            <div class="oe_kanban_bottom_right">
+                                <span t-att-class="'o_status_bubble mx-0 o_color_bubble_' + record.last_update_color.value" t-att-title="record.last_update_status.value"/>
+<!--                                <field name="user_id" widget="many2one_avatar_user" t-if="record.user_id.raw_value"/>-->
+                            </div>
+                        </div>
+
                     </div>
                 </xpath>
 
