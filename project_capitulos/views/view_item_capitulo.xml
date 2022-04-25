@@ -9,19 +9,23 @@
                 <form string="Items">
                     <sheet>
                         <group>
-                            <field name="date"/>
-                            <field name="job_type"/>
-<!--                            <field name="product_id" attrs="{'invisible': [('active', '=', True)]}" domain="[('detailed_type', '=', 'consu')]"/>-->
-                            <field name="product_id" domain="[('detailed_type', '=', 'consu')]" attrs="{'invisible': [('job_type', '!=', 'material')]}"/>
-<!--                            <field name="product_id" domain="[('detailed_type', '=', 'service')]" attrs="{'invisible': [('job_type', '!=', 'labour')]}"/>-->
-<!--                            <field name="product_id" domain="[('detailed_type', '=', 'product')]" attrs="{'invisible': [('job_type', '!=', 'overhead')]}"/>-->
-                            <field name="reference"/>
-                            <field name="hours" attrs="{'invisible': [('job_type', '!=', 'labour')]}"/>
-                            <field name="descripcion"/>
-                            <field name="product_qty"/>
-                            <field name="uom_id"/>
-                            <field name="cost_price"/>
-                            <field name="total_cost"/>
+                            <group>
+                                <field name="date"/>
+                                <field name="job_type"/>
+                                <field name="product_id"/>
+                                <field name="descripcion"/>
+                                <field name="product_qty"/>
+                                <field name="reference" />
+                                <field name="uom_id"/>
+                            </group>
+                            <group>
+                                <field name="longitud" />
+                                <field name="ancho" />
+                                <field name="alto" />
+                                <field name="cost_price"/>
+                                <field name="actual_quantity"/>
+                                <field name="total_cost"/>
+                            </group>
 
 
                         </group>
@@ -40,10 +44,10 @@
                     <field name="product_id"/>
                     <field name="descripcion"/>
                     <field name="product_qty"/>
-                    <field name="reference" invisible="1"/>
-                    <field name="longitud" invisible="1"/>
-                    <field name="ancho" invisible="1"/>
-                    <field name="alto" invisible="1"/>
+                    <field name="reference" />
+                    <field name="longitud" />
+                    <field name="ancho" />
+                    <field name="alto" />
                     <field name="cost_price"/>
                     <field name="actual_quantity"/>
                     <field name="total_cost"/>
