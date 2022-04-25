@@ -111,6 +111,7 @@ class Subcapitulo(models.Model):
             'res_model': 'item.capitulo',
             'view_mode': 'tree,form',
             'domain': [('subcapitulo_id', '=',  self.id)],
+            'views': [(self.env.ref('project_capitulos.subcapitulo_view_tree').id, 'tree'), (False, 'form')],
             'context': dict(self._context, default_subcapitulo_id=self.id),
         }
 
