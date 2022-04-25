@@ -45,9 +45,8 @@
                     <field name="ancho" invisible="1"/>
                     <field name="alto" invisible="1"/>
                     <field name="cost_price"/>
-                    <field name="actual_quantity"/> -->
+                    <field name="actual_quantity"/>
                     <field name="total_cost"/>
-                    <field name="cantidad_cost"/> -->
                     <field name="uom_id"/>
                 </tree>
             </field>
