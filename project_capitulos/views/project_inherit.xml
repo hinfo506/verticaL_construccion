@@ -40,6 +40,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//div[hasclass('o_primary')]" position="after">
+                    <field name="capitulos_kanban_count" invisible="1"/>
                     <div role="menuitem">
                         <button class="btn btn-primary" icon="fa-hand-o-right" string="Capítulos" name="met_capitulos" type="object">
                             Capítulos
@@ -56,7 +57,7 @@
                                 <div class="o_project_kanban_boxes">
                                     <a class="o_project_kanban_box" name="met_capitulos" type="object">
                                         <div>
-                                            <span class="o_value"><t t-esc="record.task_count.value"/></span>
+                                            <span class="o_value"><t t-esc="record.capitulos_kanban_count.value"/></span>
                                             <span class="o_label">Capitulos</span>
                                         </div>
                                     </a>
