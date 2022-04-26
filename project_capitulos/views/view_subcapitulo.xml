@@ -77,6 +77,7 @@
                     <field name="name"/>
                     <field name="descripcion"/>
                     <field name="total" string="Total"/>
+                    <button type="object" string=" Items" name="action_view_item" class="btn btn-primary" icon="fa-hand-o-right"/>
                     
                 </tree>
             </field>

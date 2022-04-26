@@ -184,7 +184,7 @@ class ItemCapitulo(models.Model):
         selection=[('material', 'Materiales'),
                    ('labour', 'Mano de Obra'),
                    ('overhead', 'Gastos Generales'),
-                   ('machinery', 'Gastos Generales')],
+                   ('machinery', 'Maquinaria')],
         string="Tipo de Costo",
         required=False,)
 
