@@ -75,6 +75,10 @@ class Subcapitulo(models.Model):
         domain=[('job_type', '=', 'machinery')],
     )
 
+
+
+
+
     item_count = fields.Integer(string='Contador Item', compute='get_item_count')
 
     def get_item_count(self):
@@ -149,9 +153,8 @@ class ItemCapitulo(models.Model):
                 rec.total_cost = rec.product_qty * rec.cost_price
             elif rec.job_type == 'machinery':
                 rec.total_cost = rec.product_qty * 3 # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
-            else:
-                rec.total_cost = 0
-
+            elif rec.job_type == 'overhead':
+                rec.total_cost = rec.product_qty * rec.cost_price 
    
 
     # declaracion de variables calculadas
@@ -186,6 +189,17 @@ class ItemCapitulo(models.Model):
                    ('overhead', 'Gastos Generales'),
                    ('machinery', 'Maquinaria')],
         string="Tipo de Costo",
+        required=False,)
+
+    color_item_id = fields.Selection(
+        selection=[('red', 'Rojo'),
+                   ('blue', 'Azul'),
+                   ('green', 'Verde'),
+                   ('grey', 'Gris'),
+                   ('brown', 'Marrón'),
+                   ('purple', 'Púrpura')],
+                   
+        string="Color de la Linea",
         required=False,)
 
     @api.onchange('product_id')

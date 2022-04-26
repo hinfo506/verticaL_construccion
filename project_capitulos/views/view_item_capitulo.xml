@@ -12,6 +12,7 @@
                             <group>
                                 <field name="date"/>
                                 <field name="job_type"/>
+                                <field name="color_item_id"/>
                                 <field name="product_id"/>
                                 <field name="descripcion"/>
                                 <field name="product_qty"/>
@@ -38,9 +39,11 @@
             <field name="name">item.capitulo.tree</field>
             <field name="model">item.capitulo</field>
             <field name="arch" type="xml">
-                <tree string="Items">
+                 <tree string="Items"  decoration-danger="color_item_id=='red'" decoration-info="color_item_id=='blue'" decoration-success="color_item_id=='green'" decoration-muted="color_item_id=='grey'" decoration-warning="color_item_id=='brown'" decoration-primary="color_item_id=='purple'"> 
+                    <!-- <tree string="Items"> -->
                     <field name="date"/>
                     <field name="job_type"/>
+                    <field name="color_item_id"/>
                     <field name="product_id"/>
                     <field name="descripcion"/>
                     <field name="product_qty"/>
