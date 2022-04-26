@@ -31,12 +31,8 @@ class ProyectosInherit(models.Model):
         task_data = self.env['capitulo.capitulo'].read_group(
             [('project_id', 'in', self.ids)],
             ['project_id', 'project_id:count'], ['project_id'])
-        result_wo_subtask = defaultdict(int)
         result_with_subtasks = defaultdict(int)
         for data in task_data:
-            # result_wo_subtask[data['project_id'][0]] += data['project_id']
             result_with_subtasks[data['project_id'][0]] += data['project_id_count']
         for project in self:
-            # raise ValidationError(result_wo_subtask[project.id])
-            # project.capitulos_kanban_count = result_wo_subtask[project.id]
             project.capitulos_kanban_count = result_with_subtasks[project.id]
