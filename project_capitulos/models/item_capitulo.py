@@ -93,6 +93,4 @@ class ItemCapitulo(models.Model):
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.item_volumetria_ids.ids)],
             'context': dict(self._context, default_itemcapitulo_id=self.id),
-            # 'context': dict(self._context, default_vehiculo=self.vehicle_id.id, default_inscription_id=self.id,
-            #                 default_partner_id=self.purchaser_id.id)
         }
