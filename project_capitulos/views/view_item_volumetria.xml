@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="item_volumetria_view_form" model="ir.ui.view">
+            <field name="name">Item Volumetria</field>
+            <field name="model">item.volumetria</field>
+            <field name="arch" type="xml">
+                <form string="Item Volumetria">
+                    <sheet>
+                        <group>
+                            <field name="color_linea_volumetria"/>
+                            <field name="cantidad_volumetria"/>
+                            <field name="longitud_volumetria"/>
+                            <field name="ancho_volumetria"/>
+                            <field name="alto_volumetria"/>
+                            <field name="precio_coste_volumetria"/>
+                            <field name="total"/>
+                            <field name="descripcion_volumetria"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="itemvolumetria_view_tree" model="ir.ui.view">
+            <field name="name">Item Volumetria</field>
+            <field name="model">item.volumetria</field>
+            <field name="arch" type="xml">
+                <tree string="Item Volumetria">
+                    <field name="color_linea_volumetria"/>
+                    <field name="cantidad_volumetria"/>
+                    <field name="longitud_volumetria"/>
+                    <field name="ancho_volumetria"/>
+                    <field name="alto_volumetria"/>
+                    <field name="precio_coste_volumetria"/>
+                    <field name="total"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

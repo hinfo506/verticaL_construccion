@@ -18,6 +18,7 @@
         "views/view_subcapitulo.xml",
         "views/project_inherit.xml",
         "views/view_item_capitulo.xml",
+        "views/view_item_volumetria.xml",
         "views/sequence.xml",
         
     ],
