@@ -5,7 +5,18 @@ class ItemVolumetria(models.Model):
     _name = 'item.volumetria'
 
 
-    color_linea_volumetria = fields.Char(string='Color línea volumetría', required=False)
+     # color_linea_volumetria = fields.Char(string='Color línea volumetría', required=False)  Campo de Rolando
+    color_linea_volumetria = fields.Selection(
+        selection=[('red', 'Rojo'),
+                   ('blue', 'Azul'),
+                   ('green', 'Verde'),
+                   ('grey', 'Gris'),
+                   ('brown', 'Marrón'),
+                   ('purple', 'Púrpura')],
+
+        string="Color de la Linea",
+        required=False,)
+        
     descripcion_volumetria = fields.Text(string="Descripción volumetría", required=False)
     cantidad_volumetria = fields.Float(string='Cantidad Volumetría', required=False)
     longitud_volumetria = fields.Float(string='Longitud Volumetría', required=False)

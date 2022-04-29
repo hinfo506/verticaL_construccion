@@ -9,15 +9,14 @@
                 <form string="Item Volumetria">
                     <sheet>
                         <group>
-                            <field name="color_linea_volumetria"/>
-                            <field name="cantidad_volumetria"/>
-                            <field name="longitud_volumetria"/>
-                            <field name="ancho_volumetria"/>
-                            <field name="alto_volumetria"/>
-                            <field name="precio_coste_volumetria"/>
-                            <field name="total"/>
-                            <field name="descripcion_volumetria"/>
-
+                            <field name="descripcion_volumetria" string="Descripción"/>
+                            <field name="cantidad_volumetria" string="Cantidad"/>
+                            <field name="longitud_volumetria" string="Longitud"/>
+                            <field name="ancho_volumetria" string="Ancho"/>
+                            <field name="alto_volumetria" string="Alto"/>
+                            <field name="precio_coste_volumetria" string="Coste"/>
+                            <field name="total" string="Total"/>
+                            <field name="color_linea_volumetria" string="Color Linea"/>
                         </group>
                     </sheet>
                 </form>
@@ -29,13 +28,14 @@
             <field name="model">item.volumetria</field>
             <field name="arch" type="xml">
                 <tree string="Item Volumetria">
-                    <field name="color_linea_volumetria"/>
-                    <field name="cantidad_volumetria"/>
-                    <field name="longitud_volumetria"/>
-                    <field name="ancho_volumetria"/>
-                    <field name="alto_volumetria"/>
-                    <field name="precio_coste_volumetria"/>
-                    <field name="total"/>
+                    <field name="descripcion_volumetria" string="Descripción"/>
+                    <field name="cantidad_volumetria" string="Cantidad"/>
+                    <field name="longitud_volumetria" string="Longitud"/>
+                    <field name="ancho_volumetria" string="Ancho"/>
+                    <field name="alto_volumetria" string="Alto"/>
+                    <field name="precio_coste_volumetria" string="Coste"/>
+                    <field name="total" string="Total"/>
+                    <field name="color_linea_volumetria" string="Color Linea"/>
                 </tree>
             </field>
         </record>
