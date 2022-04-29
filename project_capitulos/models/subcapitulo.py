@@ -155,7 +155,8 @@ class ItemCapitulo(models.Model):
                 rec.total_cost = rec.product_qty * 3 # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
             elif rec.job_type == 'overhead':
                 rec.total_cost = rec.product_qty * rec.cost_price 
-   
+            else :
+                rec.total_cost= 0
 
     # declaracion de variables calculadas
 
