@@ -8,6 +8,12 @@
             <field name="arch" type="xml">
                 <form string="Items">
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="met_itemvolumetria"  type="object" icon="fa-archive">
+                                <field name="itemvolumetria_count" string="Item Volumetría"  widget="statinfo"/>
+                            </button>
+                        </div>
+
                         <group>
                             <group>
                                 <field name="date"/>
@@ -27,8 +33,6 @@
                                 <field name="actual_quantity"/>
                                 <field name="total_cost"/>
                             </group>
-
-
                         </group>
                     </sheet>
                 </form>
