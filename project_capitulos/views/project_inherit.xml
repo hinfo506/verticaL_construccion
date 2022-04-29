@@ -39,7 +39,7 @@
             <field name="inherit_id" ref="project.view_project_kanban"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="after">
+                <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
                     <field name="capitulos_kanban_count" invisible="1"/>
                     <div role="menuitem">
                         <div class="o_kanban_record_bottom mt-3">

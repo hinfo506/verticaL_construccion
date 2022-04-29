@@ -73,9 +73,9 @@
             <field name="arch" type="xml">
                 <tree string="Sub Capitulos">
                     <field name="fecha_finalizacion" string="Finaliza"/>
-                    <field name="cantidad" string="Cantidad"/>
+                    <field name="cantidad" string="Cantidad" invisible ="1" />
                     <field name="name"/>
-                    <field name="descripcion"/>
+                    <field name="descripcion" invisible = "1"/>
                     <field name="total" string="Total"/>
                     <button type="object" string=" Items" name="action_view_item" class="btn btn-primary" icon="fa-hand-o-right"/>
                     

@@ -76,7 +76,7 @@
             <field name="arch" type="xml">
                 <tree string="Capitulos" class = "project_capitulos_Capitulos">
                     <field name="fecha_finalizacion" string="Finaliza"/>
-                    <field name="cantidad" string="Cantidad"/>
+                    <field name="cantidad" string="Cantidad" invisible ="1"/>
                     <field name="name"/>
                     <field name="total"/>
                     <field name="project_id"/>
