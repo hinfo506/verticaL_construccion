@@ -59,7 +59,7 @@
                     <field name="actual_quantity" invisible = "1"/>
                     <field name="total_cost"/>
                     <field name="uom_id"/>
-                    <!-- <button type="object" string=" Volumetria" name="action_view_item" class="btn btn-primary" icon="fa-hand-o-right"/> -->
+                    <button type="object" string=" Volumetria" name="met_itemvolumetria" class="btn btn-primary" icon="fa-hand-o-right"/>
                 </tree>
             </field>
         </record>

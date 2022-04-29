@@ -39,7 +39,7 @@ class ItemCapitulo(models.Model):
 
     # declaracion de variables calculadas
 
-    total_cost = fields.Float(string='Total Subcapitulo', store=False, compute='_compute_total_costo')
+    total_cost = fields.Float(string='Total', store=False, compute='_compute_total_costo')
     descripcion = fields.Text('Descripción')
     # cantidad_cost = fields.Float(string='Cantidad Por LO-AN-AL', store=False, compute='_compute_cantidad_costo')
     # total_cost = fields.Float(string='Cost Price Sub Total',compute='_compute_total_costo',store=True,)
@@ -66,7 +66,7 @@ class ItemCapitulo(models.Model):
         selection=[('material', 'Materiales'),
                    ('labour', 'Mano de Obra'),
                    ('overhead', 'Gastos Generales'),
-                   ('machinery', 'Gastos Generales')],
+                   ('machinery', 'Maquinaria')],
         string="Tipo de Costo",
         required=False, )
     color_item_id = fields.Selection(
