@@ -69,7 +69,16 @@ class ItemCapitulo(models.Model):
                    ('machinery', 'Gastos Generales')],
         string="Tipo de Costo",
         required=False, )
+    color_item_id = fields.Selection(
+        selection=[('red', 'Rojo'),
+                   ('blue', 'Azul'),
+                   ('green', 'Verde'),
+                   ('grey', 'Gris'),
+                   ('brown', 'Marrón'),
+                   ('purple', 'Púrpura')],
 
+        string="Color de la Linea",
+        required=False,)
     @api.onchange('product_id')
     def _onchan_product_id(self):
         for rec in self:

@@ -114,3 +114,4 @@ class Subcapitulo(models.Model):
             'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
             'context': dict(self._context, default_subcapitulo_id=self.id),
         }
+
