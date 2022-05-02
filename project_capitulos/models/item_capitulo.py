@@ -7,48 +7,64 @@ class ItemCapitulo(models.Model):
     # name = fields.Char(string='Sub-Capitulo', required=True)
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
+    descripcion = fields.Text('Descripción')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo')
     longitud = fields.Float('Longitud', default=1)
     ancho = fields.Float('Ancho', default=1)
     alto = fields.Float('Alto', default=1)
-
-    #############################################################################
-
-    # Cantidad (Uds * LONGITUD * ANCHURA * ALTURA)
-
-    # @api.depends('product_qty', 'longitud', 'ancho', 'alto')
-    # def _compute_cantidad_costo(self):
-    # for rec in self:
-    # rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto
-
-    # Precio Total Subcapitulo Materiales
-    @api.depends('product_qty', 'cost_price', 'longitud', 'ancho', 'alto')
-    def _compute_total_costo(self):
-        for rec in self:
-            if rec.job_type == 'material':
-                # rec.cantidad_cost = rec.product_qty * rec.longitud * rec.ancho * rec.alto // INCLUIDO LONGITUD, ANCHO Y ALTO: VOLUMETRIA
-                # rec.total_cost = rec.cantidad_cost * rec.cost_price
-                rec.total_cost = rec.product_qty * rec.cost_price
-            elif rec.job_type == 'labour':
-                rec.total_cost = rec.product_qty * rec.cost_price
-            elif rec.job_type == 'machinery':
-                rec.total_cost = rec.product_qty * 3  # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
-            else:
-                rec.total_cost = 0
+    impuesto_item = fields.Float('Imp. %', default=1)
+    
+    
 
     # declaracion de variables calculadas
 
-    total_cost = fields.Float(string='Total', store=False, compute='_compute_total_costo')
-    descripcion = fields.Text('Descripción')
-    # cantidad_cost = fields.Float(string='Cantidad Por LO-AN-AL', store=False, compute='_compute_cantidad_costo')
-    # total_cost = fields.Float(string='Cost Price Sub Total',compute='_compute_total_costo',store=True,)
+    subtotal_item_capitulo = fields.Float(string='Subtotal', store=False, compute='_compute_subtotal_item_capitulo')
+    total_impuesto_item = fields.Float(string='ITBIS', store=False, compute='_compute_total_impuesto_item')
+    total_item_capitulo = fields.Float(string='Total', store=False, compute='_compute_total_item_capitulo')
+    suma_impuesto_item_y_cost_price = fields.Float(string='P.U. + ITBIS', store=False, compute='_compute_suma_impuesto_item_y_cost_price')
+    #############################################################################
+
+    # Importe Subtotal item Capitulo - Importe sin contar con los impuestos
+    @api.depends('product_qty', 'cost_price', 'longitud', 'ancho', 'alto')
+    def _compute_subtotal_item_capitulo(self):
+        for rec in self:
+            if rec.job_type == 'material':
+                rec.subtotal_item_capitulo = rec.product_qty * rec.cost_price
+            elif rec.job_type == 'labour':
+                rec.subtotal_item_capitulo = rec.product_qty * rec.cost_price
+            elif rec.job_type == 'machinery':
+                rec.subtotal_item_capitulo = rec.product_qty * 3  # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
+            else:
+                rec.subtotal_item_capitulo = 0
+
+    # Importe Total Impuesto Item - Importe de los impuestos a partir del campo impuesto_item
+    @api.depends('cost_price', 'impuesto_item')
+    def _compute_total_impuesto_item(self):
+        for rec in self:
+                rec.total_impuesto_item = rec.cost_price * rec.impuesto_item / 100
+
+    # Suma Impuesto item + Precio de Coste - Suma del precio unitario del producto + el impuesto
+    @api.depends('product_qty', 'cost_price','total_impuesto_item')
+    def _compute_suma_impuesto_item_y_cost_price(self):
+        for rec in self:
+                rec.suma_impuesto_item_y_cost_price = rec.cost_price + rec.total_impuesto_item
+    
+    # Importe Total Item Capitulo - Total Item Capitulo incluido impuestos
+    @api.depends('product_qty', 'suma_impuesto_item_y_cost_price')
+    def _compute_total_item_capitulo(self):
+        for rec in self:
+                rec.total_item_capitulo = rec.suma_impuesto_item_y_cost_price * rec.product_qty
+
+    
+    
+    
 
     # Agregados del modulo original
     date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
     product_id = fields.Many2one(comodel_name='product.product', string='Producto')
     reference = fields.Char(string='Referencia', copy=False, )
-    product_qty = fields.Float(string='Cantidad Planificada', copy=False, )
+    product_qty = fields.Float(string='Cantidad Planificada', copy=False, digits=(12,2))
     uom_id = fields.Many2one('uom.uom', string='Unid. de Medida', )
     cost_price = fields.Float(string='Precio Coste', copy=False, )
     longitud = fields.Float(string='Longitud', required=False)
@@ -79,6 +95,7 @@ class ItemCapitulo(models.Model):
 
         string="Color de la Linea",
         required=False,)
+
     @api.onchange('product_id')
     def _onchan_product_id(self):
         for rec in self:

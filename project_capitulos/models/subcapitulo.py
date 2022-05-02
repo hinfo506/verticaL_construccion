@@ -15,11 +15,11 @@ class Subcapitulo(models.Model):
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                        default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
     
-    numero = fields.Char(string='Numero', required=False)
+    numero_subcapitulo = fields.Char(string='Número Subcapítulo', required=False)
 
     @api.onchange('number','capitulo_id')
     def _onchange_join_number(self):
-        self.numero = str(self.capitulo_id.numero_capitulo) + "." + str(self.number)
+        self.numero_subcapitulo = str(self.capitulo_id.numero_capitulo) + "." + str(self.number)
 
     material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all' ,readonly='True')
     labor_total = fields.Float(string='Total Coste Mano de Obra', readonly='True')
@@ -38,7 +38,7 @@ class Subcapitulo(models.Model):
             for line in order.item_capitulo_materiales_ids:
                 # amount_untaxed += 1
                 # amount_untaxed += line.price_subtotal
-                material_total += line.total_cost
+                material_total += line.total_item_capitulo
             order.update({
                 # 'amount_untaxed': amount_untaxed,
                 'material_total': material_total,

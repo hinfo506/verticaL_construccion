@@ -30,8 +30,11 @@
                                 <field name="ancho" />
                                 <field name="alto" />
                                 <field name="cost_price"/>
-                                <field name="actual_quantity"/>
-                                <field name="total_cost"/>
+                                <field name="subtotal_item_capitulo"/>
+                                <field name="impuesto_item"/>
+                                <field name="total_impuesto_item"/>
+                                <field name="actual_quantity" invisible = "1"/>
+                                <field name="total_item_capitulo"/>
                             </group>
                         </group>
                     </sheet>
@@ -56,8 +59,12 @@
                     <field name="ancho" invisible = "1"/>
                     <field name="alto" invisible = "1"/>
                     <field name="cost_price"/>
+                    <field name="subtotal_item_capitulo"/>
+                    <field name="impuesto_item"/>
+                    <field name="total_impuesto_item"/>
+                    <field name="suma_impuesto_item_y_cost_price"/>
                     <field name="actual_quantity" invisible = "1"/>
-                    <field name="total_cost"/>
+                    <field name="total_item_capitulo"/>
                     <field name="uom_id"/>
                     <button type="object" string=" Volumetria" name="met_itemvolumetria" class="btn btn-primary" icon="fa-hand-o-right"/>
                 </tree>
