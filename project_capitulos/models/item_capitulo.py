@@ -4,6 +4,8 @@ from odoo import fields, models, api
 class ItemCapitulo(models.Model):
     _name = 'item.capitulo'
 
+    # Agregados del modulo original
+
     # name = fields.Char(string='Sub-Capitulo', required=True)
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
@@ -15,7 +17,17 @@ class ItemCapitulo(models.Model):
     alto = fields.Float('Alto', default=1)
     impuesto_item = fields.Float('Imp. %', default=1)
     
-    
+    date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
+    product_id = fields.Many2one(comodel_name='product.product', string='Producto')
+    reference = fields.Char(string='Referencia', copy=False, )
+    product_qty = fields.Float(string='Cantidad Planificada', copy=False, digits=(12,2))
+    uom_id = fields.Many2one('uom.uom', string='Unid. de Medida', )
+    cost_price = fields.Float(string='Precio Coste', copy=False, )
+    actual_quantity = fields.Float(string='Cantidad Comprada Actual', )    
+
+    hours = fields.Char(string='Horas', required=False)
+    actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
+    basis = fields.Char(string='Base', required=False)
 
     # declaracion de variables calculadas
 
@@ -56,27 +68,7 @@ class ItemCapitulo(models.Model):
         for rec in self:
                 rec.total_item_capitulo = rec.suma_impuesto_item_y_cost_price * rec.product_qty
 
-    
-    
-    
 
-    # Agregados del modulo original
-    date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
-    product_id = fields.Many2one(comodel_name='product.product', string='Producto')
-    reference = fields.Char(string='Referencia', copy=False, )
-    product_qty = fields.Float(string='Cantidad Planificada', copy=False, digits=(12,2))
-    uom_id = fields.Many2one('uom.uom', string='Unid. de Medida', )
-    cost_price = fields.Float(string='Precio Coste', copy=False, )
-    longitud = fields.Float(string='Longitud', required=False)
-    ancho = fields.Float(string='Ancho', required=False)
-    altura = fields.Float(string='Altura', required=False)
-
-    # actual_quantity = fields.Float(string='Actual Purchased Quantity',compute='_compute_actual_quantity',)
-    actual_quantity = fields.Float(string='Cantidad Comprada Actual', )
-
-    hours = fields.Char(string='Horas', required=False)
-    actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
-    basis = fields.Char(string='Base', required=False)
 
     job_type = fields.Selection(
         selection=[('material', 'Materiales'),
