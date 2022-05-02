@@ -31,7 +31,7 @@
                               <group>
                                 <group>
 <!--                                  <field name="numero" readonly="1"/>-->
-                                  <field name="numero"/>
+                                  <field name="numero_subcapitulo"/>
 
                                   <field name="cantidad" string="Cantidad"/>
                                   <field name="total"/>
@@ -72,6 +72,7 @@
             <field name="model">sub.capitulo</field>
             <field name="arch" type="xml">
                 <tree string="Sub Capitulos">
+                    <field name="numero_subcapitulo" string="Nº"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
                     <field name="cantidad" string="Cantidad" invisible ="1" />
                     <field name="name"/>
