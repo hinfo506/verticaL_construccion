@@ -45,13 +45,13 @@ class ItemCapitulo(models.Model):
                 rec.total_impuesto_item = rec.cost_price * rec.impuesto_item / 100
 
     # Suma Impuesto item + Precio de Coste - Suma del precio unitario del producto + el impuesto
-    @api.depends('product_qty', 'cost_price')
+    @api.depends('product_qty', 'cost_price','total_impuesto_item')
     def _compute_suma_impuesto_item_y_cost_price(self):
         for rec in self:
                 rec.suma_impuesto_item_y_cost_price = rec.cost_price + rec.total_impuesto_item
     
     # Importe Total Item Capitulo - Total Item Capitulo incluido impuestos
-    @api.depends('product_qty')
+    @api.depends('product_qty', 'suma_impuesto_item_y_cost_price')
     def _compute_total_item_capitulo(self):
         for rec in self:
                 rec.total_item_capitulo = rec.suma_impuesto_item_y_cost_price * rec.product_qty
