@@ -29,12 +29,35 @@ class ItemCapitulo(models.Model):
     actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
     basis = fields.Char(string='Base', required=False)
 
+    # Campos Con Seleccion
+    job_type = fields.Selection(
+        selection=[('material', 'Materiales'),
+                   ('labour', 'Mano de Obra'),
+                   ('overhead', 'Gastos Generales'),
+                   ('machinery', 'Maquinaria')],
+        string="Tipo de Costo",
+        required=False, )
+    
+    color_item_id = fields.Selection(
+        selection=[('red', 'Rojo'),
+                   ('blue', 'Azul'),
+                   ('green', 'Verde'),
+                   ('grey', 'Gris'),
+                   ('brown', 'Marrón'),
+                   ('purple', 'Púrpura')],
+
+        string="Color de la Linea",
+        required=False,)
+
+
     # declaracion de variables calculadas
 
     subtotal_item_capitulo = fields.Float(string='Subtotal', store=False, compute='_compute_subtotal_item_capitulo')
     total_impuesto_item = fields.Float(string='ITBIS', store=False, compute='_compute_total_impuesto_item')
     total_item_capitulo = fields.Float(string='Total', store=False, compute='_compute_total_item_capitulo')
     suma_impuesto_item_y_cost_price = fields.Float(string='P.U. + ITBIS', store=False, compute='_compute_suma_impuesto_item_y_cost_price')
+
+
     #############################################################################
 
     # Importe Subtotal item Capitulo - Importe sin contar con los impuestos
@@ -69,24 +92,6 @@ class ItemCapitulo(models.Model):
                 rec.total_item_capitulo = rec.suma_impuesto_item_y_cost_price * rec.product_qty
 
 
-
-    job_type = fields.Selection(
-        selection=[('material', 'Materiales'),
-                   ('labour', 'Mano de Obra'),
-                   ('overhead', 'Gastos Generales'),
-                   ('machinery', 'Maquinaria')],
-        string="Tipo de Costo",
-        required=False, )
-    color_item_id = fields.Selection(
-        selection=[('red', 'Rojo'),
-                   ('blue', 'Azul'),
-                   ('green', 'Verde'),
-                   ('grey', 'Gris'),
-                   ('brown', 'Marrón'),
-                   ('purple', 'Púrpura')],
-
-        string="Color de la Linea",
-        required=False,)
 
     @api.onchange('product_id')
     def _onchan_product_id(self):
