@@ -39,19 +39,19 @@ class ItemCapitulo(models.Model):
                 rec.subtotal_item_capitulo = 0
 
     # Importe Total Impuesto Item - Importe de los impuestos a partir del campo impuesto_item
-    @api.depends('product_qty', 'cost_price', 'longitud', 'ancho', 'alto', 'impuesto_item')
+    @api.depends('cost_price', 'impuesto_item')
     def _compute_total_impuesto_item(self):
         for rec in self:
                 rec.total_impuesto_item = rec.cost_price * rec.impuesto_item / 100
 
     # Suma Impuesto item + Precio de Coste - Suma del precio unitario del producto + el impuesto
-    @api.depends('product_qty', 'cost_price', 'longitud', 'ancho', 'alto', 'impuesto_item')
+    @api.depends('product_qty', 'cost_price')
     def _compute_suma_impuesto_item_y_cost_price(self):
         for rec in self:
                 rec.suma_impuesto_item_y_cost_price = rec.cost_price + rec.total_impuesto_item
     
     # Importe Total Item Capitulo - Total Item Capitulo incluido impuestos
-    @api.depends('product_qty', 'cost_price', 'longitud', 'ancho', 'alto', 'impuesto_item')
+    @api.depends('product_qty')
     def _compute_total_item_capitulo(self):
         for rec in self:
                 rec.total_item_capitulo = rec.suma_impuesto_item_y_cost_price * rec.product_qty
