@@ -14,7 +14,7 @@ class ItemCapitulo(models.Model):
     longitud = fields.Float('Longitud', default=1)
     ancho = fields.Float('Ancho', default=1)
     alto = fields.Float('Alto', default=1)
-    impuesto_item = fields.Float('Imp. %', default=1)
+    impuesto_item = fields.Float('Imp. %', default=18)
     
     date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
     product_id = fields.Many2one(comodel_name='product.product', string='Producto')
