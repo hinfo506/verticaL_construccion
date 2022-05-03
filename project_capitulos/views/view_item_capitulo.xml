@@ -15,24 +15,25 @@
                         </div>
 
                         <group>
-                            <group>
+                            <group name="datos_productos" string="Datos del Producto">
                                 <field name="date"/>
+                                <field name="reference"/>
                                 <field name="job_type"/>
-                                <field name="color_item_id"/>
+                                <field name="color_item_id" invisible= "1"/>
                                 <field name="product_id"/>
                                 <field name="descripcion"/>
-                                <field name="product_qty"/>
-                                <field name="reference" />
                                 <field name="uom_id"/>
                             </group>
-                            <group>
-                                <field name="longitud" />
-                                <field name="ancho" />
-                                <field name="alto" />
+                            <group name="detalle_costes" string="Detalles de Costes">
+                                <field name="product_qty"/>
+                                <field name="longitud" invisible = "1"/>
+                                <field name="ancho" invisible = "1"/>
+                                <field name="alto" invisible = "1"/>
                                 <field name="cost_price"/>
                                 <field name="subtotal_item_capitulo"/>
                                 <field name="impuesto_item"/>
                                 <field name="total_impuesto_item"/>
+                                <field name="suma_impuesto_item_y_cost_price"/>
                                 <field name="actual_quantity" invisible = "1"/>
                                 <field name="total_item_capitulo"/>
                             </group>

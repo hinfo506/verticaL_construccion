@@ -6,7 +6,6 @@ class ItemCapitulo(models.Model):
 
     # Agregados del modulo original
 
-    # name = fields.Char(string='Sub-Capitulo', required=True)
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     descripcion = fields.Text('Descripción')
@@ -15,7 +14,7 @@ class ItemCapitulo(models.Model):
     longitud = fields.Float('Longitud', default=1)
     ancho = fields.Float('Ancho', default=1)
     alto = fields.Float('Alto', default=1)
-    impuesto_item = fields.Float('Imp. %', default=1)
+    impuesto_item = fields.Float('Imp. %', default=18)
     
     date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
     product_id = fields.Many2one(comodel_name='product.product', string='Producto')
@@ -28,6 +27,10 @@ class ItemCapitulo(models.Model):
     hours = fields.Char(string='Horas', required=False)
     actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
     basis = fields.Char(string='Base', required=False)
+
+    # Campos Sumatorios
+    item_volumetria_ids = fields.One2many(comodel_name='item.volumetria', inverse_name='itemcapitulo_id',string='Item Volumetria', required=False)
+    itemvolumetria_count = fields.Integer(string='Itemvolumetria_count', required=False, compute='get_itemvolu_count')
 
     # Campos Con Seleccion
     job_type = fields.Selection(
@@ -50,7 +53,7 @@ class ItemCapitulo(models.Model):
         required=False,)
 
 
-    # declaracion de variables calculadas
+    # Campos de variables calculadas
 
     subtotal_item_capitulo = fields.Float(string='Subtotal', store=False, compute='_compute_subtotal_item_capitulo')
     total_impuesto_item = fields.Float(string='ITBIS', store=False, compute='_compute_total_impuesto_item')
@@ -91,8 +94,6 @@ class ItemCapitulo(models.Model):
         for rec in self:
                 rec.total_item_capitulo = rec.suma_impuesto_item_y_cost_price * rec.product_qty
 
-
-
     @api.onchange('product_id')
     def _onchan_product_id(self):
         for rec in self:
@@ -101,9 +102,7 @@ class ItemCapitulo(models.Model):
             rec.uom_id = rec.product_id.uom_id.id
             rec.cost_price = rec.product_id.standard_price  # lst_price
 
-    item_volumetria_ids = fields.One2many(comodel_name='item.volumetria', inverse_name='itemcapitulo_id',string='Item Volumetria', required=False)
-    itemvolumetria_count = fields.Integer(string='Itemvolumetria_count', required=False, compute='get_itemvolu_count')
-
+    
     def get_itemvolu_count(self):
         for r in self:
             r.itemvolumetria_count = self.env['item.volumetria'].search_count([('itemcapitulo_id', '=', self.id)])
