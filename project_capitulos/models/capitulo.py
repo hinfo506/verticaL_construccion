@@ -5,11 +5,12 @@ class Capitulo(models.Model):
     _name = 'capitulo.capitulo'
 
     name = fields.Char(string='Capitulo', required=True)
-    numero_capitulo = fields.Char(string=u'Número capítulo', readonly=True,default='New')
+    numero_capitulo = fields.Char(string=u'Número capítulo', readonly=True, default='New')
+    # numero_capitulo = fields.Float('Número capítulo', readonly=True, default='1')
     @api.model
     def create(self,vals):
-        if vals.get('numero_capitulo','New') == 'New':
-            vals['numero_capitulo'] = self.env['ir.sequence'].next_by_code('secuencia.capitulo') or 'New'
+        if vals.get('numero_capitulo','1') == '1':
+            vals['numero_capitulo'] = self.env['ir.sequence'].next_by_code('secuencia.capitulo') or '1'
         result = super(Capitulo, self).create(vals)
         return result
 
