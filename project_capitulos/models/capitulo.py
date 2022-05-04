@@ -1,12 +1,24 @@
-from odoo import fields, models, api
+import ast
+import json
+from collections import defaultdict
+from datetime import timedelta, datetime
+from random import randint
+
+from odoo import api, Command, fields, models, tools, SUPERUSER_ID, _
+from odoo.exceptions import UserError, ValidationError, AccessError
+from odoo.tools import format_amount
+from odoo.osv.expression import OR
 
 
 class Capitulo(models.Model):
     _name = 'capitulo.capitulo'
+    _inherit = ['mail.thread','mail.activity.mixin']
+    # _inherit = ['portal.mixin', 'mail.alias.mixin', 'mail.thread', 'mail.activity.mixin', 'rating.parent.mixin']
 
     name = fields.Char(string='Capitulo', required=True)
     numero_capitulo = fields.Char(string=u'Número capítulo', readonly=True, default='New')
     # numero_capitulo = fields.Float('Número capítulo', readonly=True, default='1')
+
     @api.model
     def create(self,vals):
         if vals.get('numero_capitulo','1') == '1':

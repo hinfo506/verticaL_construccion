@@ -3,6 +3,7 @@ from odoo import fields, models, api
 
 class ItemCapitulo(models.Model):
     _name = 'item.capitulo'
+    _inherit = ['mail.activity.mixin']
 
     # Agregados del modulo original
 
