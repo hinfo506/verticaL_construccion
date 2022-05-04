@@ -3,7 +3,7 @@ from odoo.exceptions import UserError, ValidationError,RedirectWarning
 
 class Subcapitulo(models.Model):
     _name = 'sub.capitulo'
-    _inherit = ['mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string='Subcapítulo', required=True)
     descripcion = fields.Text('Descripción del Subcapítulo')
