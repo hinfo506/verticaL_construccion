@@ -23,6 +23,7 @@
         "views/project_inherit.xml",
         "views/view_item_capitulo.xml",
         "views/view_item_volumetria.xml",
+        "views/view_partidas.xml",
         "views/sequence.xml",
         
     ],

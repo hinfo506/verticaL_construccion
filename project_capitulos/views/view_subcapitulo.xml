@@ -8,8 +8,11 @@
                 <form string="Sub Capitulos">
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button class="oe_stat_button" name="action_view_item" type="object" icon="fa-archive">
-                                <field name="item_count"   string="Item" widget="statinfo"/>
+<!--                            <button class="oe_stat_button" name="action_view_item" type="object" icon="fa-archive">-->
+<!--                                <field name="item_count"   string="Item" widget="statinfo"/>-->
+<!--                            </button>-->
+                            <button class="oe_stat_button" name="action_view_partidas" type="object" icon="fa-archive">
+                                <field name="partidas_count"   string="Partidas" widget="statinfo"/>
                             </button>
                             <button class="oe_stat_button" name="met_activi_subcapitulo" type="object" icon="fa-archive">
                                 <field name="activ_count"   string="Actividades" widget="statinfo"/>
@@ -56,7 +59,7 @@
 
                         </notebook>
                         <group class="oe_subtotal_footer oe_right" colspan="2" name="jobcost_total">
-                            <field name="material_total" widget="monetary"/>
+<!--                            <field name="material_total" widget="monetary"/>-->
                             <field name="labor_total" widget="monetary"/>
                             <field name="machinerycost_total" widget="monetary"/>
                             <field name="overhead_total" widget="monetary"/>
@@ -82,8 +85,8 @@
                     <field name="cantidad" string="Cantidad" invisible ="1" />
                     <field name="name"/>
                     <field name="descripcion" invisible = "1"/>
-                    <field name="total" string="Total"/>
-                    <button type="object" string=" Items" name="action_view_item" class="btn btn-primary" icon="fa-hand-o-right"/>
+<!--                    <field name="total" string="Total"/>-->
+                    <button type="object" string=" Partida" name="action_view_partidas" class="btn btn-primary" icon="fa-hand-o-right"/>
                     
                 </tree>
             </field>

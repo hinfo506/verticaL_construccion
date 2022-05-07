@@ -3,3 +3,4 @@ access_capitulo,capitulo.capitulo,model_capitulo_capitulo,,1,1,1,1
 access_sub_capitulo,sub.capitulo,model_sub_capitulo,,1,1,1,1
 access_item_capitulo,item_capitulo,model_item_capitulo,,1,1,1,1
 access_item_volumetria,item.volumetria,model_item_volumetria,,1,1,1,1
+access_partidas_partidas,partidas.partidas,model_partidas_partidas,,1,1,1,1

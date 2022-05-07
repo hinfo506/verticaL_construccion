@@ -22,7 +22,7 @@ class Subcapitulo(models.Model):
     def _onchange_join_number(self):
         self.numero_subcapitulo = str(self.capitulo_id.numero_capitulo) + "." + str(self.number)
 
-    material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all' ,readonly='True')
+    # material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all' ,readonly='True')
     labor_total = fields.Float(string='Total Coste Mano de Obra', readonly='True')
     machinerycost_total = fields.Float(string='Total Coste Maquinaria', readonly='True')
     overhead_total = fields.Float(string='Total Costes Generales', readonly='True')
@@ -47,40 +47,40 @@ class Subcapitulo(models.Model):
                 # 'amount_total': amount_untaxed,
             })
 
+    partidas_ids = fields.One2many(comodel_name='partidas.partidas',inverse_name='subcapitulo_id', string='Partidas id', required=False)
 
+    # item_capitulo_materiales_ids = fields.One2many(
+    #     comodel_name='item.capitulo',
+    #     inverse_name='subcapitulo_id',
+    #     string='Materiales',
+    #     domain=[('job_type', '=', 'material')],
+    # )
+    # item_mano_obra_ids = fields.One2many(
+    #     comodel_name='item.capitulo',
+    #     inverse_name='subcapitulo_id',
+    #     string='Mano de Obra',
+    #     domain=[('job_type', '=', 'labour')],
+    # )
+    # item_capitulo_gastos_generales = fields.One2many(
+    #     comodel_name='item.capitulo',
+    #     inverse_name='subcapitulo_id',
+    #     string='Gastos Generales',
+    #     copy=False,
+    #     domain=[('job_type', '=', 'overhead')],
+    # )
+    #
+    # item_capitulo_maquinaria = fields.One2many(
+    #     comodel_name='item.capitulo',
+    #     inverse_name='subcapitulo_id',
+    #     string='Maquinaria',
+    #     domain=[('job_type', '=', 'machinery')],
+    # )
+    #
+    partidas_count = fields.Integer(string='Contador Item', compute='get_partidas_count')
 
-    item_capitulo_materiales_ids = fields.One2many(
-        comodel_name='item.capitulo',
-        inverse_name='subcapitulo_id',
-        string='Materiales',
-        domain=[('job_type', '=', 'material')],
-    )
-    item_mano_obra_ids = fields.One2many(
-        comodel_name='item.capitulo',
-        inverse_name='subcapitulo_id',
-        string='Mano de Obra',
-        domain=[('job_type', '=', 'labour')],
-    )
-    item_capitulo_gastos_generales = fields.One2many(
-        comodel_name='item.capitulo',
-        inverse_name='subcapitulo_id',
-        string='Gastos Generales',
-        copy=False,
-        domain=[('job_type', '=', 'overhead')],
-    )
-
-    item_capitulo_maquinaria = fields.One2many(
-        comodel_name='item.capitulo',
-        inverse_name='subcapitulo_id',
-        string='Maquinaria',
-        domain=[('job_type', '=', 'machinery')],
-    )
-
-    item_count = fields.Integer(string='Contador Item', compute='get_item_count')
-
-    def get_item_count(self):
+    def get_partidas_count(self):
         for r in self:
-            r.item_count = self.env['item.capitulo'].search_count([('subcapitulo_id', '=',  self.id)])
+            r.partidas_count = self.env['partidas.partidas'].search_count([('subcapitulo_id', '=',  self.id)])
 
     ###############
     # Actividades #
@@ -105,14 +105,25 @@ class Subcapitulo(models.Model):
             #'context': dict(self._context, default_directory_id=self.id),
         }
 
-    def action_view_item(self):
+    def action_view_partidas(self):
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Items',
-            'res_model': 'item.capitulo',
+            'name': 'Partidas',
+            'res_model': 'partidas.partidas',
             'view_mode': 'tree,form',
             'domain': [('subcapitulo_id', '=',  self.id)],
-            'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
+            # 'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
             'context': dict(self._context, default_subcapitulo_id=self.id),
         }
+
+    # def action_view_item(self):
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'name': 'Items',
+    #         'res_model': 'item.capitulo',
+    #         'view_mode': 'tree,form',
+    #         'domain': [('subcapitulo_id', '=',  self.id)],
+    #         'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
+    #         'context': dict(self._context, default_subcapitulo_id=self.id),
+    #     }
 
