@@ -11,11 +11,11 @@
 <!--                            <button class="oe_stat_button" name="action_view_item" type="object" icon="fa-archive">-->
 <!--                                <field name="item_count"   string="Item" widget="statinfo"/>-->
 <!--                            </button>-->
-                            <button class="oe_stat_button" name="action_view_partidas" type="object" icon="fa-archive">
-                                <field name="partidas_count"   string="Partidas" widget="statinfo"/>
-                            </button>
                             <button class="oe_stat_button" name="met_activi_subcapitulo" type="object" icon="fa-archive">
                                 <field name="activ_count"   string="Actividades" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" name="action_view_partidas" type="object" icon="fa-archive">
+                                <field name="partidas_count"   string="Partidas" widget="statinfo"/>
                             </button>
                         </div>
                             <group>
@@ -80,13 +80,15 @@
             <field name="model">sub.capitulo</field>
             <field name="arch" type="xml">
                 <tree string="Sub Capitulos">
-                    <field name="numero_subcapitulo" string="Nº"/>
+                    <field name="numero_subcapitulo" string="Nº Subcapítulo"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
                     <field name="cantidad" string="Cantidad" invisible ="1" />
-                    <field name="name"/>
+                    <field name="name" string="Descripción Subcapítulo"/>
                     <field name="descripcion" invisible = "1"/>
-<!--                    <field name="total" string="Total"/>-->
-                    <button type="object" string=" Partida" name="action_view_partidas" class="btn btn-primary" icon="fa-hand-o-right"/>
+                    <field name="total" string="Total"/>
+                     <button type="object" string=" Partida" name="action_view_partidas" class="btn btn-primary" icon="fa-hand-o-right"/>
+                    <field name="capitulo_id" string="Capítulo"/>
+                   
                     
                 </tree>
             </field>
