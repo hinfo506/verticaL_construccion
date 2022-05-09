@@ -44,11 +44,11 @@ class ProyectosInherit(models.Model):
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'cambio.precio',
-            # 'context': {
+            'context': {
             #     'default_cliente_id': self.cliente_id.id,
-            #     'default_sol_p_id': self.id,
+                'default_id': self.id,
             #     'default_area_ids': self._context.get('area_ids', [])
-            # },
+            },
             'type': 'ir.actions.act_window',
             'target': 'new',
         }
