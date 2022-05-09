@@ -7,6 +7,10 @@ class CambioPrecioMasivo(models.TransientModel):
     name = fields.Char()
 
     nuevo_precio = fields.Float(string='Nuevo Coste', required=False)
+    product_id = fields.Many2one(
+        comodel_name='product.product',
+        string='Product_id',
+        required=False)
 
     # module_ids = env['ir.module.module'].search([('name', 'in', module_list), ('state', '=', 'uninstalled')])
 

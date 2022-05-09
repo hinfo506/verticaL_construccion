@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="cambio_precio_view_form" model="ir.ui.view">
+            <field name="name">cambio_precio_view_form</field>
+            <field name="model">cambio.precio</field>
+            <field name="arch" type="xml">
+                <form string="cambio_precio_form">
+                    <sheet>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="nuevo_precio"/>
+                            <field name="project_id">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

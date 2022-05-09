@@ -46,7 +46,7 @@ class ProyectosInherit(models.Model):
             'res_model': 'cambio.precio',
             'context': {
             #     'default_cliente_id': self.cliente_id.id,
-                'default_id': self.id,
+            #     'default_id': self.id,
             #     'default_area_ids': self._context.get('area_ids', [])
             },
             'type': 'ir.actions.act_window',
