@@ -8,6 +8,7 @@ class ProyectosInherit(models.Model):
 
     capitulos_id = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='project_id', string='Capitulos_id', required=False)
     capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
+    item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='project_id', string='Item_ids', required=False)
 
     def get_count_capitulos(self):
         for r in self:
@@ -46,7 +47,8 @@ class ProyectosInherit(models.Model):
             'res_model': 'cambio.precio',
             'context': {
             #     'default_cliente_id': self.cliente_id.id,
-            #     'default_id': self.id,
+                'default_project_id': self.id,
+                # 'default_item_ids': self.item_ids.id,
             #     'default_area_ids': self._context.get('area_ids', [])
             },
             'type': 'ir.actions.act_window',

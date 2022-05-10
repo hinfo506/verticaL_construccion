@@ -14,8 +14,14 @@
                             <field name="project_id">
                                 <tree editable="bottom">
                                     <field name="name"/>
+                                    <field name="user_id"/>
                                 </tree>
                             </field>
+                            <field name="project_ids">
+
+                            </field>
+                            <field name="item_ids"/>
+
 
                         </group>
                     </sheet>

@@ -12,6 +12,7 @@ class ItemCapitulo(models.Model):
     descripcion = fields.Text('Descripción')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     partidas_id = fields.Many2one('partidas.partidas', string='Partidas')
+    project_id = fields.Many2one('project.project', string='Projecto')
     longitud = fields.Float('Longitud', default=1)
     ancho = fields.Float('Ancho', default=1)
     alto = fields.Float('Alto', default=1)

@@ -38,6 +38,17 @@ class Capitulo(models.Model):
         string='Subcapitulos',
         required=False)
 
+    # capitulo_ids = fields.One2many(
+    #     comodel_name='item.capitulo',
+    #     inverse_name='capitulo_id',
+    #     string='Capitulo_ids',
+    #     required=False)
+    # product_ids = fields.One2many(
+    #     comodel_name='product.product',
+    #     inverse_name='capitulo_id',
+    #     string='Product_ids',
+    #     required=False)
+
     def subcapitulos_count(self):
         count = self.env['sub.capitulo'].search_count([('capitulo_id', '=', self.id)])
         self.sub_count = count
