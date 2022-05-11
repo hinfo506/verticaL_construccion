@@ -95,3 +95,20 @@ class Partidas(models.Model):
             'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
             'context': dict(self._context, default_partidas_id=self.id),
         }
+
+    def wizard_cambio_precio(self):
+        # raise ValidationError(self.id)
+        return {
+            'name': 'Cambiar Precio Masivo desde Partidas',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'cambio.precio',
+            'context': {
+            #     'default_cliente_id': self.cliente_id.id,
+                'default_partida_id': self.id,
+                # 'default_item_ids': self.item_ids.id,
+            #     'default_area_ids': self._context.get('area_ids', [])
+            },
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }

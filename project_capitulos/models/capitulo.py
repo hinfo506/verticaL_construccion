@@ -97,3 +97,20 @@ class Capitulo(models.Model):
             'domain': [('res_id', '=',  self.id),('res_model','=','capitulo.capitulo')],
             #'context': dict(self._context, default_directory_id=self.id),
         }
+
+    def wizard_cambio_precio(self):
+        # raise ValidationError(self.id)
+        return {
+            'name': 'Cambiar Precio Masivo desde Capitulo',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'cambio.precio',
+            'context': {
+            #     'default_cliente_id': self.cliente_id.id,
+                'default_capitulo_id': self.id,
+                # 'default_item_ids': self.item_ids.id,
+            #     'default_area_ids': self._context.get('area_ids', [])
+            },
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }

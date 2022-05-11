@@ -41,7 +41,7 @@ class ProyectosInherit(models.Model):
     def wizard_cambio_precio(self):
         # raise ValidationError(self.id)
         return {
-            'name': 'Cambiar Precio Masivo',
+            'name': 'Cambiar Precio Masivo desde Proyecto',
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'cambio.precio',

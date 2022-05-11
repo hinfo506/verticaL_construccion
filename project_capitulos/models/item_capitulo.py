@@ -11,8 +11,12 @@ class ItemCapitulo(models.Model):
     fecha_finalizacion = fields.Date('Fecha Finalización')
     descripcion = fields.Text('Descripción')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
+    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo')
     partidas_id = fields.Many2one('partidas.partidas', string='Partidas')
-    project_id = fields.Many2one('project.project', string='Projecto')
+    project_id = fields.Many2one('project.project', string='Proyecto')
+
+    # related_subcapitulo = fields.Many2one(string='Subcapitulo', related='partidas_id.subcapitulo_id')
+
     longitud = fields.Float('Longitud', default=1)
     ancho = fields.Float('Ancho', default=1)
     alto = fields.Float('Alto', default=1)
@@ -24,8 +28,7 @@ class ItemCapitulo(models.Model):
     product_qty = fields.Float(string='Cantidad Planificada', copy=False, digits=(12,2))
     uom_id = fields.Many2one('uom.uom', string='Unid. de Medida', )
     cost_price = fields.Float(string='Precio Coste', copy=False, )
-    actual_quantity = fields.Float(string='Cantidad Comprada Actual', )    
-
+    actual_quantity = fields.Float(string='Cantidad Comprada Actual', )
     hours = fields.Char(string='Horas', required=False)
     actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
     basis = fields.Char(string='Base', required=False)

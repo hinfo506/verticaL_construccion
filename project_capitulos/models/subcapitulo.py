@@ -12,6 +12,11 @@ class Subcapitulo(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
+    subcapitulo_ids = fields.One2many(
+        comodel_name='item.capitulo',
+        inverse_name='subcapitulo_id',
+        string='Subcapitulo',
+        required=False)
 
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                        default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
@@ -126,4 +131,21 @@ class Subcapitulo(models.Model):
     #         'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
     #         'context': dict(self._context, default_subcapitulo_id=self.id),
     #     }
+
+    def wizard_cambio_precio(self):
+        # raise ValidationError(self.id)
+        return {
+            'name': 'Cambiar Precio Masivo desde Subcapitulo',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'cambio.precio',
+            'context': {
+            #     'default_cliente_id': self.cliente_id.id,
+                'default_subcapitulo_id': self.id,
+                # 'default_item_ids': self.item_ids.id,
+            #     'default_area_ids': self._context.get('area_ids', [])
+            },
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }
 
