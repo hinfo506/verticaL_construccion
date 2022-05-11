@@ -27,8 +27,7 @@
                                         <field name="date"/>
                                         <field name="project_id"/>
                                         <field name="capitulo_id"/>
-<!--                                        <field name="capitulo_id"/>-->
-<!--                                        <field name="related_subcapitulo"/>-->
+                                        <field name="subcapitulo_id"/>
                                         <field name="partidas_id"/>
                                         <field name="product_qty"/>
                                         <field name="cost_price"/>

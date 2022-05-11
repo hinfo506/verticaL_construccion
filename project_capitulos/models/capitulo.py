@@ -38,17 +38,6 @@ class Capitulo(models.Model):
         string='Subcapitulos',
         required=False)
 
-    # capitulo_ids = fields.One2many(
-    #     comodel_name='item.capitulo',
-    #     inverse_name='capitulo_id',
-    #     string='Capitulo_ids',
-    #     required=False)
-    # product_ids = fields.One2many(
-    #     comodel_name='product.product',
-    #     inverse_name='capitulo_id',
-    #     string='Product_ids',
-    #     required=False)
-
     def subcapitulos_count(self):
         count = self.env['sub.capitulo'].search_count([('capitulo_id', '=', self.id)])
         self.sub_count = count
@@ -61,8 +50,6 @@ class Capitulo(models.Model):
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.subcapitulo_ids.ids)],
             'context': dict(self._context, default_capitulo_id=self.id),
-            # 'context': dict(self._context, default_vehiculo=self.vehicle_id.id, default_inscription_id=self.id,
-            #                 default_partner_id=self.purchaser_id.id)
         }
 
     def ir_id_capitulo(self):
@@ -95,7 +82,6 @@ class Capitulo(models.Model):
             'res_model': 'mail.activity',
             'view_mode': 'kanban,tree,form',
             'domain': [('res_id', '=',  self.id),('res_model','=','capitulo.capitulo')],
-            #'context': dict(self._context, default_directory_id=self.id),
         }
 
     def wizard_cambio_precio(self):
@@ -106,10 +92,7 @@ class Capitulo(models.Model):
             'view_mode': 'form',
             'res_model': 'cambio.precio',
             'context': {
-            #     'default_cliente_id': self.cliente_id.id,
                 'default_capitulo_id': self.id,
-                # 'default_item_ids': self.item_ids.id,
-            #     'default_area_ids': self._context.get('area_ids', [])
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

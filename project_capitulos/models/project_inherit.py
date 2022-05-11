@@ -39,17 +39,13 @@ class ProyectosInherit(models.Model):
             project.capitulos_kanban_count = result_with_subtasks[project.id]
 
     def wizard_cambio_precio(self):
-        # raise ValidationError(self.id)
         return {
             'name': 'Cambiar Precio Masivo desde Proyecto',
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'cambio.precio',
             'context': {
-            #     'default_cliente_id': self.cliente_id.id,
                 'default_project_id': self.id,
-                # 'default_item_ids': self.item_ids.id,
-            #     'default_area_ids': self._context.get('area_ids', [])
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

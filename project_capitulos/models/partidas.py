@@ -5,7 +5,6 @@ class Partidas(models.Model):
     _name = 'partidas.partidas'
 
     subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo id', required=False)
-
     name = fields.Char(string='Partida', required=True)
     descripcion = fields.Text('Descripción de la Partida')
     cantidad = fields.Integer('Cantidad')
@@ -14,10 +13,8 @@ class Partidas(models.Model):
     fecha_finalizacion = fields.Date('Acaba el')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo')
-
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
-
     numero_partida = fields.Char(string='Número Partida', required=False)
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
@@ -104,10 +101,7 @@ class Partidas(models.Model):
             'view_mode': 'form',
             'res_model': 'cambio.precio',
             'context': {
-            #     'default_cliente_id': self.cliente_id.id,
                 'default_partida_id': self.id,
-                # 'default_item_ids': self.item_ids.id,
-            #     'default_area_ids': self._context.get('area_ids', [])
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

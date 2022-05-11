@@ -5,8 +5,6 @@ class ItemCapitulo(models.Model):
     _name = 'item.capitulo'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    # Agregados del modulo original
-
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     descripcion = fields.Text('Descripción')
@@ -14,8 +12,6 @@ class ItemCapitulo(models.Model):
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo')
     partidas_id = fields.Many2one('partidas.partidas', string='Partidas')
     project_id = fields.Many2one('project.project', string='Proyecto')
-
-    # related_subcapitulo = fields.Many2one(string='Subcapitulo', related='partidas_id.subcapitulo_id')
 
     longitud = fields.Float('Longitud', default=1)
     ancho = fields.Float('Ancho', default=1)
@@ -59,7 +55,6 @@ class ItemCapitulo(models.Model):
 
 
     # Campos de variables calculadas
-
     subtotal_item_capitulo = fields.Float(string='Subtotal', store=False, compute='_compute_subtotal_item_capitulo')
     total_impuesto_item = fields.Float(string='ITBIS', store=False, compute='_compute_total_impuesto_item')
     total_item_capitulo = fields.Float(string='Total', store=False, compute='_compute_total_item_capitulo')

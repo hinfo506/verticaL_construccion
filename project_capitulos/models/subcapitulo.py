@@ -12,22 +12,15 @@ class Subcapitulo(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
-    subcapitulo_ids = fields.One2many(
-        comodel_name='item.capitulo',
-        inverse_name='subcapitulo_id',
-        string='Subcapitulo',
-        required=False)
-
+    subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                        default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
-    
     numero_subcapitulo = fields.Char(string='Número Subcapítulo', required=False)
 
     @api.onchange('number','capitulo_id')
     def _onchange_join_number(self):
         self.numero_subcapitulo = str(self.capitulo_id.numero_capitulo) + "." + str(self.number)
 
-    # material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all' ,readonly='True')
     labor_total = fields.Float(string='Total Coste Mano de Obra', readonly='True')
     machinerycost_total = fields.Float(string='Total Coste Maquinaria', readonly='True')
     overhead_total = fields.Float(string='Total Costes Generales', readonly='True')
@@ -53,34 +46,6 @@ class Subcapitulo(models.Model):
             })
 
     partidas_ids = fields.One2many(comodel_name='partidas.partidas',inverse_name='subcapitulo_id', string='Partidas id', required=False)
-
-    # item_capitulo_materiales_ids = fields.One2many(
-    #     comodel_name='item.capitulo',
-    #     inverse_name='subcapitulo_id',
-    #     string='Materiales',
-    #     domain=[('job_type', '=', 'material')],
-    # )
-    # item_mano_obra_ids = fields.One2many(
-    #     comodel_name='item.capitulo',
-    #     inverse_name='subcapitulo_id',
-    #     string='Mano de Obra',
-    #     domain=[('job_type', '=', 'labour')],
-    # )
-    # item_capitulo_gastos_generales = fields.One2many(
-    #     comodel_name='item.capitulo',
-    #     inverse_name='subcapitulo_id',
-    #     string='Gastos Generales',
-    #     copy=False,
-    #     domain=[('job_type', '=', 'overhead')],
-    # )
-    #
-    # item_capitulo_maquinaria = fields.One2many(
-    #     comodel_name='item.capitulo',
-    #     inverse_name='subcapitulo_id',
-    #     string='Maquinaria',
-    #     domain=[('job_type', '=', 'machinery')],
-    # )
-    #
     partidas_count = fields.Integer(string='Contador Item', compute='get_partidas_count')
 
     def get_partidas_count(self):
@@ -97,9 +62,6 @@ class Subcapitulo(models.Model):
             count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','sub.capitulo')])
             r.activ_count = count if count else 0
 
-
-
-
     def met_activi_subcapitulo(self):
         return {
             'type': 'ir.actions.act_window',
@@ -107,7 +69,6 @@ class Subcapitulo(models.Model):
             'res_model': 'mail.activity',
             'view_mode': 'kanban,tree,form',
             'domain': [('res_id', '=',  self.id),('res_model','=','sub.capitulo')],
-            #'context': dict(self._context, default_directory_id=self.id),
         }
 
     def action_view_partidas(self):
@@ -117,20 +78,8 @@ class Subcapitulo(models.Model):
             'res_model': 'partidas.partidas',
             'view_mode': 'tree,form',
             'domain': [('subcapitulo_id', '=',  self.id)],
-            # 'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
             'context': dict(self._context, default_subcapitulo_id=self.id),
         }
-
-    # def action_view_item(self):
-    #     return {
-    #         'type': 'ir.actions.act_window',
-    #         'name': 'Items',
-    #         'res_model': 'item.capitulo',
-    #         'view_mode': 'tree,form',
-    #         'domain': [('subcapitulo_id', '=',  self.id)],
-    #         'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
-    #         'context': dict(self._context, default_subcapitulo_id=self.id),
-    #     }
 
     def wizard_cambio_precio(self):
         # raise ValidationError(self.id)
@@ -140,10 +89,7 @@ class Subcapitulo(models.Model):
             'view_mode': 'form',
             'res_model': 'cambio.precio',
             'context': {
-            #     'default_cliente_id': self.cliente_id.id,
                 'default_subcapitulo_id': self.id,
-                # 'default_item_ids': self.item_ids.id,
-            #     'default_area_ids': self._context.get('area_ids', [])
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

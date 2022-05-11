@@ -18,7 +18,6 @@ class CambioPrecioMasivo(models.TransientModel):
     # aki tengo los item que pertenecen a ese proyecto
     @api.onchange('product_id')
     def onchange_product(self):
-        # raise ValidationError(self.capitulo_id)
         for record in self:
             if (record.product_id and record.project_id) or record.capitulo_id or record.subcapitulo_id or record.partida_id:
                 data = [('project_id', '=', record.project_id.id), ('product_id', '=', record.product_id.id)]
