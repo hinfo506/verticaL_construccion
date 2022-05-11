@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <form string="cambio_precio_form">
                     <sheet>
-                        <div class="alert alert-info text-center o_form_header" attrs="{'invisible': [('is_guardado','=',False)]}" role="success">
+                        <div class="success success-info text-center o_form_header" attrs="{'invisible': [('is_guardado','=',False)]}" role="success">
                             <a class="close" data-dismiss="success" href="#">x</a>
                             <div>
                                 <strong>Se a cambiado el precio de coste satisfactoriamente</strong>
