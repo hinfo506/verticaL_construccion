@@ -50,8 +50,6 @@ class Capitulo(models.Model):
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.subcapitulo_ids.ids)],
             'context': dict(self._context, default_capitulo_id=self.id),
-            # 'context': dict(self._context, default_vehiculo=self.vehicle_id.id, default_inscription_id=self.id,
-            #                 default_partner_id=self.purchaser_id.id)
         }
 
     def ir_id_capitulo(self):
@@ -84,5 +82,18 @@ class Capitulo(models.Model):
             'res_model': 'mail.activity',
             'view_mode': 'kanban,tree,form',
             'domain': [('res_id', '=',  self.id),('res_model','=','capitulo.capitulo')],
-            #'context': dict(self._context, default_directory_id=self.id),
+        }
+
+    def wizard_cambio_precio(self):
+        # raise ValidationError(self.id)
+        return {
+            'name': 'Cambiar Precio Masivo desde Capitulo',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'cambio.precio',
+            'context': {
+                'default_capitulo_id': self.id,
+            },
+            'type': 'ir.actions.act_window',
+            'target': 'new',
         }

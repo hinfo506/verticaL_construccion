@@ -9,6 +9,13 @@
             <field name="inherit_id" ref="project.edit_project"/>
             <field name="arch" type="xml">
 
+                <xpath expr="//header" position="inside">
+                    <button name='wizard_cambio_precio' string='Cambiar Precio Masivo'
+                            class='oe_highlight'
+                            type='object'
+                        />
+                </xpath>
+
                 <xpath expr="//sheet//div//button" position="before">
                     <button class="oe_stat_button" name="met_capitulos" type="object" icon="fa-archive">
                         <field name="capitulos_count"  widget="statinfo"/>
@@ -25,6 +32,14 @@
                                 <field name="total"/>
                                 <!-- <field name="descripcion"/> -->
                                 <button type="object" string=" Subcapítulos" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Items">
+                        <field name="item_ids">
+                            <tree>
+                                <field name="job_type"/>
+                                <field name="product_id"/>
                             </tree>
                         </field>
                     </page>

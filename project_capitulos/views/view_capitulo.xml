@@ -7,6 +7,12 @@
             <field name="model">capitulo.capitulo</field>
             <field name="arch" type="xml">
                 <form string="Capítulos">
+                    <header>
+                        <button name='wizard_cambio_precio' string='Cambiar Precio Masivo'
+                            class='oe_highlight'
+                            type='object'
+                        />
+                    </header>
                     <sheet>
 <!--                        <field name="subcapitulos_count"/>-->
                         <div class="oe_button_box" name="button_box">
@@ -55,7 +61,7 @@
                             <page string="Subcapítulos">
                                 <field name="subcapitulo_ids">
 <!--                                    <tree editable="bottom">-->
-                                    <tree >
+                                    <tree>
                                         <field name="name"/>
                                         <field name="descripcion"/>
                                         <field name="total"/>
@@ -82,13 +88,13 @@
                 <tree string="Capitulos" class = "project_capitulos_Capitulos" default_order="numero_capitulo">
                     <field name="numero_capitulo" string="Nº"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
+                    <button type="object" string=" Detalles" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="cantidad" string="Cantidad" invisible ="1"/>
                     <field name="name" string="Descripción Capítulo"/>
                     <field name="total"/>
                     <button type="object" string=" Subcapítulos" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="project_id"/>
                     <!-- <field name="descripcion" /> -->
-                    
                 </tree>
             </field>
         </record>

@@ -5,7 +5,6 @@ class Partidas(models.Model):
     _name = 'partidas.partidas'
 
     subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo id', required=False)
-
     name = fields.Char(string='Partida', required=True)
     descripcion = fields.Text('Descripción de la Partida')
     cantidad = fields.Integer('Cantidad')
@@ -14,10 +13,8 @@ class Partidas(models.Model):
     fecha_finalizacion = fields.Date('Acaba el')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo')
-
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
-
     numero_partida = fields.Char(string='Número Partida', required=False)
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
@@ -94,4 +91,18 @@ class Partidas(models.Model):
             'domain': [('partidas_id', '=',  self.id)],
             'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
             'context': dict(self._context, default_partidas_id=self.id),
+        }
+
+    def wizard_cambio_precio(self):
+        # raise ValidationError(self.id)
+        return {
+            'name': 'Cambiar Precio Masivo desde Partidas',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'cambio.precio',
+            'context': {
+                'default_partida_id': self.id,
+            },
+            'type': 'ir.actions.act_window',
+            'target': 'new',
         }
