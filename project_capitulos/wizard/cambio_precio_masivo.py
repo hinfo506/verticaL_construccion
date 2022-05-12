@@ -6,7 +6,7 @@ class CambioPrecioMasivo(models.TransientModel):
     _name = 'cambio.precio'
 
     nuevo_precio = fields.Float(string='Nuevo Coste', required=False)
-    product_id = fields.Many2one(comodel_name='product.product', string='Artículo', required=False)
+    product_id = fields.Many2one(comodel_name='product.product', string='Artículo', required=True)
     project_id = fields.Many2one(comodel_name='project.project', string='Project_id', required=False)
     capitulo_id = fields.Many2one(comodel_name='capitulo.capitulo', string='Capitulo', required=False)
     subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo', required=False)
@@ -14,6 +14,7 @@ class CambioPrecioMasivo(models.TransientModel):
     is_guardado = fields.Boolean(string='Is_guardado', default=False)
     is_vacio = fields.Boolean(string='Is_vacio', default=False)
     item_ids = fields.Many2many(comodel_name='item.capitulo', string='Item')
+    info = fields.Html(string='Info', required=False)
 
     # aki tengo los item que pertenecen a ese proyecto
     @api.onchange('product_id')
@@ -30,13 +31,19 @@ class CambioPrecioMasivo(models.TransientModel):
                     data = [('partidas_id', '=', record.partida_id.id), ('product_id', '=', record.product_id.id)]
                 items = self.env['item.capitulo'].search(data)
                 record.item_ids = items
-                if not items:
-                    self.is_vacio = True
+
+                if record.item_ids:
+                    self.is_vacio = False
+                    # else:
+                    #     self.is_vacio = False
                     # raise ValidationError('no hay articulos')
+                if not record.item_ids:
+                    self.is_vacio = True
 
 
 
     def action_guardar_nuevo(self):
+        # if self.product_id and self.nuevo_precio:
         items = self.env['item.capitulo'].browse(self.item_ids.ids)
         items.write({'cost_price': self.nuevo_precio})
         return {
@@ -49,10 +56,15 @@ class CambioPrecioMasivo(models.TransientModel):
                 'default_partida_id': self.partida_id.id if self.partida_id else False,
                 'default_project_id': self.project_id.id,
                 'default_is_guardado': True,
+                'default_is_vacio': False,
             },
             'target': 'new',
             'type': 'ir.actions.act_window',
         }
+        # else:
+        #     raise ValidationError('Debe selecciona un articulo')
+
+
 
     def action_guardar(self):
         items = self.env['item.capitulo'].browse(self.item_ids.ids)
