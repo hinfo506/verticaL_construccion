@@ -11,7 +11,8 @@ class CambioPrecioMasivo(models.TransientModel):
     capitulo_id = fields.Many2one(comodel_name='capitulo.capitulo', string='Capitulo', required=False)
     subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo', required=False)
     partida_id = fields.Many2one(comodel_name='partidas.partidas', string='Partida', required=False)
-    is_guardado = fields.Boolean(string='Is_guardado',default=False)
+    is_guardado = fields.Boolean(string='Is_guardado', default=False)
+    is_vacio = fields.Boolean(string='Is_vacio', default=False)
     item_ids = fields.Many2many(comodel_name='item.capitulo', string='Item')
 
     # aki tengo los item que pertenecen a ese proyecto
@@ -29,6 +30,10 @@ class CambioPrecioMasivo(models.TransientModel):
                     data = [('partidas_id', '=', record.partida_id.id), ('product_id', '=', record.product_id.id)]
                 items = self.env['item.capitulo'].search(data)
                 record.item_ids = items
+                if not items:
+                    self.is_vacio = True
+                    # raise ValidationError('no hay articulos')
+
 
 
     def action_guardar_nuevo(self):

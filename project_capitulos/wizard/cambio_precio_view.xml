@@ -8,14 +8,21 @@
             <field name="arch" type="xml">
                 <form string="cambio_precio_form">
                     <sheet>
-                        <div class="success success-info text-center o_form_header" attrs="{'invisible': [('is_guardado','=',False)]}" role="success">
+                        <div name="is_guardado" class="success success-info text-center o_form_header" attrs="{'invisible': [('is_guardado','=',False)]}" role="success">
                             <a class="close" data-dismiss="success" href="#">x</a>
                             <div>
                                 <strong>Se a cambiado el precio de coste satisfactoriamente</strong>
                             </div>
                         </div>
+<!--                        <div name="is_vacio" class="alert alert-info text-center o_form_header" attrs="{'invisible': [('is_vacio','=',False)]}" role="alert">-->
+<!--                            <a class="close" data-dismiss="alert" href="#">x</a>-->
+<!--                            <div>-->
+<!--                                <strong>No existe ningun artículo en la fase actual</strong>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <group>
                             <field name="is_guardado" invisible="1"/>
+                            <field name="is_vacio" invisible="1"/>
                             <group><field name="product_id"/></group>
                             <group><field name="nuevo_precio"/></group>
                         </group>
@@ -24,12 +31,13 @@
                             <page name="list_arti" string="Listado de Artículo">
                                 <field name="item_ids">
                                     <tree editable="bottom">
-                                        <field name="date"/>
-                                        <field name="project_id"/>
-                                        <field name="capitulo_id"/>
-                                        <field name="subcapitulo_id"/>
-                                        <field name="partidas_id"/>
-                                        <field name="product_qty"/>
+<!--                                        <field name="date"/>-->
+                                        <field name="product_id"/>
+<!--                                        <field name="project_id"/>-->
+<!--                                        <field name="capitulo_id"/>-->
+<!--                                        <field name="subcapitulo_id"/>-->
+<!--                                        <field name="partidas_id"/>-->
+<!--                                        <field name="product_qty"/>-->
                                         <field name="cost_price"/>
                                         <field name="subtotal_item_capitulo"/>
                                         <field name="total_impuesto_item"/>
