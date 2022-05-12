@@ -16,7 +16,7 @@ class CambioPrecioMasivo(models.TransientModel):
     item_ids = fields.Many2many(comodel_name='item.capitulo', string='Item')
     info = fields.Html(string='Info', required=False)
     
-    mostrar = fields.Boolean(
+    mostrar_botones = fields.Boolean(
         string='Mostrar',
         default=True)
 
@@ -44,10 +44,10 @@ class CambioPrecioMasivo(models.TransientModel):
                 record.item_ids = items
                 # raise ValidationError(len(items))
                 if len(items) == 0:
-                    self.mostrar = True
+                    self.mostrar_botones = True
                     # self.is_vacio = True
                 if len(items) > 0:
-                    self.mostrar = False
+                    self.mostrar_botones = False
                     # self.is_vacio = False
 
 
