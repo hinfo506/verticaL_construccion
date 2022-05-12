@@ -15,12 +15,12 @@
                                 <strong>Se a cambiado el precio de coste satisfactoriamente</strong>
                             </div>
                         </div>
-                        <div name="is_vacio" class="alert alert-info text-center o_form_header" attrs="{'invisible': [('is_vacio','=',False)]}" role="alert">
-                            <a class="close" data-dismiss="alert" href="#">x</a>
-                            <div>
-                                <strong>No existe ningun artículo en la fase actual</strong>
-                            </div>
-                        </div>
+<!--                        <div name="is_vacio" class="alert alert-info text-center o_form_header" attrs="{'invisible': [('is_vacio','!=',False)]}" role="alert">-->
+<!--                            <a class="close" data-dismiss="alert" href="#">x</a>-->
+<!--                            <div>-->
+<!--                                <strong>No existe ningun artículo en la fase actual</strong>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         
                         <group>
                             <field name="is_guardado" invisible="1"/>

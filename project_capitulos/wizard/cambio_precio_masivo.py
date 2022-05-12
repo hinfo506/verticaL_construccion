@@ -12,7 +12,7 @@ class CambioPrecioMasivo(models.TransientModel):
     subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo', required=False)
     partida_id = fields.Many2one(comodel_name='partidas.partidas', string='Partida', required=False)
     is_guardado = fields.Boolean(string='Is_guardado', default=False)
-    is_vacio = fields.Boolean(string='Is_vacio', default=False)
+    # is_vacio = fields.Boolean(string='Is_vacio', default=False)
     item_ids = fields.Many2many(comodel_name='item.capitulo', string='Item')
     info = fields.Html(string='Info', required=False)
     
@@ -45,8 +45,10 @@ class CambioPrecioMasivo(models.TransientModel):
                 # raise ValidationError(len(items))
                 if len(items) == 0:
                     self.mostrar = True
+                    # self.is_vacio = True
                 if len(items) > 0:
                     self.mostrar = False
+                    # self.is_vacio = False
 
 
 
