@@ -92,7 +92,7 @@ class Capitulo(models.Model):
             'res_model': 'cambio.precio',
             'context': {
                 'default_capitulo_id': self.id,
-                # 'default_is_vacio': False,
+                'default_is_vacio': False,
                 'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE AQUI EN ADELANTE: <strong>CAPITULO/SUBCAPITULO/PARTIDA</strong>",
             },
             'type': 'ir.actions.act_window',

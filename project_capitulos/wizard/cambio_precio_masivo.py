@@ -15,6 +15,17 @@ class CambioPrecioMasivo(models.TransientModel):
     is_vacio = fields.Boolean(string='Is_vacio', default=False)
     item_ids = fields.Many2many(comodel_name='item.capitulo', string='Item')
     info = fields.Html(string='Info', required=False)
+    
+    mostrar = fields.Boolean(
+        string='Mostrar',
+        default=True)
+
+    # # @api.onchange('product_id','item_ids')
+    # def vacio(self):
+    #     if self.item_ids:
+    #         self.is_vacio = True
+    #     else:
+    #         self.is_vacio = False
 
     # aki tengo los item que pertenecen a ese proyecto
     @api.onchange('product_id')
@@ -31,14 +42,12 @@ class CambioPrecioMasivo(models.TransientModel):
                     data = [('partidas_id', '=', record.partida_id.id), ('product_id', '=', record.product_id.id)]
                 items = self.env['item.capitulo'].search(data)
                 record.item_ids = items
+                # raise ValidationError(len(items))
+                if len(items) == 0:
+                    self.mostrar = True
+                if len(items) > 0:
+                    self.mostrar = False
 
-                if record.item_ids:
-                    self.is_vacio = False
-                    # else:
-                    #     self.is_vacio = False
-                    # raise ValidationError('no hay articulos')
-                if not record.item_ids:
-                    self.is_vacio = True
 
 
 
@@ -56,7 +65,7 @@ class CambioPrecioMasivo(models.TransientModel):
                 'default_partida_id': self.partida_id.id if self.partida_id else False,
                 'default_project_id': self.project_id.id,
                 'default_is_guardado': True,
-                'default_is_vacio': False,
+                # 'default_is_vacio': True,
             },
             'target': 'new',
             'type': 'ir.actions.act_window',

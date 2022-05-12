@@ -24,6 +24,7 @@
                         
                         <group>
                             <field name="is_guardado" invisible="1"/>
+                            <field name="mostrar" invisible="1"/>
                             <field name="is_vacio" invisible="1"/>
                             <group><field name="product_id"/></group>
                             <group><field name="nuevo_precio"/></group>
@@ -51,8 +52,8 @@
                         </notebook>
                     </sheet>
                     <footer>
-                        <button string="Guardar y nuevo" name="action_guardar_nuevo" type="object" class="oe_highlight"/>
-                        <button string="Guardar" name="action_guardar" type="object" class="oe_highlight"/>
+                        <button string="Guardar y nuevo" name="action_guardar_nuevo" type="object" class="oe_highlight" attrs="{'invisible': [('mostrar','!=',False)]}"/>
+                        <button string="Guardar" name="action_guardar" type="object" class="oe_highlight" attrs="{'invisible': [('mostrar','!=',False)]}"/>
                         <button string="Cancel" special="cancel"/>
                     </footer>
                 </form>
