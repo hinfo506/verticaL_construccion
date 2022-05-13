@@ -59,10 +59,6 @@ class Capitulo(models.Model):
             'res_model': 'capitulo.capitulo',
             'view_mode': 'tree,form',
             'res_id': self.id
-            # 'domain': [('id', 'in', self.capitulos_id.id)],
-            # 'context': dict(self._context, default_capitulo_id=self.id),
-            # 'context': dict(self._context, default_vehiculo=self.vehicle_id.id, default_inscription_id=self.id,
-            #                 default_partner_id=self.purchaser_id.id)
         }
 
     ######################

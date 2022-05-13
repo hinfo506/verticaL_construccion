@@ -94,7 +94,6 @@ class Partidas(models.Model):
         }
 
     def wizard_cambio_precio(self):
-        # raise ValidationError(self.id)
         return {
             'name': 'Cambiar Precio Masivo desde Partidas',
             'view_type': 'form',

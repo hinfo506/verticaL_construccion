@@ -82,7 +82,6 @@ class Subcapitulo(models.Model):
         }
 
     def wizard_cambio_precio(self):
-        # raise ValidationError(self.id)
         return {
             'name': 'Cambiar Precio Masivo desde Subcapitulo',
             'view_type': 'form',

@@ -17,21 +17,21 @@ class CambioPrecioMasivo(models.TransientModel):
     info = fields.Html(string='Info', required=False)
     mostrar_botones = fields.Boolean(string='Mostrar', default=True)
 
-    # @api.onchange('product_id','item_ids')
     def vacio(self):
         if len(self.item_ids):
             self.is_vacio = True
         else:
             self.is_vacio = False
 
-    # aki tengo los item que pertenecen a ese proyecto
+    ######################################################
+    ## aki tengo los item que pertenecen a ese proyecto ##
+    ######################################################
     @api.onchange('product_id')
     def onchange_product(self):
         for record in self:
             if (record.product_id and record.project_id) or record.capitulo_id or record.subcapitulo_id or record.partida_id:
                 data = [('project_id', '=', record.project_id.id), ('product_id', '=', record.product_id.id)]
                 if record.capitulo_id:
-                    # data.append(('capitulo_id','=',record.capitulo_id))
                     data = [('capitulo_id', '=', record.capitulo_id.id), ('product_id', '=', record.product_id.id)]
                 if record.subcapitulo_id:
                     data = [('subcapitulo_id', '=', record.subcapitulo_id.id), ('product_id', '=', record.product_id.id)]
@@ -39,13 +39,10 @@ class CambioPrecioMasivo(models.TransientModel):
                     data = [('partidas_id', '=', record.partida_id.id), ('product_id', '=', record.product_id.id)]
                 items = self.env['item.capitulo'].search(data)
                 record.item_ids = items
-                # raise ValidationError(len(items))
                 if len(items) == 0:
                     self.mostrar_botones = True
-                    # self.is_vacio = True
                 if len(items) > 0:
                     self.mostrar_botones = False
-                    # self.is_vacio = False
                 hola=self.vacio()
 
 
@@ -69,10 +66,6 @@ class CambioPrecioMasivo(models.TransientModel):
             'target': 'new',
             'type': 'ir.actions.act_window',
         }
-        # else:
-        #     raise ValidationError('Debe selecciona un articulo')
-
-
 
     def action_guardar(self):
         items = self.env['item.capitulo'].browse(self.item_ids.ids)
