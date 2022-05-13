@@ -47,7 +47,7 @@ class ProyectosInherit(models.Model):
             'context': {
                 'default_project_id': self.id,
                 'default_is_vacio': True,
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE AQUI EN ADELANTE: <strong>PROYECTO/CAPITULO/SUBCAPITULO/PARTIDA</strong>",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.name)+"</strong></br>EN ADELANTE:",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',
