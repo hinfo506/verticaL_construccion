@@ -88,9 +88,9 @@ class Subcapitulo(models.Model):
             'view_mode': 'form',
             'res_model': 'cambio.precio',
             'context': {
-                'default_subcapitulo_id': self.id,
                 'default_is_vacio': True,
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE AQUI EN ADELANTE: <strong>SUBCAPITULO/PARTIDA</strong>",
+                'default_subcapitulo_id': self.id,
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br>" + "<strong>"+ str(self.capitulo_id.project_id.name)+"/"+str(self.capitulo_id.name)+"/" + str(self.name) + "</strong></br>EN ADELANTE:",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

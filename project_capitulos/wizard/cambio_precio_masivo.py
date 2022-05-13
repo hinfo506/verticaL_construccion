@@ -23,6 +23,12 @@ class CambioPrecioMasivo(models.TransientModel):
         else:
             self.is_vacio = False
 
+    # @api.depends('is_vacio')
+    # def compute_direccion(self):
+    #     # raise ValidationError(self.partida_id.name)
+    #     self.info = str(self.project_id.name) + " " + str(self.project_id.capitulos_id.name)
+
+
     ######################################################
     ## aki tengo los item que pertenecen a ese proyecto ##
     ######################################################
