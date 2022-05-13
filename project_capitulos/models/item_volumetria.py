@@ -4,8 +4,6 @@ from odoo import fields, models, api
 class ItemVolumetria(models.Model):
     _name = 'item.volumetria'
 
-
-     # color_linea_volumetria = fields.Char(string='Color línea volumetría', required=False)  Campo de Rolando
     color_linea_volumetria = fields.Selection(
         selection=[('red', 'Rojo'),
                    ('blue', 'Azul'),

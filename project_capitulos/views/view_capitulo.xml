@@ -88,7 +88,7 @@
                 <tree string="Capitulos" class = "project_capitulos_Capitulos" default_order="numero_capitulo">
                     <field name="numero_capitulo" string="Nº"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
-                    <button type="object" string=" Detalles" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
+<!--                    <button type="object" string=" Detalles" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>-->
                     <field name="cantidad" string="Cantidad" invisible ="1"/>
                     <field name="name" string="Descripción Capítulo"/>
                     <field name="total"/>

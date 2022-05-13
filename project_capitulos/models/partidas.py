@@ -94,7 +94,6 @@ class Partidas(models.Model):
         }
 
     def wizard_cambio_precio(self):
-        # raise ValidationError(self.id)
         return {
             'name': 'Cambiar Precio Masivo desde Partidas',
             'view_type': 'form',
@@ -102,6 +101,8 @@ class Partidas(models.Model):
             'res_model': 'cambio.precio',
             'context': {
                 'default_partida_id': self.id,
+                'default_is_vacio': True,
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE AQUI EN ADELANTE: <strong>PARTIDA</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

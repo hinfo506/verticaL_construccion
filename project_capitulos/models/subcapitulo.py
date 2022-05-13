@@ -82,7 +82,6 @@ class Subcapitulo(models.Model):
         }
 
     def wizard_cambio_precio(self):
-        # raise ValidationError(self.id)
         return {
             'name': 'Cambiar Precio Masivo desde Subcapitulo',
             'view_type': 'form',
@@ -90,6 +89,8 @@ class Subcapitulo(models.Model):
             'res_model': 'cambio.precio',
             'context': {
                 'default_subcapitulo_id': self.id,
+                'default_is_vacio': True,
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE AQUI EN ADELANTE: <strong>SUBCAPITULO/PARTIDA</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',
