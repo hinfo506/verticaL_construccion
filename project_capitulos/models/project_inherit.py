@@ -47,7 +47,21 @@ class ProyectosInherit(models.Model):
             'context': {
                 'default_project_id': self.id,
                 'default_is_vacio': True,
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.name)+"</strong></br>EN ADELANTE:",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.name)+" :</strong>",
+            },
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }
+
+    def action_duplicar_proyecto(self):
+        return {
+            'name': 'Duplicar Proyecto',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'duplicar.proyecto',
+            'context': {
+                'default_name': self.name,
+                # 'default_is_vacio': True,
             },
             'type': 'ir.actions.act_window',
             'target': 'new',
