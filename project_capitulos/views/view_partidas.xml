@@ -88,5 +88,16 @@
             </field>
         </record>
 
+        <record id="busqueda_subcapitulo" model="ir.ui.view">
+            <field name="name">Busqueda capitulo</field>
+            <field name="model">partidas.partidas</field>
+             <field name="arch" type="xml"> 
+                <search>
+                     <field name="name" string="en campo Partida"/>
+                     <field name="subcapitulo_id" string="en campo Subcapítulo"/>
+                </search>
+            </field>
+        </record> 
+
     </data>
 </odoo>

@@ -99,6 +99,16 @@
                 </tree>
             </field>
         </record>
-        
+
+        <record id="busqueda_capitulo" model="ir.ui.view">
+            <field name="name">Busqueda capitulo</field>
+            <field name="model">sub.capitulo</field>
+             <field name="arch" type="xml"> 
+                <search>
+                     <field name="name" string="en campo Subcapítulo"/>
+                     <field name="capitulo_id" string="en campo Capitulo"/>
+                </search>
+            </field>
+        </record> 
     </data>
 </odoo>
