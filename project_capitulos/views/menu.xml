@@ -17,9 +17,27 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+        <!--Partidas-->
+        <record id="partidas_action" model="ir.actions.act_window">
+            <field name="name">Partidas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partidas.partidas</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Items-->
+        <record id="items_action" model="ir.actions.act_window">
+            <field name="name">Items</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">item.capitulo</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
         <menuitem name="Capitulos" id="capitulo_root_menu" />
         <menuitem name="Capitulos" id="capitulo_menu" parent="capitulo_root_menu" action="capitulos_action"/>
         <menuitem name="SubCapitulos" id="subcapitulo_menu" parent="capitulo_root_menu" action="subcapitulo_action"/>
+        <menuitem name="Partidas" id="partidas_menu" parent="capitulo_root_menu" action="partidas_action"/>
+        <menuitem name="Items" id="items_menu" parent="capitulo_root_menu" action="items_action"/>
 
     </data>
 </odoo>

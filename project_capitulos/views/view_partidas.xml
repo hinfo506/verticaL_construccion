@@ -79,7 +79,7 @@
                 <tree string="partidas_tree">
                     <field name="numero_partida" string="Nº Partida"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
-                    <field name="name" string="Descrición Partida"/>
+                    <field name="name" string="Descripción Partida"/>
                     <field name="cantidad" string="Cantidad" />
                     <field name="total" string="Total"/>
                     <button type="object" string=" Item" name="action_view_item" class="btn btn-primary" icon="fa-hand-o-right"/>

@@ -73,6 +73,10 @@
                     </div>
                 </xpath>
 
+                <xpath expr="//div[hasclass('col-4')]" position="inside">
+                    <a class="dropdown-item" role="menuitem" type="object" name="action_duplicar_proyecto">Duplicar</a>
+                </xpath>
+
             </field>
         </record>
 

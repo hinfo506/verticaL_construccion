@@ -47,8 +47,15 @@ class ProyectosInherit(models.Model):
             'context': {
                 'default_project_id': self.id,
                 'default_is_vacio': True,
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.name)+"</strong></br>EN ADELANTE:",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.name)+" :</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',
         }
+
+    def action_duplicar_proyecto(self):
+        # raise ValidationError('hola')
+        yourproject_id = self.id
+        nombre_new = str(self.name) + "copia"
+        # copia = self.env['project.project'].browse(yourproject_id).copy(default={'name': nombre_new})
+        copia = self.env['project.project'].browse(yourproject_id).copy()
