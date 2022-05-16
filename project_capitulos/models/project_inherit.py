@@ -54,15 +54,8 @@ class ProyectosInherit(models.Model):
         }
 
     def action_duplicar_proyecto(self):
-        return {
-            'name': 'Duplicar Proyecto',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'duplicar.proyecto',
-            'context': {
-                'default_name': self.name,
-                # 'default_is_vacio': True,
-            },
-            'type': 'ir.actions.act_window',
-            'target': 'new',
-        }
+        # raise ValidationError('hola')
+        yourproject_id = self.id
+        nombre_new = str(self.name) + "copia"
+        # copia = self.env['project.project'].browse(yourproject_id).copy(default={'name': nombre_new})
+        copia = self.env['project.project'].browse(yourproject_id).copy()
