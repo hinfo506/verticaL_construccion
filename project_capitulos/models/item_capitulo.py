@@ -116,3 +116,16 @@ class ItemCapitulo(models.Model):
             'domain': [('id', 'in', self.item_volumetria_ids.ids)],
             'context': dict(self._context, default_itemcapitulo_id=self.id),
         }
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        if not default.get('name'):
+            default['name'] = self.name
+
+        record = super(ItemCapitulo, self).copy(default)
+        for volumetria in self.item_volumetria_ids:
+            record.item_volumetria_ids |= volumetria.copy()
+
+        return record

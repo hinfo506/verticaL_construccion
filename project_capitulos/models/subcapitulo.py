@@ -96,3 +96,19 @@ class Subcapitulo(models.Model):
             'target': 'new',
         }
 
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        if not default.get('name'):
+            default['name'] = self.name
+
+        # if self.partidas_ids:
+        #     default['partidas_ids'] = self.partidas_ids.copy().ids // esto no borrar me queda de ejemplo para la eternidad
+
+        record = super(Subcapitulo, self).copy(default)
+        for partida in self.partidas_ids:
+            record.partidas_ids |= partida.copy()
+
+        return record
+

@@ -94,3 +94,16 @@ class Capitulo(models.Model):
             'type': 'ir.actions.act_window',
             'target': 'new',
         }
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        if not default.get('name'):
+            default['name'] = self.name
+
+        record = super(Capitulo, self).copy(default)
+        for subcapitulo in self.subcapitulo_ids:
+            record.subcapitulo_ids |= subcapitulo.copy()
+
+        return record

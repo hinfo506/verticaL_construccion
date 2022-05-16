@@ -107,3 +107,25 @@ class Partidas(models.Model):
             'type': 'ir.actions.act_window',
             'target': 'new',
         }
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        if not default.get('name'):
+            default['name'] = self.name
+
+        record = super(Partidas, self).copy(default)
+        for material in self.item_capitulo_materiales_ids:
+            record.item_capitulo_materiales_ids |= material.copy()
+
+        for mano_obra in self.item_mano_obra_ids:
+            record.item_mano_obra_ids |= mano_obra.copy()
+
+        for gasto_general in self.item_capitulo_gastos_generales:
+            record.item_capitulo_gastos_generales |= gasto_general.copy()
+
+        for maquinaria in self.item_capitulo_maquinaria:
+            record.item_capitulo_maquinaria |= maquinaria.copy()
+
+        return record

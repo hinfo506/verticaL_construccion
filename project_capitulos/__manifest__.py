@@ -25,7 +25,6 @@
         "views/view_item_volumetria.xml",
         "views/view_partidas.xml",
         "views/sequence.xml",
-        "wizard/cambio_precio_view.xml",
 
     ],
     "application": False,
