@@ -99,5 +99,16 @@
             </field>
         </record>
 
+        <record id="busqueda_proyecto" model="ir.ui.view">
+            <field name="name">Busqueda capitulo</field>
+            <field name="model">capitulo.capitulo</field>
+             <field name="arch" type="xml"> 
+                <search>
+                     <field name="name" string="en campo Proyecto"/>
+                     <field name="project_id" string="en campo Capitulo"/>
+                </search>
+            </field>
+        </record> 
+
     </data>
 </odoo>
