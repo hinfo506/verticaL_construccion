@@ -18,8 +18,8 @@
                             <button class="oe_stat_button" name="action_view_item" type="object" icon="fa-archive">
                                 <field name="item_count"   string="Item" widget="statinfo"/>
                             </button>
-                            <button class="oe_stat_button" string="Volumetria" name="action_view_volumetria" type="object" icon="fa-archive">
-<!--                                <field name="item_count"   string="Item" widget="statinfo"/>-->
+                            <button class="oe_stat_button" name="action_view_volumetria" type="object" icon="fa-archive">
+                                <field name="volumetria_count"   string="Volumetria" widget="statinfo"/>
                             </button>
                         </div>
                         <group>

@@ -141,6 +141,12 @@ class Partidas(models.Model):
     #         # 'context': dict(self._context, default_partidas_id=self.id),
     #     }
 
+    volumetria_count = fields.Integer(string='Contador Volumetria', compute='get_volumetria_count')
+
+    def get_volumetria_count(self):
+        for r in self:
+            r.volumetria_count = self.env['volumetria.volumetria'].search_count([('partida_id', '=', self.id)])
+
     def action_view_volumetria(self):
         return {
             'type': 'ir.actions.act_window',
