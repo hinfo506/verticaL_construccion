@@ -16,6 +16,8 @@ class Partidas(models.Model):
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
     numero_partida = fields.Char(string='Número Partida', required=False)
+    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string='Volumetria_ids', required=False)
+
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):
@@ -46,8 +48,6 @@ class Partidas(models.Model):
                 # 'amount_total': amount_untaxed + amount_tax,
                 # 'amount_total': amount_untaxed,
             })
-
-
 
     item_capitulo_materiales_ids = fields.One2many(
         comodel_name='item.capitulo',
@@ -129,3 +129,24 @@ class Partidas(models.Model):
             record.item_capitulo_maquinaria |= maquinaria.copy()
 
         return record
+
+    # def action_view_volumetria(self):
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'name': 'Items',
+    #         'res_model': 'volumetria.volumetria',
+    #         'view_mode': 'tree,form',
+    #         'domain': [('partida_id', '=',  self.id)],
+    #         # 'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
+    #         # 'context': dict(self._context, default_partidas_id=self.id),
+    #     }
+
+    def action_view_volumetria(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Volumetria',
+            'res_model': 'volumetria.volumetria',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.volumetria_ids.ids)],
+            'context': dict(self._context, default_partida_id=self.id),
+        }

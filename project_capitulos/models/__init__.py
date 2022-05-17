@@ -7,3 +7,4 @@ from . import item_capitulo
 from . import item_volumetria
 from . import item_volumetria
 from . import partidas
+from . import volumetria

@@ -5,3 +5,4 @@ access_item_capitulo,item_capitulo,model_item_capitulo,,1,1,1,1
 access_item_volumetria,item.volumetria,model_item_volumetria,,1,1,1,1
 access_partidas_partidas,partidas.partidas,model_partidas_partidas,,1,1,1,1
 access_cambio_precio,cambio.precio,model_cambio_precio,,1,1,1,1
+access_volumetria_volumetria,volumetria.volumetria,model_volumetria_volumetria,,1,1,1,1
