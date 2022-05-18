@@ -99,8 +99,6 @@ class Capitulo(models.Model):
     def copy(self, default=None):
         if default is None:
             default = {}
-        if not default.get('name'):
-            default['name'] = self.name
 
         record = super(Capitulo, self).copy(default)
         for subcapitulo in self.subcapitulo_ids:

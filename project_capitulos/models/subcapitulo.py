@@ -100,8 +100,6 @@ class Subcapitulo(models.Model):
     def copy(self, default=None):
         if default is None:
             default = {}
-        if not default.get('name'):
-            default['name'] = self.name
 
         # if self.partidas_ids:
         #     default['partidas_ids'] = self.partidas_ids.copy().ids // esto no borrar me queda de ejemplo para la eternidad

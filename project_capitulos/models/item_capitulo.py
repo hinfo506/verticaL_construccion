@@ -121,8 +121,6 @@ class ItemCapitulo(models.Model):
     def copy(self, default=None):
         if default is None:
             default = {}
-        if not default.get('name'):
-            default['name'] = self.name
 
         record = super(ItemCapitulo, self).copy(default)
         for volumetria in self.item_volumetria_ids:

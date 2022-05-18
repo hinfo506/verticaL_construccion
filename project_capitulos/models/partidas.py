@@ -112,8 +112,6 @@ class Partidas(models.Model):
     def copy(self, default=None):
         if default is None:
             default = {}
-        if not default.get('name'):
-            default['name'] = self.name
 
         record = super(Partidas, self).copy(default)
         for material in self.item_capitulo_materiales_ids:
@@ -129,17 +127,6 @@ class Partidas(models.Model):
             record.item_capitulo_maquinaria |= maquinaria.copy()
 
         return record
-
-    # def action_view_volumetria(self):
-    #     return {
-    #         'type': 'ir.actions.act_window',
-    #         'name': 'Items',
-    #         'res_model': 'volumetria.volumetria',
-    #         'view_mode': 'tree,form',
-    #         'domain': [('partida_id', '=',  self.id)],
-    #         # 'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
-    #         # 'context': dict(self._context, default_partidas_id=self.id),
-    #     }
 
     volumetria_count = fields.Integer(string='Contador Volumetria', compute='get_volumetria_count')
 
