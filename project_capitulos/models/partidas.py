@@ -3,6 +3,7 @@ from odoo import fields, models, api
 
 class Partidas(models.Model):
     _name = 'partidas.partidas'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo id', required=False)
     name = fields.Char(string='Partida', required=True)
@@ -12,12 +13,16 @@ class Partidas(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
-    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo')
+    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade')
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
     numero_partida = fields.Char(string='Número Partida', required=False)
     volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string='Volumetria_ids', required=False)
 
+    project_id = fields.Many2one(
+        related='capitulo_id.project_id',
+        string='Proyecto',
+        required=False)
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):
@@ -142,4 +147,20 @@ class Partidas(models.Model):
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.volumetria_ids.ids)],
             'context': dict(self._context, default_partida_id=self.id),
+        }
+
+    activi_count_parti = fields.Integer(string='Contador Actividades', compute='get_acti_count')
+
+    def get_acti_count(self):
+        for r in self:
+            count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','partidas.partidas')])
+            r.activi_count_parti = count if count else 0
+
+    def met_activi_partidas(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Actividades',
+            'res_model': 'mail.activity',
+            'view_mode': 'kanban,tree,form',
+            'domain': [('res_id', '=',  self.id),('res_model','=','partidas.partidas')],
         }

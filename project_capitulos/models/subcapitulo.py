@@ -11,13 +11,13 @@ class Subcapitulo(models.Model):
     total = fields.Float('Importe Total')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
-    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
+    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
     subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                        default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
     numero_subcapitulo = fields.Char(string='Número Subcapítulo', required=False)
 
-    @api.onchange('number','capitulo_id')
+    @api.onchange('number', 'capitulo_id')
     def _onchange_join_number(self):
         self.numero_subcapitulo = str(self.capitulo_id.numero_capitulo) + "." + str(self.number)
 

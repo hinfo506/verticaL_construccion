@@ -10,7 +10,7 @@ class ItemCapitulo(models.Model):
     descripcion = fields.Text('Descripción')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo')
-    partidas_id = fields.Many2one('partidas.partidas', string='Partidas')
+    partidas_id = fields.Many2one('partidas.partidas', string='Partidas',ondelete='cascade')
     project_id = fields.Many2one('project.project', string='Proyecto')
 
     longitud = fields.Float('Longitud', default=1)

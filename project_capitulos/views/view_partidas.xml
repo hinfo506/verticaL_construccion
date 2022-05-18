@@ -15,6 +15,9 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="met_activi_partidas" type="object" icon="fa-archive">
+                                <field name="activi_count_parti"   string="Actividades" widget="statinfo"/>
+                            </button>
                             <button class="oe_stat_button" name="action_view_item" type="object" icon="fa-archive">
                                 <field name="item_count"   string="Item" widget="statinfo"/>
                             </button>
@@ -71,6 +74,11 @@
                             <field name="jobcost_total" widget="monetary"/>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'post_refresh':True}" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -87,6 +95,7 @@
                     <field name="total" string="Total"/>
                     <button type="object" string=" Item" name="action_view_item" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="subcapitulo_id" string="Subcapítulo"/>
+                    <field name="project_id" string="Proyecto"/>
                 </tree>
             </field>
         </record>

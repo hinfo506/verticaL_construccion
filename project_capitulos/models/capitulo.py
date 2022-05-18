@@ -15,28 +15,26 @@ class Capitulo(models.Model):
     _inherit = ['mail.thread','mail.activity.mixin']
 
     name = fields.Char(string='Capitulo', required=True)
-    numero_capitulo = fields.Char(string=u'Número capítulo', readonly=True, default='New')
-
-    @api.model
-    def create(self,vals):
-        if vals.get('numero_capitulo','1') == '1':
-            vals['numero_capitulo'] = self.env['ir.sequence'].next_by_code('secuencia.capitulo') or '1'
-        result = super(Capitulo, self).create(vals)
-        return result
-
-
     cantidad = fields.Integer('Cantidad')
     total = fields.Float('Importe Total')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
-    project_id = fields.Many2one('project.project', string='Proyecto')
+    project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
     descripcion = fields.Text('Descripción del Capitulo')
-    sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False,compute='subcapitulos_count')
+    sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False, compute='subcapitulos_count')
     subcapitulo_ids = fields.One2many(
         comodel_name='sub.capitulo',
         inverse_name='capitulo_id',
         string='Subcapitulos',
         required=False)
+
+    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
+                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.capitulo'))
+    numero_capitulo = fields.Char(string='Número Capítulo', required=False)
+
+    @api.onchange('number', 'project_id')
+    def _onchange_join_number_capitulo(self):
+        self.numero_capitulo = str(self.project_id.numero_proyecto) + "." + str(self.number)
 
     def subcapitulos_count(self):
         count = self.env['sub.capitulo'].search_count([('capitulo_id', '=', self.id)])
