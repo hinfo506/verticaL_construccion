@@ -16,6 +16,8 @@ class Partidas(models.Model):
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
     numero_partida = fields.Char(string='Número Partida', required=False)
+    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string='Volumetria_ids', required=False)
+
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):
@@ -46,8 +48,6 @@ class Partidas(models.Model):
                 # 'amount_total': amount_untaxed + amount_tax,
                 # 'amount_total': amount_untaxed,
             })
-
-
 
     item_capitulo_materiales_ids = fields.One2many(
         comodel_name='item.capitulo',
@@ -106,4 +106,40 @@ class Partidas(models.Model):
             },
             'type': 'ir.actions.act_window',
             'target': 'new',
+        }
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+
+        record = super(Partidas, self).copy(default)
+        for material in self.item_capitulo_materiales_ids:
+            record.item_capitulo_materiales_ids |= material.copy()
+
+        for mano_obra in self.item_mano_obra_ids:
+            record.item_mano_obra_ids |= mano_obra.copy()
+
+        for gasto_general in self.item_capitulo_gastos_generales:
+            record.item_capitulo_gastos_generales |= gasto_general.copy()
+
+        for maquinaria in self.item_capitulo_maquinaria:
+            record.item_capitulo_maquinaria |= maquinaria.copy()
+
+        return record
+
+    volumetria_count = fields.Integer(string='Contador Volumetria', compute='get_volumetria_count')
+
+    def get_volumetria_count(self):
+        for r in self:
+            r.volumetria_count = self.env['volumetria.volumetria'].search_count([('partida_id', '=', self.id)])
+
+    def action_view_volumetria(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Volumetria',
+            'res_model': 'volumetria.volumetria',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.volumetria_ids.ids)],
+            'context': dict(self._context, default_partida_id=self.id),
         }

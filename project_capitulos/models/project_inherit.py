@@ -53,9 +53,19 @@ class ProyectosInherit(models.Model):
             'target': 'new',
         }
 
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        if not default.get('name'):
+            default['name'] = self.name + "(copia)"
+
+        record = super(ProyectosInherit, self).copy(default)
+        for capitulo in self.capitulos_id:
+            record.capitulos_id |= capitulo.copy()
+
+        return record
+
     def action_duplicar_proyecto(self):
-        # raise ValidationError('hola')
         yourproject_id = self.id
-        nombre_new = str(self.name) + "copia"
-        # copia = self.env['project.project'].browse(yourproject_id).copy(default={'name': nombre_new})
         copia = self.env['project.project'].browse(yourproject_id).copy()
