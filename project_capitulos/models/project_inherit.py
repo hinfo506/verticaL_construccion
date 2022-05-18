@@ -6,7 +6,7 @@ from odoo.exceptions import UserError, ValidationError
 class ProyectosInherit(models.Model):
     _inherit = 'project.project'
 
-    capitulos_id = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='project_id', string='Capitulos_id', required=False, ondelete='cascade')
+    capitulos_id = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='project_id', string='Capitulos_id', required=False)
     capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
     item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='project_id', string='Item_ids', required=False)
 

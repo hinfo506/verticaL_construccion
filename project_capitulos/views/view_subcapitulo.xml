@@ -91,7 +91,8 @@
                     <field name="total" string="Total"/>
                      <button type="object" string=" Partida" name="action_view_partidas" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="capitulo_id" string="Capítulo"/>
-                   
+                    <field name="project_id" string="Proyecto"/>
+
                     
                 </tree>
             </field>

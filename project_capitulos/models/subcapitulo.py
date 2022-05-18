@@ -13,6 +13,10 @@ class Subcapitulo(models.Model):
     fecha_finalizacion = fields.Date('Acaba el')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
     subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
+    project_id = fields.Many2one(
+        related='capitulo_id.project_id',
+        string='Proyecto',
+        required=False)
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                        default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
     numero_subcapitulo = fields.Char(string='Número Subcapítulo', required=False)
