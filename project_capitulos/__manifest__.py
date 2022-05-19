@@ -27,6 +27,7 @@
         "views/view_partidas.xml",
         "views/activity_inherit.xml",
         "views/sequence.xml",
+        "wizard/cambio_precio_view.xml",
 
         # Reportes
         # "report/report_project.xml",
