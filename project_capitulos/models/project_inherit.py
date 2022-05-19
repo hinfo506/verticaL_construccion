@@ -10,6 +10,14 @@ class ProyectosInherit(models.Model):
     capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
     item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='project_id', string='Item_ids', required=False)
 
+    numero_proyecto = fields.Char(string=u'Número proyecto', readonly=True, default='New')
+    @api.model
+    def create(self, vals):
+        if vals.get('numero_proyecto', '1') == '1':
+            vals['numero_proyecto'] = self.env['ir.sequence'].next_by_code('secuencia.proyecto') or '1'
+        result = super(ProyectosInherit, self).create(vals)
+        return result
+
     def get_count_capitulos(self):
         for r in self:
             count = self.env['capitulo.capitulo'].search_count([('project_id', '=', self.id)])

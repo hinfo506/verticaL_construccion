@@ -14,9 +14,6 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-<!--                            <button class="oe_stat_button" name="action_view_item" type="object" icon="fa-archive">-->
-<!--                                <field name="item_count"   string="Item" widget="statinfo"/>-->
-<!--                            </button>-->
                             <button class="oe_stat_button" name="met_activi_subcapitulo" type="object" icon="fa-archive">
                                 <field name="activ_count"   string="Actividades" widget="statinfo"/>
                             </button>
@@ -94,7 +91,8 @@
                     <field name="total" string="Total"/>
                      <button type="object" string=" Partida" name="action_view_partidas" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="capitulo_id" string="Capítulo"/>
-                   
+                    <field name="project_id" string="Proyecto"/>
+
                     
                 </tree>
             </field>

@@ -23,7 +23,7 @@ class ItemVolumetria(models.Model):
     precio_coste_volumetria = fields.Float(string='Precio Coste Volumetría', required=False)
 
     total = fields.Float(string='Total', required=False,compute='_compute_total')
-    itemcapitulo_id = fields.Many2one(comodel_name='item.capitulo', string='itemcapitulos_id', required=False)
+    itemcapitulo_id = fields.Many2one(comodel_name='item.capitulo', string='itemcapitulos_id', required=False,ondelete='cascade')
 
     @api.depends('cantidad_volumetria','longitud_volumetria','ancho_volumetria','alto_volumetria','precio_coste_volumetria')
     def _compute_total(self):

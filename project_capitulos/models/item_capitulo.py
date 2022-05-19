@@ -8,9 +8,9 @@ class ItemCapitulo(models.Model):
     total = fields.Float('Importe Total')
     fecha_finalizacion = fields.Date('Fecha Finalización')
     descripcion = fields.Text('Descripción')
-    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
-    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo')
-    partidas_id = fields.Many2one('partidas.partidas', string='Partidas')
+    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
+    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo',ondelete='cascade')
+    partidas_id = fields.Many2one('partidas.partidas', string='Partidas',ondelete='cascade')
     project_id = fields.Many2one('project.project', string='Proyecto')
 
     longitud = fields.Float('Longitud', default=1)
