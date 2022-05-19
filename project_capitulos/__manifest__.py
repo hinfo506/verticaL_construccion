@@ -17,7 +17,8 @@
                 'mail'],
     "data": [
         'security/ir.model.access.csv',
-        # "views/project.xml",
+
+        # Views
         "views/view_capitulo.xml",
         "views/view_subcapitulo.xml",
         "views/project_inherit.xml",
@@ -26,6 +27,11 @@
         "views/view_partidas.xml",
         "views/activity_inherit.xml",
         "views/sequence.xml",
+
+        # Reportes
+        # "report/report_project.xml",
+
+        # Menu
         "views/menu.xml",
 
 
