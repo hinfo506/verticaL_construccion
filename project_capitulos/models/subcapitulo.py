@@ -16,8 +16,14 @@ class Subcapitulo(models.Model):
     project_id = fields.Many2one(
         related='capitulo_id.project_id',
         string='Proyecto',
-        required=False,store=True,readonly=True)
-    # project_id = fields.Many2one(comodel_name='project.project',string='Project_id', required=False)
+        required=False,store=False)
+    # project_id = fields.Many2one(comodel_name='project.project',string='Project_id', required=False,compute='_compute_proyecto', store=True)
+    #
+    # @api.depends('capitulo_id')
+    # def _compute_proyecto(self):
+    #     self.project_id = self.capitulo_id.project_id.id
+
+
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                        default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
     numero_subcapitulo = fields.Char(string='Número Subcapítulo', required=False)

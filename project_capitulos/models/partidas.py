@@ -22,11 +22,17 @@ class Partidas(models.Model):
     project_id = fields.Many2one(
         related='capitulo_id.project_id',
         string='Proyecto',
-        required=False, store=True, readonly=True)
+        required=False, store=True)
     # project_id = fields.Many2one(
     #     comodel_name='project.project',
     #     string='Proyecto',
     #     required=False)
+
+    # project_id = fields.Many2one(comodel_name='project.project',string='Project_id', required=False,compute='_compute_proyecto', store=True)
+    #
+    # @api.depends('capitulo_id')
+    # def _compute_proyecto(self):
+    #     self.project_id = self.capitulo_id.project_id.id
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):
