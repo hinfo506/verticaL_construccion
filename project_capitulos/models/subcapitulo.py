@@ -16,7 +16,7 @@ class Subcapitulo(models.Model):
     project_id = fields.Many2one(
         related='capitulo_id.project_id',
         string='Proyecto',
-        required=False,store=False)
+        required=False,store=True)
     # project_id = fields.Many2one(comodel_name='project.project',string='Project_id', required=False,compute='_compute_proyecto', store=True)
     #
     # @api.depends('capitulo_id')
