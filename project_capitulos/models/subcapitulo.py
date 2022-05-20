@@ -49,7 +49,7 @@ class Subcapitulo(models.Model):
                 # 'amount_total': amount_untaxed,
             })
 
-    partidas_ids = fields.One2many(comodel_name='partidas.partidas',inverse_name='subcapitulo_id', string='Partidas id', required=False)
+    partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='subcapitulo_id', string='Partidas id', required=False)
     partidas_count = fields.Integer(string='Contador Item', compute='get_partidas_count')
 
     def get_partidas_count(self):

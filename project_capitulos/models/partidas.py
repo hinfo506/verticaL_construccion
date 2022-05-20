@@ -19,10 +19,14 @@ class Partidas(models.Model):
     numero_partida = fields.Char(string='Número Partida', required=False)
     volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string='Volumetria_ids', required=False)
 
+    # project_id = fields.Many2one(
+    #     related='capitulo_id.project_id',
+    #     string='Proyecto',
+    #     required=False, store=True, readonly=True)
     project_id = fields.Many2one(
-        related='capitulo_id.project_id',
+        comodel_name='project.project',
         string='Proyecto',
-        required=False, store=True, readonly=True)
+        required=False)
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):
@@ -129,6 +133,10 @@ class Partidas(models.Model):
             default = {}
 
         record = super(Partidas, self).copy(default)
+        # for material in self.item_capitulo_ids:
+        #     record.item_capitulo_ids |= material.copy()
+
+
         for material in self.item_capitulo_materiales_ids:
             record.item_capitulo_materiales_ids |= material.copy()
 
