@@ -27,6 +27,7 @@
         'views/view_capitulo.xml',
         'views/view_subcapitulo.xml',
         'views/directory_inherit_view.xml',
+        'views/view_inherit_partida.xml',
     ],
 
 }

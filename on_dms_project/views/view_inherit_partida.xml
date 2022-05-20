@@ -2,12 +2,13 @@
 <odoo>
     <data>
 
-
-        <record id="capitulos_view_form" model="ir.ui.view">
-            <field name="name">sub_capitulo_form</field>
-            <field name="model">sub.capitulo</field>
-            <field name="inherit_id" ref="project_capitulos.subcapitulo_view_form"/>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_partida" model="ir.ui.view">
+            <field name="name">Partida</field>
+            <field name="model">partidas.partidas</field>
+            <field name="inherit_id" ref="project_capitulos.partidas_view_form"/>
             <field name="arch" type="xml">
+
                 <xpath expr="//sheet//div//button" position="before">
 <!--                    <div class="oe_button_box" name="button_box">-->
                         <button class="oe_stat_button" name="met_directorios" type="object" icon="fa-archive">
@@ -15,9 +16,10 @@
                         </button>
 <!--                    </div>-->
                 </xpath>
+
             </field>
         </record>
 
-        
+
     </data>
 </odoo>
