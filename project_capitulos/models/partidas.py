@@ -22,7 +22,7 @@ class Partidas(models.Model):
     project_id = fields.Many2one(
         related='capitulo_id.project_id',
         string='Proyecto',
-        required=False,store=True)
+        required=False, store=True, readonly=True)
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):

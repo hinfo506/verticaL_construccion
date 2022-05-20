@@ -7,5 +7,6 @@ class Directorios(models.Model):
     project_id = fields.Many2one('project.project', string='Proyecto')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulos')
     sub_capitulo_id = fields.Many2one('sub.capitulo', string='Sub Capitulos')
+    partida_id = fields.Many2one('partidas.partidas', string='Sub Capitulos')
 
 
