@@ -34,8 +34,41 @@ class ProyectosInherit(models.Model):
             'context': dict(self._context, default_project_id=self.id),
         }
 
+    def met_subcapitulos(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Subcapitulos',
+            'res_model': 'sub.capitulo',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.capitulos_id.subcapitulo_ids.ids)],
+            'context': dict(self._context, default_project_id=self.id),
+        }
+
+    def met_partidas(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Partidas',
+            'res_model': 'partidas.partidas',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.capitulos_id.subcapitulo_ids.partidas_ids.ids)],
+            'context': dict(self._context, default_project_id=self.id),
+        }
+
+    def met_items(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Items',
+            'res_model': 'item.capitulo',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.capitulos_id.subcapitulo_ids.partidas_ids.item_capitulo_ids.ids)],
+            'context': dict(self._context, default_project_id=self.id),
+        }
+
     capitulos_kanban_count = fields.Integer(string='Capitulos_kanban_count', compute='_compute_capitulo_count', required=False)
-    
+    subcapitulos_kanban_count = fields.Integer(string='Subcapitulos_kanban_count', compute='_compute_subcapitulo_count', required=False)
+    partidas_kanban_count = fields.Integer(string='Partidas_kanban_count', compute='_compute_partidas_count', required=False)
+    item_kanban_count = fields.Integer(string='Item_kanban_count', compute='_compute_item_count', required=False)
+
     def _compute_capitulo_count(self):
         task_data = self.env['capitulo.capitulo'].read_group(
             [('project_id', 'in', self.ids)],
@@ -45,6 +78,36 @@ class ProyectosInherit(models.Model):
             result_with_subtasks[data['project_id'][0]] += data['project_id_count']
         for project in self:
             project.capitulos_kanban_count = result_with_subtasks[project.id]
+
+    def _compute_subcapitulo_count(self):
+        task_data = self.env['sub.capitulo'].read_group(
+            [('project_id', 'in', self.ids)],
+            ['project_id', 'project_id:count'], ['project_id'])
+        result_with_subtasks = defaultdict(int)
+        for data in task_data:
+            result_with_subtasks[data['project_id'][0]] += data['project_id_count']
+        for project in self:
+            project.subcapitulos_kanban_count = result_with_subtasks[project.id]
+
+    def _compute_partidas_count(self):
+        task_data = self.env['partidas.partidas'].read_group(
+            [('project_id', 'in', self.ids)],
+            ['project_id', 'project_id:count'], ['project_id'])
+        result_with_subtasks = defaultdict(int)
+        for data in task_data:
+            result_with_subtasks[data['project_id'][0]] += data['project_id_count']
+        for project in self:
+            project.partidas_kanban_count = result_with_subtasks[project.id]
+
+    def _compute_item_count(self):
+        task_data = self.env['item.capitulo'].read_group(
+            [('project_id', 'in', self.ids)],
+            ['project_id', 'project_id:count'], ['project_id'])
+        result_with_subtasks = defaultdict(int)
+        for data in task_data:
+            result_with_subtasks[data['project_id'][0]] += data['project_id_count']
+        for project in self:
+            project.item_kanban_count = result_with_subtasks[project.id]
 
     def wizard_cambio_precio(self):
         return {

@@ -60,6 +60,9 @@
 
                 <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
                     <field name="capitulos_kanban_count" invisible="1"/>
+                    <field name="subcapitulos_kanban_count" invisible="1"/>
+                    <field name="partidas_kanban_count" invisible="1"/>
+                    <field name="item_kanban_count" invisible="1"/>
                     <div role="menuitem">
                         <div class="o_kanban_record_bottom mt-3">
                             <div class="oe_kanban_bottom_left">
@@ -68,6 +71,30 @@
                                         <div>
                                             <span class="o_value"><t t-esc="record.capitulos_kanban_count.value"/></span>
                                             <span class="o_label">Capítulos</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="o_project_kanban_boxes">
+                                    <a class="o_project_kanban_box" name="met_subcapitulos" type="object">
+                                        <div>
+                                            <span class="o_value"><t t-esc="record.subcapitulos_kanban_count.value"/></span>
+                                            <span class="o_label">Subcapítulos</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="o_project_kanban_boxes">
+                                    <a class="o_project_kanban_box" name="met_partidas" type="object">
+                                        <div>
+                                            <span class="o_value"><t t-esc="record.partidas_kanban_count.value"/></span>
+                                            <span class="o_label">Partidas</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="o_project_kanban_boxes">
+                                    <a class="o_project_kanban_box" name="met_items" type="object">
+                                        <div>
+                                            <span class="o_value"><t t-esc="record.item_kanban_count.value"/></span>
+                                            <span class="o_label">Items</span>
                                         </div>
                                     </a>
                                 </div>
