@@ -19,14 +19,14 @@ class Partidas(models.Model):
     numero_partida = fields.Char(string='Número Partida', required=False)
     volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string='Volumetria_ids', required=False)
 
-    # project_id = fields.Many2one(
-    #     related='capitulo_id.project_id',
-    #     string='Proyecto',
-    #     required=False, store=True, readonly=True)
     project_id = fields.Many2one(
-        comodel_name='project.project',
+        related='capitulo_id.project_id',
         string='Proyecto',
-        required=False)
+        required=False, store=True, readonly=True)
+    # project_id = fields.Many2one(
+    #     comodel_name='project.project',
+    #     string='Proyecto',
+    #     required=False)
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):

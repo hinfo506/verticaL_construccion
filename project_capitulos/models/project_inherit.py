@@ -9,6 +9,8 @@ class ProyectosInherit(models.Model):
     capitulos_id = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='project_id', string='Capitulos_id', required=False)
     capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
     item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='project_id', string='Item_ids', required=False)
+    # partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='project_id',string='Partidas_ids', required=False)
+    # subcapitulos_ids = fields.One2many(comodel_name='sub.capitulo', inverse_name='project_id', string='Subcapitulos_ids', required=False)
 
     numero_proyecto = fields.Char(string=u'Número proyecto', readonly=True, default='New')
     @api.model

@@ -17,6 +17,7 @@ class Subcapitulo(models.Model):
         related='capitulo_id.project_id',
         string='Proyecto',
         required=False,store=True,readonly=True)
+    # project_id = fields.Many2one(comodel_name='project.project',string='Project_id', required=False)
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                        default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
     numero_subcapitulo = fields.Char(string='Número Subcapítulo', required=False)
