@@ -78,21 +78,6 @@ class ProyectosInherit(models.Model):
         yourproject_id = self.id
         copia = self.env['project.project'].browse(yourproject_id).copy()
 
-        # return {
-        #     'name': 'Proyecto',
-        #     'view_type': 'form',
-        #     'view_mode': 'form',
-        #     'res_model': 'project.project',
-        #     # 'context': {
-        #     #     'default_project_id': self.id,
-        #     #     'default_is_vacio': True,
-        #     #     'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>" + str(
-        #     #         self.name) + " :</strong>",
-        #     # },
-        #     'type': 'ir.actions.act_window',
-        #     'target': 'new',
-        # }
-
         return {
             'name': 'Proyecto',
             'res_model': 'project.project',
@@ -100,4 +85,5 @@ class ProyectosInherit(models.Model):
             'view_mode': 'form',
             'type': 'ir.actions.act_window',
             'target': 'current',
+            'context': {'form_view_initial_mode': 'edit'},
         }

@@ -88,7 +88,7 @@
             <field name="name">partidas_view_tree</field>
             <field name="model">partidas.partidas</field>
             <field name="arch" type="xml">
-                <tree string="partidas_tree">
+                <tree string="partidas_tree" default_order="fecha_finalizacion asc">
                     <field name="numero_partida" string="Nº Partida"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
                     <field name="name" string="Descripción Partida"/>
