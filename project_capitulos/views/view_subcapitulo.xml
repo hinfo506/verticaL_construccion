@@ -83,7 +83,7 @@
             <field name="name">subcapitulo_view_tree</field>
             <field name="model">sub.capitulo</field>
             <field name="arch" type="xml">
-                <tree string="Sub Capitulos">
+                <tree string="Sub Capitulos" default_order="fecha_finalizacion asc">
                     <field name="numero_subcapitulo" string="Nº Subcapítulo"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
                     <field name="cantidad" string="Cantidad" invisible ="1" />

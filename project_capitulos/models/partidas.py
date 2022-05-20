@@ -22,7 +22,7 @@ class Partidas(models.Model):
     project_id = fields.Many2one(
         related='capitulo_id.project_id',
         string='Proyecto',
-        required=False)
+        required=False, store=True, readonly=True)
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):
@@ -53,6 +53,16 @@ class Partidas(models.Model):
                 # 'amount_total': amount_untaxed + amount_tax,
                 # 'amount_total': amount_untaxed,
             })
+
+
+    #############################
+    ## Prueba despues quitamos ##
+    #############################
+    item_capitulo_ids = fields.One2many(
+        comodel_name='item.capitulo',
+        inverse_name='partidas_id',
+        string='Materiales',)
+    ##############################################
 
     item_capitulo_materiales_ids = fields.One2many(
         comodel_name='item.capitulo',

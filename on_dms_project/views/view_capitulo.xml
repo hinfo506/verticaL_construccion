@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="capitulos_view_form" model="ir.ui.view">
-            <field name="name">capitulos_view_form</field>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_capitulo" model="ir.ui.view">
+            <field name="name">Capitulos</field>
             <field name="model">capitulo.capitulo</field>
             <field name="inherit_id" ref="project_capitulos.capitulos_view_form"/>
             <field name="arch" type="xml">
-                <div class="oe_button_box" position="inside">
+
+                <xpath expr="//sheet//div//button" position="before">
+<!--                    <div class="oe_button_box" name="button_box">-->
                     <button class="oe_stat_button" name="met_directorios" type="object" icon="fa-archive">
                         <field name="directory_count"   string="Directorios" widget="statinfo"/>
                     </button>
-                </div>
+<!--                    </div>-->
+                </xpath>
 
             </field>
         </record>
