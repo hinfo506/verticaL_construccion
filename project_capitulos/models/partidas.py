@@ -1,38 +1,29 @@
-from odoo import fields, models, api
+from odoo import fields, models, api,_
 
 
 class Partidas(models.Model):
     _name = 'partidas.partidas'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo id', required=False)
+   ###### DATOS PRINCIPALES  ########
+    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
+                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
+    numero_partida = fields.Char(string='Número Partida', required=False)
     name = fields.Char(string='Partida', required=True)
     descripcion = fields.Text('Descripción de la Partida')
     cantidad = fields.Integer('Cantidad')
     total = fields.Float('Importe Total')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
+
+    ###### FASES DEL PROYECTO ########
+    project_id = fields.Many2one('project.project', string='Proyecto')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade')
-    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
-                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
-    numero_partida = fields.Char(string='Número Partida', required=False)
-    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string='Volumetria_ids', required=False)
+    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string=_('Volumetría'), required=False)
 
-    project_id = fields.Many2one(
-        related='capitulo_id.project_id',
-        string='Proyecto',
-        required=False, store=True)
-    # project_id = fields.Many2one(
-    #     comodel_name='project.project',
-    #     string='Proyecto',
-    #     required=False)
-
-    # project_id = fields.Many2one(comodel_name='project.project',string='Project_id', required=False,compute='_compute_proyecto', store=True)
-    #
-    # @api.depends('capitulo_id')
-    # def _compute_proyecto(self):
-    #     self.project_id = self.capitulo_id.project_id.id
+    ###### CONTADORES  ########
+    activi_count_parti = fields.Integer(string='Contador Actividades', compute='get_acti_count')
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):
@@ -139,10 +130,6 @@ class Partidas(models.Model):
             default = {}
 
         record = super(Partidas, self).copy(default)
-        # for material in self.item_capitulo_ids:
-        #     record.item_capitulo_ids |= material.copy()
-
-
         for material in self.item_capitulo_materiales_ids:
             record.item_capitulo_materiales_ids |= material.copy()
 
@@ -154,6 +141,9 @@ class Partidas(models.Model):
 
         for maquinaria in self.item_capitulo_maquinaria:
             record.item_capitulo_maquinaria |= maquinaria.copy()
+
+        for volumetria_id in self.volumetria_ids:
+            record.volumetria_ids |= volumetria_id.copy()
 
         return record
 
@@ -173,7 +163,7 @@ class Partidas(models.Model):
             'context': dict(self._context, default_partida_id=self.id),
         }
 
-    activi_count_parti = fields.Integer(string='Contador Actividades', compute='get_acti_count')
+
 
     def get_acti_count(self):
         for r in self:

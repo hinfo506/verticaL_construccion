@@ -5,28 +5,26 @@ class Subcapitulo(models.Model):
     _name = 'sub.capitulo'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    ###### DATOS PRINCIPALES  ########
+    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
+                       default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
+    numero_subcapitulo = fields.Char(string='Número Subcapítulo', required=False)
     name = fields.Char(string='Subcapítulo', required=True)
     descripcion = fields.Text('Descripción del Subcapítulo')
     cantidad = fields.Integer('Cantidad')
     total = fields.Float('Importe Total')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
+
+    ###### FASES DEL PROYECTO  ########
+    project_id = fields.Many2one('project.project', string='Proyecto')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
     subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
-    project_id = fields.Many2one(
-        related='capitulo_id.project_id',
-        string='Proyecto',
-        required=False,store=True)
-    # project_id = fields.Many2one(comodel_name='project.project',string='Project_id', required=False,compute='_compute_proyecto', store=True)
-    #
-    # @api.depends('capitulo_id')
-    # def _compute_proyecto(self):
-    #     self.project_id = self.capitulo_id.project_id.id
 
-
-    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
-                       default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
-    numero_subcapitulo = fields.Char(string='Número Subcapítulo', required=False)
+    ###### CONTADORES  ########
+    partidas_ids = fields.One2many(comodel_name='partidas.partidas',inverse_name='subcapitulo_id', string='Partidas id', required=False)
+    partidas_count = fields.Integer(string='Contador Item', compute='get_partidas_count')
+    activ_count = fields.Integer(string='Contador actividades', compute='get_acts_count')
 
     @api.onchange('number', 'capitulo_id')
     def _onchange_join_number(self):
@@ -56,8 +54,6 @@ class Subcapitulo(models.Model):
                 # 'amount_total': amount_untaxed,
             })
 
-    partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='subcapitulo_id', string='Partidas id', required=False)
-    partidas_count = fields.Integer(string='Contador Item', compute='get_partidas_count')
 
     def get_partidas_count(self):
         for r in self:
@@ -66,7 +62,7 @@ class Subcapitulo(models.Model):
     ###############
     # Actividades #
     ###############
-    activ_count = fields.Integer(string='Contador actividades', compute='get_acts_count')
+
 
     def get_acts_count(self):
         for r in self:

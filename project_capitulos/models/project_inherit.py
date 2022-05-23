@@ -6,13 +6,23 @@ from odoo.exceptions import UserError, ValidationError
 class ProyectosInherit(models.Model):
     _inherit = 'project.project'
 
+    # DATOS PRINCIPALES
+    numero_proyecto = fields.Char(string=u'Número proyecto', readonly=True, default='New')
+
+    # FASES DEL PROYECTO
     capitulos_id = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='project_id', string='Capitulos_id', required=False)
-    capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
     item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='project_id', string='Item_ids', required=False)
     # partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='project_id',string='Partidas_ids', required=False)
     # subcapitulos_ids = fields.One2many(comodel_name='sub.capitulo', inverse_name='project_id', string='Subcapitulos_ids', required=False)
 
-    numero_proyecto = fields.Char(string=u'Número proyecto', readonly=True, default='New')
+    # CONTADORES
+    capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
+    
+    capitulos_kanban_count = fields.Integer(string='Capitulos_kanban_count', compute='_compute_capitulo_count', required=False)
+    subcapitulos_kanban_count = fields.Integer(string='Subcapitulos_kanban_count', compute='_compute_subcapitulo_count', required=False)
+    partidas_kanban_count = fields.Integer(string='Partidas_kanban_count', compute='_compute_partidas_count', required=False)
+    item_kanban_count = fields.Integer(string='Item_kanban_count', compute='_compute_item_count', required=False)
+
     @api.model
     def create(self, vals):
         if vals.get('numero_proyecto', '1') == '1':
@@ -66,11 +76,28 @@ class ProyectosInherit(models.Model):
             'context': dict(self._context, default_project_id=self.id),
         }
 
-    capitulos_kanban_count = fields.Integer(string='Capitulos_kanban_count', compute='_compute_capitulo_count', required=False)
-    subcapitulos_kanban_count = fields.Integer(string='Subcapitulos_kanban_count', compute='_compute_subcapitulo_count', required=False)
-    partidas_kanban_count = fields.Integer(string='Partidas_kanban_count', compute='_compute_partidas_count', required=False)
-    item_kanban_count = fields.Integer(string='Item_kanban_count', compute='_compute_item_count', required=False)
+    def met_activi_proyecto(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Actividades',
+            'res_model': 'mail.activity',
+            'view_mode': 'kanban,tree,form',
+            'domain': [('res_id', '=',  self.id),('res_model','=','project.project')],
+        }
 
+
+
+    ######################
+    #### Actividades #####
+    ######################
+    activi_count = fields.Integer(string='Contador Actividades', compute='get_acti_count')
+
+    def get_acti_count(self):
+        for r in self:
+            count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','project.project')])
+            r.activi_count = count if count else 0
+    ######################
+    #         
     def _compute_capitulo_count(self):
         task_data = self.env['capitulo.capitulo'].read_group(
             [('project_id', 'in', self.ids)],
@@ -141,12 +168,28 @@ class ProyectosInherit(models.Model):
 
     def action_duplicar_proyecto(self):
         yourproject_id = self.id
-        copia = self.env['project.project'].browse(yourproject_id).copy()
+        copia_proyecto = self.env['project.project'].browse(yourproject_id).copy()
+        self.env.cr.commit()
+        for proyecto in copia_proyecto:
+            for capitulo_id in proyecto.capitulos_id:
+                capitulo_id.subcapitulo_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
+                for subcapitulo_id in capitulo_id.subcapitulo_ids:
+                    subcapitulo_id.partidas_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
+                    for partidas_id in subcapitulo_id.partidas_ids:
+                        partidas_id.item_capitulo_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                        partidas_id.item_capitulo_materiales_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                        partidas_id.item_mano_obra_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                        partidas_id.item_capitulo_gastos_generales.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                        partidas_id.item_capitulo_maquinaria.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                        partidas_id.volumetria_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+
+
+
 
         return {
             'name': 'Proyecto',
             'res_model': 'project.project',
-            'res_id': copia.id,
+            'res_id': copia_proyecto.id,
             'view_mode': 'form',
             'type': 'ir.actions.act_window',
             'target': 'current',

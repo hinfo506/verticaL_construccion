@@ -5,22 +5,10 @@ class ItemCapitulo(models.Model):
     _name = 'item.capitulo'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    total = fields.Float('Importe Total')
-    fecha_finalizacion = fields.Date('Fecha Finalización')
-    descripcion = fields.Text('Descripción')
-    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
-    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo',ondelete='cascade')
-    partidas_id = fields.Many2one('partidas.partidas', string='Partidas',ondelete='cascade')
-    project_id = fields.Many2one('project.project', string='Proyecto')
-
-    longitud = fields.Float('Longitud', default=1)
-    ancho = fields.Float('Ancho', default=1)
-    alto = fields.Float('Alto', default=1)
-    impuesto_item = fields.Float('Imp. %', default=18)
-    
-    date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
+    ##### DATOS PRINCIPALES  ########
     product_id = fields.Many2one(comodel_name='product.product', string='Producto')
     reference = fields.Char(string='Referencia', copy=False, )
+    descripcion = fields.Text('Descripción')
     product_qty = fields.Float(string='Cantidad Planificada', copy=False, digits=(12,2))
     uom_id = fields.Many2one('uom.uom', string='Unid. de Medida', )
     cost_price = fields.Float(string='Precio Coste', copy=False, )
@@ -28,6 +16,21 @@ class ItemCapitulo(models.Model):
     hours = fields.Char(string='Horas', required=False)
     actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
     basis = fields.Char(string='Base', required=False)
+    impuesto_item = fields.Float('Imp. %', default=18)
+    total = fields.Float('Importe Total')
+    date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
+    fecha_finalizacion = fields.Date('Fecha Finalización')
+
+    ###### FASES DEL PROYECTO ######## 
+    project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
+    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
+    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo',ondelete='cascade')
+    partidas_id = fields.Many2one('partidas.partidas', string='Partidas',ondelete='cascade')
+
+    ###### CAMPOS DESECHADOS ######## 
+    longitud = fields.Float('Longitud', default=1)
+    ancho = fields.Float('Ancho', default=1)
+    alto = fields.Float('Alto', default=1)
 
     # Campos Sumatorios
     item_volumetria_ids = fields.One2many(comodel_name='item.volumetria', inverse_name='itemcapitulo_id',string='Item Volumetria', required=False)

@@ -14,23 +14,30 @@ class Capitulo(models.Model):
     _name = 'capitulo.capitulo'
     _inherit = ['mail.thread','mail.activity.mixin']
 
+    ###### DATOS PRINCIPALES  ########
+    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
+                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.capitulo'))
+    numero_capitulo = fields.Char(string='Número Capítulo', required=False)
     name = fields.Char(string='Capitulo', required=True)
     cantidad = fields.Integer('Cantidad')
     total = fields.Float('Importe Total')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
-    project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
+
     descripcion = fields.Text('Descripción del Capitulo')
-    sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False, compute='subcapitulos_count')
+ 
+    ###### FASES DEL PROYECTO  ########
+    project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
+
     subcapitulo_ids = fields.One2many(
         comodel_name='sub.capitulo',
         inverse_name='capitulo_id',
         string='Subcapitulos',
         required=False)
 
-    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
-                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.capitulo'))
-    numero_capitulo = fields.Char(string='Número Capítulo', required=False)
+    ####### CONTADORES  ########
+    sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False, compute='subcapitulos_count')
+    activi_count = fields.Integer(string='Contador Actividades', compute='get_acti_count')
 
     @api.onchange('number', 'project_id')
     def _onchange_join_number_capitulo(self):
@@ -62,7 +69,6 @@ class Capitulo(models.Model):
     ######################
     #### Actividades #####
     ######################
-    activi_count = fields.Integer(string='Contador Actividades', compute='get_acti_count')
 
     def get_acti_count(self):
         for r in self:

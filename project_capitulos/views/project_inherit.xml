@@ -21,6 +21,9 @@
                 </xpath>
 
                 <xpath expr="//sheet//div//button" position="before">
+                    <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
+                                <field name="activi_count" string="Actividades" widget="statinfo"/>
+                    </button>
                     <button class="oe_stat_button" name="met_capitulos" type="object" icon="fa-archive">
                         <field name="capitulos_count"  widget="statinfo"/>
                     </button>
@@ -39,14 +42,14 @@
                             </tree>
                         </field>
                     </page>
-                    <page string="Items">
+                   <!-- <page string="Items">
                         <field name="item_ids">
                             <tree>
                                 <field name="job_type"/>
                                 <field name="product_id"/>
                             </tree>
                         </field>
-                    </page>
+                    </page> -->
                 </xpath>
             </field>
         </record>
