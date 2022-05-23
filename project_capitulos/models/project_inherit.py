@@ -171,7 +171,7 @@ class ProyectosInherit(models.Model):
             for capitulo_id in proyecto.capitulos_id:
                 capitulo_id.subcapitulo_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
                 for subcapitulo_id in capitulo_id.subcapitulo_ids:
-                    subcapitulo_id.partidas_id.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
+                    subcapitulo_id.partidas_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
                     for partidas_id in subcapitulo_id.partidas_ids:
                         partidas_id.item_capitulo_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
                         partidas_id.item_capitulo_materiales_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
