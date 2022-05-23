@@ -5,24 +5,29 @@ class Partidas(models.Model):
     _name = 'partidas.partidas'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo id', required=False)
+   ###### DATOS PRINCIPALES  ########
+    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
+                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
+    numero_partida = fields.Char(string='Número Partida', required=False)
     name = fields.Char(string='Partida', required=True)
     descripcion = fields.Text('Descripción de la Partida')
     cantidad = fields.Integer('Cantidad')
     total = fields.Float('Importe Total')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
-    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
-    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade')
-    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
-                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
-    numero_partida = fields.Char(string='Número Partida', required=False)
-    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string='Volumetria_ids', required=False)
 
+    ###### FASES DEL PROYECTO ########
     project_id = fields.Many2one(
         related='capitulo_id.project_id',
         string='Proyecto',
         required=False, store=True, readonly=True)
+    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
+    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade')
+    subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo id', required=False)
+    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string='Volumetria_ids', required=False)
+
+    ###### CONTADORES  ########
+    activi_count_parti = fields.Integer(string='Contador Actividades', compute='get_acti_count')
 
     @api.onchange('number', 'capitulo_id','subcapitulo_id')
     def _onchange_join_number(self):
@@ -159,7 +164,7 @@ class Partidas(models.Model):
             'context': dict(self._context, default_partida_id=self.id),
         }
 
-    activi_count_parti = fields.Integer(string='Contador Actividades', compute='get_acti_count')
+
 
     def get_acti_count(self):
         for r in self:
