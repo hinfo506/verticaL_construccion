@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api,_
 
 
 class Partidas(models.Model):
@@ -17,14 +17,10 @@ class Partidas(models.Model):
     fecha_finalizacion = fields.Date('Acaba el')
 
     ###### FASES DEL PROYECTO ########
-    project_id = fields.Many2one(
-        related='capitulo_id.project_id',
-        string='Proyecto',
-        required=False, store=True, readonly=True)
+    project_id = fields.Many2one('project.project', string='Proyecto')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade')
-    subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo id', required=False)
-    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string='Volumetria_ids', required=False)
+    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string=_('Volumetría'), required=False)
 
     ###### CONTADORES  ########
     activi_count_parti = fields.Integer(string='Contador Actividades', compute='get_acti_count')
@@ -145,6 +141,9 @@ class Partidas(models.Model):
 
         for maquinaria in self.item_capitulo_maquinaria:
             record.item_capitulo_maquinaria |= maquinaria.copy()
+
+        for volumetria_id in self.volumetria_ids:
+            record.volumetria_ids |= volumetria_id.copy()
 
         return record
 

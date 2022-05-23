@@ -17,10 +17,7 @@ class Subcapitulo(models.Model):
     fecha_finalizacion = fields.Date('Acaba el')
 
     ###### FASES DEL PROYECTO  ########
-    project_id = fields.Many2one(
-        related='capitulo_id.project_id',
-        string='Proyecto',
-        required=False,store=True,readonly=True)
+    project_id = fields.Many2one('project.project', string='Proyecto')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
     subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
 
