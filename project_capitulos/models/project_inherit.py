@@ -169,7 +169,7 @@ class ProyectosInherit(models.Model):
         copia_proyecto = self.env['project.project'].browse(yourproject_id).copy()
         for proyecto in copia_proyecto:
             for capitulo_id in proyecto.capitulos_id:
-                capitulo_id.subcapitulo_id.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
+                capitulo_id.subcapitulo_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
                 for subcapitulo_id in capitulo_id.subcapitulo_ids:
                     subcapitulo_id.partidas_id.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
                     for partidas_id in subcapitulo_id.partidas_ids:
