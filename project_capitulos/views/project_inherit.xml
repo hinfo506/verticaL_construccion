@@ -85,6 +85,14 @@
                                         </div>
                                     </a>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div role="menuitem">
+                        <div class="o_kanban_record_bottom mt-3">
+                            <div class="oe_kanban_bottom_left">
                                 <div class="o_project_kanban_boxes">
                                     <a class="o_project_kanban_box" name="met_partidas" type="object">
                                         <div>
@@ -103,8 +111,9 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
+
                 </xpath>
 
                 <xpath expr="//div[hasclass('col-4')]" position="inside">

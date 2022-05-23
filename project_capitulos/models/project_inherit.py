@@ -12,6 +12,8 @@ class ProyectosInherit(models.Model):
     # FASES DEL PROYECTO
     capitulos_id = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='project_id', string='Capitulos_id', required=False)
     item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='project_id', string='Item_ids', required=False)
+    # partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='project_id',string='Partidas_ids', required=False)
+    # subcapitulos_ids = fields.One2many(comodel_name='sub.capitulo', inverse_name='project_id', string='Subcapitulos_ids', required=False)
 
     # CONTADORES
     capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
@@ -180,9 +182,6 @@ class ProyectosInherit(models.Model):
                         partidas_id.item_capitulo_gastos_generales.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
                         partidas_id.item_capitulo_maquinaria.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
                         partidas_id.volumetria_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-
-
-
 
         return {
             'name': 'Proyecto',
