@@ -183,9 +183,6 @@ class ProyectosInherit(models.Model):
                         partidas_id.item_capitulo_maquinaria.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
                         partidas_id.volumetria_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
 
-
-
-
         return {
             'name': 'Proyecto',
             'res_model': 'project.project',
