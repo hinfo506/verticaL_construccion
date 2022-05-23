@@ -30,7 +30,7 @@
         "wizard/cambio_precio_view.xml",
 
         # Reportes
-        # "report/report_project.xml",
+        "report/project_report.xml",
 
         # Menu
         "views/menu.xml",
