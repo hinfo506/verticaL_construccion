@@ -22,7 +22,7 @@ class ItemCapitulo(models.Model):
     fecha_finalizacion = fields.Date('Fecha Finalización')
 
     ###### FASES DEL PROYECTO ######## 
-    project_id = fields.Many2one('project.project', string='Proyecto')    
+    project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo',ondelete='cascade')
     partidas_id = fields.Many2one('partidas.partidas', string='Partidas',ondelete='cascade')
