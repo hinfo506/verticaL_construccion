@@ -17,11 +17,12 @@ class ProyectosInherit(models.Model):
 
     # CONTADORES
     capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
-    
     capitulos_kanban_count = fields.Integer(string='Capitulos_kanban_count', compute='_compute_capitulo_count', required=False)
     subcapitulos_kanban_count = fields.Integer(string='Subcapitulos_kanban_count', compute='_compute_subcapitulo_count', required=False)
     partidas_kanban_count = fields.Integer(string='Partidas_kanban_count', compute='_compute_partidas_count', required=False)
     item_kanban_count = fields.Integer(string='Item_kanban_count', compute='_compute_item_count', required=False)
+    
+    nombre_fase = fields.Char(string='Nombre_fase', required=False, default='Fase Inicial')
 
     @api.model
     def create(self, vals):
@@ -85,8 +86,6 @@ class ProyectosInherit(models.Model):
             'domain': [('res_id', '=',  self.id),('res_model','=','project.project')],
         }
 
-
-
     ######################
     #### Actividades #####
     ######################
@@ -97,7 +96,7 @@ class ProyectosInherit(models.Model):
             count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','project.project')])
             r.activi_count = count if count else 0
     ######################
-    #         
+    
     def _compute_capitulo_count(self):
         task_data = self.env['capitulo.capitulo'].read_group(
             [('project_id', 'in', self.ids)],

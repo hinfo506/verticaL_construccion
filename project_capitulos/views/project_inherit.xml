@@ -42,15 +42,12 @@
                             </tree>
                         </field>
                     </page>
-                   <!-- <page string="Items">
-                        <field name="item_ids">
-                            <tree>
-                                <field name="job_type"/>
-                                <field name="product_id"/>
-                            </tree>
-                        </field>
-                    </page> -->
                 </xpath>
+
+                <xpath expr="//field[@name='label_tasks']" position="after">
+                    <field name="nombre_fase"/>
+                </xpath>
+                
             </field>
         </record>
 
