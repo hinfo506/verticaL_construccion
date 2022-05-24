@@ -29,7 +29,7 @@ class Capitulo(models.Model):
     ###### FASES DEL PROYECTO  ########
     project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
             # ver
-    fase_inicial_id = fields.Many2one(comodel_name='fase.inicial',string='Fase_inicial_id',required=False)
+    fase_principal_id = fields.Many2one(comodel_name='fase.principal',string='Fase_principal_id',required=False)
 
     subcapitulo_ids = fields.One2many(
         comodel_name='sub.capitulo',
@@ -41,9 +41,9 @@ class Capitulo(models.Model):
     sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False, compute='subcapitulos_count')
     activi_count = fields.Integer(string='Contador Actividades', compute='get_acti_count')
 
-    @api.onchange('number', 'project_id')
+    @api.onchange('number', 'fase_principal_id')
     def _onchange_join_number_capitulo(self):
-        self.numero_capitulo = str(self.project_id.numero_proyecto) + "." + str(self.number)
+        self.numero_capitulo = str(self.fase_principal_id.numero_fase_principal) + "." + str(self.number)
 
     def subcapitulos_count(self):
         count = self.env['sub.capitulo'].search_count([('capitulo_id', '=', self.id)])

@@ -25,8 +25,11 @@
         "views/view_item_capitulo.xml",
         "views/view_item_volumetria.xml",
         "views/view_partidas.xml",
+        "views/view_fase_inicial.xml",
         "views/activity_inherit.xml",
         "views/sequence.xml",
+
+        # Wizard
         "wizard/cambio_precio_view.xml",
 
         # Reportes

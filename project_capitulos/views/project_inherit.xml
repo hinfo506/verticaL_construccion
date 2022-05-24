@@ -17,6 +17,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='label_tasks']" position="before">
+                    <field name="abreviatura_proyecto"/>
                     <field name="numero_proyecto"/>
                 </xpath>
 
@@ -24,8 +25,11 @@
                     <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
                                 <field name="activi_count" string="Actividades" widget="statinfo"/>
                     </button>
-                    <button class="oe_stat_button" name="met_capitulos" type="object" icon="fa-archive">
-                        <field name="capitulos_count"  widget="statinfo"/>
+<!--                    <button class="oe_stat_button" name="met_capitulos" type="object" icon="fa-archive">-->
+<!--                        <field name="capitulos_count"  widget="statinfo"/>-->
+<!--                    </button>-->
+                    <button class="oe_stat_button" name="met_fase_principal" type="object" icon="fa-archive">
+                        <field name="fases_principal_count"  widget="statinfo" string="Fase Principal"/>
                     </button>
                 </xpath>
 

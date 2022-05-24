@@ -49,6 +49,7 @@
                                             <field name="fecha_finalizacion" widget="daterange" options="{&quot;related_start_date&quot;: &quot;fecha_inicio&quot;}"/>
                                         </div>
                                         <field name="project_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                        <field name="fase_principal_id" attrs="{'readonly': [('id', '!=', False)]}"/>
                                         <field name="name"/>
                                     <!--<field name="descripcion"/>-->
                                      </group>

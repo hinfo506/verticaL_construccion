@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="fase_principal_view_form" model="ir.ui.view">
+            <field name="name">fase_principal_view_form</field>
+            <field name="model">fase.principal</field>
+            <field name="arch" type="xml">
+                <form string="fase_principal_form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="met_activi_capitulos" type="object" icon="fa-archive">
+                                <field name="activi_count" string="Actividades" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" name="met_capitulos"  type="object" icon="fa-archive">
+                                <field name="cap_count" string="Capitulos"  widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="numero_fase_principal"/>
+                            <field name="project_id" readonly="1"/>
+
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'post_refresh':True}" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="fase_principal_view_tree" model="ir.ui.view">
+            <field name="name">fase_principal_view_tree</field>
+            <field name="model">fase.principal</field>
+            <field name="arch" type="xml">
+                <tree string="fase_principal_tree">
+                    <field name="numero_fase_principal"/>
+                    <field name="name"/>
+                    <field name="project_id"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
