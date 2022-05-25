@@ -28,8 +28,10 @@ class Capitulo(models.Model):
  
     ###### FASES DEL PROYECTO  ########
     project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
-            # ver
     fase_principal_id = fields.Many2one(comodel_name='fase.principal',string='Fase_principal_id',required=False)
+
+    # prueba
+    # name_faseini = fields.Char(string='Fase',related="project_id.nombre_fase", required=False)
 
     subcapitulo_ids = fields.One2many(
         comodel_name='sub.capitulo',

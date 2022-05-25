@@ -51,6 +51,8 @@
                                         <field name="project_id" attrs="{'readonly': [('id', '!=', False)]}"/>
                                         <field name="fase_principal_id" attrs="{'readonly': [('id', '!=', False)]}"/>
                                         <field name="name"/>
+<!--                                        <field name="name_faseini"/>-->
+<!--                                         <a><span class="o_label"><t t-esc="name_faseini"/></span></a>-->
                                     <!--<field name="descripcion"/>-->
                                      </group>
                                  </group>
