@@ -8,6 +8,7 @@ class FaseInicial(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char()
+    descripcion = fields.Text(string="Descripcion", required=False)
 
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.faseprincipal'))

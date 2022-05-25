@@ -31,6 +31,7 @@ class ProyectosInherit(models.Model):
     capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
     fases_principal_count = fields.Integer(string='Fases contador', compute='get_count_fases_principal')
 
+    fase_principal_kanban_count = fields.Integer(string='FasePrincipal_kanban_count', compute='_compute_faseprincipal_count', required=False)
     capitulos_kanban_count = fields.Integer(string='Capitulos_kanban_count', compute='_compute_capitulo_count', required=False)
     subcapitulos_kanban_count = fields.Integer(string='Subcapitulos_kanban_count', compute='_compute_subcapitulo_count', required=False)
     partidas_kanban_count = fields.Integer(string='Partidas_kanban_count', compute='_compute_partidas_count', required=False)
@@ -124,6 +125,16 @@ class ProyectosInherit(models.Model):
             r.activi_count = count if count else 0
     ######################
     
+    def _compute_faseprincipal_count(self):
+        task_data = self.env['fase.principal'].read_group(
+            [('project_id', 'in', self.ids)],
+            ['project_id', 'project_id:count'], ['project_id'])
+        result_with_subtasks = defaultdict(int)
+        for data in task_data:
+            result_with_subtasks[data['project_id'][0]] += data['project_id_count']
+        for project in self:
+            project.fase_principal_kanban_count = result_with_subtasks[project.id]
+
     def _compute_capitulo_count(self):
         task_data = self.env['capitulo.capitulo'].read_group(
             [('project_id', 'in', self.ids)],

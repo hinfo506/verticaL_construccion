@@ -25,7 +25,7 @@
         "views/view_item_capitulo.xml",
         "views/view_item_volumetria.xml",
         "views/view_partidas.xml",
-        "views/view_fase_inicial.xml",
+        "views/view_fase_principal.xml",
         "views/activity_inherit.xml",
         "views/sequence.xml",
 
