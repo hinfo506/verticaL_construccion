@@ -20,6 +20,8 @@ class Subcapitulo(models.Model):
     project_id = fields.Many2one('project.project', string='Proyecto')
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
     subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
+    fase_principal_id = fields.Many2one(comodel_name='fase.principal',string='Fase Principal', required=False)
+    # fase_principal_id = fields.Many2one(related='capitulo_id.fase_principal_id', string='Fase Principal', required=False)
 
     ###### CONTADORES  ########
     partidas_ids = fields.One2many(comodel_name='partidas.partidas',inverse_name='subcapitulo_id', string='Partidas id', required=False)

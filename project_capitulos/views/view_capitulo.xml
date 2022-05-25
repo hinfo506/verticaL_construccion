@@ -96,6 +96,7 @@
                     <field name="name" string="Descripción Capítulo"/>
                     <field name="total"/>
                     <button type="object" string=" Subcapítulos" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
+                    <field name="fase_principal_id"/>
                     <field name="project_id"/>
                     <!-- <field name="descripcion" /> -->
                 </tree>
