@@ -29,7 +29,8 @@
 <!--                        <field name="capitulos_count"  widget="statinfo"/>-->
 <!--                    </button>-->
                     <button class="oe_stat_button" name="met_fase_principal" type="object" icon="fa-archive">
-                        <field name="fases_principal_count"  widget="statinfo" string="Fase Principal" options="{'label_field': 'nombre_fase'}"/>
+<!--                        <field name="fases_principal_count"  widget="statinfo" string="Fase Principal" options="{'label_field': 'nombre_fase'}"/>-->
+                        <field name="fase_principal_kanban_count"  widget="statinfo" string="Fase Principal" options="{'label_field': 'nombre_fase'}"/>
                     </button>
                 </xpath>
 

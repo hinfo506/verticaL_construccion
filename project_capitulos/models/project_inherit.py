@@ -29,7 +29,7 @@ class ProyectosInherit(models.Model):
 
     # CONTADORES
     capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
-    fases_principal_count = fields.Integer(string='Fases contador', compute='get_count_fases_principal')
+    # fases_principal_count = fields.Integer(string='Fases contador', compute='get_count_fases_principal')
 
     fase_principal_kanban_count = fields.Integer(string='FasePrincipal_kanban_count', compute='_compute_faseprincipal_count', required=False)
     capitulos_kanban_count = fields.Integer(string='Capitulos_kanban_count', compute='_compute_capitulo_count', required=False)
@@ -49,10 +49,10 @@ class ProyectosInherit(models.Model):
             count = self.env['capitulo.capitulo'].search_count([('project_id', '=', self.id)])
             r.capitulos_count = count if count else 0
 
-    def get_count_fases_principal(self):
-        for r in self:
-            count = self.env['fase.principal'].search_count([('project_id', '=', self.id)])
-            r.fases_principal_count = count if count else 0
+    # def get_count_fases_principal(self):
+    #     for r in self:
+    #         count = self.env['fase.principal'].search_count([('project_id', '=', self.id)])
+    #         r.fases_principal_count = count if count else 0
 
 
     def met_fase_principal(self):
