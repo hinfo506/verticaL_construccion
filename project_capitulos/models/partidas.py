@@ -18,6 +18,7 @@ class Partidas(models.Model):
 
     ###### FASES DEL PROYECTO ########
     project_id = fields.Many2one('project.project', string='Proyecto')
+    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False)
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade')
     volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string=_('Volumetría'), required=False)

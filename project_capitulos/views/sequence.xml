@@ -5,7 +5,15 @@
         <record id="ir_sequence_numero_proyecto" model="ir.sequence">
             <field name="name">Secuencia de Proyecto</field>
             <field name="code">secuencia.proyecto</field>
-            <field name="padding">1</field>
+            <field name="padding">2</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="ir_sequence_fase_principal" model="ir.sequence">
+            <field name="name">Secuencia de Fase principal</field>
+            <field name="code">secuencia.faseprincipal</field>
+            <field name="padding">2</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
@@ -13,7 +21,7 @@
         <record id="ir_sequence_numero_capitulo" model="ir.sequence">
             <field name="name">Secuencia de Capitulos</field>
             <field name="code">secuencia.capitulo</field>
-            <field name="padding">1</field>
+            <field name="padding">2</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
@@ -21,7 +29,7 @@
         <record id="ir_sequence_numero_subcapitulo" model="ir.sequence">
             <field name="name">Secuencia de SubCapitulos</field>
             <field name="code">secuencia.subcapitulo</field>
-            <field name="padding">1</field>
+            <field name="padding">2</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
@@ -29,7 +37,7 @@
         <record id="ir_sequence_numero_partidas" model="ir.sequence">
             <field name="name">Secuencia de Partidas</field>
             <field name="code">secuencia.partidas</field>
-            <field name="padding">1</field>
+            <field name="padding">2</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>

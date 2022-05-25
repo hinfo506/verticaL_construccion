@@ -54,6 +54,7 @@
                                         <field name="fecha_finalizacion" widget="daterange" options="{&quot;related_start_date&quot;: &quot;fecha_inicio&quot;}"/>
                                     </div>
                                   <field name="project_id"/>
+                                  <field name="fase_principal_id"/>
                                   <field name="capitulo_id"/>
                                   <field name="subcapitulo_id"/>
                                   <field name="name"/>
@@ -98,6 +99,7 @@
                     <button type="object" string=" Item" name="action_view_item" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="subcapitulo_id" string="Subcapítulo"/>
                     <field name="capitulo_id" string="Capitulo"/>
+                    <field name="fase_principal_id" string="Fase Principal"/>
                     <field name="project_id" string="Proyecto"/>
                 </tree>
             </field>

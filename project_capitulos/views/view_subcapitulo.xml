@@ -52,6 +52,7 @@
                                     </div>
                                   <field name="project_id"/>
                                   <field name="capitulo_id"/>
+                                  <field name="fase_principal_id"/>
                                   <field name="name"/>
                                   </group>
                               </group>
@@ -92,6 +93,7 @@
                     <field name="total" string="Total"/>
                      <button type="object" string=" Partida" name="action_view_partidas" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="capitulo_id" string="Capítulo"/>
+                    <field name="fase_principal_id" string="Fase Principal"/>
                     <field name="project_id" string="Proyecto"/>
                 </tree>
             </field>
