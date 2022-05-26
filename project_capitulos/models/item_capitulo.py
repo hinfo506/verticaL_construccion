@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.exceptions import UserError, ValidationError,RedirectWarning
 
 
 class ItemCapitulo(models.Model):
@@ -62,9 +63,17 @@ class ItemCapitulo(models.Model):
     total_impuesto_item = fields.Float(string='ITBIS', store=False, compute='_compute_total_impuesto_item')
     total_item_capitulo = fields.Float(string='Total', store=False, compute='_compute_total_item_capitulo')
     suma_impuesto_item_y_cost_price = fields.Float(string='P.U. + ITBIS', store=False, compute='_compute_suma_impuesto_item_y_cost_price')
-
-
     #############################################################################
+    
+    # Calculos de descuentos por impuestos
+    tipo_descuento = fields.Selection(string='Tipo descuento Proveedor', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ], required=False, )
+    cantidad_descuento = fields.Float(string='Cantidad Descuento', required=False)
+    subtotal_descuento = fields.Float(string='Subtotal Con descuento', required=False, compute='_compute_subtotal_descuento', store=False)
+    beneficio_estimado = fields.Float(string='Beneficio Estimado en %', required=False)
+    importe_venta = fields.Float(string='Importe Venta (PVP)', required=False, compute='_compute_subtotal_descuento', store=False)
+    impuesto_porciento = fields.Float(string='Impuesto en % (ITBIS)', required=False)
+    importe_ibis = fields.Float(string='Importe ITBIS', required=False, compute='_compute_subtotal_descuento', store=False)
+    total_puibis = fields.Float(string='Total (P.U. + ITBIS)', required=False, compute='_compute_subtotal_descuento', store=False)
 
     # Importe Subtotal item Capitulo - Importe sin contar con los impuestos
     @api.depends('product_qty', 'cost_price', 'longitud', 'ancho', 'alto')
@@ -78,6 +87,21 @@ class ItemCapitulo(models.Model):
                 rec.subtotal_item_capitulo = rec.product_qty * 3  # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
             else:
                 rec.subtotal_item_capitulo = 0
+
+    # Importe Subtotal item Capitulo - Importe con los impuestos
+    @api.depends('tipo_descuento','product_qty', 'cost_price', 'subtotal_item_capitulo', 'cantidad_descuento','beneficio_estimado','impuesto_porciento')
+    def _compute_subtotal_descuento(self):
+        for record in self:
+            if record.tipo_descuento == 'cantidad':
+                record.subtotal_descuento = record.subtotal_item_capitulo - record.cantidad_descuento
+            elif record.tipo_descuento == 'porciento':
+                record.subtotal_descuento = record.subtotal_item_capitulo - ((record.subtotal_item_capitulo*record.cantidad_descuento)/100)
+            else:
+                record.subtotal_descuento = 0
+
+            record.importe_venta = ((record.subtotal_item_capitulo * record.beneficio_estimado) / 100) + record.subtotal_item_capitulo
+            record.importe_ibis = record.subtotal_descuento * (record.impuesto_porciento / 100)
+            record.total_puibis = record.subtotal_descuento + record.importe_ibis
 
     # Importe Total Impuesto Item - Importe de los impuestos a partir del campo impuesto_item
     @api.depends('cost_price', 'impuesto_item')
