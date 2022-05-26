@@ -38,6 +38,16 @@
                                 <field name="total_item_capitulo"/>
                             </group>
                         </group>
+                        <group>
+                            <field name="tipo_descuento"/>
+                            <field name="cantidad_descuento"/>
+                            <field name="subtotal_descuento"/>
+                            <field name="beneficio_estimado"/>
+                            <field name="importe_venta"/>
+                            <field name="impuesto_porciento"/>
+                            <field name="importe_ibis"/>
+                            <field name="total_puibis"/>
+                        </group>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" options="{'post_refresh':True}" groups="base.group_user"/>
