@@ -39,7 +39,7 @@
                                         <field name="subtotal_item_capitulo"/>
                                         <field name="total_impuesto_item"/>
                                         <field name="suma_impuesto_item_y_cost_price"/>
-                                        <field name="total_item_capitulo"/>
+<!--                                        <field name="total_item_capitulo"/>-->
                                     </tree>
                                 </field>
                             </page>

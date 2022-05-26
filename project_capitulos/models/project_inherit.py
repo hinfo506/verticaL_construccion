@@ -7,12 +7,9 @@ class ProyectosInherit(models.Model):
     _inherit = 'project.project'
 
     # DATOS PRINCIPALES
-    # numero_proyecto = fields.Char(string=u'Número proyecto', readonly=True, default='New')
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
     numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True)
-
-
     abreviatura_proyecto = fields.Char(string='Abreviatura Proyecto', required=False)
     nombre_fase = fields.Char(string='Nombre_fase', required=False, default='Fase Inicial')
 
@@ -27,33 +24,11 @@ class ProyectosInherit(models.Model):
     # partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='project_id',string='Partidas_ids', required=False)
     # subcapitulos_ids = fields.One2many(comodel_name='sub.capitulo', inverse_name='project_id', string='Subcapitulos_ids', required=False)
 
-    # CONTADORES
-    capitulos_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
-    # fases_principal_count = fields.Integer(string='Fases contador', compute='get_count_fases_principal')
-
     fase_principal_kanban_count = fields.Integer(string='FasePrincipal_kanban_count', compute='_compute_faseprincipal_count', required=False)
     capitulos_kanban_count = fields.Integer(string='Capitulos_kanban_count', compute='_compute_capitulo_count', required=False)
     subcapitulos_kanban_count = fields.Integer(string='Subcapitulos_kanban_count', compute='_compute_subcapitulo_count', required=False)
     partidas_kanban_count = fields.Integer(string='Partidas_kanban_count', compute='_compute_partidas_count', required=False)
     item_kanban_count = fields.Integer(string='Item_kanban_count', compute='_compute_item_count', required=False)
-
-    # @api.model
-    # def create(self, vals):
-    #     if vals.get('numero_proyecto', '1') == '1':
-    #         vals['numero_proyecto'] = self.env['ir.sequence'].next_by_code('secuencia.proyecto') or '1'
-    #     result = super(ProyectosInherit, self).create(vals)
-    #     return result
-
-    def get_count_capitulos(self):
-        for r in self:
-            count = self.env['capitulo.capitulo'].search_count([('project_id', '=', self.id)])
-            r.capitulos_count = count if count else 0
-
-    # def get_count_fases_principal(self):
-    #     for r in self:
-    #         count = self.env['fase.principal'].search_count([('project_id', '=', self.id)])
-    #         r.fases_principal_count = count if count else 0
-
 
     def met_fase_principal(self):
         return {
