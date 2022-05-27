@@ -8,16 +8,21 @@ class ProyectosInherit(models.Model):
 
     # DATOS PRINCIPALES
 
-    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True)
+    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True,compute='_compute_numero_pryecto')
     abreviatura_proyecto = fields.Char(string='Abreviatura Proyecto', required=False)
     nombre_fase = fields.Char(string='Nombre_fase', required=False, default='Fase Inicial')
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
 
-    @api.onchange('number', 'abreviatura_proyecto')
-    def _onchange_join_number_proyecto(self):
-        # self.numero_proyecto = str(self.abreviatura_proyecto)
+    # @api.onchange('abreviatura_proyecto','number')
+    # def _onchange_join_number_proyecto(self):
+    #     # self.numero_proyecto = str(self.abreviatura_proyecto)
+    #     self.numero_proyecto = str(self.abreviatura_proyecto) + "-" + str(self.number)
+
+    @api.depends('abreviatura_proyecto','number')
+    def _compute_numero_pryecto(self):
         self.numero_proyecto = str(self.abreviatura_proyecto) + "-" + str(self.number)
+
 
     # FASES DEL PROYECTO
     fase_principal_ids = fields.One2many(comodel_name='fase.principal', inverse_name='project_id', string='Fase_principal_ids', required=False)
