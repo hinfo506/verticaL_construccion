@@ -7,6 +7,12 @@
             <field name="model">fase.principal</field>
             <field name="arch" type="xml">
                 <form string="fase_principal_form">
+                    <header>
+                        <button name='wizard_cambio_precio' string='Cambiar Precio Masivo'
+                            class='oe_highlight'
+                            type='object'
+                        />
+                    </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" name="met_activi_capitulos" type="object" icon="fa-archive">

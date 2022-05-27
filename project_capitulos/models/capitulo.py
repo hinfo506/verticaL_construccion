@@ -27,8 +27,8 @@ class Capitulo(models.Model):
     descripcion = fields.Text('Descripción del Capitulo')
  
     ###### FASES DEL PROYECTO  ########
-    project_id = fields.Many2one('project.project', string='Proyecto', ondelete='cascade')
-    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False)
+    project_id = fields.Many2one('project.project', string='Proyecto',)
+    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False, ondelete='cascade')
 
     # prueba
     # name_faseini = fields.Char(string='Fase',related="project_id.nombre_fase", required=False)

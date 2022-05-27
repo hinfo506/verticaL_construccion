@@ -17,13 +17,14 @@ class ItemCapitulo(models.Model):
     hours = fields.Char(string='Horas', required=False)
     actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
     basis = fields.Char(string='Base', required=False)
-    impuesto_item = fields.Float('Imp. %', default=18)
+    # impuesto_item = fields.Float('Imp. %', default=18)
     total = fields.Float('Importe Total')
     date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
     fecha_finalizacion = fields.Date('Fecha Finalización')
 
     ###### FASES DEL PROYECTO ######## 
     project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
+    faseprincipal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False)
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo',ondelete='cascade')
     partidas_id = fields.Many2one('partidas.partidas', string='Partidas',ondelete='cascade')
@@ -60,20 +61,20 @@ class ItemCapitulo(models.Model):
 
     # Campos de variables calculadas
     subtotal_item_capitulo = fields.Float(string='Subtotal', store=False, compute='_compute_subtotal_item_capitulo')
-    total_impuesto_item = fields.Float(string='ITBIS', store=False, compute='_compute_total_impuesto_item')
-    total_item_capitulo = fields.Float(string='Total', store=False, compute='_compute_total_item_capitulo')
-    suma_impuesto_item_y_cost_price = fields.Float(string='P.U. + ITBIS', store=False, compute='_compute_suma_impuesto_item_y_cost_price')
+    # total_impuesto_item = fields.Float(string='ITBIS', store=False, compute='_compute_total_impuesto_item')
+    # total_item_capitulo = fields.Float(string='Total', store=False, compute='_compute_total_item_capitulo')
+    # suma_impuesto_item_y_cost_price = fields.Float(string='P.U. + ITBIS', store=False, compute='_compute_suma_impuesto_item_y_cost_price')
     #############################################################################
     
-    # Calculos de descuentos por impuestos
+    # Calculos de descuentos por impuestos creados por Raul
     tipo_descuento = fields.Selection(string='Tipo descuento Proveedor', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ], required=False, )
     cantidad_descuento = fields.Float(string='Cantidad Descuento', required=False)
     subtotal_descuento = fields.Float(string='Subtotal Con descuento', required=False, compute='_compute_subtotal_descuento', store=False)
     beneficio_estimado = fields.Float(string='Beneficio Estimado en %', required=False)
     importe_venta = fields.Float(string='Importe Venta (PVP)', required=False, compute='_compute_subtotal_descuento', store=False)
     impuesto_porciento = fields.Float(string='Impuesto en % (ITBIS)', required=False)
-    importe_ibis = fields.Float(string='Importe ITBIS', required=False, compute='_compute_subtotal_descuento', store=False)
-    total_puibis = fields.Float(string='Total (P.U. + ITBIS)', required=False, compute='_compute_subtotal_descuento', store=False)
+    total_impuesto_item = fields.Float(string='Importe ITBIS', required=False, compute='_compute_subtotal_descuento', store=False)
+    suma_impuesto_item_y_cost_price = fields.Float(string='Total (P.U. + ITBIS)', required=False, compute='_compute_subtotal_descuento', store=False)
 
     # Importe Subtotal item Capitulo - Importe sin contar con los impuestos
     @api.depends('product_qty', 'cost_price', 'longitud', 'ancho', 'alto')
@@ -100,26 +101,26 @@ class ItemCapitulo(models.Model):
                 record.subtotal_descuento = 0
 
             record.importe_venta = ((record.subtotal_item_capitulo * record.beneficio_estimado) / 100) + record.subtotal_item_capitulo
-            record.importe_ibis = record.subtotal_descuento * (record.impuesto_porciento / 100)
-            record.total_puibis = record.subtotal_descuento + record.importe_ibis
+            record.total_impuesto_item = record.subtotal_descuento * (record.impuesto_porciento / 100)
+            record.suma_impuesto_item_y_cost_price = record.subtotal_descuento + record.total_impuesto_item
 
     # Importe Total Impuesto Item - Importe de los impuestos a partir del campo impuesto_item
-    @api.depends('cost_price', 'impuesto_item')
-    def _compute_total_impuesto_item(self):
-        for rec in self:
-                rec.total_impuesto_item = rec.cost_price * rec.impuesto_item / 100
+    # @api.depends('cost_price', 'impuesto_item')
+    # def _compute_total_impuesto_item(self):
+    #     for rec in self:
+    #             rec.total_impuesto_item = rec.cost_price * rec.impuesto_item / 100
 
     # Suma Impuesto item + Precio de Coste - Suma del precio unitario del producto + el impuesto
-    @api.depends('product_qty', 'cost_price','total_impuesto_item')
-    def _compute_suma_impuesto_item_y_cost_price(self):
-        for rec in self:
-                rec.suma_impuesto_item_y_cost_price = rec.cost_price + rec.total_impuesto_item
+    # @api.depends('product_qty', 'cost_price','total_impuesto_item')
+    # def _compute_suma_impuesto_item_y_cost_price(self):
+    #     for rec in self:
+    #             rec.suma_impuesto_item_y_cost_price = rec.cost_price + rec.total_impuesto_item
     
     # Importe Total Item Capitulo - Total Item Capitulo incluido impuestos
-    @api.depends('product_qty', 'suma_impuesto_item_y_cost_price')
-    def _compute_total_item_capitulo(self):
-        for rec in self:
-                rec.total_item_capitulo = rec.suma_impuesto_item_y_cost_price * rec.product_qty
+    # @api.depends('product_qty', 'suma_impuesto_item_y_cost_price')
+    # def _compute_total_item_capitulo(self):
+    #     for rec in self:
+    #             rec.total_item_capitulo = rec.suma_impuesto_item_y_cost_price * rec.product_qty
 
     @api.onchange('product_id')
     def _onchan_product_id(self):
