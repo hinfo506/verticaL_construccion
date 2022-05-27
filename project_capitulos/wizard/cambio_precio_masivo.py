@@ -8,6 +8,7 @@ class CambioPrecioMasivo(models.TransientModel):
     nuevo_precio = fields.Float(string='Nuevo Coste', required=False)
     product_id = fields.Many2one(comodel_name='product.product', string='Artículo', required=True)
     project_id = fields.Many2one(comodel_name='project.project', string='Project_id', required=False)
+    faseprincipal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False)
     capitulo_id = fields.Many2one(comodel_name='capitulo.capitulo', string='Capitulo', required=False)
     subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo', required=False)
     partida_id = fields.Many2one(comodel_name='partidas.partidas', string='Partida', required=False)
@@ -20,14 +21,9 @@ class CambioPrecioMasivo(models.TransientModel):
     mostrar_botones = fields.Boolean(string='Mostrar', default=True)
 
     # campos de Impuestos
-    tipo_cambio = fields.Selection(string='Tipo cambio', selection=[
-        ('coste', 'Nuevo coste'),
-        ('cantidaddescuento', 'Cantidad Descuento'),
-        ('beneficio', 'Beneficio Estimado en %'),
-        ('impuesto', 'Impuesto en % (ITBIS)'),
-        ('Descuento Todo', 'descuento'), ], required=False, )
-    tipo_descuento = fields.Selection(string='Tipo_descuento', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ], required=False, )
+    tipo_cambio = fields.Selection(string='Tipo cambio', selection=[('nuevocoste', 'Nuevo Coste'), ('todo', 'Todo'), ('impuesto', 'Nuevos Impuestos'),], required=False, )
 
+    tipo_descuento = fields.Selection(string='Tipo_descuento', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ], required=False, )
     cant_descuento = fields.Float(string='Cant_descuento', required=False)
     beneficio_estimado = fields.Float(string='Beneficio Estimado en %', required=False)
     impuesto_porciento = fields.Float(string='Impuesto en % (ITBIS)', required=False)
@@ -55,8 +51,10 @@ class CambioPrecioMasivo(models.TransientModel):
     def onchange_product(self):
         # hola = self.vacio()
         for record in self:
-            if (record.product_id and record.project_id) or record.capitulo_id or record.subcapitulo_id or record.partida_id:
+            if (record.product_id and record.project_id) or record.capitulo_id or record.subcapitulo_id or record.partida_id or record.faseprincipal_id:
                 data = [('project_id', '=', record.project_id.id), ('product_id', '=', record.product_id.id)]
+                if record.faseprincipal_id:
+                    data = [('faseprincipal_id', '=', record.faseprincipal_id.id), ('product_id', '=', record.product_id.id)]
                 if record.capitulo_id:
                     data = [('capitulo_id', '=', record.capitulo_id.id), ('product_id', '=', record.product_id.id)]
                 if record.subcapitulo_id:
@@ -75,14 +73,36 @@ class CambioPrecioMasivo(models.TransientModel):
 
     def action_guardar_nuevo(self):
         # if self.product_id and self.nuevo_precio:
-        items = self.env['item.capitulo'].browse(self.item_ids.ids)
-        items.write({'cost_price': self.nuevo_precio})
+        if self.tipo_cambio == "nuevocoste":
+            items = self.env['item.capitulo'].browse(self.item_ids.ids)
+            items.write({'cost_price': self.nuevo_precio})
+        elif self.tipo_cambio == "todo":
+            items = self.env['item.capitulo'].browse(self.item_ids.ids)
+            items.write({
+                'cost_price': self.nuevo_precio,
+                'tipo_descuento': self.tipo_descuento,
+                'cantidad_descuento': self.cant_descuento,
+                'beneficio_estimado': self.beneficio_estimado,
+                'impuesto_porciento': self.impuesto_porciento,
+            })
+        elif self.tipo_cambio == "impuesto":
+            items = self.env['item.capitulo'].browse(self.item_ids.ids)
+            items.write({
+                'tipo_descuento': self.tipo_descuento,
+                'cantidad_descuento': self.cant_descuento,
+                'beneficio_estimado': self.beneficio_estimado,
+                'impuesto_porciento': self.impuesto_porciento,
+            })
+        else:
+            raise ValidationError('Debe seleccionar un Tipo de Cambio')
+
         return {
             'name': 'Cambio Precio Masivo',
             'res_model': 'cambio.precio',
             'view_mode': 'form',
             'context': {
                 'default_capitulo_id': self.capitulo_id.id if self.capitulo_id else False,
+                'default_capitulo_id': self.faseprincipal_id.id if self.faseprincipal_id else False,
                 'default_subcapitulo_id': self.subcapitulo_id.id if self.subcapitulo_id else False,
                 'default_partida_id': self.partida_id.id if self.partida_id else False,
                 'default_project_id': self.project_id.id,
@@ -94,6 +114,26 @@ class CambioPrecioMasivo(models.TransientModel):
         }
 
     def action_guardar(self):
-        items = self.env['item.capitulo'].browse(self.item_ids.ids)
-        items.write({'cost_price': self.nuevo_precio})
+        if self.tipo_cambio == "nuevocoste":
+            items = self.env['item.capitulo'].browse(self.item_ids.ids)
+            items.write({'cost_price': self.nuevo_precio})
+        elif self.tipo_cambio == "todo":
+            items = self.env['item.capitulo'].browse(self.item_ids.ids)
+            items.write({
+                'cost_price': self.nuevo_precio,
+                'tipo_descuento': self.tipo_descuento,
+                'cantidad_descuento': self.cant_descuento,
+                'beneficio_estimado': self.beneficio_estimado,
+                'impuesto_porciento': self.impuesto_porciento,
+            })
+        elif self.tipo_cambio == "impuesto":
+            items = self.env['item.capitulo'].browse(self.item_ids.ids)
+            items.write({
+                'tipo_descuento': self.tipo_descuento,
+                'cantidad_descuento': self.cant_descuento,
+                'beneficio_estimado': self.beneficio_estimado,
+                'impuesto_porciento': self.impuesto_porciento,
+            })
+        else:
+            raise ValidationError('Debe seleccionar un Tipo de Cambio')
 

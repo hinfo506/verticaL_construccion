@@ -63,6 +63,22 @@ class FaseInicial(models.Model):
             'domain': [('res_id', '=', self.id), ('res_model', '=', 'fase.principal')],
         }
 
+    def wizard_cambio_precio(self):
+        return {
+            'name': 'Cambiar Precio Masivo desde Fase Principal',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'cambio.precio',
+            'context': {
+                'default_faseprincipal_id': self.id,
+                'default_is_vacio': '1',
+                # 'default_nuevo_precio': '70',
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.project_id.name)+"/"+str(self.name)+" :</strong>",
+            },
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }
+
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
         # raise ValidationError('estoy dentro decopy de fase')

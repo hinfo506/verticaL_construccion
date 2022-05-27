@@ -7,14 +7,16 @@ class ProyectosInherit(models.Model):
     _inherit = 'project.project'
 
     # DATOS PRINCIPALES
-    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
-                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
-    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True, store=True)
+
+    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True)
     abreviatura_proyecto = fields.Char(string='Abreviatura Proyecto', required=False)
     nombre_fase = fields.Char(string='Nombre_fase', required=False, default='Fase Inicial')
+    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
+                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
 
     @api.onchange('number', 'abreviatura_proyecto')
     def _onchange_join_number_proyecto(self):
+        # self.numero_proyecto = str(self.abreviatura_proyecto)
         self.numero_proyecto = str(self.abreviatura_proyecto) + "-" + str(self.number)
 
     # FASES DEL PROYECTO

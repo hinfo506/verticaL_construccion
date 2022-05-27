@@ -29,11 +29,11 @@
                             <group><field name="product_id"/></group>
                             <group><field name="tipo_cambio"/></group>
                             <group attrs="{'invisible': [('tipo_cambio','=',False)]}">
-                                <field name="nuevo_precio" attrs="{'invisible': [('tipo_cambio','!=','coste')]}"/>
-                                <field name="tipo_descuento" attrs="{'invisible': [('tipo_cambio','=','coste')]}"/>
-                                <field name="cant_descuento" attrs="{'invisible': ['|',('tipo_cambio','=','coste'),('tipo_cambio','=','beneficio_estimado')]}"/>
-                                <field name="beneficio_estimado" attrs="{'invisible': [('tipo_cambio','=','coste')]}"/>
-                                <field name="impuesto_porciento" attrs="{'invisible': ['|',('tipo_cambio','=','coste'),('tipo_cambio','=','tipo_descuento')]}"/>
+                                <field name="nuevo_precio" attrs="{'invisible': [('tipo_cambio','=','impuesto')]}"/>
+                                <field name="tipo_descuento" attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
+                                <field name="cant_descuento" attrs="{'invisible': [('tipo_cambio','=','nuevocoste'),]}"/>
+                                <field name="beneficio_estimado" attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
+                                <field name="impuesto_porciento" attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
                             </group>
                             <group>
 
@@ -47,6 +47,7 @@
                                         <field name="product_id"/>
                                         <field name="cost_price"/>
                                         <field name="subtotal_item_capitulo"/>
+                                        <field name="tipo_descuento"/>
                                         <field name="total_impuesto_item"/>
                                         <field name="suma_impuesto_item_y_cost_price"/>
 <!--                                        <field name="total_item_capitulo"/>-->

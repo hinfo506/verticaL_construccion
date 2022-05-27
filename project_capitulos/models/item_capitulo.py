@@ -24,6 +24,7 @@ class ItemCapitulo(models.Model):
 
     ###### FASES DEL PROYECTO ######## 
     project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
+    faseprincipal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False)
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo',ondelete='cascade')
     partidas_id = fields.Many2one('partidas.partidas', string='Partidas',ondelete='cascade')
