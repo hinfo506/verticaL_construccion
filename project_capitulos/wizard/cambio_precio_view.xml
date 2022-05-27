@@ -27,7 +27,17 @@
                             <field name="mostrar_botones" invisible="1"/>
                             <field name="is_vacio" invisible="1"/>
                             <group><field name="product_id"/></group>
-                            <group><field name="nuevo_precio"/></group>
+                            <group><field name="tipo_cambio"/></group>
+                            <group attrs="{'invisible': [('tipo_cambio','=',False)]}">
+                                <field name="nuevo_precio" attrs="{'invisible': [('tipo_cambio','!=','coste')]}"/>
+                                <field name="tipo_descuento" attrs="{'invisible': [('tipo_cambio','=','coste')]}"/>
+                                <field name="cant_descuento" attrs="{'invisible': ['|',('tipo_cambio','=','coste'),('tipo_cambio','=','beneficio_estimado')]}"/>
+                                <field name="beneficio_estimado" attrs="{'invisible': [('tipo_cambio','=','coste')]}"/>
+                                <field name="impuesto_porciento" attrs="{'invisible': ['|',('tipo_cambio','=','coste'),('tipo_cambio','=','tipo_descuento')]}"/>
+                            </group>
+                            <group>
+
+                            </group>
                         </group>
 
                         <notebook>

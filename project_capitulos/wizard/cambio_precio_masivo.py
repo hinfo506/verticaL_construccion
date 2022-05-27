@@ -19,6 +19,22 @@ class CambioPrecioMasivo(models.TransientModel):
     info = fields.Html(string='Info', required=False)
     mostrar_botones = fields.Boolean(string='Mostrar', default=True)
 
+    # campos de Impuestos
+    tipo_cambio = fields.Selection(string='Tipo cambio', selection=[
+        ('coste', 'Nuevo coste'),
+        ('cantidaddescuento', 'Cantidad Descuento'),
+        ('beneficio', 'Beneficio Estimado en %'),
+        ('impuesto', 'Impuesto en % (ITBIS)'),
+        ('Descuento Todo', 'descuento'), ], required=False, )
+    tipo_descuento = fields.Selection(string='Tipo_descuento', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ], required=False, )
+
+    cant_descuento = fields.Float(string='Cant_descuento', required=False)
+    beneficio_estimado = fields.Float(string='Beneficio Estimado en %', required=False)
+    impuesto_porciento = fields.Float(string='Impuesto en % (ITBIS)', required=False)
+
+
+
+
     def vacio(self):
         # self.is_vacio=True
         if len(self.item_ids) == 0:
