@@ -57,7 +57,7 @@
                                   <field name="fase_principal_id"/>
                                   <field name="capitulo_id"/>
                                   <field name="subcapitulo_id"/>
-                                  <field name="name"/>
+                                  <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
                                   </group>
                               </group>
                               <group>
