@@ -8,7 +8,7 @@ class ProyectosInherit(models.Model):
 
     # DATOS PRINCIPALES
 
-    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True)
+    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=False)
     abreviatura_proyecto = fields.Char(string='Abreviatura Proyecto', required=False)
     nombre_fase = fields.Char(string='Nombre_fase', required=False, default='Fase Inicial')
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',

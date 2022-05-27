@@ -45,6 +45,13 @@
 <!--                                <field name="actual_quantity" invisible = "1"/>-->
 <!--                                <field name="total_item_capitulo"/>-->
                             </group>
+                            <group name="detalle_costes" string="Detalles de Precio Venta Publico">
+                                
+                                <field name="beneficio_estimado" string="Beneficio %"/>
+                                <field name="importe_venta" string="Importe PVP"/>
+<!--                                <field name="impuesto_item"/>-->
+                               
+                            </group>
                         </group>
                     </sheet>
                     <div class="oe_chatter">

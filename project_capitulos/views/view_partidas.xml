@@ -97,10 +97,10 @@
                     <field name="cantidad" string="Cantidad" />
                     <field name="total" string="Total"/>
                     <button type="object" string=" Item" name="action_view_item" class="btn btn-primary" icon="fa-hand-o-right"/>
-                    <field name="subcapitulo_id" string="Subcapítulo"/>
-                    <field name="capitulo_id" string="Capitulo"/>
-                    <field name="fase_principal_id" string="Fase Principal"/>
                     <field name="project_id" string="Proyecto"/>
+                    <field name="fase_principal_id" string="Fase Principal"/>
+                    <field name="capitulo_id" string="Capitulo"/>
+                    <field name="subcapitulo_id" string="Subcapítulo"/>
                 </tree>
             </field>
         </record>
