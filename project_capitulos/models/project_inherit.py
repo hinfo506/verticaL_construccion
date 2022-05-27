@@ -9,7 +9,7 @@ class ProyectosInherit(models.Model):
     # DATOS PRINCIPALES
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
-    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True)
+    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True, store=True)
     abreviatura_proyecto = fields.Char(string='Abreviatura Proyecto', required=False)
     nombre_fase = fields.Char(string='Nombre_fase', required=False, default='Fase Inicial')
 
@@ -173,8 +173,8 @@ class ProyectosInherit(models.Model):
             default['name'] = self.name + "(copia)"
 
         record = super(ProyectosInherit, self).copy(default)
-        for capitulo in self.capitulos_id:
-            record.capitulos_id |= capitulo.copy()
+        for faseprincipal in self.fase_principal_ids:
+            record.fase_principal_ids |= faseprincipal.copy()
 
         return record
 
@@ -183,17 +183,19 @@ class ProyectosInherit(models.Model):
         copia_proyecto = self.env['project.project'].browse(yourproject_id).copy()
         self.env.cr.commit()
         for proyecto in copia_proyecto:
-            for capitulo_id in proyecto.capitulos_id:
-                capitulo_id.subcapitulo_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
-                for subcapitulo_id in capitulo_id.subcapitulo_ids:
-                    subcapitulo_id.partidas_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
-                    for partidas_id in subcapitulo_id.partidas_ids:
-                        partidas_id.item_capitulo_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                        partidas_id.item_capitulo_materiales_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                        partidas_id.item_mano_obra_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                        partidas_id.item_capitulo_gastos_generales.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                        partidas_id.item_capitulo_maquinaria.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                        partidas_id.volumetria_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+            for faseprincipal_id in proyecto.fase_principal_ids:
+                faseprincipal_id.capitulos_ids.write({'project_id': copia_proyecto.id})
+                for capitulo_id in faseprincipal_id.capitulos_ids:
+                    capitulo_id.subcapitulo_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
+                    for subcapitulo_id in capitulo_id.subcapitulo_ids:
+                        subcapitulo_id.partidas_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
+                        for partidas_id in subcapitulo_id.partidas_ids:
+                            partidas_id.item_capitulo_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.item_capitulo_materiales_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.item_mano_obra_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.item_capitulo_gastos_generales.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.item_capitulo_maquinaria.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.volumetria_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
 
         return {
             'name': 'Proyecto',

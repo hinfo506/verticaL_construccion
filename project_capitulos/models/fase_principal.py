@@ -7,7 +7,7 @@ class FaseInicial(models.Model):
     _name = 'fase.principal'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char()
+    name = fields.Char(string='Nombre', required=True)
     descripcion = fields.Text(string="Descripcion", required=False)
 
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
@@ -63,14 +63,14 @@ class FaseInicial(models.Model):
             'domain': [('res_id', '=', self.id), ('res_model', '=', 'fase.principal')],
         }
 
-    # @api.returns('self', lambda value: value.id)
-    # def copy(self, default=None):
-    #     # raise ValidationError('estoy dentro decopy de fase')
-    #     if default is None:
-    #         default = {}
-    #
-    #     record = super(FaseInicial, self).copy(default)
-    #     for capitulo in self.capitulos_ids:
-    #         record.capitulos_ids |= capitulo.copy()
-    #
-    #     return record
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        # raise ValidationError('estoy dentro decopy de fase')
+        if default is None:
+            default = {}
+
+        record = super(FaseInicial, self).copy(default)
+        for capitulo in self.capitulos_ids:
+            record.capitulos_ids |= capitulo.copy()
+
+        return record
