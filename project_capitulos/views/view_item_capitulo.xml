@@ -32,10 +32,8 @@
                                 <field name="cost_price" string="Precio Coste"/>
                                 <field name="subtotal_item_capitulo" string="Importe"/>
                                 <field name="tipo_descuento" string="Tipo Dto."/>
-                                <field name="cantidad_descuento" string="Cantidad Dto."/>
+                                <field name="cantidad_descuento" string="Importe Dto."/>
                                 <field name="subtotal_descuento" string="Subtotal"/>
-                                <field name="beneficio_estimado" string="Beneficio %"/>
-                                <field name="importe_venta" string="Importe PVP"/>
 <!--                                <field name="impuesto_item"/>-->
                                 <field name="impuesto_porciento" string="Impuesto %"/>
                                 <field name="total_impuesto_item" string="Imp. Impuesto"/>
@@ -47,7 +45,7 @@
                             </group>
                             <group name="detalle_costes" string="Detalles de Precio Venta Publico">
                                 
-                                <field name="beneficio_estimado" string="Beneficio %"/>
+                                <field name="beneficio_estimado" string="Marge Beneficio %"/>
                                 <field name="importe_venta" string="Importe PVP"/>
 <!--                                <field name="impuesto_item"/>-->
                                

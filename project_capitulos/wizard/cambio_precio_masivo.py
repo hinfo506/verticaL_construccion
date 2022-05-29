@@ -27,7 +27,7 @@ class CambioPrecioMasivo(models.TransientModel):
     cant_descuento = fields.Float(string='Cant_descuento', required=False)
     beneficio_estimado = fields.Float(string='Beneficio Estimado en %', required=False)
     impuesto_porciento = fields.Float(string='Impuesto en % (ITBIS)', required=False)
-
+    
 
 
 
