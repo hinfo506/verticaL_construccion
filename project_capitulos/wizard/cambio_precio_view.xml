@@ -30,11 +30,10 @@
                             <group><field name="product_id"/></group>
                             <group><field name="tipo_cambio"/></group>
                             <group attrs="{'invisible': [('tipo_cambio','=',False)]}">
-                                <field name="nuevo_precio" attrs="{'invisible': [('tipo_cambio','=','impuesto')]}"/>
-                                <field name="tipo_descuento" attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
-                                <field name="cant_descuento" attrs="{'invisible': [('tipo_cambio','=','nuevocoste'),]}"/>
-                                <field name="beneficio_estimado" attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
-                                <field name="impuesto_porciento" attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
+                                <field name="nuevo_precio" string="Nuevo Precio Coste" attrs="{'invisible': [('tipo_cambio','=','impuesto')]}" />
+                                <field name="tipo_descuento" string="Tipo Dto." attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
+                                <field name="cant_descuento" string="Importe Dto." attrs="{'invisible': [('tipo_cambio','=','nuevocoste'),]}"/>
+                                <field name="impuesto_porciento" string="Marge Beneficio %" attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
                             </group>
                             <group>
 
@@ -45,12 +44,12 @@
                             <page name="list_arti" string="Listado de Artículo">
                                 <field name="item_ids">
                                     <tree editable="bottom">
-                                        <field name="product_id"/>
-                                        <field name="cost_price"/>
-                                        <field name="subtotal_item_capitulo"/>
-                                        <field name="tipo_descuento"/>
-                                        <field name="total_impuesto_item"/>
-                                        <field name="suma_impuesto_item_y_cost_price"/>
+                                        <field name="product_id" string="Producto"/>
+                                        <field name="cost_price" string="Precio Coste"/>
+                                        <field name="subtotal_item_capitulo" string="Importe"/>
+                                        <field name="tipo_descuento" string="Tipo Dto."/>
+                                        <field name="total_impuesto_item" string="Imp. Impuesto"/>
+                                        <field name="suma_impuesto_item_y_cost_price" string="Total"/>
 <!--                                        <field name="total_item_capitulo"/>-->
                                     </tree>
                                 </field>

@@ -49,8 +49,8 @@
                                             <field name="fecha_finalizacion" widget="daterange" options="{&quot;related_start_date&quot;: &quot;fecha_inicio&quot;}"/>
                                         </div>
                                         <field name="project_id" attrs="{'readonly': [('id', '!=', False)]}"/>
-                                        <field name="fase_principal_id" attrs="{'readonly': [('id', '!=', False)]}"/>
-                                        <field name="name"/>
+                                        <field name="fase_principal_id"/>
+                                        <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
 <!--                                        <field name="name_faseini"/>-->
 <!--                                         <a><span class="o_label"><t t-esc="name_faseini"/></span></a>-->
                                     <!--<field name="descripcion"/>-->
@@ -96,8 +96,8 @@
                     <field name="name" string="Descripción Capítulo"/>
                     <field name="total"/>
                     <button type="object" string=" Subcapítulos" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
-                    <field name="fase_principal_id"/>
                     <field name="project_id"/>
+                    <field name="fase_principal_id"/>
                     <!-- <field name="descripcion" /> -->
                 </tree>
             </field>

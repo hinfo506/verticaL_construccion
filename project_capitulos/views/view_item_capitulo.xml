@@ -31,25 +31,30 @@
                                 <field name="uom_id"/>
                             </group>
                             <group name="detalle_costes" string="Detalles de Costes">
-                                <field name="product_qty"/>
+                                <field name="product_qty" string="Cantidad"/>
                                 <field name="longitud" invisible = "1"/>
                                 <field name="ancho" invisible = "1"/>
                                 <field name="alto" invisible = "1"/>
-                                <field name="cost_price"/>
-                                <field name="subtotal_item_capitulo"/>
-                                <field name="tipo_descuento"/>
-                                <field name="cantidad_descuento"/>
-                                <field name="subtotal_descuento"/>
-                                <field name="beneficio_estimado"/>
-                                <field name="importe_venta"/>
+                                <field name="cost_price" string="Precio Coste"/>
+                                <field name="subtotal_item_capitulo" string="Importe"/>
+                                <field name="tipo_descuento" string="Tipo Dto."/>
+                                <field name="cantidad_descuento" string="Importe Dto."/>
+                                <field name="subtotal_descuento" string="Subtotal"/>
 <!--                                <field name="impuesto_item"/>-->
-                                <field name="impuesto_porciento"/>
-                                <field name="total_impuesto_item"/>
-                                <field name="suma_impuesto_item_y_cost_price"/>
+                                <field name="impuesto_porciento" string="Impuesto %"/>
+                                <field name="total_impuesto_item" string="Imp. Impuesto"/>
+                                <field name="suma_impuesto_item_y_cost_price" string="Total"/>
 <!--                                <field name="total_impuesto_item"/>-->
 <!--                                <field name="suma_impuesto_item_y_cost_price"/>-->
 <!--                                <field name="actual_quantity" invisible = "1"/>-->
 <!--                                <field name="total_item_capitulo"/>-->
+                            </group>
+                            <group name="detalle_costes" string="Detalles de Precio Venta Publico">
+                                
+                                <field name="beneficio_estimado" string="Marge Beneficio %"/>
+                                <field name="importe_venta" string="Importe PVP"/>
+<!--                                <field name="impuesto_item"/>-->
+                               
                             </group>
                         </group>
                     </sheet>
@@ -73,22 +78,22 @@
                     <field name="color_item_id" invisible= "1"/>
                     <field name="product_id"/>
                     <field name="descripcion" invisible = "1"/>
-                    <field name="product_qty"/>
+                    <field name="product_qty" string="Cantidad"/>
                     <field name="reference" invisible = "1"/>
                     <field name="longitud" invisible = "1"/>
                     <field name="ancho" invisible = "1"/>
                     <field name="alto" invisible = "1"/>
                     <field name="cost_price"/>
-                    <field name="subtotal_item_capitulo"/>
-                    <field name="tipo_descuento"/>
-                    <field name="cantidad_descuento"/>
-                    <field name="subtotal_descuento"/>
-                    <field name="beneficio_estimado"/>
-                    <field name="importe_venta"/>
+                    <field name="subtotal_item_capitulo" string="Importe"/>
+                    <field name="tipo_descuento" string="Tipo Dto."/>
+                    <field name="cantidad_descuento" string="Imp. Dto."/>
+                    <field name="subtotal_descuento" string="Subtotal"/>
+                    <field name="beneficio_estimado" invisible= "1"/>
+                    <field name="importe_venta" invisible= "1"/>
 <!--                                <field name="impuesto_item"/>-->
-                    <field name="impuesto_porciento"/>
-                    <field name="total_impuesto_item"/>
-                    <field name="suma_impuesto_item_y_cost_price"/>
+                    <field name="impuesto_porciento" string="ITBIS %"/>
+                    <field name="total_impuesto_item" invisible= "1"/>
+                    <field name="suma_impuesto_item_y_cost_price" string="P.U. + ITBIS"/>
 <!--                    <field name="subtotal_item_capitulo"/>-->
 <!--                    <field name="impuesto_porciento"/>-->
 <!--                    <field name="total_impuesto_item"/>-->

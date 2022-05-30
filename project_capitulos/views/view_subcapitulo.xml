@@ -53,7 +53,7 @@
                                   <field name="project_id"/>
                                   <field name="capitulo_id"/>
                                   <field name="fase_principal_id"/>
-                                  <field name="name"/>
+                                  <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
                                   </group>
                               </group>
                               <group>
@@ -92,9 +92,9 @@
                     <field name="descripcion" invisible = "1"/>
                     <field name="total" string="Total"/>
                      <button type="object" string=" Partida" name="action_view_partidas" class="btn btn-primary" icon="fa-hand-o-right"/>
-                    <field name="capitulo_id" string="Capítulo"/>
-                    <field name="fase_principal_id" string="Fase Principal"/>
                     <field name="project_id" string="Proyecto"/>
+                    <field name="fase_principal_id" string="Fase Principal"/>
+                    <field name="capitulo_id" string="Capítulo"/>
                 </tree>
             </field>
         </record>
