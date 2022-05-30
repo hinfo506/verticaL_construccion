@@ -26,6 +26,7 @@
                             <field name="is_guardado" invisible="1"/>
                             <field name="mostrar_botones" invisible="1"/>
                             <field name="is_vacio" invisible="1"/>
+<!--                            <field name="faseprincipal_id"/>-->
                             <group><field name="product_id"/></group>
                             <group><field name="tipo_cambio"/></group>
                             <group attrs="{'invisible': [('tipo_cambio','=',False)]}">
