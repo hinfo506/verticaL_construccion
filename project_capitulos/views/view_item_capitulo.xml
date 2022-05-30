@@ -16,6 +16,12 @@
 
                         <group>
                             <group name="datos_productos" string="Datos del Producto">
+<!--                                <field name="project_id" />-->
+<!--                                <field name="faseprincipal_id"/>-->
+<!--                                <field name="capitulo_id"/>-->
+<!--                                <field name="subcapitulo_id"/>-->
+<!--                                <field name="partidas_id"/>-->
+
                                 <field name="date"/>
                                 <field name="reference"/>
                                 <field name="job_type"/>

@@ -86,7 +86,7 @@ class Subcapitulo(models.Model):
             'name': 'Partidas',
             'res_model': 'partidas.partidas',
             'view_mode': 'tree,form',
-            'domain': [('subcapitulo_id', '=',  self.id)],
+            'domain': [('id', 'in', self.partidas_ids.ids)],
             'context': dict(self._context, default_subcapitulo_id=self.id),
         }
 

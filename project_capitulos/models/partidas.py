@@ -105,9 +105,10 @@ class Partidas(models.Model):
             'name': 'Items',
             'res_model': 'item.capitulo',
             'view_mode': 'tree,form',
-            'domain': [('partidas_id', '=',  self.id)],
+            # 'domain': [('partidas_id', '=',  self.id)],
+            'domain': [('id', 'in', self.item_capitulo_ids.ids)],
             'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
-            'context': dict(self._context, default_partidas_id=self.id),
+            'context': dict(self._context, default_partidas_id=self.id, default_faseprincipal_id=self.fase_principal_id.id),
         }
 
     def wizard_cambio_precio(self):
@@ -163,8 +164,6 @@ class Partidas(models.Model):
             'domain': [('id', 'in', self.volumetria_ids.ids)],
             'context': dict(self._context, default_partida_id=self.id),
         }
-
-
 
     def get_acti_count(self):
         for r in self:
