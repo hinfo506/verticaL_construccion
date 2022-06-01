@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="add_standar_view_form" model="ir.ui.view">
+            <field name="name">add_standar_view_form</field>
+            <field name="model">add.standar</field>
+            <field name="arch" type="xml">
+                <form string="add_standar_form">
+                    <sheet>
+                        <group>
+                            <group><field name="standar_id"/></group>
+                            <group><field name="cant_partidas"/></group>
+                        </group>
+                        <notebook>
+                            <page name="list" string="Listado de Artículos">
+                                <field name="line_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
