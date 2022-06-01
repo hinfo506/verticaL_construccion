@@ -17,12 +17,16 @@ class StandardTags(models.Model):
     _parent_store = True
     _rec_name = 'complete_name'
     _order = 'complete_name'
-
-    parent_id = fields.Many2one('standard.tags')
-    parent_path = fields.Char()
+    #
+    # parent_id = fields.Many2one('standard.tags')
+    parent_id = fields.Many2one('standard.tags',index=True,ondelete='cascade',readonly=True)
+    # parent_path = fields.Char()
+    parent_path = fields.Char(index=True)
     analytic_id = fields.Many2one('account.analytic.account', string='Cuenta Analitica')
     name = fields.Char('Nombre')
     complete_name = fields.Char(compute='_compute_complete_name', store=1)
+    
+
 
     @api.depends('name', 'parent_id.complete_name')
     def _compute_complete_name(self):
@@ -33,15 +37,15 @@ class StandardTags(models.Model):
             else:
                 i.complete_name = i.name
 
-    @api.model
-    def _name_search(self, name, args=None, operator='ilike', limit=100):
-        """ search full """
-        args = args or []
-        recs = self.browse()
-        if not recs:
-            domain = ['|', ('name', operator, name), ('complete_name', operator, name)]
-            recs = self.search(domain)
-        return recs.name_get()
+    # @api.model
+    # def _name_search(self, name, args=None, operator='ilike', limit=100):
+    #     """ search full """
+    #     args = args or []
+    #     recs = self.browse()
+    #     if not recs:
+    #         domain = ['|', ('name', operator, name), ('complete_name', operator, name)]
+    #         recs = self.search(domain)
+    #     return recs.name_get()
    
 
 class Standard(models.Model):
