@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+standard,standard,model_standard,standard_user,1,0,0,0
+standard_lines,standar.linesd,model_standard_line,standard_user,1,0,0,0
+standard_request,standard.request,model_standard_request,standard_user,1,1,1,0
+standard_request_line,standard.request.line,model_standard_request_line,standard_user,1,1,1,1
+standard_tags_user,standard.tags,model_standard_tags,standard_user,1,0,0,0
+standard_manager,standard,model_standard,standard_manager,1,1,1,1
+standard_lines_manager,standar.linesd,model_standard_line,standard_manager,1,1,1,1
+standard_request_manager,standard.request,model_standard_request,standard_manager,1,1,1,1
+standard_request_line_manager,standard.request.line,model_standard_request_line,standard_manager,1,1,1,1
+standard_tags_manager,standard.tags,model_standard_tags,standard_manager,1,1,1,1
+standard_distribution,standard_distribution,model_standard_distribution,standard_user,1,1,1,1
+standard_requisition,standard_requisition,model_standard_requisition,standard_user,1,1,1,1
