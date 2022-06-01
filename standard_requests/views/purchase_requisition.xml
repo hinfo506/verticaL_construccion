@@ -1,0 +1,42 @@
+<odoo>
+  <data>
+ 
+    <record model="ir.ui.view" id="view_purchase_requisition_form">
+      <field name="name">view_purchase_requisition_formt</field>
+      <field name="model">purchase.requisition</field>
+      <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='date_end']" position="before">
+          <field name="standard_id" domain="[('is_purchase', '=', True)]"/>
+	  <field name="tag_ids" nolabel="1" colspan="2" >
+		  <form>
+			  <field name="tag_id"/>
+		  </form>
+		  <tree>
+
+			  <field name="requisition_id" invisible="1"/>
+			  <field name="tag_id"/>
+		  </tree>
+	  </field>
+          <button name="action_set_standard" string="Cargar Standard"
+                  type="object" attrs="{'invisible': [('standard_id', '=', False), ('tag_ids', '=', False)]}"/>
+        </xpath>
+
+	<xpath expr="//notebook" position="inside">
+		<page string="Distribucion X Proyecto">
+			<field name='distribution_ids' readonly="1" nolabel="1">
+				<tree>
+					<field name="requisition_id"/>
+					<field name="product_id"/>
+					<field name="product_qty"/>
+					<field name="product_qty_receive"/>
+					<field name="tag_id"/>
+				</tree>
+			</field>
+		</page>
+	</xpath>
+      </field>
+    </record>
+ 
+  </data>
+</odoo>
