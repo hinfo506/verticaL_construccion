@@ -25,6 +25,11 @@ class Capitulo(models.Model):
     fecha_finalizacion = fields.Date('Acaba el')
 
     descripcion = fields.Text('Descripción del Capitulo')
+    condicion = fields.Selection(string='Condición', selection=[
+        ('presupuestario', 'Presupuestario'),
+        ('sobrecoste', 'Sobre Coste'),
+        ('adicionales', 'Adicionales'), ],required=False, )
+
  
     ###### FASES DEL PROYECTO  ########
     project_id = fields.Many2one('project.project', string='Proyecto',)

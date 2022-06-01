@@ -16,6 +16,11 @@ class Partidas(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
+    condicion = fields.Selection(string='Condición', selection=[
+        ('presupuestario', 'Presupuestario'),
+        ('sobrecoste', 'Sobre Coste'),
+        ('adicionales', 'Adicionales'), ], required=False, )
+
     ###### FASES DEL PROYECTO ########
     project_id = fields.Many2one('project.project', string='Proyecto')
     fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False)
