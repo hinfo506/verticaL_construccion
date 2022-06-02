@@ -22,6 +22,11 @@ class ItemCapitulo(models.Model):
     date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
     fecha_finalizacion = fields.Date('Fecha Finalización')
 
+    condicion = fields.Selection(string='Condición', selection=[
+        ('presupuestario', 'Presupuestario'),
+        ('sobrecoste', 'Sobre Coste'),
+        ('adicionales', 'Adicionales'), ], required=False, )
+
     ###### FASES DEL PROYECTO ######## 
     project_id = fields.Many2one('project.project', string='Proyecto',ondelete='cascade')
     faseprincipal_id = fields.Many2one('fase.principal', string='Fase Principal', ondelete='cascade')

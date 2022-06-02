@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="standard_tags_view_tree" model="ir.ui.view">
+            <field name="name">standard_tags</field>
+            <field name="model">standard.tags</field>
+            <field name="arch" type="xml">
+                <tree editable='bottom'>
+                    <field name="parent_id"/>
+                    <field name="name" required="True"/>
+                    <field name="complete_name" invisible="1"/>
+                    <field name="analytic_id"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

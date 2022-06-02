@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherit_subcapitulo_form" model="ir.ui.view">
+            <field name="name">Subcapitulo</field>
+            <field name="model">sub.capitulo</field>
+            <field name="inherit_id" ref="project_capitulos.subcapitulo_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header" position="inside">
+                    <button name="wizard_standar_partida" string="Añadir Standar en Partida"
+                            class="oe_highlight"
+                            type="object"
+                    />
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
