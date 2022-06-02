@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="standar_request_view_form" model="ir.ui.view">
+            <field name="name">standar_request_view_form</field>
+            <field name="model">standard.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                      <button name="calc_stock" string="Comprobar Disponibilidad" type="object" states="draft"/>
+                      <button name="action_validate" string="Validar" type="object" states="draft" class="oe_button" />
+                      <button name="action_cancel" string="Cancelar" type="object" states="draft,validate"/>
+
+                      <field name="state" widget="statusbar" statusbar_visible="draft,validate"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="tag_id"  options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+
+                                <field name="partner_id" />
+                                <field name="picking_id" readonly="1"/>
+                                <field name="picking_state" string="Estado del Conduce" invisible="1"/>
+                                <field name="create_uid"/>
+                            </group>
+
+                            <group>
+
+                                <field name="date"/>
+                                <field name="date_validation" attrs="{'invisible': [('date_validation', '=', False)]}"/>
+                    <label for="standard_id"/>
+                    <div class="oe_row">
+                                   <field name="standard_id" domain="[('is_warehouse', '=', True)]"/>
+
+                       <button name="get_standard_lines" type="object" string="Cargar Standard" class="oe_link oe_edit_only oe_inline" states="draft" />
+                        </div>
+                            </group>
+                        </group>
+
+                        <field name="line_ids" readonly="1">
+                            <tree editable="bottom">
+                                <field name="request_id" invisible="1"/>
+                                <field name="product_id"/>
+                                <field name="qty"/>
+                                <field name="qty_done"/>
+                                <field name="uom_id"/>
+                                <field name="stock" readonly="1"/>
+                            </tree>
+                            <form>
+                                <sheet string="Standar Lineas">
+                                    <group col="4">
+                                        <field name="product_id"/>
+                                        <field name="qty"/>
+                                        <field name="uom_id" />
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                        <field name="note" placeholder="Notas. . ."/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="standard_request_view_tree" model="ir.ui.view">
+            <field name="name">standard_request_view_tree</field>
+            <field name="model">standard.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                  <field name="name"/>
+                  <field name="standard_id"/>
+                  <field name="tag_id"/>
+                  <field name="create_uid"/>
+                  <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="standard_request_filter" model="ir.ui.view">
+             <field name="name">account.invoice.select</field>
+             <field name="model">standard.request</field>
+             <field name="arch" type="xml">
+                 <search string="Search Standard Requests">
+                     <field name="name" string="Standard Requests" filter_domain="[('name','ilike',self)]"/>
+
+                     <separator/>
+                     <filter name="draft" string="Borrador" domain="[('state','=','draft')]"/>
+                     <filter name="validate" string="Validado" domain="[('state', '=', 'validate')]"/>
+
+
+                     <group expand="0" string="Group By">
+                         <filter string="Standard" name="standard_id" context="{'group_by':'standard_id'}"/>
+                         <filter string="Etiqueta" name="tagid" context="{'group_by':'tag_id'}"/>
+                     </group>
+                </search>
+             </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="standard_view_form" model="ir.ui.view">
+            <field name="name">standard_view_form</field>
+            <field name="model">standard</field>
+            <field name="arch" type="xml">
+                <form string="standard_form">
+                    <sheet>
+                        <div class="oe_title">
+                          <label class="o_form_label" for="name"  />
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                          <group>
+                            <field name='parent_id'/>
+                            <field name='ref_proyecto'/>
+                            <field name='ref_etapa'/>
+                          </group>
+                          <group>
+                            <field name='is_purchase'/>
+                            <field name='is_warehouse'/>
+                          </group>
+                        </group>
+                        <field name='parent_path' invisible="1"/>
+                        <field name="line_ids">
+                            <tree editable="bottom">
+                                <field name="standard_id" invisible="1"/>
+                                <field name="product_id"/>
+                        <field name="descripcion"/>
+                                <field name="qty"/>
+                                <field name="uom_id"/>
+                            </tree>
+                            <form>
+                                <sheet string="Standar Lineas">
+                                    <group col="4">
+                                        <field name="standard_id" invisible="1"/>
+                                        <field name="product_id"/>
+                                        <field name="qty"/>
+                                        <field name="uom_id" />
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="standard_view_tree" model="ir.ui.view">
+            <field name="name">standard</field>
+            <field name="model">standard</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name='parent_path' invisible="1"/>
+                    <field name="parent_id"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

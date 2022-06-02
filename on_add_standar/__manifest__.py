@@ -1,21 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "prueba",
+    'name': "On ADD Standar",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        On ADD Standar""",
 
     'description': """
-        Long description of module's purpose
+        On ADD Standar
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Odoo Next",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
-    # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
 
