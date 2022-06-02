@@ -17,20 +17,6 @@
         </form>
       </field>
     </record>
- 
-        <record model="ir.actions.act_window" id="actions_wizard_report">
-            <field name="name">Reporte Consumo</field>
-            <field name="res_model">standard.request.report</field>
-<!--            <field name="view_type">form</field>-->
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
-
-        <menuitem name="Informe"
-                  action="actions_wizard_report"
-                  parent="standard_requests.menu_root"
-                  id="menu_wizard_report"
-                  sequence="16"/>
 
 <!--  <report-->
 <!--      id="report_standard"-->
