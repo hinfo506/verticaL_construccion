@@ -16,8 +16,6 @@
     'version': '0.1',
     'depends': ['base', 'stock', 'purchase_requisition'],
     'data': [
-        'security/groups.xml',
-        'security/ir.model.access.csv',
         'views/purchase_requisition.xml',
         'views/ir_config_settings.xml',
         'data/sequence.xml',
@@ -28,5 +26,7 @@
         'views/view_standard_request.xml',
         'views/view_standard_tags.xml',
         'views/menu.xml',
+        # 'security/groups.xml',
+        'security/ir.model.access.csv',
     ],
 }
