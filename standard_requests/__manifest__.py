@@ -26,7 +26,7 @@
         'views/view_standard_request.xml',
         'views/view_standard_tags.xml',
         'views/menu.xml',
-        'security/groups.xml',
+        # 'security/groups.xml',
         'security/ir.model.access.csv',
     ],
 }
