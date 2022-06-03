@@ -23,11 +23,11 @@
 
                         <group>
                             <group>
-                                <field name="tag_id"  options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+<!--                                <field name="tag_id"  options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>-->
 
-                                <field name="partner_id" />
-                                <field name="picking_id" readonly="1"/>
-                                <field name="picking_state" string="Estado del Conduce" invisible="1"/>
+<!--                                <field name="partner_id" />-->
+<!--                                <field name="picking_id" readonly="1"/>-->
+<!--                                <field name="picking_state" string="Estado del Conduce" invisible="1"/>-->
                                 <field name="create_uid"/>
                             </group>
 
@@ -65,6 +65,11 @@
                         </field>
                         <field name="note" placeholder="Notas. . ."/>
                     </sheet>
+                    <footer>
+<!--                        <button string="Guardar y nuevo" name="action_guardar_nuevo" type="object" class="oe_highlight" attrs="{'invisible': [('mostrar_botones','!=',False)]}"/>-->
+                        <button string="Guardar" name="action_guardar" type="object" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
                 </form>
             </field>
         </record>
@@ -77,7 +82,7 @@
                 <tree>
                   <field name="name"/>
                   <field name="standard_id"/>
-                  <field name="tag_id"/>
+<!--                  <field name="tag_id"/>-->
                   <field name="create_uid"/>
                   <field name="state"/>
                 </tree>
@@ -98,7 +103,7 @@
 
                      <group expand="0" string="Group By">
                          <filter string="Standard" name="standard_id" context="{'group_by':'standard_id'}"/>
-                         <filter string="Etiqueta" name="tagid" context="{'group_by':'tag_id'}"/>
+<!--                         <filter string="Etiqueta" name="tagid" context="{'group_by':'tag_id'}"/>-->
                      </group>
                 </search>
              </field>

@@ -10,15 +10,31 @@ class Subcapitulo(models.Model):
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'add.standar',
-            # 'context': {
+            'context': {
             #     # 'default_is_vacio': True,
-            #     # 'default_subcapitulo_id': self.id,
+                'default_subcapitulo_id': self.id,
             #     # 'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br>" + "<strong>" + str(
             #     #     self.capitulo_id.project_id.name) + "/" + str(self.capitulo_id.name) + "/" + str(
             #     #     self.name) + " :</strong>",
-            # },
+            },
             'type': 'ir.actions.act_window',
             'target': 'new',
         }
+
+        # return {
+        #     'name': 'Incluir Standar en Partida como Subcapitulo',
+        #     'view_type': 'form',
+        #     'view_mode': 'form',
+        #     'res_model': 'standard.request',
+        #     # 'context': {
+        #     #     # 'default_is_vacio': True,
+        #     #     # 'default_subcapitulo_id': self.id,
+        #     #     # 'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br>" + "<strong>" + str(
+        #     #     #     self.capitulo_id.project_id.name) + "/" + str(self.capitulo_id.name) + "/" + str(
+        #     #     #     self.name) + " :</strong>",
+        #     # },
+        #     'type': 'ir.actions.act_window',
+        #     'target': 'new',
+        # }
 
 

@@ -15,7 +15,8 @@ class StandardRequestLine(models.Model):
     product_id = fields.Many2one('product.product', string='Producto')
     uom_id = fields.Many2one('uom.uom', string='Unidad de Medida')
     qty = fields.Float(string='Cantidad')
-    qty_done = fields.Float(string='Cantidad Despachada', compute='get_qty_done')
+    qty_done = fields.Float(string='Cantidad Despachada',)
+    # qty_done = fields.Float(string='Cantidad Despachada', compute='get_qty_done')
     standard_id = fields.Many2one(related="request_id.standard_id", readonly=1, store=1)
     stock = fields.Float('Stock')
     state = fields.Selection(related="request_id.state", readonly=1, store=1)
@@ -35,21 +36,21 @@ class StandardRequestLine(models.Model):
 
         return lines
 
-    @api.depends('request_id.picking_id')
-    def get_qty_done(self):
-        for line in self:
-            lines = []
-            picking_lines = self.get_lines(line.request_id.picking_id, line.product_id, lines)
-
-            qty = 0.0
-            for move in picking_lines:
-
-                if move.location_dest_id.usage == "customer":
-                    if not move.origin_returned_move_id or (
-                            move.origin_returned_move_id and move.to_refund):
-                        qty += move.product_uom._compute_quantity(move.product_uom_qty, line.uom_id)
-                elif move.location_dest_id.usage != "customer" and move.to_refund:
-                    qty -= move.product_uom._compute_quantity(move.product_uom_qty, line.uom_id)
-
-            line.qty_done = qty
+    # @api.depends('request_id.picking_id')
+    # def get_qty_done(self):
+    #     for line in self:
+    #         lines = []
+    #         picking_lines = self.get_lines(line.request_id.picking_id, line.product_id, lines)
+    #
+    #         qty = 0.0
+    #         for move in picking_lines:
+    #
+    #             if move.location_dest_id.usage == "customer":
+    #                 if not move.origin_returned_move_id or (
+    #                         move.origin_returned_move_id and move.to_refund):
+    #                     qty += move.product_uom._compute_quantity(move.product_uom_qty, line.uom_id)
+    #             elif move.location_dest_id.usage != "customer" and move.to_refund:
+    #                 qty -= move.product_uom._compute_quantity(move.product_uom_qty, line.uom_id)
+    #
+    #         line.qty_done = qty
 
