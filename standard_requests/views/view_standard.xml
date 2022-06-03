@@ -16,11 +16,6 @@
                         </div>
                         <group>
                           <group>
-                            <field name='parent_id'/>
-                            <field name='ref_proyecto'/>
-                            <field name='ref_etapa'/>
-                          </group>
-                          <group>
                             <field name='is_purchase'/>
                             <field name='is_warehouse'/>
                           </group>

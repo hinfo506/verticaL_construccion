@@ -17,7 +17,7 @@ class StandardRequest(models.Model):
 
     # standard_id = fields.Many2one('standard', string='Standard', required=1, readonly=1, states=READONLY_STATE)
     standard_id = fields.Many2one('standard', string='Standard', required=1)
-    tag_id = fields.Many2one('standard.tags', string='Etiqueta', required=1, readonly=1, states=READONLY_STATE)
+    # tag_id = fields.Many2one('standard.tags', string='Etiqueta', required=1, readonly=1, states=READONLY_STATE)
     line_ids = fields.One2many('standard.request.line', 'request_id', copy=True)
     date = fields.Date('Fecha', default=fields.Date.today())
     date_validation = fields.Datetime('Fecha Validacion', readonly=1)
@@ -26,19 +26,20 @@ class StandardRequest(models.Model):
         ('validate', 'Validado'),
         ('cancel', 'Cancelado'), ], default='draft', string='Estado')
     note = fields.Text(string='Notes')
-    picking_id = fields.Many2one('stock.picking', string='Conduce de Almacen', readonly=1)
-    picking_state = fields.Selection(related='picking_id.state')
-    partner_id = fields.Many2one('res.partner', 'Contratista')
+    # picking_id = fields.Many2one('stock.picking', string='Conduce de Almacen', readonly=1)
+    # picking_state = fields.Selection(related='picking_id.state')
+    # partner_id = fields.Many2one('res.partner', 'Contratista')
 
     def get_standard_lines(self):
         for i in self.line_ids:
             i.unlink()
 
         lines = []
+
         for l in self.standard_id.line_ids:
             lines.append((0, 0, {
-                'product_id': l.product_id,
-                'uom_id': l.uom_id,
+                'product_id': l.product_id.id,
+                'uom_id': l.uom_id.id,
                 'qty': l.qty,
                 'request_id': self.id,
             }))
@@ -51,7 +52,6 @@ class StandardRequest(models.Model):
 
         i = self.search([
             ('standard_id', '=', self.standard_id.id),
-            ('tag_id', '=', self.tag_id.id),
             ('state', '=', 'validate'),
         ])
 
@@ -193,3 +193,6 @@ class StandardRequest(models.Model):
                 raise UserError('Solo puede Eliminar una orden si esta en estado Borrador o Cancelado.')
 
         return super(StandardRequest, self).unlink()
+
+    def action_guardar(self):
+        pass

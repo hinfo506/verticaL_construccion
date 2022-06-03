@@ -46,6 +46,7 @@
 
     <!-- actions -->
     <menuitem name="Standard" id="config_standard" parent="menu_config" action="standard_action_window"/>
+    <menuitem name="Crear Standard" id="menu_standard" parent="menu_root" action="standard_action_window"/>
 
     <menuitem name="Etiquetas" id="config_tags" parent="menu_config" action="standard_tags_action_window"/>
 
