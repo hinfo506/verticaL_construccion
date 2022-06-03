@@ -53,7 +53,7 @@ class Partidas(models.Model):
             for line in order.item_capitulo_materiales_ids:
                 # amount_untaxed += 1
                 # amount_untaxed += line.price_subtotal
-                material_total += line.total_item_capitulo
+                material_total += line.suma_impuesto_item_y_cost_price
             order.update({
                 # 'amount_untaxed': amount_untaxed,
                 'material_total': material_total,
