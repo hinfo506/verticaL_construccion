@@ -8,13 +8,25 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                      <button name="calc_stock" string="Comprobar Disponibilidad" type="object" states="draft"/>
-                      <button name="action_validate" string="Validar" type="object" states="draft" class="oe_button" />
+<!--                      <button name="calc_stock" string="Comprobar Disponibilidad" type="object" states="draft"/>-->
+                      <button name="action_insertar_partida" string="Insertar Partida" type="object" states="draft" class="oe_button" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+<!--                      <button name="action_insertar_partida" string="Insertar Partida" type="object" states="draft" class="oe_button" />-->
                       <button name="action_cancel" string="Cancelar" type="object" states="draft,validate"/>
 
-                      <field name="state" widget="statusbar" statusbar_visible="draft,validate"/>
+                      <field name="state" widget="statusbar" statusbar_visible="draft,pendiente,validate"/>
                     </header>
                     <sheet>
+                        <div name="botones1" attrs="{'invisible': [('state', '!=', 'pendiente')]}">
+                            <div class="oe_button_box" name="button_box">
+                                <button class="oe_stat_button" name="aprobar_part"
+                                        type="object" icon="fa-check-square" string="Aprobar">
+                                </button>
+
+                                <button class="oe_stat_button" name="denegar_part"
+                                        type="object" icon="fa-window-close" string="Denegar">
+                                </button>
+                            </div>
+                        </div>
                         <div class="oe_title">
                             <h1>
                                 <field name="name"/>

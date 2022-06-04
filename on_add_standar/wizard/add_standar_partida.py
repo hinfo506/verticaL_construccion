@@ -4,9 +4,9 @@ from odoo import fields, models, api
 class AddStandar(models.TransientModel):
     _name = 'add.standar'
 
-    standard_id = fields.Many2one(comodel_name='standard', string='Standard', required=False)
+    standard_id = fields.Many2one(comodel_name='standard', string='Standard', required=True)
     cant_partidas = fields.Integer(string='Cantidad Partida', required=False)
-    # line_ids = fields.One2many('standard.request.line', 'request_id')
+    info = fields.Html(string="Info", required=False)
     line_ids = fields.Many2many(comodel_name='standard.line', string='Line_ids')
 
     # Fases
@@ -21,6 +21,7 @@ class AddStandar(models.TransientModel):
                 record.line_ids = line
 
     def action_guardar(self):
+
         partida = self.env['partidas.partidas'].create({
             'name': self.standard_id.name,
             'cantidad': self.cant_partidas,
@@ -54,6 +55,17 @@ class AddStandar(models.TransientModel):
                 'total_impuesto_item': line.total_impuesto_item,
                 'suma_impuesto_item_y_cost_price': line.suma_impuesto_item_y_cost_price,
             })
+
+        standard_requests = self.env['standard.request'].create({
+            'subcapitulo_id': self.subcapitulo_id.id,
+            'capitulo_id': self.subcapitulo_id.capitulo_id.id,
+            'fase_principal_id': self.subcapitulo_id.fase_principal_id.id,
+            'project_id': self.subcapitulo_id.project_id.id,
+            'partida_id': partida.id,
+            'state': 'pendiente',
+            'standard_id': self.standard_id.id,
+            'cant_partidas': self.cant_partidas,
+        })
 
         return {
             'name': 'Partidas',

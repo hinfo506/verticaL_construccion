@@ -50,7 +50,7 @@ class ItemCapitulo(models.Model):
                    ('overhead', 'Gastos Generales'),
                    ('machinery', 'Maquinaria')],
         string="Tipo de Costo",
-        required=False, )
+        required=True, )
     
     color_item_id = fields.Selection(
         selection=[('red', 'Rojo'),

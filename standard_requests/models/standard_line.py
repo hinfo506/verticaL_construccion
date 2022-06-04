@@ -25,7 +25,7 @@ class StandardLine(models.Model):
                    ('overhead', 'Gastos Generales'),
                    ('machinery', 'Maquinaria')],
         string="Tipo de Costo",
-        required=False, )
+        required=True, )
     cost_price = fields.Float(string='Precio Coste', copy=False, )
     subtotal_item_capitulo = fields.Float(string='Subtotal', store=False, compute='_compute_subtotal')
     tipo_descuento = fields.Selection(string='Tipo descuento Proveedor',
