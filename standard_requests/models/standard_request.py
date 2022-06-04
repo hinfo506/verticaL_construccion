@@ -30,6 +30,30 @@ class StandardRequest(models.Model):
     # picking_state = fields.Selection(related='picking_id.state')
     # partner_id = fields.Many2one('res.partner', 'Contratista')
 
+    # Fases
+    project_id = fields.Many2one(comodel_name='project.project', string='Proyecto', required=False)
+    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False)
+    capitulo_id = fields.Many2one(comodel_name='capitulo.capitulo', string='Capitulo', required=False)
+    subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo', required=False)
+
+    @api.onchange('project_id')
+    def _onchange_credencial_asignada(self):
+        fase = {}
+        fase['domain'] = {'fase_principal_id': [('project_id', '=', self.project_id.id)]}
+        return fase
+
+    @api.onchange('fase_principal_id')
+    def _onchange_credencial_asignada(self):
+        cap = {}
+        cap['domain'] = {'capitulo_id': [('fase_principal_id', '=', self.fase_principal_id.id)]}
+        return cap
+
+    @api.onchange('capitulo_id')
+    def _onchange_credencial_asignada(self):
+        sub = {}
+        sub['domain'] = {'subcapitulo_id': [('capitulo_id', '=', self.capitulo_id.id)]}
+        return sub
+
     def get_standard_lines(self):
         for i in self.line_ids:
             i.unlink()

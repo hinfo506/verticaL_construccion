@@ -28,11 +28,14 @@
 <!--                                <field name="partner_id" />-->
 <!--                                <field name="picking_id" readonly="1"/>-->
 <!--                                <field name="picking_state" string="Estado del Conduce" invisible="1"/>-->
-                                <field name="create_uid"/>
+                                <field name="project_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field name="fase_principal_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field name="capitulo_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field name="subcapitulo_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                             </group>
 
                             <group>
-
+                                <field name="create_uid"/>
                                 <field name="date"/>
                                 <field name="date_validation" attrs="{'invisible': [('date_validation', '=', False)]}"/>
                     <label for="standard_id"/>
