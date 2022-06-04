@@ -79,13 +79,37 @@ class StandardRequest(models.Model):
     def aprobar_part(self):
         if self.partida_id:
             self.partida_id.estado_partida='aprobada'
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'success',
+                    'title': _("Aprobada"),
+                    'message': "La Partida a sido aprobada satisfactoriamente",
+                    'next': {
+                        'type': 'ir.actions.act_window_close'
+                    },
+                }
+            }
         else:
             raise ValidationError('No hay partida asociada')
 
     def denegar_part(self):
         if self.partida_id:
             self.partida_id.unlink()
-            self.state='cancel'
+            self.state = 'cancel'
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'warning',
+                    'title': _("Cancelada"),
+                    'message': "La Partida a sido cancelada",
+                    'next': {
+                        'type': 'ir.actions.act_window_close'
+                    },
+                }
+            }
         else:
             raise ValidationError('No hay partida asociada')
 
@@ -126,6 +150,18 @@ class StandardRequest(models.Model):
                     'suma_impuesto_item_y_cost_price': line.suma_impuesto_item_y_cost_price,
                 })
             self.state = 'pendiente'
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'success',
+                    'title': _("Creada"),
+                    'message': "La Partida a sido creada satisfactoriamente",
+                    'next': {
+                        'type': 'ir.actions.act_window_close'
+                    },
+                }
+            }
 
     # @api.multi
     # def action_validate(self):
@@ -202,11 +238,23 @@ class StandardRequest(models.Model):
 
     # @api.multi
     def action_cancel(self):
-        if self.picking_id.state == 'done':
-            raise UserError('No se puede cancelar ya que Almacen Despacho las Mercancias')
-
-        self.picking_id.action_cancel()
+        # if self.picking_id.state == 'done':
+        #     raise UserError('No se puede cancelar ya que Almacen Despacho las Mercancias')
+        #
+        # self.picking_id.action_cancel()
         self.state = 'cancel'
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'warning',
+                'title': _("Cancelada"),
+                'message': "La insercion del standar a sido cancelada",
+                'next': {
+                    'type': 'ir.actions.act_window_close'
+                },
+            }
+        }
 
     # @api.multi
     def calc_stock(self):
