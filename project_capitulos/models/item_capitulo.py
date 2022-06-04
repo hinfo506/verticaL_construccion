@@ -98,9 +98,9 @@ class ItemCapitulo(models.Model):
     @api.depends('tipo_descuento','product_qty', 'cost_price', 'subtotal_item_capitulo', 'cantidad_descuento','beneficio_estimado','impuesto_porciento')
     def _compute_subtotal_descuento(self):
         for record in self:
-            if record.tipo_descuento == 'Cantidad':
+            if record.tipo_descuento == 'cantidad':
                 record.subtotal_descuento = record.subtotal_item_capitulo - record.cantidad_descuento
-            elif record.tipo_descuento == 'Porcentaje':
+            elif record.tipo_descuento == 'porciento':
                 record.subtotal_descuento = record.subtotal_item_capitulo - ((record.subtotal_item_capitulo*record.cantidad_descuento)/100)
             else:
                 record.subtotal_descuento = 0

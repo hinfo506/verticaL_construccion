@@ -16,6 +16,15 @@ class Partidas(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
+    # Campo de Prueba para poder aprobar o no aprobar
+    estado_partida = fields.Selection(
+        string='Estado_partida',
+        selection=[('aprobada', 'Aprobada'),
+                   ('noaprobada', 'No aprobada'),
+                   ('pendiente', 'Pendiente'), ],
+        required=False, default='aprobada')
+
+
     condicion = fields.Selection(string='Condición', selection=[
         ('presupuestario', 'Presupuestario'),
         ('sobrecoste', 'Sobre Coste'),

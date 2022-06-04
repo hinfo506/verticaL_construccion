@@ -54,7 +54,7 @@
                                 <field name="stock" readonly="1"/>
                             </tree>
                             <form>
-                                <sheet string="Standar Lineas">
+                                <sheet string="Standard Lineas">
                                     <group col="4">
                                         <field name="product_id"/>
                                         <field name="qty"/>

@@ -89,7 +89,7 @@
             <field name="name">partidas_view_tree</field>
             <field name="model">partidas.partidas</field>
             <field name="arch" type="xml">
-                <tree string="partidas_tree" default_order="fecha_finalizacion asc">
+                <tree string="partidas_tree" default_order="fecha_finalizacion asc" decoration-danger="estado_partida == 'pendiente'">
                     <field name="numero_partida" string="Nº Partida"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
                     <field name="name" string="Descripción Partida"/>
@@ -101,6 +101,7 @@
                     <field name="fase_principal_id" string="Fase Principal"/>
                     <field name="capitulo_id" string="Capitulo"/>
                     <field name="subcapitulo_id" string="Subcapítulo"/>
+                    <field name="estado_partida" string="Estado" invisible="1"/>
                 </tree>
             </field>
         </record>
