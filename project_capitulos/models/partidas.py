@@ -16,6 +16,15 @@ class Partidas(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
+    # Campo de Prueba para poder aprobar o no aprobar
+    estado_partida = fields.Selection(
+        string='Estado_partida',
+        selection=[('aprobada', 'Aprobada'),
+                   ('noaprobada', 'No aprobada'),
+                   ('pendiente', 'Pendiente'), ],
+        required=False, default='aprobada')
+
+
     condicion = fields.Selection(string='Condición', selection=[
         ('presupuestario', 'Presupuestario'),
         ('sobrecoste', 'Sobre Coste'),
@@ -125,7 +134,7 @@ class Partidas(models.Model):
             'context': {
                 'default_is_vacio': True,
                 'default_partida_id': self.id,
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br>" + "/<strong>"+ str(self.subcapitulo_id.capitulo_id.project_id.name)+"/"+ str(self.subcapitulo_id.capitulo_id.name)+ "/"+str(self.subcapitulo_id.name) + "/"+str(self.name) + " :</strong>",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br>" + "/<strong>"+ str(self.subcapitulo_id.capitulo_id.project_id.name)+"/"+str(self.fase_principal_id.name)+"/"+ str(self.subcapitulo_id.capitulo_id.name)+ "/"+str(self.subcapitulo_id.name) + "/"+str(self.name) + " :</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

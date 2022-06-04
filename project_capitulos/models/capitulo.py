@@ -103,7 +103,7 @@ class Capitulo(models.Model):
                 'default_capitulo_id': self.id,
                 'default_is_vacio': '1',
                 # 'default_nuevo_precio': '70',
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.project_id.name)+"/"+str(self.name)+" :</strong>",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.project_id.name)+"/"+str(self.fase_principal_id.name)+"/"+str(self.name)+" :</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

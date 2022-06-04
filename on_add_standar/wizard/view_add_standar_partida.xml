@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <form string="add_standar_form">
                     <sheet>
+                        <field name="info" readonly="1"/>
                         <group>
                             <group><field name="standard_id"/></group>
                             <group><field name="cant_partidas"/></group>
