@@ -12,7 +12,7 @@ class Partidas(models.Model):
     name = fields.Char(string='Partida', required=True)
     descripcion = fields.Text('Descripción de la Partida')
     cantidad = fields.Integer('Cantidad')
-    total = fields.Float('Importe Total')
+    total = fields.Float('Importe Total',compute='_compute_total_parti')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
@@ -192,3 +192,15 @@ class Partidas(models.Model):
             'view_mode': 'kanban,tree,form',
             'domain': [('res_id', '=',  self.id),('res_model','=','partidas.partidas')],
         }
+
+    def _compute_total_parti(self):
+        for order in self:
+            suma = 0.0
+            for item in order.item_capitulo_ids:
+                suma += item.suma_impuesto_item_y_cost_price
+            order.update({
+                # 'amount_untaxed': amount_untaxed,
+                'total': suma,
+                # 'amount_total': amount_untaxed + amount_tax,
+                # 'amount_total': amount_untaxed,
+            })

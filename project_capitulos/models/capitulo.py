@@ -20,7 +20,7 @@ class Capitulo(models.Model):
     numero_capitulo = fields.Char(string='Número Capítulo', required=False)
     name = fields.Char(string='Capitulo', required=True)
     cantidad = fields.Integer('Cantidad')
-    total = fields.Float('Importe Total')
+    total = fields.Float('Importe Total',compute='_compute_total_cap')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
@@ -38,11 +38,7 @@ class Capitulo(models.Model):
     # prueba
     # name_faseini = fields.Char(string='Fase',related="project_id.nombre_fase", required=False)
 
-    subcapitulo_ids = fields.One2many(
-        comodel_name='sub.capitulo',
-        inverse_name='capitulo_id',
-        string='Subcapitulos',
-        required=False)
+    subcapitulo_ids = fields.One2many(comodel_name='sub.capitulo', inverse_name='capitulo_id', string='Subcapitulos', required=False)
 
     ####### CONTADORES  ########
     sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False, compute='subcapitulos_count')
@@ -119,3 +115,10 @@ class Capitulo(models.Model):
             record.subcapitulo_ids |= subcapitulo.copy()
 
         return record
+
+    def _compute_total_cap(self):
+        for record in self:
+            suma = 0.0
+            for sub in record.subcapitulo_ids:
+                suma += sub.total
+            record.update({'total': suma, })

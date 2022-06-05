@@ -12,7 +12,7 @@ class Subcapitulo(models.Model):
     name = fields.Char(string='Subcapítulo', required=True)
     descripcion = fields.Text('Descripción del Subcapítulo')
     cantidad = fields.Integer('Cantidad')
-    total = fields.Float('Importe Total')
+    total = fields.Float('Importe Total',compute='_compute_total_sub')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
@@ -27,9 +27,9 @@ class Subcapitulo(models.Model):
     subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
     fase_principal_id = fields.Many2one(comodel_name='fase.principal',string='Fase Principal', required=False)
     # fase_principal_id = fields.Many2one(related='capitulo_id.fase_principal_id', string='Fase Principal', required=False)
+    partidas_ids = fields.One2many(comodel_name='partidas.partidas',inverse_name='subcapitulo_id', string='Partidas id', required=False)
 
     ###### CONTADORES  ########
-    partidas_ids = fields.One2many(comodel_name='partidas.partidas',inverse_name='subcapitulo_id', string='Partidas id', required=False)
     partidas_count = fields.Integer(string='Contador Item', compute='get_partidas_count')
     activ_count = fields.Integer(string='Contador actividades', compute='get_acts_count')
 
@@ -123,4 +123,17 @@ class Subcapitulo(models.Model):
             record.partidas_ids |= partida.copy()
 
         return record
+
+    def _compute_total_sub(self):
+        for record in self:
+            suma = 0.0
+            for part in record.partidas_ids:
+                if part.estado_partida == 'aprobada':
+                    suma += part.total
+            record.update({
+                # 'amount_untaxed': amount_untaxed,
+                'total': suma,
+                # 'amount_total': amount_untaxed + amount_tax,
+                # 'amount_total': amount_untaxed,
+            })
 

@@ -12,6 +12,9 @@ class AddStandar(models.TransientModel):
     # Fases
     subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo', required=False)
 
+    number = fields.Char(string='Number', required=True, copy=False, readonly='True',
+                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
+
     @api.onchange('standard_id')
     def _onchange_standard(self):
         for record in self:
@@ -25,6 +28,7 @@ class AddStandar(models.TransientModel):
         partida = self.env['partidas.partidas'].create({
             'name': self.standard_id.name,
             'cantidad': self.cant_partidas,
+            'numero_partida': str(self.subcapitulo_id.numero_subcapitulo) + '.' + str(self.number),
             'estado_partida': 'pendiente',
             'subcapitulo_id': self.subcapitulo_id.id,
             'capitulo_id': self.subcapitulo_id.capitulo_id.id,
