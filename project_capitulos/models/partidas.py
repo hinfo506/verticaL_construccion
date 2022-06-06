@@ -32,11 +32,11 @@ class Partidas(models.Model):
         ('adicionales', 'Adicionales'), ], required=False, )
 
     ###### FASES DEL PROYECTO ########
-    project_id = fields.Many2one('project.project', string='Proyecto')
-    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False)
-    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo')
-    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade')
-    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string=_('Volumetría'), required=False)
+    project_id = fields.Many2one('project.project', string='Proyecto',required=True)
+    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=True)
+    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo', required=True)
+    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade', required=True)
+    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string=_('Volumetría'))
 
     ###### CONTADORES  ########
     activi_count_parti = fields.Integer(string='Contador Actividades', compute='get_acti_count')
