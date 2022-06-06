@@ -19,10 +19,11 @@ class Partidas(models.Model):
     # Campo de Prueba para poder aprobar o no aprobar
     estado_partida = fields.Selection(
         string='Estado_partida',
-        selection=[('aprobada', 'Aprobada'),
+        selection=[('borrador', 'Borrador'),
+                   ('aprobada', 'Aprobada'),
                    ('noaprobada', 'No aprobada'),
                    ('pendiente', 'Pendiente'), ],
-        required=False, default='aprobada')
+        required=False, default='borrador')
 
 
     condicion = fields.Selection(string='Condición', selection=[

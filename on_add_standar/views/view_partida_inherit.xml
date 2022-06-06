@@ -14,7 +14,7 @@
                         <group attrs="{'invisible': [('add_standar', '=', False)]}">
                             <field name="standard_id" attrs="{'required': [('add_standar', '=', True)]}"/>
                         </group>
-                        <group>
+                        <group attrs="{'invisible': [('estado_partida', '!=', 'borrador')]}">
                             <field name="add_standar" widget="boolean_toggle"/>
                         </group>
                     </group>
@@ -34,6 +34,11 @@
                             </field>
 <!--                        </group>-->
                     </page>
+                </xpath>
+
+                <xpath expr="//header" position="inside">
+                    <button name="validar_partida" type="object" string="Validar la partida" attrs="{'invisible': [('estado_partida', '!=', 'pendiente')]}"/>
+
                 </xpath>
 
             </field>
