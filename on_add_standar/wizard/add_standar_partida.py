@@ -60,16 +60,16 @@ class AddStandar(models.TransientModel):
                 'suma_impuesto_item_y_cost_price': line.suma_impuesto_item_y_cost_price,
             })
 
-        standard_requests = self.env['standard.request'].create({
-            'subcapitulo_id': self.subcapitulo_id.id,
-            'capitulo_id': self.subcapitulo_id.capitulo_id.id,
-            'fase_principal_id': self.subcapitulo_id.fase_principal_id.id,
-            'project_id': self.subcapitulo_id.project_id.id,
-            'partida_id': partida.id,
-            'state': 'pendiente',
-            'standard_id': self.standard_id.id,
-            'cant_partidas': self.cant_partidas,
-        })
+        # standard_requests = self.env['standard.request'].create({
+        #     'subcapitulo_id': self.subcapitulo_id.id,
+        #     'capitulo_id': self.subcapitulo_id.capitulo_id.id,
+        #     'fase_principal_id': self.subcapitulo_id.fase_principal_id.id,
+        #     'project_id': self.subcapitulo_id.project_id.id,
+        #     'partida_id': partida.id,
+        #     'state': 'pendiente',
+        #     'standard_id': self.standard_id.id,
+        #     'cant_partidas': self.cant_partidas,
+        # })
 
         return {
             'name': 'Partidas',
