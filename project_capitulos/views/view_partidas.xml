@@ -27,11 +27,11 @@
                         </div>
                         <group>
                             <group>
-                            <field name="name"/>
-                        </group>
-                        <group>
-                            <field name="total"/>
-                        </group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="total"/>
+                            </group>
                         </group>
                         <notebook>
 
@@ -101,7 +101,7 @@
                     <field name="fase_principal_id" string="Fase Principal"/>
                     <field name="capitulo_id" string="Capitulo"/>
                     <field name="subcapitulo_id" string="Subcapítulo"/>
-                    <field name="estado_partida" string="Estado" invisible="1"/>
+                    <field name="estado_partida" string="Estado" />
                 </tree>
             </field>
         </record>

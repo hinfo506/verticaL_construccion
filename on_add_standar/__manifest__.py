@@ -21,6 +21,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/view_subcapitulo_inherit.xml',
+        'views/view_partida_inherit.xml',
         'wizard/view_add_standar_partida.xml',
     ],
     # only loaded in demonstration mode
