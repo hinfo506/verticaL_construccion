@@ -79,6 +79,44 @@ class Partida(models.Model):
     #                 'suma_impuesto_item_y_cost_price': line.suma_impuesto_item_y_cost_price,
     #             })
 
+    # @api.model
+    # def create(self, vals):
+    #
+    #     # name = self.env['ir.sequence'].next_by_code('job.inspection.seq')
+    #     vals.update({
+    #         'estado_partida': 'pendiente',
+    #     })
+    #     record = super(Partida, self).create(vals)
+    #     lines = self.env['standard.line'].search([('standard_id', '=', record.standard_id.id)])
+    #     # raise ValidationError(lines)
+    #     for line in lines:
+    #         record.item_capitulo_ids = self.env['item.capitulo'].sudo().create({
+    #             'partidas_id': record.id,
+    #             'subcapitulo_id': record.subcapitulo_id.id,
+    #             'capitulo_id': record.subcapitulo_id.capitulo_id.id,
+    #             'faseprincipal_id': record.subcapitulo_id.fase_principal_id.id,
+    #             'project_id': record.subcapitulo_id.project_id.id,
+    #             'cost_price': 1,
+    #             'product_id': line.product_id.id,
+    #             'uom_id': line.uom_id.id,
+    #             'product_qty': line.qty,
+    #             'descripcion': line.descripcion,
+    #             'job_type': 'material',
+    #             'subtotal_item_capitulo': line.subtotal_item_capitulo,
+    #             'tipo_descuento': line.tipo_descuento,
+    #             'cantidad_descuento': line.cantidad_descuento,
+    #             'subtotal_descuento': line.subtotal_descuento,
+    #             'beneficio_estimado': line.beneficio_estimado,
+    #             'importe_venta': line.importe_venta,
+    #             'impuesto_porciento': line.impuesto_porciento,
+    #             'total_impuesto_item': line.total_impuesto_item,
+    #             'suma_impuesto_item_y_cost_price': line.suma_impuesto_item_y_cost_price,
+    #         })
+
+        # self.insertar_item(vals)
+        # return super(Partida, self).create(vals)
+        # self
+        # self.estado_partida == 'pendiente'
     @api.model
     def create(self, vals):
 
@@ -90,7 +128,7 @@ class Partida(models.Model):
         lines = self.env['standard.line'].search([('standard_id', '=', record.standard_id.id)])
         # raise ValidationError(lines)
         for line in lines:
-            record.item_capitulo_ids = self.env['item.capitulo'].sudo().create({
+            record.item_capitulo_ids |= self.env['item.capitulo'].sudo().create({
                 'partidas_id': record.id,
                 'subcapitulo_id': record.subcapitulo_id.id,
                 'capitulo_id': record.subcapitulo_id.capitulo_id.id,
@@ -98,24 +136,18 @@ class Partida(models.Model):
                 'project_id': record.subcapitulo_id.project_id.id,
                 'cost_price': 1,
                 'product_id': line.product_id.id,
-                'uom_id': line.uom_id.id,
-                'product_qty': line.qty,
-                'descripcion': line.descripcion,
-                'job_type': 'material',
-                'subtotal_item_capitulo': line.subtotal_item_capitulo,
-                'tipo_descuento': line.tipo_descuento,
-                'cantidad_descuento': line.cantidad_descuento,
-                'subtotal_descuento': line.subtotal_descuento,
-                'beneficio_estimado': line.beneficio_estimado,
-                'importe_venta': line.importe_venta,
-                'impuesto_porciento': line.impuesto_porciento,
-                'total_impuesto_item': line.total_impuesto_item,
-                'suma_impuesto_item_y_cost_price': line.suma_impuesto_item_y_cost_price,
-            })
-
-        # self.insertar_item(vals)
-        # return super(Partida, self).create(vals)
-        # self
-        # self.estado_partida == 'pendiente'
-
+                    'uom_id': line.uom_id.id,
+                    'product_qty': line.qty,
+                    'descripcion': line.descripcion,
+                    'job_type': 'material',
+                    'subtotal_item_capitulo': line.subtotal_item_capitulo,
+                    'tipo_descuento': line.tipo_descuento,
+                    'cantidad_descuento': line.cantidad_descuento,
+                    'subtotal_descuento': line.subtotal_descuento,
+                    'beneficio_estimado': line.beneficio_estimado,
+                    'importe_venta': line.importe_venta,
+                    'impuesto_porciento': line.impuesto_porciento,
+                    'total_impuesto_item': line.total_impuesto_item,
+                    'suma_impuesto_item_y_cost_price': line.suma_impuesto_item_y_cost_price,
+                })
         return record
