@@ -9,11 +9,11 @@
                 <form string="partidas_form">
                     <header>
                         <button name='wizard_cambio_precio' string='Cambiar Precio Masivo'
-                            class='oe_highlight'
-                            type='object'
-                        />
+                            class='oe_highlight' attrs="{'invisible': [('estado_partida', '==', 'borrador')]}"
+                            type='object'/>
                     </header>
                     <sheet>
+                        <field name="estado_partida" invisible="1"/>
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" name="met_activi_partidas" type="object" icon="fa-archive">
                                 <field name="activi_count_parti"   string="Actividades" widget="statinfo"/>
@@ -27,11 +27,11 @@
                         </div>
                         <group>
                             <group>
-                            <field name="name"/>
-                        </group>
-                        <group>
-                            <field name="total"/>
-                        </group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="total"/>
+                            </group>
                         </group>
                         <notebook>
 
@@ -101,7 +101,7 @@
                     <field name="fase_principal_id" string="Fase Principal"/>
                     <field name="capitulo_id" string="Capitulo"/>
                     <field name="subcapitulo_id" string="Subcapítulo"/>
-                    <field name="estado_partida" string="Estado" invisible="1"/>
+                    <field name="estado_partida" string="Estado" />
                 </tree>
             </field>
         </record>
