@@ -59,11 +59,19 @@ class Partida(models.Model):
     ####################################
     @api.model
     def create(self, vals):
+        project = self.env['project.project'].search([('id', '=', vals['project_id'])])
+        # raise ValidationError(project.stage_id.name)
 
-        if self.add_standar == True:
-            vals.update({
-                'estado_partida': 'pendiente',
-            })
+        if vals['add_standar']:
+            if project.stage_id.name == "Previsión de Coste":
+                vals.update({
+                    'estado_partida': 'aprobada',
+                })
+            else:
+                vals.update({
+                    'estado_partida': 'pendiente',
+                })
+
             record = super(Partida, self).create(vals)
             lines = self.env['standard.line'].search([('standard_id', '=', record.standard_id.id)])
             # raise ValidationError(lines)
@@ -92,9 +100,14 @@ class Partida(models.Model):
                 })
             return record
         else:
-            vals.update({
-                'estado_partida': 'aprobada',
-            })
+            if project.stage_id.name == "Previsión de Coste":
+                vals.update({
+                    'estado_partida': 'aprobada',
+                })
+            else:
+                vals.update({
+                    'estado_partida': 'pendiente',
+                })
             return super(Partida, self).create(vals)
 
 
