@@ -48,5 +48,16 @@
         <menuitem name="Partidas" id="partidas_menu" parent="capitulo_root_menu" action="partidas_action" sequence="4"/>
         <menuitem name="Items" id="items_menu" parent="capitulo_root_menu" action="items_action" sequence="5"/>
 
+<!--        prueba-->
+        <record id="partidas_pendientes_action" model="ir.actions.act_window">
+            <field name="name">Partidas Pendientes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partidas.partidas</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('estado_partida', '=', 'pendiente')]</field>
+        </record>
+
+        <menuitem name="Partidas Pendientes" id="par_menu" action="partidas_pendientes_action" sequence="6"/>
+
     </data>
 </odoo>
