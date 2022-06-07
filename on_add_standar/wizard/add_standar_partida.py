@@ -30,7 +30,7 @@ class AddStandar(models.TransientModel):
             'name': self.standard_id.name,
             'cantidad': self.cant_partidas,
             'numero_partida': str(self.subcapitulo_id.numero_subcapitulo) + '.' + str(self.number),
-            'estado_partida': 'pendiente' if not self.subcapitulo_id.project_id.stage_id.name == "Previsión de Coste" else 'aprobada',
+            'estado_partida': 'pendiente' if not self.subcapitulo_id.project_id.stage_id.is_prevision else 'aprobada',
             'subcapitulo_id': self.subcapitulo_id.id,
             'capitulo_id': self.subcapitulo_id.capitulo_id.id,
             'add_standar': False,

@@ -23,6 +23,7 @@
         'views/view_subcapitulo_inherit.xml',
         'views/view_partida_inherit.xml',
         'wizard/view_add_standar_partida.xml',
+        'views/project_stage_inherit.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

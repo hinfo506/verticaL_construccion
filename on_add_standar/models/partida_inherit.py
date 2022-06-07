@@ -63,7 +63,7 @@ class Partida(models.Model):
         # raise ValidationError(project.stage_id.name)
 
         if vals['add_standar']:
-            if project.stage_id.name == "Previsión de Coste":
+            if project.stage_id.is_prevision:
                 vals.update({
                     'estado_partida': 'aprobada',
                 })
@@ -100,7 +100,7 @@ class Partida(models.Model):
                 })
             return record
         else:
-            if project.stage_id.name == "Previsión de Coste":
+            if project.stage_id.is_prevision:
                 vals.update({
                     'estado_partida': 'aprobada',
                 })
