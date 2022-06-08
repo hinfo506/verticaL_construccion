@@ -38,26 +38,26 @@
 
 
         <!-- Top menu item -->
-    <menuitem name="Standard Request" id="menu_root"/>
+    <menuitem name="Standards" id="menu_root"/>
 
     <!-- menu categories -->
-    <menuitem name="Standard" id="menu_requets" parent="menu_root" sequence="1" action="standard_request_action_window"/>
-    <menuitem name="Configuracion" id="menu_config" parent="menu_root" sequence="50" />
+<!--    <menuitem name="Standard" id="menu_requets" parent="menu_root" sequence="1" action="standard_request_action_window"/>-->
+<!--    <menuitem name="Configuracion" id="menu_config" parent="menu_root" sequence="50"/>-->
 
     <!-- actions -->
-    <menuitem name="Standard" id="config_standard" parent="menu_config" action="standard_action_window"/>
-    <menuitem name="Crear Standard" id="menu_standard" parent="menu_root" action="standard_action_window"/>
+<!--    <menuitem name="Standard" id="config_standard" parent="menu_config" action="standard_action_window"/>-->
+    <menuitem name="Standard" id="menu_standard" parent="menu_root" action="standard_action_window"/>
 
-    <menuitem name="Etiquetas" id="config_tags" parent="menu_config" action="standard_tags_action_window"/>
+<!--    <menuitem name="Etiquetas" id="config_tags" parent="menu_config" action="standard_tags_action_window"/>-->
 
-    <menuitem name="Informe" action="actions_wizard_report" parent="standard_requests.menu_root"
-              id="menu_wizard_report"
-              sequence="16"/>
+<!--    <menuitem name="Informe" action="actions_wizard_report" parent="standard_requests.menu_root"-->
+<!--              id="menu_wizard_report"-->
+<!--              sequence="16"/>-->
 
-    <menuitem id="menu_standard_request_config" name="Settings"
-              parent="standard_requests.menu_config"
-              sequence="0" action="action_standard_request_config"
-              groups="base.group_system"/>
+<!--    <menuitem id="menu_standard_request_config" name="Settings"-->
+<!--              parent="standard_requests.menu_config"-->
+<!--              sequence="0" action="action_standard_request_config"-->
+<!--              groups="base.group_system"/>-->
 
   </data>
 </odoo>
