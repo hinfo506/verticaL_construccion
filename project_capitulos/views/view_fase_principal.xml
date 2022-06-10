@@ -27,7 +27,7 @@
                             <field name="name"/>
                           </group>
                           <group>
-<!--                             <field name="total"/>-->
+                             <field name="total"/>
                           </group>
                         </group>
 <!--                        <group>-->

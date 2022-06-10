@@ -22,11 +22,11 @@ class Subcapitulo(models.Model):
         ('adicionales', 'Adicionales'), ], required=False, )
 
     ###### FASES DEL PROYECTO  ########
-    project_id = fields.Many2one('project.project', string='Proyecto')
-    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
-    subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
-    fase_principal_id = fields.Many2one(comodel_name='fase.principal',string='Fase Principal', required=False)
+    project_id = fields.Many2one('project.project', string='Proyecto', required=True)
+    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo', ondelete='cascade', required=True)
+    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=True)
     # fase_principal_id = fields.Many2one(related='capitulo_id.fase_principal_id', string='Fase Principal', required=False)
+    subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
     partidas_ids = fields.One2many(comodel_name='partidas.partidas',inverse_name='subcapitulo_id', string='Partidas id', required=False)
 
     ###### CONTADORES  ########
@@ -136,4 +136,26 @@ class Subcapitulo(models.Model):
                 # 'amount_total': amount_untaxed + amount_tax,
                 # 'amount_total': amount_untaxed,
             })
+
+        #####################################
+        ## Onchange para Agregar Las Fases ##
+        #####################################
+        @api.onchange('project_id')
+        def _onchange_domain_project(self):
+            fase = {}
+            fase['domain'] = {'fase_principal_id': [('project_id', '=', self.project_id.id)]}
+            return fase
+
+        @api.onchange('fase_principal_id')
+        def _onchange_domain_fase(self):
+            cap = {}
+            cap['domain'] = {'capitulo_id': [('fase_principal_id', '=', self.fase_principal_id.id)]}
+            return cap
+
+        # @api.onchange('capitulo_id')
+        # def _onchange_domain_capitulo(self):
+        #     sub = {}
+        #     sub['domain'] = {'subcapitulo_id': [('capitulo_id', '=', self.capitulo_id.id)]}
+        #     return sub
+        ################################################################################################
 
