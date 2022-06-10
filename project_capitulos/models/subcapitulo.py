@@ -12,9 +12,11 @@ class Subcapitulo(models.Model):
     name = fields.Char(string='Subcapítulo', required=True)
     descripcion = fields.Text('Descripción del Subcapítulo')
     cantidad = fields.Integer('Cantidad')
-    total = fields.Float('Importe Total',compute='_compute_total_sub')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
+
+    total = fields.Float('Importe Total',compute='_compute_total_sub')
+    total_prevision = fields.Float('Importe Total Previsto')
 
     condicion = fields.Selection(string='Condición', selection=[
         ('presupuestario', 'Presupuestario'),

@@ -20,9 +20,11 @@ class Capitulo(models.Model):
     numero_capitulo = fields.Char(string='Número Capítulo', required=False)
     name = fields.Char(string='Capitulo', required=True)
     cantidad = fields.Integer('Cantidad')
-    total = fields.Float('Importe Total',compute='_compute_total_cap')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
+
+    total = fields.Float('Importe Total',compute='_compute_total_cap')
+    total_prevision = fields.Float('Importe Total Previsto')
 
     descripcion = fields.Text('Descripción del Capitulo')
     condicion = fields.Selection(string='Condición', selection=[
