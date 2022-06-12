@@ -15,7 +15,7 @@ class ProyectosInherit(models.Model):
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
     # Totales
     total = fields.Float('Importe Total', compute='_compute_total_cap')
-    total_prevision = fields.Float('Importe Total Previsto', compute='_compute_total_cap')
+    total_prevision = fields.Float('Importe Total Previsto')
 
     # @api.onchange('self.stage_id')
     # def _onchange_da(self):

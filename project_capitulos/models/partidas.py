@@ -12,9 +12,11 @@ class Partidas(models.Model):
     name = fields.Char(string='Partida', required=True)
     descripcion = fields.Text('Descripción de la Partida')
     cantidad = fields.Integer('Cantidad')
-    total = fields.Float('Importe Total',compute='_compute_total_parti')
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
+
+    total = fields.Float('Importe Total',compute='_compute_total_parti')
+    total_prevision = fields.Float('Importe Total Previsto')
 
     # Campo de Prueba para poder aprobar o no aprobar
     estado_partida = fields.Selection(
