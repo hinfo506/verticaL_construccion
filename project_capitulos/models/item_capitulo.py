@@ -18,7 +18,11 @@ class ItemCapitulo(models.Model):
     actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
     basis = fields.Char(string='Base', required=False)
     # impuesto_item = fields.Float('Imp. %', default=18)
-    total = fields.Float('Importe Total')
+
+    # total = fields.Float('Importe Total')
+    total_prevision = fields.Float('Importe Total Previsto')
+
+
     date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
     fecha_finalizacion = fields.Date('Fecha Finalización')
 

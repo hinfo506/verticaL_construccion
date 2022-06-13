@@ -227,3 +227,54 @@ class ProyectosInherit(models.Model):
             for sub in record.fase_principal_ids:
                 suma += sub.total
             record.update({'total': suma, })
+
+    def write(self, values):
+
+        if values.get('stage_id'):
+            stage = self.sudo().env['project.project.stage'].search([('id', '=', values.get('stage_id'))])
+            if stage.is_prevision == False and self.total_prevision == 0:
+                values['total_prevision'] = self.total
+
+                record = super(ProyectosInherit, self).write(values)
+
+                # Fase Principal
+                fase_ids = self.env['fase.principal'].search([('project_id', '=', self.id)])
+                for fase in fase_ids:
+                    fase.sudo().write({
+                        'total_prevision': fase.total,
+                    })
+
+                # Capitulo
+                capitulo_ids = self.env['capitulo.capitulo'].search([('project_id', '=', self.id)])
+                for cap in capitulo_ids:
+                    cap.sudo().write({
+                        'total_prevision': cap.total,
+                    })
+
+                # Subcapitulo
+                subcapitulos_ids = self.env['sub.capitulo'].search([('project_id', '=', self.id)])
+                for sub in subcapitulos_ids:
+                    sub.sudo().write({
+                        'total_prevision': sub.total,
+                    })
+
+                # Partida
+                partidas_ids = self.env['partidas.partidas'].search([('project_id', '=', self.id)])
+                for par in partidas_ids:
+                    par.sudo().write({
+                        'total_prevision': par.total,
+                    })
+
+                # Item
+                items_ids = self.env['item.capitulo'].search([('project_id', '=', self.id)])
+                for item in items_ids:
+                    item.sudo().write({
+                        'total_prevision': item.suma_impuesto_item_y_cost_price,
+                    })
+
+                return record
+
+            else:
+                return super(ProyectosInherit, self).write(values)
+        else:
+            return super(ProyectosInherit, self).write(values)
