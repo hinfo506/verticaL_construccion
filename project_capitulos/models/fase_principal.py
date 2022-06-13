@@ -20,6 +20,8 @@ class FaseInicial(models.Model):
 
     numero_fase_principal = fields.Char(string='Numero Fase Principal', required=False)
 
+    total = fields.Float('Importe Total', compute='_compute_total_cap')
+
     @api.onchange('number', 'project_id')
     def _onchange_join_number_faseprincipal(self):
         self.numero_fase_principal = str(self.project_id.numero_proyecto) + "." + str(self.number)
@@ -90,3 +92,10 @@ class FaseInicial(models.Model):
             record.capitulos_ids |= capitulo.copy()
 
         return record
+
+    def _compute_total_cap(self):
+        for record in self:
+            suma = 0.0
+            for sub in record.capitulos_ids:
+                suma += sub.total
+            record.update({'total': suma, })

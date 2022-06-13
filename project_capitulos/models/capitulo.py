@@ -32,8 +32,8 @@ class Capitulo(models.Model):
 
  
     ###### FASES DEL PROYECTO  ########
-    project_id = fields.Many2one('project.project', string='Proyecto',)
-    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=False, ondelete='cascade')
+    project_id = fields.Many2one('project.project', string='Proyecto', required=True)
+    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=True, ondelete='cascade')
 
     # prueba
     # name_faseini = fields.Char(string='Fase',related="project_id.nombre_fase", required=False)
@@ -122,3 +122,12 @@ class Capitulo(models.Model):
             for sub in record.subcapitulo_ids:
                 suma += sub.total
             record.update({'total': suma, })
+
+    #####################################
+    ## Onchange para Agregar Las Fases ##
+    #####################################
+    @api.onchange('project_id')
+    def _onchange_domain_project(self):
+        fase = {}
+        fase['domain'] = {'fase_principal_id': [('project_id', '=', self.project_id.id)]}
+        return fase

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "On ADD Standar",
+    'name': "ON CHANGE PRODUCT",
 
     'summary': """
-        On ADD Standar""",
+        ON CHANGE PRODUCT""",
 
     'description': """
-        On ADD Standar
+        ON CHANGE PRODUCT
     """,
 
     'author': "Odoo Next",
@@ -15,15 +15,15 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'standard_requests', 'project_capitulos'],
+    'depends': ['base', 'project_capitulos'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/view_subcapitulo_inherit.xml',
-        'views/view_partida_inherit.xml',
-        'wizard/view_add_standar_partida.xml',
-        'views/project_stage_inherit.xml',
+        #'views/view_partida_inherit.xml',
+        'wizard/view_change_product.xml',
+        #'views/project_stage_inherit.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

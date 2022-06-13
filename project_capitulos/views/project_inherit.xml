@@ -52,6 +52,10 @@
                 <xpath expr="//field[@name='label_tasks']" position="after">
                     <field name="nombre_fase"/>
                 </xpath>
+
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="total"/>
+                </xpath>
                 
             </field>
         </record>

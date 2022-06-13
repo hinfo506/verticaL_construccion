@@ -13,6 +13,13 @@ class ProyectosInherit(models.Model):
     nombre_fase = fields.Char(string='Nombre_fase', required=False, default='Fase Inicial')
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
+    # Totales
+    total = fields.Float('Importe Total', compute='_compute_total_cap')
+    total_prevision = fields.Float('Importe Total Previsto', compute='_compute_total_cap')
+
+    # @api.onchange('self.stage_id')
+    # def _onchange_da(self):
+    #     raise ValidationError('cambio el valor de stage_id')
 
     # @api.onchange('abreviatura_proyecto','number')
     # def _onchange_join_number_proyecto(self):
@@ -213,3 +220,10 @@ class ProyectosInherit(models.Model):
             'target': 'current',
             'context': {'form_view_initial_mode': 'edit'},
         }
+
+    def _compute_total_cap(self):
+        for record in self:
+            suma = 0.0
+            for sub in record.fase_principal_ids:
+                suma += sub.total
+            record.update({'total': suma, })
