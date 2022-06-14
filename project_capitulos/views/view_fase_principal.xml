@@ -28,6 +28,7 @@
                           </group>
                           <group>
                              <field name="total"/>
+                             <field name="total_prevision"/>
                           </group>
                         </group>
 <!--                        <group>-->

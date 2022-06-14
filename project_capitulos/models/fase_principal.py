@@ -21,6 +21,7 @@ class FaseInicial(models.Model):
     numero_fase_principal = fields.Char(string='Numero Fase Principal', required=False)
 
     total = fields.Float('Importe Total', compute='_compute_total_cap')
+    total_prevision = fields.Float('Importe Total Previsto')
 
     @api.onchange('number', 'project_id')
     def _onchange_join_number_faseprincipal(self):
