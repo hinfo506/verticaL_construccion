@@ -21,9 +21,11 @@
     'data': [
         'security/ir.model.access.csv',
         'views/view_subcapitulo_inherit.xml',
-        #'views/view_partida_inherit.xml',
+        'views/view_partida_inherit.xml',
+        'views/view_faseprincipal_inherit.xml',
+        'views/view_capitulo_inherit.xml',
         'wizard/view_change_product.xml',
-        #'views/project_stage_inherit.xml',
+        'views/view_project_inherit.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

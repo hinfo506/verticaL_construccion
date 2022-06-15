@@ -18,7 +18,11 @@ class ItemCapitulo(models.Model):
     actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
     basis = fields.Char(string='Base', required=False)
     # impuesto_item = fields.Float('Imp. %', default=18)
-    total = fields.Float('Importe Total')
+
+    # total = fields.Float('Importe Total')
+    total_prevision = fields.Float('Importe Total Previsto')
+
+
     date = fields.Date(string='Fecha', default=lambda self: fields.Date.today())
     fecha_finalizacion = fields.Date('Fecha Finalización')
 
@@ -72,7 +76,7 @@ class ItemCapitulo(models.Model):
     #############################################################################
     
     # Calculos de descuentos por impuestos creados por Raul
-    tipo_descuento = fields.Selection(string='Tipo descuento Proveedor', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ], required=False, )
+    tipo_descuento = fields.Selection(string='Tipo descuento Proveedor', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ], required=False, default='sindescuento' )
     cantidad_descuento = fields.Float(string='Cantidad Descuento', required=False)
     subtotal_descuento = fields.Float(string='Subtotal Con descuento', required=False, compute='_compute_subtotal_descuento', store=False)
     beneficio_estimado = fields.Float(string='Beneficio Estimado en %', required=False)
@@ -103,7 +107,7 @@ class ItemCapitulo(models.Model):
             elif record.tipo_descuento == 'porciento':
                 record.subtotal_descuento = record.subtotal_item_capitulo - ((record.subtotal_item_capitulo*record.cantidad_descuento)/100)
             else:
-                record.subtotal_descuento = 0
+                record.subtotal_descuento = record.subtotal_item_capitulo
 
             record.importe_venta = ((record.subtotal_item_capitulo * record.beneficio_estimado) / 100) + record.subtotal_item_capitulo
             record.total_impuesto_item = record.subtotal_descuento * (record.impuesto_porciento / 100)

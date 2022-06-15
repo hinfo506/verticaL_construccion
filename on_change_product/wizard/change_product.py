@@ -1,5 +1,9 @@
-from odoo import fields, models, api
-from odoo.exceptions import ValidationError
+import logging
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError,ValidationError
+from odoo.osv import expression
+
+_logger = logging.getLogger(__name__)
 
 
 class ChangeProduct(models.TransientModel):
@@ -10,7 +14,7 @@ class ChangeProduct(models.TransientModel):
     product_change_id = fields.Many2one(comodel_name='product.product', string='Sustituir Por', required=True)
     change_price = fields.Boolean(string='Cambiar Precio', required=False)
 
-    # items = fields.Many2one(comodel_name='item.capitulo', string='Items', required=False)
+    info = fields.Html(string='Info', required=False)
 
     item_ids = fields.Many2many(comodel_name='item.capitulo', string='Item')
 
@@ -62,10 +66,34 @@ class ChangeProduct(models.TransientModel):
                             'cost_price': self.nuevo_precio,
                             'product_id': self.product_change_id.id
                         })
+                        # return {
+                        #     'type': 'ir.actions.client',
+                        #     'tag': 'display_notification',
+                        #     'params': {
+                        #         'type': 'sucess',
+                        #         'title': _("Hecho"),
+                        #         'message': "El Producto y el Precio han sido cambiado satisfactoriamente",
+                        #         'next': {
+                        #             'type': 'ir.actions.act_window_close'
+                        #         },
+                        #     }
+                        # }
                     else:
                         items.write({
                             'product_id': self.product_change_id.id
                         })
+                        # return {
+                        #     'type': 'ir.actions.client',
+                        #     'tag': 'display_notification',
+                        #     'params': {
+                        #         'type': 'sucess',
+                        #         'title': _("Hecho"),
+                        #         'message': "Producto Cambiado Satisfactoriamente",
+                        #         'next': {
+                        #             'type': 'ir.actions.act_window_close'
+                        #         },
+                        #     }
+                        # }
             else:
                 raise ValidationError('No hay pruductos que coincidan')
 

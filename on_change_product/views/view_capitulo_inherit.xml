@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="capitulo_inherit_view" model="ir.ui.view">
+            <field name="name">Capitulo</field>
+            <field name="model">capitulo.capitulo</field>
+            <field name="inherit_id" ref="project_capitulos.capitulos_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header" position="inside">
+                    <button name="on_change_product" type="object" string="Cambiar Producto"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
