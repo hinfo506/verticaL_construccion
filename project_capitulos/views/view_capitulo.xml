@@ -43,7 +43,7 @@
                              <field name="total_prevision" attrs="{'readonly': [('id', '!=', False)]}"/>
                           </group>
                         </group>
-                        <notebook>
+<!--                         <notebook>
                             <page string="Subcapítulos del Capítulo">
                                 <field name="subcapitulo_ids" attrs="{'readonly': [('id', '!=', False)]}">
                                     <tree>
@@ -54,7 +54,7 @@
                                     </tree>
                                 </field>
                             </page>
-                        </notebook>
+                        </notebook> -->
                             <group>
                                 <field name="descripcion" string="Descripción"/>
                             </group>

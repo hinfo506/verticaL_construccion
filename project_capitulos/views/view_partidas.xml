@@ -48,7 +48,7 @@
                             </group>
                         </group>
                          <notebook>
-                            <page string="Items de la Partida"  >
+<!--                             <page string="Items de la Partida"  >
                                 <field name="item_capitulo_ids" attrs="{'readonly': [('id', '!=', False)]}">
                                     <tree>
                                         <field name="product_id"/>
@@ -57,7 +57,7 @@
                                         <field name="fecha_finalizacion"/>
                                     </tree>
                                 </field>
-                            </page>
+                            </page> -->
                         </notebook>
                         <group>
                             <field name="descripcion" string="Descripción"/>
