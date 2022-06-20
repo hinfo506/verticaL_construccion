@@ -14,6 +14,7 @@
                         />
                     </header>
                     <sheet>
+                        <field name="estado" readonly="1"/>
 <!--                        <field name="subcapitulos_count"/>-->
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" name="met_activi_capitulos" type="object" icon="fa-archive">
@@ -73,7 +74,7 @@
             <field name="name">capitulos_view_tree</field>
             <field name="model">capitulo.capitulo</field>
             <field name="arch" type="xml">
-                <tree string="Capitulos" class = "project_capitulos_Capitulos" default_order="fecha_finalizacion asc">
+                <tree string="Capitulos" class = "project_capitulos_Capitulos" default_order="fecha_finalizacion asc" decoration-danger="estado == 'pendiente'" decoration-info="estado == 'aprobada'">
                     <field name="numero_capitulo" string="Nº"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
 <!--                    <button type="object" string=" Detalles" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>-->
@@ -83,7 +84,7 @@
                     <button type="object" string=" Subcapítulos" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="project_id"/>
                     <field name="fase_principal_id"/>
-                    <!-- <field name="descripcion" /> -->
+                    <field name="estado" string="Estado"/>
                 </tree>
             </field>
         </record>

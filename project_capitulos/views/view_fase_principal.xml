@@ -8,12 +8,13 @@
             <field name="arch" type="xml">
                 <form string="fase_principal_form">
                     <header>
-                        <button name='wizard_cambio_precio' string='Cambiar Precio Masivo'
+                        <button name='wizard_cambio_precio' string='Cambiar Precio Masivo' attrs="{'invisible': [('estado', '=', 'borrador')]}"
                             class='oe_highlight'
                             type='object'
                         />
                     </header>
                     <sheet>
+                        <field name="estado" readonly="1"/>
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" name="met_activi_capitulos" type="object" icon="fa-archive">
                                 <field name="activi_count" string="Actividades" widget="statinfo"/>
@@ -57,11 +58,12 @@
             <field name="name">fase_principal_view_tree</field>
             <field name="model">fase.principal</field>
             <field name="arch" type="xml">
-                <tree string="fase_principal_tree">
+                <tree string="fase_principal_tree" decoration-danger="estado == 'pendiente'" decoration-info="estado == 'aprobada'">
                     <field name="numero_fase_principal"/>
                     <field name="name"/>
                     <button type="object" string=" Capítulos" name="met_capitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="project_id"/>
+                    <field name="estado" string="Estado"/>
                 </tree>
             </field>
         </record>

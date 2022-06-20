@@ -8,11 +8,12 @@
                 <form string="Sub Capitulos">
                     <header>
                         <button name='wizard_cambio_precio' string='Cambiar Precio Masivo'
-                            class='oe_highlight'
+                            class='oe_highlight' attrs="{'invisible': [('estado', '=', 'borrador')]}"
                             type='object'
                         />
                     </header>
                     <sheet>
+                        <field name="estado" readonly="1"/>
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" name="met_activi_subcapitulo" type="object" icon="fa-archive">
                                 <field name="activ_count"   string="Actividades" widget="statinfo"/>
@@ -79,7 +80,7 @@
             <field name="name">subcapitulo_view_tree</field>
             <field name="model">sub.capitulo</field>
             <field name="arch" type="xml">
-                <tree string="Sub Capitulos" default_order="fecha_finalizacion asc">
+                <tree string="Sub Capitulos" default_order="fecha_finalizacion asc" decoration-danger="estado == 'pendiente'" decoration-info="estado == 'aprobada'">
                     <field name="numero_subcapitulo" string="Nº Subcapítulo"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
                     <field name="cantidad" string="Cantidad" invisible ="1" />
@@ -90,6 +91,7 @@
                     <field name="project_id" string="Proyecto"/>
                     <field name="fase_principal_id" string="Fase Principal"/>
                     <field name="capitulo_id" string="Capítulo"/>
+                    <field name="estado" string="Estado"/>
                 </tree>
             </field>
         </record>

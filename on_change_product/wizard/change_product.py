@@ -66,34 +66,10 @@ class ChangeProduct(models.TransientModel):
                             'cost_price': self.nuevo_precio,
                             'product_id': self.product_change_id.id
                         })
-                        # return {
-                        #     'type': 'ir.actions.client',
-                        #     'tag': 'display_notification',
-                        #     'params': {
-                        #         'type': 'sucess',
-                        #         'title': _("Hecho"),
-                        #         'message': "El Producto y el Precio han sido cambiado satisfactoriamente",
-                        #         'next': {
-                        #             'type': 'ir.actions.act_window_close'
-                        #         },
-                        #     }
-                        # }
                     else:
                         items.write({
                             'product_id': self.product_change_id.id
                         })
-                        # return {
-                        #     'type': 'ir.actions.client',
-                        #     'tag': 'display_notification',
-                        #     'params': {
-                        #         'type': 'sucess',
-                        #         'title': _("Hecho"),
-                        #         'message': "Producto Cambiado Satisfactoriamente",
-                        #         'next': {
-                        #             'type': 'ir.actions.act_window_close'
-                        #         },
-                        #     }
-                        # }
             else:
                 raise ValidationError('No hay pruductos que coincidan')
 

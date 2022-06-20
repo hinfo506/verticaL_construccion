@@ -25,6 +25,15 @@ class FaseInicial(models.Model):
     total = fields.Float('Importe Total', compute='_compute_total_cap')
     total_prevision = fields.Float('Importe Total Previsto')
 
+    estado = fields.Selection(
+        string='Estado',
+        selection=[('borrador', 'Borrador'),
+                   ('aprobada', 'Aprobada en Prevision'),
+                   ('aprobadaproceso', 'Aprobada en Proceso'),
+                   ('pendiente', 'Pdte Validar'),
+                   ('noaprobada', 'No aprobada'), ],
+        required=False, default='borrador')
+
     @api.onchange('number', 'project_id')
     def _onchange_join_number_faseprincipal(self):
         self.numero_fase_principal = str(self.project_id.numero_proyecto) + "." + str(self.number)
@@ -102,3 +111,18 @@ class FaseInicial(models.Model):
             for sub in record.capitulos_ids:
                 suma += sub.total
             record.update({'total': suma, })
+
+    @api.model
+    def create(self, values):
+        project = self.env['project.project'].search([('id', '=', values['project_id'])])
+        if project.stage_id.is_prevision:
+            values.update({
+                'estado_partida': 'aprobada',
+            })
+        else:
+            values.update({
+                'estado_partida': 'pendiente',
+            })
+        # Add code here
+        return super(FaseInicial, self).create(values)
+

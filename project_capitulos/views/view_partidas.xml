@@ -13,7 +13,7 @@
                             type='object'/>
                     </header>
                     <sheet>
-                        <field name="estado_partida" invisible="1"/>
+                        <field name="estado_partida" readonly="1"/>
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" name="met_activi_partidas" type="object" icon="fa-archive">
                                 <field name="activi_count_parti"   string="Actividades" widget="statinfo"/>
@@ -83,7 +83,7 @@
             <field name="name">partidas_view_tree</field>
             <field name="model">partidas.partidas</field>
             <field name="arch" type="xml">
-                <tree string="partidas_tree" default_order="fecha_finalizacion asc" decoration-danger="estado_partida == 'pendiente'">
+                <tree string="partidas_tree" default_order="fecha_finalizacion asc" decoration-danger="estado_partida == 'pendiente'" decoration-info="estado_partida == 'aprobada'">
                     <field name="numero_partida" string="Nº Partida"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
                     <field name="name" string="Descripción Partida"/>
