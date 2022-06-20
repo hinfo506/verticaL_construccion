@@ -9,6 +9,8 @@ class FaseInicial(models.Model):
 
     name = fields.Char(string='Nombre', required=True)
     descripcion = fields.Text(string="Descripcion", required=False)
+    fecha_inicio = fields.Date('Fecha Inicio')
+    fecha_finalizacion = fields.Date('Acaba el')
 
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.faseprincipal'))

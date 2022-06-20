@@ -23,47 +23,41 @@
                         </div>
                             <group>
                                 <group>
-                                    <field name="name"/>
+                                  <field name="project_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                  <field name="fase_principal_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                  <field name="capitulo_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                  <field name="name"/>
                                 </group>
                                 <group>
+                                    <field name="numero_subcapitulo"/>
+                                    <field name="cantidad" string="Cantidad"/>
+                                    <label for="fecha_inicio" string="Fecha"/>
+                                        <div name="dates" class="o_row">
+                                            <field name="fecha_inicio" widget="daterange" options="{&quot;related_end_date&quot;: &quot;fecha_finalizacion&quot;}"/>
+                                            <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon" title="Arrow"/>
+                                            <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('fecha_inicio', '=', False), ('fecha_finalizacion', '=', False)]}"/>
+                                            <field name="fecha_finalizacion" widget="daterange" options="{&quot;related_start_date&quot;: &quot;fecha_inicio&quot;}"/>
+                                        </div>
                                     <field name="total"/>
-                                    <field name="total_prevision"/>
+                                    <field name="total_prevision" attrs="{'readonly': [('id', '!=', False)]}"/>
                                 </group>
                             </group>
                         
-                        <notebook>
-
-                            <page string="Datos del Subcapítulo">
-                             
-                              <group>
-                                <group>
-<!--                                  <field name="numero" readonly="1"/>-->
-                                  <field name="numero_subcapitulo"/>
-
-                                  <field name="cantidad" string="Cantidad"/>
-                                  <field name="total"/>
-                                 </group>
-                                 <group> 
-                                  <label for="fecha_inicio" string="Fecha"/>
-                                    <div name="dates" class="o_row">
-                                        <field name="fecha_inicio" widget="daterange" options="{&quot;related_end_date&quot;: &quot;fecha_finalizacion&quot;}"/>
-                                        <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon" title="Arrow"/>
-                                        <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('fecha_inicio', '=', False), ('fecha_finalizacion', '=', False)]}"/>
-                                        <field name="fecha_finalizacion" widget="daterange" options="{&quot;related_start_date&quot;: &quot;fecha_inicio&quot;}"/>
-                                    </div>
-                                  <field name="project_id"/>
-                                  <field name="fase_principal_id"/>
-                                     <field name="capitulo_id"/>
-                                     <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
-                                  </group>
-                              </group>
-                              <group>
-                                  <field name="descripcion" string="Descripción"/>
-                             </group>
-                             
+<!--                         <notebook>
+                            <page string="Partidas del Subcapítulo">
+                                <field name="partidas_ids" attrs="{'readonly': [('id', '!=', False)]}">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="descripcion"/>
+                                        <field name="total"/>
+                                        <field name="fecha_finalizacion"/>
+                                    </tree>
+                                </field>
                             </page>
-
-                        </notebook>
+                        </notebook> -->
+                        <group>
+                            <field name="descripcion" string="Descripción"/>
+                        </group>
                         <group class="oe_subtotal_footer oe_right" colspan="2" name="jobcost_total">
 <!--                            <field name="material_total" widget="monetary"/>-->
                             <field name="labor_total" widget="monetary"/>
