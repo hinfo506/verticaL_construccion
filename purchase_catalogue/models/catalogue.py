@@ -18,3 +18,9 @@ class Catalogue(models.Model):
     partida_id = fields.Many2one(comodel_name='partidas.partidas', string='Partida', required=False)
 
     line_purchase_ids = fields.One2many(comodel_name='line.purchase', inverse_name='catalogue_id', string='Line_purchase_ids', required=False)
+
+    # product_ids = fields.One2many(
+    #     comodel_name='product.product',
+    #     inverse_name='',
+    #     string='Product_ids',
+    #     required=False)
