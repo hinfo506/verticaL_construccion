@@ -15,16 +15,17 @@ class Partidas(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
-    total = fields.Float('Importe Total',compute='_compute_total_parti')
+    total = fields.Float('Importe Total', compute='_compute_total_parti')
     total_prevision = fields.Float('Importe Total Previsto')
 
     # Campo de Prueba para poder aprobar o no aprobar
     estado_partida = fields.Selection(
         string='Estado_partida',
         selection=[('borrador', 'Borrador'),
-                   ('aprobada', 'Aprobada'),
-                   ('noaprobada', 'No aprobada'),
-                   ('pendiente', 'Pendiente'), ],
+                   ('aprobada', 'Aprobada en Prevision'),
+                   ('aprobadaproceso', 'Aprobada en Proceso'),
+                   ('pendiente', 'Pdte Validar'),
+                   ('noaprobada', 'No aprobada'), ],
         required=False, default='borrador')
 
 

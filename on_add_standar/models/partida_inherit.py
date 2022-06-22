@@ -115,4 +115,4 @@ class Partida(models.Model):
     ## Validar la Partida ##
     ########################
     def validar_partida(self):
-        self.estado_partida = 'aprobada'
+        self.estado_partida = 'aprobadaproceso'

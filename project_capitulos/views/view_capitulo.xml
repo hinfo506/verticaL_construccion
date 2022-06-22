@@ -14,6 +14,7 @@
                         />
                     </header>
                     <sheet>
+                        <field name="estado" readonly="1"/>
 <!--                        <field name="subcapitulos_count"/>-->
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" name="met_activi_capitulos" type="object" icon="fa-archive">
@@ -26,55 +27,39 @@
 
                         <group>
                           <group>
+                            <field name="project_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                            <field name="fase_principal_id" attrs="{'readonly': [('id', '!=', False)]}"/>
                             <field name="name"/>
                           </group>
                           <group>
-                             <field name="total"/>
-                             <field name="total_prevision"/>
-                          </group>
-                        </group>
-                        
-                        <notebook>
-                            <page string="Datos del Capítulo">
-                                <group>
-                                    <group>
-                                        <field name="numero_capitulo"/>
-                                        <field name="total" attrs="{'readonly': [('id', '!=', False)]}"/>
-                                    </group>
-                                     <group>
-                                        <label for="fecha_inicio" string="Fecha"/>
+                             <field name="numero_capitulo" string="Capitulo Nº:"/>
+                             <label for="fecha_inicio" string="Fecha"/>
                                         <div name="dates" class="o_row">
                                             <field name="fecha_inicio" widget="daterange" options="{&quot;related_end_date&quot;: &quot;fecha_finalizacion&quot;}"/>
                                             <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon" title="Arrow"/>
                                             <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('fecha_inicio', '=', False), ('fecha_finalizacion', '=', False)]}"/>
                                             <field name="fecha_finalizacion" widget="daterange" options="{&quot;related_start_date&quot;: &quot;fecha_inicio&quot;}"/>
                                         </div>
-                                        <field name="project_id" attrs="{'readonly': [('id', '!=', False)]}"/>
-                                        <field name="fase_principal_id"/>
-                                        <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
-<!--                                        <field name="name_faseini"/>-->
-<!--                                         <a><span class="o_label"><t t-esc="name_faseini"/></span></a>-->
-                                    <!--<field name="descripcion"/>-->
-                                     </group>
-                                 </group>
-                                 <group>
-                                    <field name="descripcion" string="Descripción"/>
-                                 </group>
-                            </page>
-
-                            <page string="Subcapítulos">
-                                <field name="subcapitulo_ids">
-<!--                                    <tree editable="bottom">-->
+                             <field name="total" attrs="{'readonly': [('id', '!=', False)]}"/>
+                             <field name="total_prevision" attrs="{'readonly': [('id', '!=', False)]}"/>
+                          </group>
+                        </group>
+<!--                         <notebook>
+                            <page string="Subcapítulos del Capítulo">
+                                <field name="subcapitulo_ids" attrs="{'readonly': [('id', '!=', False)]}">
                                     <tree>
                                         <field name="name"/>
                                         <field name="descripcion"/>
                                         <field name="total"/>
                                         <field name="fecha_finalizacion"/>
-    <!--                                    <field name="capitulo_id"/>-->
                                     </tree>
                                 </field>
                             </page>
-                        </notebook>
+                        </notebook> -->
+                            <group>
+                                <field name="descripcion" string="Descripción"/>
+                            </group>
+
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" options="{'post_refresh':True}" groups="base.group_user"/>
@@ -89,7 +74,7 @@
             <field name="name">capitulos_view_tree</field>
             <field name="model">capitulo.capitulo</field>
             <field name="arch" type="xml">
-                <tree string="Capitulos" class = "project_capitulos_Capitulos" default_order="fecha_finalizacion asc">
+                <tree string="Capitulos" class = "project_capitulos_Capitulos" default_order="fecha_finalizacion asc" decoration-danger="estado == 'pendiente'" decoration-info="estado == 'aprobada'">
                     <field name="numero_capitulo" string="Nº"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
 <!--                    <button type="object" string=" Detalles" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>-->
@@ -99,7 +84,7 @@
                     <button type="object" string=" Subcapítulos" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
                     <field name="project_id"/>
                     <field name="fase_principal_id"/>
-                    <!-- <field name="descripcion" /> -->
+                    <field name="estado" string="Estado"/>
                 </tree>
             </field>
         </record>

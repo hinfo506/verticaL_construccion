@@ -94,6 +94,7 @@
                     <field name="impuesto_porciento" string="ITBIS %"/>
                     <field name="total_impuesto_item" invisible= "1"/>
                     <field name="suma_impuesto_item_y_cost_price" string="P.U. + ITBIS"/>
+                    <field name="total_prevision"/>
 <!--                    <field name="subtotal_item_capitulo"/>-->
 <!--                    <field name="impuesto_porciento"/>-->
 <!--                    <field name="total_impuesto_item"/>-->

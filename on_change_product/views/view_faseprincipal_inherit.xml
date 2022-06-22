@@ -10,7 +10,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//header" position="inside">
-                    <button name="on_change_product" type="object" string="Cambiar Producto"/>
+                    <button name="on_change_product" type="object" string="Cambiar Producto" attrs="{'invisible': [('estado', '=', 'borrador')]}"/>
                 </xpath>
 
             </field>

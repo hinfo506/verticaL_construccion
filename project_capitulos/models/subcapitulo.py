@@ -29,11 +29,20 @@ class Subcapitulo(models.Model):
     fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=True)
     # fase_principal_id = fields.Many2one(related='capitulo_id.fase_principal_id', string='Fase Principal', required=False)
     subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
-    partidas_ids = fields.One2many(comodel_name='partidas.partidas',inverse_name='subcapitulo_id', string='Partidas id', required=False)
+    partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='subcapitulo_id', string='Partidas id', required=False)
 
     ###### CONTADORES  ########
     partidas_count = fields.Integer(string='Contador Item', compute='get_partidas_count')
     activ_count = fields.Integer(string='Contador actividades', compute='get_acts_count')
+
+    estado = fields.Selection(
+        string='Estado',
+        selection=[('borrador', 'Borrador'),
+                   ('aprobada', 'Aprobada en Prevision'),
+                   ('aprobadaproceso', 'Aprobada en Proceso'),
+                   ('pendiente', 'Pendiente Validar'),
+                   ('noaprobada', 'No aprobada'), ],
+        required=False, default='borrador')
 
     @api.onchange('number', 'capitulo_id')
     def _onchange_join_number(self):
@@ -71,8 +80,6 @@ class Subcapitulo(models.Model):
     ###############
     # Actividades #
     ###############
-
-
     def get_acts_count(self):
         for r in self:
             count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','sub.capitulo')])
@@ -160,4 +167,18 @@ class Subcapitulo(models.Model):
         #     sub['domain'] = {'subcapitulo_id': [('capitulo_id', '=', self.capitulo_id.id)]}
         #     return sub
         ################################################################################################
+
+    @api.model
+    def create(self, values):
+        project = self.env['project.project'].search([('id', '=', values['project_id'])])
+        if project.stage_id.is_prevision:
+            values.update({
+                'estado_partida': 'aprobada',
+            })
+        else:
+            values.update({
+                'estado_partida': 'pendiente',
+            })
+        # Add code here
+        return super(Subcapitulo, self).create(values)
 

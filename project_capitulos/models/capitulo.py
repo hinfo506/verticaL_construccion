@@ -46,6 +46,15 @@ class Capitulo(models.Model):
     sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False, compute='subcapitulos_count')
     activi_count = fields.Integer(string='Contador Actividades', compute='get_acti_count')
 
+    estado = fields.Selection(
+        string='Estado',
+        selection=[('borrador', 'Borrador'),
+                   ('aprobada', 'Aprobada en Prevision'),
+                   ('aprobadaproceso', 'Aprobada en Proceso'),
+                   ('pendiente', 'Pdte Validar'),
+                   ('noaprobada', 'No aprobada'), ],
+        required=False, default='borrador')
+
     @api.onchange('number', 'fase_principal_id')
     def _onchange_join_number_capitulo(self):
         self.numero_capitulo = str(self.fase_principal_id.numero_fase_principal) + "." + str(self.number)
@@ -133,3 +142,17 @@ class Capitulo(models.Model):
         fase = {}
         fase['domain'] = {'fase_principal_id': [('project_id', '=', self.project_id.id)]}
         return fase
+
+    @api.model
+    def create(self, values):
+        project = self.env['project.project'].search([('id', '=', values['project_id'])])
+        if project.stage_id.is_prevision:
+            values.update({
+                'estado_partida': 'aprobada',
+            })
+        else:
+            values.update({
+                'estado_partida': 'pendiente',
+            })
+        # Add code here
+        return super(Capitulo, self).create(values)
