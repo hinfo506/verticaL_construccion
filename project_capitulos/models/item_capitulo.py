@@ -4,6 +4,7 @@ from odoo.exceptions import UserError, ValidationError,RedirectWarning
 
 class ItemCapitulo(models.Model):
     _name = 'item.capitulo'
+    _rec_name = 'product_id'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     ##### DATOS PRINCIPALES  ########
