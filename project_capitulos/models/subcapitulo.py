@@ -173,11 +173,11 @@ class Subcapitulo(models.Model):
         project = self.env['project.project'].search([('id', '=', values['project_id'])])
         if project.stage_id.is_prevision:
             values.update({
-                'estado_partida': 'aprobada',
+                'estado': 'aprobada',
             })
         else:
             values.update({
-                'estado_partida': 'pendiente',
+                'estado': 'pendiente',
             })
         # Add code here
         return super(Subcapitulo, self).create(values)

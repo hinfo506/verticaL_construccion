@@ -1,5 +1,6 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+from collections import defaultdict
 
 class LinePurchase(models.Model):
     _name = 'line.purchase'
@@ -23,5 +24,18 @@ class LinePurchase(models.Model):
             # raise ValidationError(self.catalogue_id.project_id.id)
             res = {}
             res['domain'] = {'item_id': [('project_id', '=', self.catalogue_id.project_id.id)]}
-            return res
+            # raise ValidationError(res)
+            # res['context'] = {'group_by': 'product_id'}
+            online_partner = self.env['item.capitulo'].search([('project_id', '=', self.catalogue_id.project_id.id)]).mapped("product_id")
 
+            # online_partner = self.env['res.users'].search([]).filtered(lambda x: x.im_status == 'online').mapped(
+            #     "partner_id").ids
+            # list=[]
+            # for l in online_partner:
+            #     # ks_dashboard_data.append(dashboard_data)
+            #     list.append(l.name)
+            # raise ValidationError(list)
+            res = online_partner
+            return res
+        else:
+            raise ValidationError('Debe seleccionar un Proyecto')

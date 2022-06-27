@@ -12,7 +12,7 @@ from odoo.osv.expression import OR
 
 class Capitulo(models.Model):
     _name = 'capitulo.capitulo'
-    _inherit = ['mail.thread','mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     ###### DATOS PRINCIPALES  ########
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
@@ -148,11 +148,11 @@ class Capitulo(models.Model):
         project = self.env['project.project'].search([('id', '=', values['project_id'])])
         if project.stage_id.is_prevision:
             values.update({
-                'estado_partida': 'aprobada',
+                'estado': 'aprobada',
             })
         else:
             values.update({
-                'estado_partida': 'pendiente',
+                'estado': 'pendiente',
             })
         # Add code here
         return super(Capitulo, self).create(values)

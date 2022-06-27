@@ -77,7 +77,7 @@ class ItemCapitulo(models.Model):
     #############################################################################
     
     # Calculos de descuentos por impuestos creados por Raul
-    tipo_descuento = fields.Selection(string='Tipo descuento Proveedor', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ], required=False, default='sindescuento' )
+    tipo_descuento = fields.Selection(string='Tipo descuento Proveedor', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ('sindescuento', 'sindescuento'), ], required=False, default='sindescuento' )
     cantidad_descuento = fields.Float(string='Cantidad Descuento', required=False)
     subtotal_descuento = fields.Float(string='Subtotal Con descuento', required=False, compute='_compute_subtotal_descuento', store=False)
     beneficio_estimado = fields.Float(string='Beneficio Estimado en %', required=False)
