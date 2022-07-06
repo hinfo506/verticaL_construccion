@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+
+    <record id="partidas_inherit_tree_view" model="ir.ui.view">
+        <field name="name">Partidas</field>
+        <field name="model">partidas.partidas</field>
+        <field name="inherit_id" ref="project_capitulos.partidas_view_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='estado_partida']" position="after">
+                <button type="object" string=" Compra" name="execute_purchase" class="btn btn-primary" icon="fa-hand-o-right"/>
+            </xpath>
+
+        </field>
+    </record>
+
+  </data>
+</odoo>

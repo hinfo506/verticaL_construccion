@@ -35,7 +35,7 @@ class LinePurchase(models.Model):
             #     # ks_dashboard_data.append(dashboard_data)
             #     list.append(l.name)
             # raise ValidationError(list)
-            res = online_partner
+            # res = online_partner
             return res
         else:
             raise ValidationError('Debe seleccionar un Proyecto')
