@@ -47,7 +47,11 @@ class FaseInicial(models.Model):
             'res_model': 'capitulo.capitulo',
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.capitulos_ids.ids)],
-            'context': dict(self._context, default_fase_principal_id=self.id),
+            'context': dict(
+                self._context,
+                default_fase_principal_id=self.id,
+                default_project_id=self.project_id.id
+            ),
         }
 
     cap_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')

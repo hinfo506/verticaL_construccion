@@ -70,7 +70,12 @@ class Capitulo(models.Model):
             'res_model': 'sub.capitulo',
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.subcapitulo_ids.ids)],
-            'context': dict(self._context, default_capitulo_id=self.id),
+            'context': dict(
+                self._context,
+                default_capitulo_id=self.id,
+                default_project_id=self.project_id.id,
+                default_fase_principal_id=self.fase_principal_id.id
+            ),
         }
 
     def ir_id_capitulo(self):

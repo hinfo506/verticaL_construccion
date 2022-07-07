@@ -8,7 +8,8 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='estado_partida']" position="after">
-                <button type="object" string=" Compra" name="execute_purchase" class="btn btn-primary" icon="fa-hand-o-right"/>
+                <field name="it_was_bought" invisible="1"/>
+                <button type="object" string=" Compra" name="execute_purchase" class="btn btn-primary" icon="fa-credit-card" attrs="{'invisible': [('it_was_bought', '=', True)]}"/>
             </xpath>
 
         </field>

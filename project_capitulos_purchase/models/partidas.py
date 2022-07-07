@@ -7,6 +7,7 @@ class Partidas(models.Model):
     _inherit = 'partidas.partidas'
 
     purchase_order_ids = fields.One2many(comodel_name='purchase.order', inverse_name='partida_id', string='Purchase_order_ids', required=False)
+    it_was_bought = fields.Boolean(string='It_was_bought', required=False, default=False)
 
     def execute_purchase(self):
         contactos = self.env['res.partner'].search([])
@@ -25,5 +26,6 @@ class Partidas(models.Model):
                 'price_unit': i.cost_price,
                 'product_qty': i.product_qty,
             })
+        self.it_was_bought = True
 
 

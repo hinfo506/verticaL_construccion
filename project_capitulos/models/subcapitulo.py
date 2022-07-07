@@ -101,7 +101,13 @@ class Subcapitulo(models.Model):
             'res_model': 'partidas.partidas',
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.partidas_ids.ids)],
-            'context': dict(self._context, default_subcapitulo_id=self.id),
+            'context': dict(
+                self._context,
+                default_subcapitulo_id=self.id,
+                default_project_id=self.project_id.id,
+                default_fase_principal_id=self.fase_principal_id.id,
+                default_capitulo_id=self.capitulo_id.id,
+            ),
         }
 
     def wizard_cambio_precio(self):
