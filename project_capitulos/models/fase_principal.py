@@ -47,7 +47,11 @@ class FaseInicial(models.Model):
             'res_model': 'capitulo.capitulo',
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.capitulos_ids.ids)],
-            'context': dict(self._context, default_fase_principal_id=self.id),
+            'context': dict(
+                self._context,
+                default_fase_principal_id=self.id,
+                default_project_id=self.project_id.id
+            ),
         }
 
     cap_count = fields.Integer(string='Capitulos', compute='get_count_capitulos')
@@ -117,11 +121,11 @@ class FaseInicial(models.Model):
         project = self.env['project.project'].search([('id', '=', values['project_id'])])
         if project.stage_id.is_prevision:
             values.update({
-                'estado_partida': 'aprobada',
+                'estado': 'aprobada',
             })
         else:
             values.update({
-                'estado_partida': 'pendiente',
+                'estado': 'pendiente',
             })
         # Add code here
         return super(FaseInicial, self).create(values)
