@@ -22,13 +22,23 @@
                         </group>
                         <field name='parent_path' invisible="1"/>
                         <field name="line_ids">
-                            <tree>
-<!--                            <tree editable="bottom">-->
+<!--                            <tree>-->
+                            <tree editable="bottom">
                                 <field name="standard_id" invisible="1"/>
+                                <field name="job_type"/>
                                 <field name="product_id"/>
-                                <field name="descripcion"/>
-                                <field name="qty"/>
+<!--                                <field name="descripcion"/>-->
                                 <field name="uom_id"/>
+                                <field name="qty"/>
+                                <field name="cost_price"/>
+<!--                                <field name="subtotal_item_capitulo"/>-->
+                                <field name="tipo_descuento"/>
+                                <field name="cantidad_descuento"/>
+<!--                                <field name="subtotal_descuento"/>-->
+                                <field name="impuesto_porciento"/>
+<!--                                <field name="total_impuesto_item"/>-->
+                                <field name="beneficio_estimado"/>
+<!--                                <field name="importe_venta"/>-->
                                 <field name="suma_impuesto_item_y_cost_price" string="Total"/>
                             </tree>
                             <form string="Line">

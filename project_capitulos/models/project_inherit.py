@@ -10,7 +10,7 @@ class ProyectosInherit(models.Model):
 
     numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True,compute='_compute_numero_pryecto')
     abreviatura_proyecto = fields.Char(string='Abreviatura Proyecto', required=False)
-    nombre_fase = fields.Char(string='Nombre_fase', required=False, default='Fase Inicial')
+    nombre_fase = fields.Char(string='Nombre Fase Principal', required=False, default='Fase Inicial')
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
     # Totales
