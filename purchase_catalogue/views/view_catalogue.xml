@@ -7,6 +7,9 @@
             <field name="model">catalogue.catalogue</field>
             <field name="arch" type="xml">
                 <form string="catalogue_form">
+                    <header>
+                        <button name="generar_line_purchase" type="object" string="Generar lineas"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>

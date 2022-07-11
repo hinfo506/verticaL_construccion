@@ -17,14 +17,7 @@ class ProyectosInherit(models.Model):
     total = fields.Float('Importe Total', compute='_compute_total_cap')
     total_prevision = fields.Float('Importe Total Previsto')
 
-    # @api.onchange('self.stage_id')
-    # def _onchange_da(self):
-    #     raise ValidationError('cambio el valor de stage_id')
-
-    # @api.onchange('abreviatura_proyecto','number')
-    # def _onchange_join_number_proyecto(self):
-    #     # self.numero_proyecto = str(self.abreviatura_proyecto)
-    #     self.numero_proyecto = str(self.abreviatura_proyecto) + "-" + str(self.number)
+    warehouse = fields.Many2one(comodel_name='stock.warehouse',string='Almacén', required=False)
 
     @api.depends('abreviatura_proyecto','number')
     def _compute_numero_pryecto(self):

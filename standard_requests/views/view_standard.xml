@@ -40,6 +40,7 @@
                                 <field name="beneficio_estimado"/>
 <!--                                <field name="importe_venta"/>-->
                                 <field name="suma_impuesto_item_y_cost_price" string="Total"/>
+                                <button type="object" string=" Ver" name="action_standar_line" class="btn btn-primary" icon="fa-credit-card"/>
                             </tree>
                             <form string="Line">
                                 <sheet>

@@ -11,8 +11,6 @@ class Partidas(models.Model):
 
     def execute_purchase(self):
         contactos = self.env['res.partner'].search([])
-        # raise ValidationError(self.item_capitulo_ids)
-
         purchase = self.env['purchase.order'].create({
             'partner_id': contactos[0].id,
             'partida_id': self.id,

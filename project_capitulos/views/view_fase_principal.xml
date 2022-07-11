@@ -39,6 +39,7 @@
                                         </div>
                              <field name="total"/>
                              <field name="total_prevision" attrs="{'readonly': [('id', '!=', False)]}"/>
+                             <field name="location"/>
                           </group>
                         </group>
                             <group>

@@ -34,6 +34,11 @@ class FaseInicial(models.Model):
                    ('noaprobada', 'No aprobada'), ],
         required=False, default='borrador')
 
+    location = fields.Many2one(
+        comodel_name='stock.location',
+        string='Ubicación en Almacén',
+        required=False)
+
     @api.onchange('number', 'project_id')
     def _onchange_join_number_faseprincipal(self):
         self.numero_fase_principal = str(self.project_id.numero_proyecto) + "." + str(self.number)
