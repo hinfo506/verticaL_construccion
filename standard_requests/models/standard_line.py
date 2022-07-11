@@ -95,30 +95,12 @@ class StandardLine(models.Model):
             rec.uom_id = rec.product_id.uom_id.id
             rec.cost_price = rec.product_id.standard_price  # lst_price
 
-    # Revisar este metodo aqui debe llevarme al item
     def action_standar_line(self):
-        # raise ValidationError('menos mal')
         return {
-            'name': 'Item',
-            # 'name': self.cliente_id.name,
+            'type': 'ir.actions.act_window',
+            'res_model': self._name,
+            'res_id': self.id,
             'view_type': 'form',
             'view_mode': 'form',
-            # 'res_id': self.id,
-            'res_model': 'item.capitulo',
-            # 'context': {
-            #     'default_cliente_id': self.cliente_id.id,
-            #     'default_sol_p_id': self.id,
-            #     'default_area_ids': self._context.get('area_ids', [])
-            # },
-            'type': 'ir.actions.act_window',
-            'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
-            'target': 'new',
+            'target': 'new'
         }
-
-        # return {
-        #     'res_id': self.id,
-        #     'res_model': 'item.capitulo',
-        #     'target': 'new',
-        #     'type': 'ir.actions.act_window',
-        #     'view_mode': 'form',
-        # }

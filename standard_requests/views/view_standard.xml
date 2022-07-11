@@ -15,10 +15,13 @@
                             </h1>
                         </div>
                         <group>
-                          <group>
-                            <field name='is_purchase'/>
-                            <field name='is_warehouse'/>
-                          </group>
+                            <group>
+                              <field name='is_purchase'/>
+                              <field name='is_warehouse'/>
+                            </group>
+                            <group>
+                                <field name="total_cost"/>
+                            </group>
                         </group>
                         <field name='parent_path' invisible="1"/>
                         <field name="line_ids">
@@ -88,7 +91,7 @@
                 <tree>
                     <field name="name"/>
                     <field name='parent_path' invisible="1"/>
-                    <field name="parent_id"/>
+                    <field name="total_cost"/>
                 </tree>
             </field>
         </record>
