@@ -26,8 +26,11 @@ class Standard(models.Model):
     total_cost = fields.Float(string='Total coste', required=False, compute='_compute_total_cost')
 
     def _compute_total_cost(self):
-        total = 0
         for rec in self:
-            total += rec.line_ids.suma_impuesto_item_y_cost_price
-        self.total_cost = total
+            total = 0
+            for l in rec.line_ids:
+                total += l.suma_impuesto_item_y_cost_price
+            rec.update({
+                'total_cost': total,
+            })
 
