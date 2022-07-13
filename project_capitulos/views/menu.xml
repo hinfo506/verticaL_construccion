@@ -59,5 +59,17 @@
 
         <menuitem name="Partidas Pendientes" id="par_menu" action="partidas_pendientes_action" sequence="6"/>
 
+
+        <!--Menu en proyecto/configuracion para las etapas-->
+        <record id="etapas_action" model="ir.actions.act_window">
+            <field name="name">Etapas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stage.stage</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Etapas" id="etapas_menu" action="etapas_action" parent="project.menu_project_config" sequence="6"/>
+
+
     </data>
 </odoo>

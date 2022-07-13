@@ -20,6 +20,8 @@ class FaseInicial(models.Model):
     capitulos_ids = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='fase_principal_id', string='Capitulos_id', required=False)
     item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='faseprincipal_id', string='Item_ids', required=False)
 
+    etapa_id = fields.Many2one(comodel_name='stage.stage', string='Etapa', required=False)
+
     numero_fase_principal = fields.Char(string='Numero Fase Principal', required=False)
 
     total = fields.Float('Importe Total', compute='_compute_total_cap')
