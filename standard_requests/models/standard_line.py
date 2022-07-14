@@ -94,3 +94,13 @@ class StandardLine(models.Model):
             rec.qty = 1.0
             rec.uom_id = rec.product_id.uom_id.id
             rec.cost_price = rec.product_id.standard_price  # lst_price
+
+    def action_standar_line(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': self._name,
+            'res_id': self.id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'target': 'new'
+        }

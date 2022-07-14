@@ -27,6 +27,7 @@
                           <group>
                             <field name="project_id" attrs="{'readonly': [('id', '!=', False)]}"/>
                             <field name="name"/>
+                            <field name="etapa_id"/>
                           </group>
                           <group>
                              <field name="numero_fase_principal" string="Numero:"/>
@@ -39,6 +40,7 @@
                                         </div>
                              <field name="total"/>
                              <field name="total_prevision" attrs="{'readonly': [('id', '!=', False)]}"/>
+                             <field name="location"/>
                           </group>
                         </group>
                             <group>

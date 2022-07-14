@@ -21,6 +21,10 @@
                     <field name="numero_proyecto"/>
                 </xpath>
 
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="warehouse"/>
+                </xpath>
+
                 <xpath expr="//sheet//div//button" position="before">
                     <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
                                 <field name="activi_count" string="Actividades" widget="statinfo"/>

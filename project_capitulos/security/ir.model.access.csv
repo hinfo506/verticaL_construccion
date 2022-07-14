@@ -7,3 +7,4 @@ access_partidas_partidas,partidas.partidas,model_partidas_partidas,,1,1,1,1
 access_cambio_precio,cambio.precio,model_cambio_precio,,1,1,1,1
 access_volumetria_volumetria,volumetria.volumetria,model_volumetria_volumetria,,1,1,1,1
 access_fase_principal,fase.principal,model_fase_principal,,1,1,1,1
+access_stage_stage,stage.stage,model_stage_stage,,1,1,1,1

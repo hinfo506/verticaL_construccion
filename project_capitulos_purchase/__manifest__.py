@@ -19,12 +19,6 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
         'views/partidas_views.xml',
-        'views/templates.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
     ],
 }

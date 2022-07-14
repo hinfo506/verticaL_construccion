@@ -19,8 +19,14 @@ class Catalogue(models.Model):
 
     line_purchase_ids = fields.One2many(comodel_name='line.purchase', inverse_name='catalogue_id', string='Line_purchase_ids', required=False)
 
-    # product_ids = fields.One2many(
-    #     comodel_name='product.product',
-    #     inverse_name='',
-    #     string='Product_ids',
-    #     required=False)
+    def generar_line_purchase(self):
+        if self.project_id:
+            product = self.env['item.capitulo'].search([('project_id', '=', self.project_id.id)]).mapped("product_id")
+            for p in product:
+                # raise ValidationError(p)
+                purchase = self.line_purchase_ids.create({
+                    'product_id': p.id,
+                })
+            # raise ValidationError(product)
+        else:
+            raise ValidationError('Debe seleccionar un Proyecto')
