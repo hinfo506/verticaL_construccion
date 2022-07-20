@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="project_view_inherit" model="ir.ui.view">
+            <field name="name">Proyectos</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+
+<!--                <xpath expr="//header" position="inside">-->
+<!--                    <button name='wizard_cambio_precio' string='Cambiar Precio Masivo'-->
+<!--                            class='oe_highlight'-->
+<!--                            type='object'-->
+<!--                        />-->
+<!--                </xpath>-->
+
+                <xpath expr="//field[@name='label_tasks']" position="before">
+                    <field name="abreviatura_proyecto"/>
+                    <field name="numero_proyecto"/>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="warehouse"/>
+                </xpath>
+
+                <xpath expr="//sheet//div//button" position="before">
+                    <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
+                                <field name="activi_count" string="Actividades" widget="statinfo"/>
+                    </button>
+<!--                    <button class="oe_stat_button" name="met_capitulos" type="object" icon="fa-archive">-->
+<!--                        <field name="capitulos_count"  widget="statinfo"/>-->
+<!--                    </button>-->
+<!--                    <button class="oe_stat_button" name="met_fase_principal" type="object" icon="fa-archive">-->
+<!--&lt;!&ndash;                        <field name="fases_principal_count"  widget="statinfo" string="Fase Principal" options="{'label_field': 'nombre_fase'}"/>&ndash;&gt;-->
+<!--                        <field name="fase_principal_kanban_count"  widget="statinfo" string="Fase Principal" options="{'label_field': 'nombre_fase'}"/>-->
+<!--                    </button>-->
+                </xpath>
+
+<!--                <xpath expr="//notebook//page" position="after">-->
+<!--                    <page string="Capitulos">-->
+<!--                        <field name="capitulos_id">-->
+<!--                            <tree>-->
+<!--                                <field name="fecha_finalizacion"/>-->
+<!--                                <field name="name"/>-->
+<!--                                <field name="cantidad"/>-->
+<!--                                <field name="total"/>-->
+<!--                                &lt;!&ndash; <field name="descripcion"/> &ndash;&gt;-->
+<!--                                <button type="object" string=" Subcapítulos" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--                </xpath>-->
+
+                <xpath expr="//field[@name='label_tasks']" position="after">
+                    <field name="nombre_fase"/>
+                </xpath>
+
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="total"/>
+                    <field name="total_prevision"/>
+                </xpath>
+                
+            </field>
+        </record>
+
+                        <!-- Inherit Form View to Modify it -->
+        <record id="kanban_iherit_view" model="ir.ui.view">
+            <field name="name">Proyectos</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
+<!--                    <field name="fase_principal_kanban_count" invisible="1"/>-->
+<!--                    <field name="capitulos_kanban_count" invisible="1"/>-->
+<!--                    <field name="subcapitulos_kanban_count" invisible="1"/>-->
+<!--                    <field name="partidas_kanban_count" invisible="1"/>-->
+                    <field name="item_kanban_count" invisible="1"/>
+                    <field name="nombre_fase" invisible="1"/>
+<!--                    <div role="menuitem">-->
+<!--                        <div class="o_kanban_record_bottom mt-3">-->
+<!--                            <div class="oe_kanban_bottom_left">-->
+<!--                                <div class="o_project_kanban_boxes">-->
+<!--                                    <a class="o_project_kanban_box" name="met_fase_principal" type="object">-->
+<!--                                        <div>-->
+<!--                                            <span class="o_value"><t t-esc="record.fase_principal_kanban_count.value"/></span>-->
+<!--                                            <span class="o_label"><t t-esc="record.nombre_fase.value"/></span>-->
+<!--                                        </div>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div role="menuitem">-->
+<!--                        <div class="o_kanban_record_bottom mt-3">-->
+<!--                            <div class="oe_kanban_bottom_left">-->
+<!--                                <div class="o_project_kanban_boxes">-->
+<!--                                    <a class="o_project_kanban_box" name="met_capitulos" type="object">-->
+<!--                                        <div>-->
+<!--                                            <span class="o_value"><t t-esc="record.capitulos_kanban_count.value"/></span>-->
+<!--                                            <span class="o_label">Capítulos</span>-->
+<!--                                        </div>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                                <div class="o_project_kanban_boxes">-->
+<!--                                    <a class="o_project_kanban_box" name="met_subcapitulos" type="object">-->
+<!--                                        <div>-->
+<!--                                            <span class="o_value"><t t-esc="record.subcapitulos_kanban_count.value"/></span>-->
+<!--                                            <span class="o_label">Subcapítulos</span>-->
+<!--                                        </div>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+                    <div role="menuitem">
+                        <div class="o_kanban_record_bottom mt-3">
+                            <div class="oe_kanban_bottom_left">
+<!--                                <div class="o_project_kanban_boxes">-->
+<!--                                    <a class="o_project_kanban_box" name="met_partidas" type="object">-->
+<!--                                        <div>-->
+<!--                                            <span class="o_value"><t t-esc="record.partidas_kanban_count.value"/></span>-->
+<!--                                            <span class="o_label">Partidas</span>-->
+<!--                                        </div>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+                                <div class="o_project_kanban_boxes">
+                                    <a class="o_project_kanban_box" name="met_items" type="object">
+                                        <div>
+                                            <span class="o_value"><t t-esc="record.item_kanban_count.value"/></span>
+                                            <span class="o_label">Items</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </xpath>
+
+<!--                <xpath expr="//div[hasclass('col-4')]" position="inside">-->
+<!--                    <a class="dropdown-item" role="menuitem" type="object" name="action_duplicar_proyecto">Duplicar</a>-->
+<!--                </xpath>-->
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

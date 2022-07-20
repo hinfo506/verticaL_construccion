@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fase_fase,fase.fase,model_fase_fase,,1,1,1,1
+access_item_item,item.item,model_item_item,,1,1,1,1
+access_item_volumetria,item.volumetria,model_item_volumetria,,1,1,1,1
