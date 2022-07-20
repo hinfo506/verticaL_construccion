@@ -30,15 +30,15 @@ class ProyectosInherit(models.Model):
 
     item_kanban_count = fields.Integer(string='Item_kanban_count', compute='_compute_item_count', required=False)
 
-    # def met_fase_principal(self):
-    #     return {
-    #         'type': 'ir.actions.act_window',
-    #         'name': 'Fase Inicial',
-    #         'res_model': 'fase.principal',
-    #         'view_mode': 'tree,form',
-    #         'domain': [('id', 'in', self.fase_principal_ids.ids)],
-    #         'context': dict(self._context, default_project_id=self.id),
-    #     }
+    def action_view_fase(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Fase',
+            'res_model': 'fase.fase',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.fase_id.ids)],
+            'context': dict(self._context, default_project_id=self.id),
+        }
     #
     # def met_capitulos(self):
     #     return {
@@ -80,6 +80,8 @@ class ProyectosInherit(models.Model):
             'context': dict(self._context, default_project_id=self.id),
         }
 
+    fase_kanban_count = fields.Integer(string='FasePrincipal_kanban_count', compute='_compute_fase_count', required=False)
+
     def met_activi_proyecto(self):
         return {
             'type': 'ir.actions.act_window',
@@ -100,15 +102,15 @@ class ProyectosInherit(models.Model):
             r.activi_count = count if count else 0
     ######################
     
-    # def _compute_faseprincipal_count(self):
-    #     task_data = self.env['fase.principal'].read_group(
-    #         [('project_id', 'in', self.ids)],
-    #         ['project_id', 'project_id:count'], ['project_id'])
-    #     result_with_subtasks = defaultdict(int)
-    #     for data in task_data:
-    #         result_with_subtasks[data['project_id'][0]] += data['project_id_count']
-    #     for project in self:
-    #         project.fase_principal_kanban_count = result_with_subtasks[project.id]
+    def _compute_fase_count(self):
+        task_data = self.env['fase.fase'].read_group(
+            [('project_id', 'in', self.ids)],
+            ['project_id', 'project_id:count'], ['project_id'])
+        result_with_subtasks = defaultdict(int)
+        for data in task_data:
+            result_with_subtasks[data['project_id'][0]] += data['project_id_count']
+        for project in self:
+            project.fase_kanban_count = result_with_subtasks[project.id]
     #
     # def _compute_capitulo_count(self):
     #     task_data = self.env['capitulo.capitulo'].read_group(

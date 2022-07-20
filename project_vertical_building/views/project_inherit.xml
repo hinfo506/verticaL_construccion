@@ -73,26 +73,27 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
-<!--                    <field name="fase_principal_kanban_count" invisible="1"/>-->
+                    <field name="fase_kanban_count" invisible="1"/>
 <!--                    <field name="capitulos_kanban_count" invisible="1"/>-->
 <!--                    <field name="subcapitulos_kanban_count" invisible="1"/>-->
 <!--                    <field name="partidas_kanban_count" invisible="1"/>-->
                     <field name="item_kanban_count" invisible="1"/>
                     <field name="nombre_fase" invisible="1"/>
-<!--                    <div role="menuitem">-->
-<!--                        <div class="o_kanban_record_bottom mt-3">-->
-<!--                            <div class="oe_kanban_bottom_left">-->
-<!--                                <div class="o_project_kanban_boxes">-->
-<!--                                    <a class="o_project_kanban_box" name="met_fase_principal" type="object">-->
-<!--                                        <div>-->
-<!--                                            <span class="o_value"><t t-esc="record.fase_principal_kanban_count.value"/></span>-->
+                    <div role="menuitem">
+                        <div class="o_kanban_record_bottom mt-3">
+                            <div class="oe_kanban_bottom_left">
+                                <div class="o_project_kanban_boxes">
+                                    <a class="o_project_kanban_box" name="action_view_fase" type="object">
+                                        <div>
+                                            <span class="o_value"><t t-esc="record.fase_kanban_count.value"/></span>
 <!--                                            <span class="o_label"><t t-esc="record.nombre_fase.value"/></span>-->
-<!--                                        </div>-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                                            <span class="o_label">Fase</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 <!--                    <div role="menuitem">-->
 <!--                        <div class="o_kanban_record_bottom mt-3">-->
 <!--                            <div class="oe_kanban_bottom_left">-->
