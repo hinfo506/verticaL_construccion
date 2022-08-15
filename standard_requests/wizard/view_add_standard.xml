@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="add_standard_view_form" model="ir.ui.view">
+            <field name="name">Agregar Standard</field>
+            <field name="model">wizard.standard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="standard_id"/>
+
+                        </group>
+                    </sheet>
+                    <footer>
+<!--                        <button string="Guardar y nuevo" name="action_guardar_nuevo" type="object" class="oe_highlight" attrs="{'invisible': [('mostrar_botones','!=',False)]}"/>-->
+                        <button string="Insertar" name="action_insertar" type="object" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

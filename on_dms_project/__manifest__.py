@@ -9,16 +9,12 @@
         on_dms_project
     """,
 
-    'author': "Raul Rolando Jardinot Gonzalez",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
-    # for the full list
+    'author': "OdooNext: Raul Rolando Jardinot Gonzalez",
     'category': 'Uncategorized',
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'dms', 'project_capitulos'],
+    'depends': ['base', 'dms', 'project_vertical_building'],
 
     # always loaded
     'data': [

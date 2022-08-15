@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="project_view_inherit" model="ir.ui.view">
+            <field name="name">Proyectos</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='label_tasks']" position="before">
+                    <field name="abreviatura_proyecto"/>
+                    <field name="numero_proyecto"/>
+                    <field name="is_building"/>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="warehouse"/>
+                </xpath>
+
+                <xpath expr="//sheet//div//button" position="before">
+                    <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
+                                <field name="activi_count" string="Actividades" widget="statinfo"/>
+                    </button>
+                    <!-- <button class="oe_stat_button" name="action_view_fase" type="object" icon="fa-sitemap"> -->
+                    <button class="oe_stat_button" name="action_view_fase" type="object">
+                        <img src="/project_vertical_building/static/src/img/sitemap.png" style="margin: 0px 10px 0px 10px; width: 26px;" />
+                        <span>Fases</span>
+                    </button>
+                </xpath>
+
+                <xpath expr="//field[@name='label_tasks']" position="after">
+                    <field name="nombre_fase"/>
+                </xpath>
+
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="total"/>
+                    <field name="total_prevision"/>
+                </xpath>
+                
+            </field>
+        </record>
+
+                        <!-- Inherit Form View to Modify it -->
+        <record id="kanban_inherit_view" model="ir.ui.view">
+            <field name="name">Proyectos</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="on_create"></attribute>
+                </xpath>
+                <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
+                    <field name="fase_kanban_count" invisible="1"/>
+                    <field name="item_kanban_count" invisible="1"/>
+                    <field name="nombre_fase" invisible="1"/>
+                    <div role="menuitem">
+                        <div class="o_kanban_record_bottom mt-3">
+                            <div class="oe_kanban_bottom_left">
+                                <div class="o_project_kanban_boxes">
+                                    <!-- <a class="o_project_kanban_box" name="action_view_items_tree" type="object"> -->
+                                    <a class="o_project_kanban_box" name="action_view_fase" type="object">
+                                        <div>
+                                            <span class="o_value"><t t-esc="record.fase_kanban_count.value"/></span>
+<!--                                            <span class="o_label"><t t-esc="record.nombre_fase.value"/></span>-->
+                                            <span class="o_label">Fase</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="menuitem">
+                        <div class="o_kanban_record_bottom mt-3">
+                            <div class="oe_kanban_bottom_left">
+                                <div class="o_project_kanban_boxes">
+                                    <a class="o_project_kanban_box" name="met_items" type="object">
+                                        <div>
+                                            <span class="o_value"><t t-esc="record.item_kanban_count.value"/></span>
+                                            <span class="o_label">Items</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_project_project_filter_inherit" model="ir.ui.view">
+            <field name="name">view_project_project_filter_inherit</field>
+            <field name="model">project.project</field>            
+            <field name="inherit_id" ref="project.view_project_project_filter"/>
+            <field name="arch" type="xml">
+                <filter name="own_projects" position="after">
+                    <filter string="Building Projects" name="building_projects" domain="[('is_building', '=', True)]"/>
+                </filter>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -9,4 +9,11 @@
             <field name="implied_ids" eval="[(4,ref('standard_requests.standard_user'))]"/>
         </record>
     </data>
-</odoo> 
+</odoo>
+
+
+<!--# standard_request,standard.request,model_standard_request,,1,1,1,1-->
+<!--# standard_request_line,standard.request.line,model_standard_request_line,,1,1,1,1-->
+<!--# standard_tags,standard.tags,model_standard_tags,,1,1,1,1-->
+<!--# standard_distribution,standard_distribution,model_standard_distribution,,1,1,1,1-->
+<!--# standard_requisition,standard_requisition,model_standard_requisition,,1,1,1,1-->

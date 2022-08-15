@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="stage_inherit_view" model="ir.ui.view">
+            <field name="name">Fase</field>
+            <field name="model">vertical.stage</field>
+            <field name="inherit_id" ref="project_vertical_building.fase_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button name='add_standars' string='Add Standard'
+                            class='oe_highlight'
+                            type='object'
+                        />
+                    </header>
+
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

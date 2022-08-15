@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="item_view_form" model="ir.ui.view">
+            <field name="name">item_view_form</field>
+            <field name="model">vertical.item</field>
+            <field name="arch" type="xml">
+                <form string="Items">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="met_itemvolumetria" type="object" icon="fa-archive">
+                                <field name="item_volumetry_count" string="Item Volumetría" widget="statinfo"/>
+                            </button>
+                        </div>
+
+                        <group>
+                            <group name="datos_productos" string="Datos del Producto">
+                                <field name="project_id" />
+                                <field name="vertical_stage_id" />
+                                <field name="date"/>
+                                <field name="reference"/>
+                                <field name="job_type"/>
+                                <field name="color_item" invisible= "1"/>
+                                <field name="product_id"/>
+                                <field name="descripcion"/>
+                                <field name="uom_id"/>
+                            </group>
+                            <group name="detalle_costes" string="Detalles de Costes">
+                                <field name="product_qty" string="Cantidad"/>
+                                <field name="longitud" invisible = "1"/>
+                                <field name="ancho" invisible = "1"/>
+                                <field name="alto" invisible = "1"/>
+                                <field name="cost_price" string="Precio Coste"/>
+                                <field name="subtotal_item_capitulo" string="Importe"/>
+                                <field name="tipo_descuento" string="Tipo Dto."/>
+                                <field name="cantidad_descuento" string="Importe Dto."/>
+                                <field name="subtotal_descuento" string="Subtotal"/>
+                                <field name="impuesto_porciento" string="Impuesto %"/>
+                                <field name="total_impuesto_item" string="Imp. Impuesto"/>
+                                <field name="suma_impuesto_item_y_cost_price" string="Total"/>
+                            </group>
+                            <group name="detalle_costes" string="Detalles de Precio Venta Publico">
+
+                                <field name="beneficio_estimado" string="Marge Beneficio %"/>
+                                <field name="importe_venta" string="Importe PVP"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'post_refresh':True}" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="item_view_tree" model="ir.ui.view">
+            <field name="name">item.tree</field>
+            <field name="model">vertical.item</field>
+            <field name="arch" type="xml">
+                <tree string="Items" decoration-danger="color_item=='red'" decoration-info="color_item=='blue'" decoration-success="color_item=='green'" decoration-muted="color_item=='grey'" decoration-warning="color_item=='brown'" decoration-primary="color_item=='purple'">
+                    <field name="date"/>
+                    <field name="job_type"/>
+                    <field name="color_item" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="descripcion" invisible="1"/>
+                    <field name="product_qty" string="Cantidad"/>
+                    <field name="reference" invisible="1"/>
+                    <field name="longitud" invisible="1"/>
+                    <field name="ancho" invisible="1"/>
+                    <field name="alto" invisible="1"/>
+                    <field name="cost_price"/>
+                    <field name="subtotal_item_capitulo" string="Importe"/>
+                    <field name="beneficio_estimado" invisible="1"/>
+                    <field name="importe_venta" invisible="1"/>
+                    <field name="impuesto_porciento" string="ITBIS %"/>
+                    <field name="total_impuesto_item" invisible="1"/>
+                    <field name="suma_impuesto_item_y_cost_price" string="P.U. + ITBIS"/>
+                    <field name="uom_id"/>
+                    <button type="object" string=" Volumetria" name="met_itemvolumetria" class="btn btn-primary" icon="fa-hand-o-right"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="item_search_job_type" model="ir.ui.view">
+            <field name="name">Item Search Job Type</field>
+            <field name="model">vertical.item</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_id" string="en campo Producto"/>
+                    <field name="vertical_stage_id" string="Fase"/>
+                    <filter name="job_type" string="Materiales" domain="[('job_type', '=', 'material')]" />
+                    <filter name="job_type" string="Mano de Obra" domain="[('job_type', '=', 'labour')]" />
+                    <filter name="job_type" string="Maquinaria" domain="[('job_type', '=', 'machinery')]" />
+                    <filter name="job_type" string="Gastos Generales" domain="[('job_type', '=', 'overhead')]" />
+                    <searchpanel>
+                        <field name="vertical_stage_id" string="Fase"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>
