@@ -2,7 +2,7 @@
 
 from . import project_inherit
 from . import dms_directory_inherit
-from . import capitulo
-from . import subcapitulo
-from . import partida
-from . import fase_principal
+# from . import capitulo
+# from . import subcapitulo
+# from . import partida
+# from . import fase_principal

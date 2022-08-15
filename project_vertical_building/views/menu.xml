@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_item" model="ir.actions.act_window">
+            <field name="name">Items</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vertical.item</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_stage" model="ir.actions.act_window">
+            <field name="name">Fase</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vertical.stage</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_stage_type" model="ir.actions.act_window">
+            <field name="name">Tipo de Fase</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vertical.stage.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Desde aqui -->
+        <record id="action_obra" model="ir.actions.act_window">
+            <field name="name">Obras</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.project</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <!-- <field name="domain">[('is_building', '=', True)]</field> -->
+            <field name="context">{'search_default_building_projects': 1,'default_is_building':1, 'search_default_groupby_stage': 1}</field>
+        </record>
+
+        <record id="vertical_project_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="kanban_inherit_view"/> <!-- Apunto a tu vista kanban que esta en project_inherit.xml-->
+            <field name="act_window_id" ref="action_obra"/>
+        </record>
+        <!-- Apunto a una vista tree si tuvieramos una personalizada, como no la tenemos, omitimos -->
+        <!-- <record id="vertical_project_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="tree_inherit_view"/> 
+            <field name="act_window_id" ref="action_obra"/>
+        </record> -->
+        <record id="vertical_project_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="project_view_inherit"/> <!-- Apunto a tu vista form que esta en project_inherit.xml-->
+            <field name="act_window_id" ref="action_obra"/>
+        </record>
+
+        <!-- El primer Record es la accion en si, y con los restantes apuntamos las vistas personalizadas específicas al menu -->
+
+        <!-- Hasta aqui -->
+
+        <menuitem id="menu_root" name="Vertical de Construcción" sequence="1"/>
+
+        <menuitem id="menu_config" name="Configuración" parent="menu_root" sequence="10"/>
+
+        <menuitem id="menu_stage_type" name="Tipo de Fase" parent="menu_config" action="action_stage_type" sequence="1"/>
+        <!-- This Menu Item must have a parent and an action -->
+<!--        <menuitem id="menu_tipofase" name="" parent="" action="" sequence=""/>-->
+
+        <menuitem id="menu_project_inherit" name="Obras" parent="menu_root" action="action_obra" sequence="1"/>
+        <menuitem id="menu_vertical_stage" name="Fases" parent="menu_root" action="action_stage" sequence="2"/>
+        <menuitem id="menu_item" name="Items" parent="menu_root" action="action_item" sequence="3"/>
+    </data>
+</odoo>
