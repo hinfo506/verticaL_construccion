@@ -28,16 +28,16 @@ class StandardLine(models.Model):
         required=True, )
     cost_price = fields.Float(string='Coste', copy=False, )
     subtotal_item_capitulo = fields.Float(string='Subtotal', store=False, compute='_compute_subtotal')
-    tipo_descuento = fields.Selection(string='Tipo descuento Proveedor',
+    tipo_descuento = fields.Selection(string='Tipo Dto.',
                                       selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ],
                                       required=False, )
     cantidad_descuento = fields.Float(string='Imp. Dto.', required=False)
     subtotal_descuento = fields.Float(string='Subtotal Con descuento', required=False,
                                       compute='_compute_subtotal_descuento', store=False)
-    beneficio_estimado = fields.Float(string='% Beneficio', required=False)
+    beneficio_estimado = fields.Float(string='% Benef.', required=False)
     importe_venta = fields.Float(string='Importe Venta (PVP)', required=False, compute='_compute_subtotal_descuento',
                                  store=False)
-    impuesto_porciento = fields.Float(string='ITBIS %)', required=False)
+    impuesto_porciento = fields.Float(string='ITBIS %', required=False)
     total_impuesto_item = fields.Float(string='Importe ITBIS', required=False, compute='_compute_subtotal_descuento',
                                        store=False)
     suma_impuesto_item_y_cost_price = fields.Float(string='Total (P.U. + ITBIS)', required=False,
