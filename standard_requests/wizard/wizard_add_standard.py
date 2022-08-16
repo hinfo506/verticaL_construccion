@@ -6,18 +6,20 @@ class AddStandar(models.TransientModel):
 
     standard_id = fields.Many2one(comodel_name='standard', string='Standard_id', required=False)
     active_ids = fields.Many2many(comodel_name='vertical.stage', string='Active_ids')
+    list_ids = fields.Many2many(comodel_name='standard.line', string='List_ids')
 
+    @api.onchange('standard_id')
+    def _onchange_standards(self):
+        for record in self:
+            if record.standard_id:
+                data = [('standard_id', '=', record.standard_id.id)]
+                line = self.env['standard.line'].search(data)
+                record.list_ids = line
 
     def action_insertar(self):
 
-        # Comprobar que las fases a las que se va a agregar el standar sean partidas
         for active in self.active_ids:
-            if active.type_stage_id.is_end != True:
-                raise ValidationError('Debe seleccionar solo partidas')
-
-        for active in self.active_ids:
-
-            for line in self.standard_id.line_ids:
+            for line in self.list_ids:
                 items = self.env['vertical.item'].create({
                     'vertical_stage_id': active.id,
                     'project_id': active.project_id.id,

@@ -14,7 +14,7 @@ class StandardLine(models.Model):
 
     standard_id = fields.Many2one('standard', string='Estandar')
     product_id = fields.Many2one('product.product', string='Producto', required=1)
-    uom_id = fields.Many2one('uom.uom', string='Unidad de Medida', required=1)
+    uom_id = fields.Many2one('uom.uom', string='U. Medida', required=1)
     qty = fields.Float(string='Cantidad', required=1)
     descripcion = fields.Text(string="Descripción", required=False)
 
@@ -24,20 +24,20 @@ class StandardLine(models.Model):
                    ('labour', 'Mano de Obra'),
                    ('overhead', 'Gastos Generales'),
                    ('machinery', 'Maquinaria')],
-        string="Tipo de Costo",
+        string="Tipo Coste",
         required=True, )
-    cost_price = fields.Float(string='Precio Coste', copy=False, )
+    cost_price = fields.Float(string='Coste', copy=False, )
     subtotal_item_capitulo = fields.Float(string='Subtotal', store=False, compute='_compute_subtotal')
     tipo_descuento = fields.Selection(string='Tipo descuento Proveedor',
                                       selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ],
                                       required=False, )
-    cantidad_descuento = fields.Float(string='Cantidad Descuento', required=False)
+    cantidad_descuento = fields.Float(string='Imp. Dto.', required=False)
     subtotal_descuento = fields.Float(string='Subtotal Con descuento', required=False,
                                       compute='_compute_subtotal_descuento', store=False)
-    beneficio_estimado = fields.Float(string='Beneficio Estimado en %', required=False)
+    beneficio_estimado = fields.Float(string='% Beneficio', required=False)
     importe_venta = fields.Float(string='Importe Venta (PVP)', required=False, compute='_compute_subtotal_descuento',
                                  store=False)
-    impuesto_porciento = fields.Float(string='Impuesto en % (ITBIS)', required=False)
+    impuesto_porciento = fields.Float(string='ITBIS %)', required=False)
     total_impuesto_item = fields.Float(string='Importe ITBIS', required=False, compute='_compute_subtotal_descuento',
                                        store=False)
     suma_impuesto_item_y_cost_price = fields.Float(string='Total (P.U. + ITBIS)', required=False,

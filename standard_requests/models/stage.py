@@ -6,6 +6,15 @@ class VerticalStage(models.Model):
 
     def add_standars(self):
         act_ids = self.env.context.get('active_ids')
+        active_ids = self.env['vertical.stage'].search([('id', '=', act_ids)])
+
+        # raise ValidationError(act_ids)
+
+        # Comprobar que las fases a las que se va a agregar el standar sean partidas
+        for active in active_ids:
+            if active.type_stage_id.is_end != True:
+                raise ValidationError('Debe seleccionar solo partidas')
+        
         return {
             'name': 'Add Standard',
             'view_type': 'form',
