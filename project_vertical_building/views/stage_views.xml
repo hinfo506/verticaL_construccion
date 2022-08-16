@@ -46,10 +46,20 @@
                             </group>
                         </group>
                         <notebook>
+                            <page name="descripcion" string="Descripción">
+<!--                                <group>-->
+                                    <field name="descripcion" string="Descripción"/>
+<!--                                </group>-->
+                            </page>
+<!--                            <page name="items" string="Items" attrs="{'invisible': [('type_stage_id.is_end', '!=', True)]}">-->
+<!--&lt;!&ndash;                                <group>&ndash;&gt;-->
+<!--                                    <field name="item_ids"/>-->
+<!--&lt;!&ndash;                                </group>&ndash;&gt;-->
+<!--                            </page>-->
                         </notebook>
-                        <group>
-                            <field name="descripcion" string="Descripción"/>
-                        </group>
+<!--                        <group>-->
+<!--                            <field name="descripcion" string="Descripción"/>-->
+<!--                        </group>-->
                         <group class="oe_subtotal_footer oe_right" colspan="2" name="jobcost_total">
                             <field name="material_total" widget="monetary"/>
                             <field name="labor_total" widget="monetary"/>
