@@ -61,9 +61,11 @@ class VerticalStage(models.Model):
 
     item_count = fields.Integer(string='Contador Item', compute='get_item_count')
 
+    @api.depends('item_ids')
     def get_item_count(self):
         for r in self:
-            r.item_count = self.env['vertical.item'].search_count([('vertical_stage_id', '=', self.id)])
+            # r.item_count = self.env['vertical.item'].search_count([('vertical_stage_id', '=', r.id)]) # Esta consulta es menos eficiente que simplemente contar los item_ids
+            r.item_count = len(r.item_ids)
 
     def action_view_item(self):
         return {
