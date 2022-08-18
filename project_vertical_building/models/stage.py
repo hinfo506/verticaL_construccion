@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class VerticalStage(models.Model):
@@ -65,6 +66,11 @@ class VerticalStage(models.Model):
         for r in self:
             r.item_count = self.env['vertical.item'].search_count([('vertical_stage_id', '=', self.id)])
 
+    childs_count = fields.Integer(string='Contador Childs', compute='get_childs_count')
+    def get_childs_count(self):
+        for r in self:
+            r.childs_count = self.env['vertical.stage'].search_count([('parent_id', '=', self.id)])
+
     def action_view_item(self):
         return {
             'type': 'ir.actions.act_window',
@@ -98,6 +104,27 @@ class VerticalStage(models.Model):
             #           (self.env.ref('project_vertical_building.item_view_form').id, 'form')],
             'context': dict(self._context, default_parent_id=self.id),
         }
+
+    def approve_fase(self):
+        self.estado_fase = 'aprobadaproceso'
+
+    @api.model
+    def create(self, vals):
+        project = self.sudo().env['project.project'].search([('id', '=', vals['project_id'])])
+        # raise ValidationError(project.stage_id.name)
+
+        # if vals['add_standar']:
+        if project.stage_id.is_prevision:
+            # raise ValidationError('esta en prevision')
+            vals.update({
+                'estado_fase': 'aprobada',
+            })
+        else:
+            vals.update({
+                'estado_fase': 'pendiente',
+            })
+
+        return super(VerticalStage, self).create(vals)
 
 
 

@@ -7,13 +7,19 @@
             <field name="model">vertical.stage</field>
             <field name="arch" type="xml">
                 <form string="fase_form">
+                    <header>
+                        <button name='approve_fase' string='Validar'
+                            class='oe_highlight' attrs="{'invisible': [('estado_fase', '!=', 'pendiente')]}"
+                            type='object'/>
+                    </header>
                     <sheet>
                         <field name="estado_fase" readonly="1"/>
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" name="action_view_item" type="object" icon="fa-archive" attrs="{'invisible':[('related_is_end','!=',True)]}">
                                 <field name="item_count" string="Item" widget="statinfo" />
                             </button>
-                            <button class="oe_stat_button" name="action_view_childs" string="Childs" type="object" icon="fa-archive" attrs="{'invisible':[('related_is_end','=',True)]}">
+                            <button class="oe_stat_button" name="action_view_childs" type="object" icon="fa-archive" attrs="{'invisible':[('related_is_end','=',True)]}">
+                                <field name="childs_count" string="Childs" widget="statinfo" />
                             </button>
                         </div>
                         <group>
@@ -74,8 +80,9 @@
             <field name="name">Fase</field>
             <field name="model">vertical.stage</field>
             <field name="arch" type="xml">
-                <tree string="fase_tree" default_order="fecha_finalizacion asc" js_class="vertical_stage_tree">
+                <tree string="fase_tree" default_order="fecha_finalizacion asc" js_class="vertical_stage_tree" decoration-danger="estado_fase == 'pendiente'" decoration-success="estado_fase == 'aprobadaproceso'">
                     <field name="related_is_end" invisible="1"/>
+                    <field name="estado_fase" invisible="1"/>
                     <field name="numero_fase" string="Nº Partida"/>
                     <field name="name" string="Nombre Fase"/>
                     <field name="fecha_finalizacion" string="Finaliza"/>
