@@ -24,7 +24,7 @@
         #'data/standard.piso.csv',
         # 'views/standard_report.xml',
         'views/view_standard.xml',
-        # 'views/view_stage.xml',
+        'views/view_stage.xml',
         'wizard/view_add_standard.xml',
         # 'views/view_standard_request.xml',
         # 'views/view_standard_tags.xml',

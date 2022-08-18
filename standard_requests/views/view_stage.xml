@@ -9,14 +9,11 @@
             <field name="inherit_id" ref="project_vertical_building.fase_view_form"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//sheet" position="before">
-                    <header>
-                        <button name='add_standars' string='Add Standard'
-                            class='oe_highlight'
-                            type='object'
-                        />
-                    </header>
-
+                <xpath expr="//header" position="inside">
+                    <button name='add_standars_one_id' string='Agregar Standard'
+                        class='oe_highlight'
+                        type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"
+                    />
                 </xpath>
 
             </field>
