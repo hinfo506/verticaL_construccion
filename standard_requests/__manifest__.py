@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Standard Requests",
-    'summary': """
+    'summary': """Standard Requests
     
     """,
 
-    'description': """
+    'description': """Standard Requests
     
     """,
 
-    'author': "GrowIT",
+    'author': "OdooNext:Raul Rolando Jardinot Gonzalez",
     'website': "",
 
     'category': 'Uncategorized',
-    'version': '0.1',
+    'version': '15.0.1',
     'depends': ['base', 'stock', 'purchase_requisition', 'project_vertical_building'],
     'data': [
         'security/ir.model.access.csv',
@@ -24,7 +24,7 @@
         #'data/standard.piso.csv',
         # 'views/standard_report.xml',
         'views/view_standard.xml',
-        'views/view_stage.xml',
+        # 'views/view_stage.xml',
         'wizard/view_add_standard.xml',
         # 'views/view_standard_request.xml',
         # 'views/view_standard_tags.xml',

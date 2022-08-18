@@ -127,3 +127,30 @@ class VerticalItem(models.Model):
             'domain': [('id', 'in', self.item_volumetry_ids.ids)],
             'context': dict(self._context, default_item_id=self.id),
         }
+
+    estado_item = fields.Selection(
+        string='Estado_partida',
+        selection=[('borrador', 'Borrador'),
+                   ('aprobada', 'Aprobada en Prevision'),
+                   ('aprobadaproceso', 'Aprobada en Proceso'),
+                   ('pendiente', 'Pdte Validar'),
+                   ('noaprobada', 'No aprobada'), ],
+        required=False, default='borrador')
+
+    @api.model
+    def create(self, vals):
+        project = self.sudo().env['project.project'].search([('id', '=', vals['project_id'])])
+        # raise ValidationError(project.stage_id.name)
+
+        # if vals['add_standar']:
+        if project.stage_id.is_prevision:
+            # raise ValidationError('esta en prevision')
+            vals.update({
+                'estado_item': 'aprobada',
+            })
+        else:
+            vals.update({
+                'estado_item': 'pendiente',
+            })
+
+        return super(VerticalItem, self).create(vals)

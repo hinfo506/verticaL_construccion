@@ -17,7 +17,7 @@ class ProjectProject(models.Model):
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
     # Totales
     total = fields.Float('Importe Total')
-    total_prevision = fields.Float('Importe Total Previsto')
+    total_prevision = fields.Float('Importe Total Previsto', readonly=True)
 
     warehouse = fields.Many2one(comodel_name='stock.warehouse', string='Almacén', required=False)
 
@@ -105,3 +105,19 @@ class ProjectProject(models.Model):
             result_with_subtasks[data['project_id'][0]] += data['project_id_count']
         for project in self:
             project.item_kanban_count = result_with_subtasks[project.id]
+
+    ##############################################################################################
+    # Se captura el momento en el que el proyecto pasa de estado en prevision y captura el total #
+    ##############################################################################################
+    def write(self, values):
+
+        if values.get('stage_id'):
+            stage = self.sudo().env['project.project.stage'].search([('id', '=', values.get('stage_id'))])
+            if stage.is_prevision == False and self.total_prevision == 0:
+                values['total_prevision'] = self.total
+
+                record = super(ProjectProject, self).write(values)
+            else:
+                return super(ProjectProject, self).write(values)
+        else:
+            return super(ProjectProject, self).write(values)
