@@ -50,14 +50,25 @@ class VerticalStage(models.Model):
         Compute the total amounts of the SO.
         """
         for order in self:
-            amount_untaxed = material_total = 0.0
+            material_total = labour_total = 0.0
+            machinery_total = overhead_total = 0.0
             for line in order.item_ids:
                 # amount_untaxed += 1
                 # amount_untaxed += line.price_subtotal
-                material_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == 'material':
+                    material_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == 'labour':
+                    labour_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == 'machinery':
+                    machinery_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == 'overhead':
+                    overhead_total += line.suma_impuesto_item_y_cost_price
             order.update({
                 # 'amount_untaxed': amount_untaxed,
                 'material_total': material_total,
+                'labor_total': labour_total,
+                'machinerycost_total': machinery_total,
+                'overhead_total': overhead_total,
                 # 'amount_total': amount_untaxed + amount_tax,
                 # 'amount_total': amount_untaxed,
             })
@@ -88,11 +99,8 @@ class VerticalStage(models.Model):
         }
 
     parent_id = fields.Many2one(comodel_name='vertical.stage', string='Depende de', required=False)
-
     child_ids = fields.One2many(comodel_name='vertical.stage', inverse_name='parent_id', string='Childs', required=False)
-
     type_stage_id = fields.Many2one(comodel_name='vertical.stage.type', string='Tipo de Fase', required=False)
-
     related_is_end = fields.Boolean('Is_End', related="type_stage_id.is_end")
 
     def action_view_childs(self):

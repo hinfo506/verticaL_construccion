@@ -10,7 +10,6 @@
 
                 <xpath expr="//field[@name='fold']" position="after">
                     <field name="is_prevision"/>
-                    <field name="adicionales"/>
                 </xpath>
 
             </field>
