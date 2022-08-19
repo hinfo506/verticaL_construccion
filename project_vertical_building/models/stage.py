@@ -17,7 +17,7 @@ class VerticalStage(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
-    total = fields.Float('Importe Total')
+    total = fields.Float('Importe Total', compute='_compute_total_fase')
     # total = fields.Float('Importe Total', compute='_compute_total_parti')
     # total_prevision = fields.Float('Importe Total Previsto')
 
@@ -31,9 +31,11 @@ class VerticalStage(models.Model):
                    ('noaprobada', 'No aprobada'), ],
         required=False, default='borrador')
 
-    # Item
+    # Related
     item_ids = fields.One2many(comodel_name='vertical.item', inverse_name='vertical_stage_id', string='Items', )
     project_id = fields.Many2one(comodel_name='project.project', string='Proyecto', required=False)
+
+    related_is_prevision = fields.Boolean('Es prevision', related="project_id.stage_id.is_prevision")
 
     # Calculos Generales
     material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all', readonly='True')
@@ -48,14 +50,25 @@ class VerticalStage(models.Model):
         Compute the total amounts of the SO.
         """
         for order in self:
-            amount_untaxed = material_total = 0.0
+            material_total = labour_total = 0.0
+            machinery_total = overhead_total = 0.0
             for line in order.item_ids:
                 # amount_untaxed += 1
                 # amount_untaxed += line.price_subtotal
-                material_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == 'material':
+                    material_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == 'labour':
+                    labour_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == 'machinery':
+                    machinery_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == 'overhead':
+                    overhead_total += line.suma_impuesto_item_y_cost_price
             order.update({
                 # 'amount_untaxed': amount_untaxed,
                 'material_total': material_total,
+                'labor_total': labour_total,
+                'machinerycost_total': machinery_total,
+                'overhead_total': overhead_total,
                 # 'amount_total': amount_untaxed + amount_tax,
                 # 'amount_total': amount_untaxed,
             })
@@ -86,12 +99,9 @@ class VerticalStage(models.Model):
         }
 
     parent_id = fields.Many2one(comodel_name='vertical.stage', string='Depende de', required=False)
-
     child_ids = fields.One2many(comodel_name='vertical.stage', inverse_name='parent_id', string='Childs', required=False)
-
     type_stage_id = fields.Many2one(comodel_name='vertical.stage.type', string='Tipo de Fase', required=False)
-
-    related_is_end = fields.Boolean('Cantidad existente', related="type_stage_id.is_end")
+    related_is_end = fields.Boolean('Is_End', related="type_stage_id.is_end")
 
     def action_view_childs(self):
         return {
@@ -104,6 +114,31 @@ class VerticalStage(models.Model):
             #           (self.env.ref('project_vertical_building.item_view_form').id, 'form')],
             'context': dict(self._context, default_parent_id=self.id),
         }
+
+    def _compute_total_fase(self):
+
+        for order in self:
+            if self.type_stage_id.is_end:
+                suma = 0.0
+                for item in order.item_ids:
+                    suma += item.suma_impuesto_item_y_cost_price
+                order.update({
+                    # 'amount_untaxed': amount_untaxed,
+                    'total': suma,
+                    # 'amount_total': amount_untaxed + amount_tax,
+                    # 'amount_total': amount_untaxed,
+                })
+            else:
+                suma = 0.0
+                for fase in order.child_ids:
+                    suma += fase.total
+                order.update({
+                    # 'amount_untaxed': amount_untaxed,
+                    'total': suma,
+                    # 'amount_total': amount_untaxed + amount_tax,
+                    # 'amount_total': amount_untaxed,
+                })
+
 
     def approve_fase(self):
         self.estado_fase = 'aprobadaproceso'

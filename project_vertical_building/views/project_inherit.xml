@@ -64,7 +64,7 @@
                                         <div>
                                             <span class="o_value"><t t-esc="record.fase_kanban_count.value"/></span>
 <!--                                            <span class="o_label"><t t-esc="record.nombre_fase.value"/></span>-->
-                                            <span class="o_label">Fase</span>
+                                            <span class="o_label">Fases</span>
                                         </div>
                                     </a>
                                 </div>

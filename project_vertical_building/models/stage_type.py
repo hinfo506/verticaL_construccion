@@ -6,3 +6,4 @@ class TypeStage(models.Model):
     name = fields.Char()
     sequence = fields.Integer(string='Sequence', required=False)
     is_end = fields.Boolean(string='Es final', required=False)
+    adicionales = fields.Selection(string='Adicionales', selection=[('si', 'Si'), ('no', 'No'), ], required=False, )
