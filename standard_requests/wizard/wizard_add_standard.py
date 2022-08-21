@@ -1,5 +1,5 @@
 from odoo import fields, models, api
-from odoo.exceptions import ValidationError
+
 
 class AddStandar(models.TransientModel):
     _name = 'wizard.standard'

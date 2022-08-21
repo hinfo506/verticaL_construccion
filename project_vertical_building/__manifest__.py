@@ -32,9 +32,7 @@
         'views/menu.xml',
     ],
     # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+
     'assets': {
         'web.assets_qweb': [
             'project_vertical_building/static/src/xml/*',

@@ -1,5 +1,6 @@
 from odoo import fields, models, api
 
+
 class TypeStage(models.Model):
     _name = 'vertical.stage.type'
 

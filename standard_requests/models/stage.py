@@ -1,6 +1,7 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
+
 class VerticalStage(models.Model):
     _inherit = 'vertical.stage'
 
@@ -10,9 +11,9 @@ class VerticalStage(models.Model):
 
         # Comprobar que las fases a las que se va a agregar el standar sean partidas
         for active in active_ids:
-            if active.type_stage_id.is_end != True:
+            if not active.type_stage_id.is_end:
                 raise ValidationError('Debe seleccionar solo partidas')
-        
+
         return {
             'name': 'Add Standard',
             'view_type': 'form',
