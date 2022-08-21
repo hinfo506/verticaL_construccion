@@ -1,5 +1,6 @@
 from odoo import fields, models, api
 
+
 class ProjectStage(models.Model):
     _inherit = 'project.project.stage'
 

@@ -80,6 +80,7 @@ class VerticalStage(models.Model):
             r.item_count = self.env['vertical.item'].search_count([('vertical_stage_id', '=', self.id)])
 
     childs_count = fields.Integer(string='Contador Childs', compute='get_childs_count')
+
     def get_childs_count(self):
         for r in self:
             r.childs_count = self.env['vertical.stage'].search_count([('parent_id', '=', self.id)])
@@ -99,7 +100,8 @@ class VerticalStage(models.Model):
         }
 
     parent_id = fields.Many2one(comodel_name='vertical.stage', string='Depende de', required=False)
-    child_ids = fields.One2many(comodel_name='vertical.stage', inverse_name='parent_id', string='Childs', required=False)
+    child_ids = fields.One2many(comodel_name='vertical.stage', inverse_name='parent_id', string='Childs',
+                                required=False)
     type_stage_id = fields.Many2one(comodel_name='vertical.stage.type', string='Tipo de Fase', required=False)
     related_is_end = fields.Boolean('Is_End', related="type_stage_id.is_end")
 
@@ -139,18 +141,13 @@ class VerticalStage(models.Model):
                     # 'amount_total': amount_untaxed,
                 })
 
-
     def approve_fase(self):
         self.estado_fase = 'aprobadaproceso'
 
     @api.model
     def create(self, vals):
-        record= super(VerticalStage, self).create(vals)
+        record = super(VerticalStage, self).create(vals)
         if record.project and record.project.stage_id.is_prevision:
-            state= 'aprobada' if record.project.stage_id.is_prevision else 'pendiente'
+            state = 'aprobada' if record.project.stage_id.is_prevision else 'pendiente'
         record.write({'estado_item': state})
         return record
-
-
-
-

@@ -2,10 +2,9 @@
 
 import logging
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
-from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
+
 
 class Standard(models.Model):
     _name = 'standard'
@@ -22,7 +21,7 @@ class Standard(models.Model):
     ref_etapa = fields.Char('Etapa')
     is_purchase = fields.Boolean(string='Aparece en Req. Compras')
     is_warehouse = fields.Boolean(string='Aparece en Req. Almacen')
-    
+
     total_cost = fields.Float(string='Total coste', required=False, compute='_compute_total_cost')
 
     def _compute_total_cost(self):
@@ -33,4 +32,3 @@ class Standard(models.Model):
             rec.update({
                 'total_cost': total,
             })
-
