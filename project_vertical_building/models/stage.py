@@ -118,7 +118,7 @@ class VerticalStage(models.Model):
     def _compute_total_fase(self):
 
         for order in self:
-            if self.type_stage_id.is_end:
+            if order.type_stage_id.is_end:
                 suma = 0.0
                 for item in order.item_ids:
                     suma += item.suma_impuesto_item_y_cost_price
@@ -145,21 +145,12 @@ class VerticalStage(models.Model):
 
     @api.model
     def create(self, vals):
-        project = self.sudo().env['project.project'].search([('id', '=', vals['project_id'])])
-        # raise ValidationError(project.stage_id.name)
+        record= super(VerticalStage, self).create(vals)
+        if record.project and record.project.stage_id.is_prevision:
+            state= 'aprobada' if record.project.stage_id.is_prevision else 'pendiente'
+        record.write({'estado_item': state})
+        return record
 
-        # if vals['add_standar']:
-        if project.stage_id.is_prevision:
-            # raise ValidationError('esta en prevision')
-            vals.update({
-                'estado_fase': 'aprobada',
-            })
-        else:
-            vals.update({
-                'estado_fase': 'pendiente',
-            })
-
-        return super(VerticalStage, self).create(vals)
 
 
 

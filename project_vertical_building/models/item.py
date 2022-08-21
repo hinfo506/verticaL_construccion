@@ -17,7 +17,7 @@ class VerticalItem(models.Model):
     actual_quantity = fields.Float(string='Cantidad Comprada Actual', )
     hours = fields.Char(string='Horas', required=False)
     actual_timesheet = fields.Char(string='Parte de Horas Actual', required=False)
-    basis = fields.Char(string='Base', required=False)
+    base = fields.Char(string='Base', required=False)
 
     total_prevision = fields.Float('Importe Total Previsto')
 
@@ -90,9 +90,7 @@ class VerticalItem(models.Model):
     @api.depends('product_qty', 'cost_price', 'longitud', 'ancho', 'alto')
     def _compute_subtotal_item_capitulo(self):
         for rec in self:
-            if rec.job_type == 'material':
-                rec.subtotal_item_capitulo = rec.product_qty * rec.cost_price
-            elif rec.job_type == 'labour':
+            if rec.job_type in ['material','labour']:
                 rec.subtotal_item_capitulo = rec.product_qty * rec.cost_price
             elif rec.job_type == 'machinery':
                 rec.subtotal_item_capitulo = rec.product_qty * 3  # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
@@ -139,18 +137,8 @@ class VerticalItem(models.Model):
 
     @api.model
     def create(self, vals):
-        project = self.sudo().env['project.project'].search([('id', '=', vals['project_id'])])
-        # raise ValidationError(project.stage_id.name)
-
-        # if vals['add_standar']:
-        if project.stage_id.is_prevision:
-            # raise ValidationError('esta en prevision')
-            vals.update({
-                'estado_item': 'aprobada',
-            })
-        else:
-            vals.update({
-                'estado_item': 'pendiente',
-            })
-
-        return super(VerticalItem, self).create(vals)
+        record =super(VerticalItem, self).create(vals)
+        if record.project and record.project.stage_id.is_prevision:
+            state= 'aprobada' if record.project.stage_id.is_prevision else 'pendiente'
+            record.write({'estado_item': state})
+        return record

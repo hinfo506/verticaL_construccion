@@ -23,7 +23,8 @@ class ProjectProject(models.Model):
 
     @api.depends('abreviatura_proyecto','number')
     def _compute_numero_proyecto(self):
-        self.numero_proyecto = str(self.abreviatura_proyecto) + "-" + str(self.number)
+        for record in self:
+            record.numero_proyecto = str(record.abreviatura_proyecto) + "-" + record(self.number)
 
 
     # FASES DEL PROYECTO
@@ -113,10 +114,9 @@ class ProjectProject(models.Model):
 
         if values.get('stage_id'):
             stage = self.sudo().env['project.project.stage'].search([('id', '=', values.get('stage_id'))])
-            if stage.is_prevision == False and self.total_prevision == 0:
+            if not stage.is_prevision and self.total_prevision == 0:
                 values['total_prevision'] = self.total
-
-                record = super(ProjectProject, self).write(values)
+                return super(ProjectProject, self).write(values)
             else:
                 return super(ProjectProject, self).write(values)
         else:

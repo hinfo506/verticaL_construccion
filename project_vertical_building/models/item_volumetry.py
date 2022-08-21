@@ -27,4 +27,5 @@ class VerticalItemVolumetry(models.Model):
 
     @api.depends('cantidad_volumetria','longitud_volumetria','ancho_volumetria','alto_volumetria','precio_coste_volumetria')
     def _compute_total(self):
-        self.total = self.cantidad_volumetria*(self.longitud_volumetria*self.ancho_volumetria*self.alto_volumetria)*self.precio_coste_volumetria
+        for record in self:
+            record.total = record.cantidad_volumetria*(record.longitud_volumetria*record.ancho_volumetria*record.alto_volumetria)*record.precio_coste_volumetria
