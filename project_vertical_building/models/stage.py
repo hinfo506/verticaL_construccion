@@ -118,7 +118,8 @@ class VerticalStage(models.Model):
     def _compute_total_fase(self):
 
         for order in self:
-            if self.type_stage_id.is_end:
+            # raise ValidationError(self.type_stage_id)
+            if order.type_stage_id.is_end:
                 suma = 0.0
                 for item in order.item_ids:
                     suma += item.suma_impuesto_item_y_cost_price
