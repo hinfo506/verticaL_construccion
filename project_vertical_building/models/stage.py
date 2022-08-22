@@ -147,7 +147,7 @@ class VerticalStage(models.Model):
     @api.model
     def create(self, vals):
         record = super(VerticalStage, self).create(vals)
-        if record.project and record.project.stage_id and record.project.stage_id.is_prevision:
-            state = 'aprobada' if record.project.stage_id.is_prevision else 'pendiente'
+        if record.project_id and record.project_id.stage_id and record.project_id.stage_id.is_prevision:
+            state = 'aprobada' if record.project_id.stage_id.is_prevision else 'pendiente'
         record.write({'estado_fase': state})
         return record
