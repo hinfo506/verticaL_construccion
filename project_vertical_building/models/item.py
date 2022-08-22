@@ -150,7 +150,7 @@ class VerticalItem(models.Model):
     @api.model
     def create(self, vals):
         record = super(VerticalItem, self).create(vals)
-        if record.project and record.project.stage_id.is_prevision:
+        if record.project and record.project.stage_id and record.project.stage_id.is_prevision:
             state = 'aprobada' if record.project.stage_id.is_prevision else 'pendiente'
             record.write({'estado_item': state})
         return record
