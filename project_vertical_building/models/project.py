@@ -25,7 +25,7 @@ class ProjectProject(models.Model):
     @api.depends('abreviatura_proyecto', 'number')
     def _compute_numero_proyecto(self):
         for record in self:
-            record.numero_proyecto = str(record.abreviatura_proyecto) + "-" + record(self.number)
+            record.numero_proyecto = str(record.abreviatura_proyecto) + "-" + record.number
 
     # FASES DEL PROYECTO
     vertical_stage_ids = fields.One2many(comodel_name='vertical.stage', inverse_name='project_id',
