@@ -3,11 +3,23 @@
 
     <t t-name="project_vertical_view.Layout" owl="1">
         <Layout viewType="'project_stage_item'">
-            <div>
-                <h1>Project Stage Item View</h1>
-            </div>
-            <div t-foreach="model.data" t-as="record" t-key="record.id">
-                <t t-esc="record.name"/>
+            <div class="d-flex flex-column p-2 jorge">
+                <div class="w-100 h-100">
+                    <div>
+                        <h1>Project Stage Item View</h1>
+                    </div>
+                    <!-- Content -->
+                    <div class="d-flex flex-row">
+                        <div>
+                            <div t-foreach="model.data" t-as="record" t-key="record.id">
+                                <t t-esc="record.name"/>
+                            </div>
+                        </div>
+                        <div>
+                            Contenido principal
+                        </div>
+                    </div>
+                </div>
             </div>
         </Layout>
     </t>
