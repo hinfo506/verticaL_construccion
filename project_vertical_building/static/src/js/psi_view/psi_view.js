@@ -3,12 +3,14 @@ import { registry } from "@web/core/registry";
 import { Layout } from "@web/views/layout";
 import { KeepLast } from "@web/core/utils/concurrency";
 import { Model, useModel } from "@web/views/helpers/model";
+const { useSubEnv } = owl.hooks;
 
 class ProjectStageItemModel extends Model {
   static services = ["orm"];
 
   setup(params, { orm }) {
     this.model = params.resModel;
+    console.log(this.model); //vertical.stage
     this.orm = orm;
     this.keepLast = new KeepLast();
   }
@@ -20,7 +22,6 @@ class ProjectStageItemModel extends Model {
     this.notify();
   }
 }
-ProjectStageItemModel.services = ["orm"];
 
 class ProjectStageItemView extends owl.Component {
   setup() {
@@ -28,6 +29,12 @@ class ProjectStageItemView extends owl.Component {
       resModel: this.props.resModel,
       domain: this.props.domain,
     });
+    let searchModel = this.env.searchModel;
+    searchModel.display = {
+      controlPanel: false,
+      searchPanel: false,
+      };
+      useSubEnv({searchModel: searchModel});
   }
 }
 
