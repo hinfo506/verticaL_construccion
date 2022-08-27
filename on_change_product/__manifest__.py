@@ -27,8 +27,5 @@
         'wizard/view_change_product.xml',
         'views/view_project_inherit.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+
 }

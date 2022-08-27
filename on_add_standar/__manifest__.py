@@ -26,7 +26,5 @@
         'views/project_stage_inherit.xml',
     ],
     # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+
 }
