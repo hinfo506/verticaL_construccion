@@ -10,12 +10,12 @@ class ProjectProject(models.Model):
 
     # DATOS PRINCIPALES
 
-    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True,
-                                  compute='_compute_numero_proyecto')
     abreviatura_proyecto = fields.Char(string='Abreviatura Proyecto', required=False)
-    nombre_fase = fields.Char(string='Nombre Fase Principal', required=False, default='Fase Inicial')
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.proyecto'))
+    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True,
+                                  compute='compute_numero_proyecto')
+    nombre_fase = fields.Char(string='Nombre Fase Principal', required=False, default='Fase Inicial')
     # Totales
     total = fields.Float('Importe Total')
     total_prevision = fields.Float('Importe Total Previsto', readonly=True)
@@ -23,7 +23,7 @@ class ProjectProject(models.Model):
     warehouse = fields.Many2one(comodel_name='stock.warehouse', string='Almacén', required=False)
 
     @api.depends('abreviatura_proyecto', 'number')
-    def _compute_numero_proyecto(self):
+    def compute_numero_proyecto(self):
         for record in self:
             record.numero_proyecto = str(record.abreviatura_proyecto) + "-" + record.number
 
