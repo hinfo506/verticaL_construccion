@@ -83,9 +83,10 @@ class VerticalStage(models.Model):
 
     childs_count = fields.Integer(string='Contador Childs', compute='get_childs_count')
 
+    @api.depends('child_ids')
     def get_childs_count(self):
         for r in self:
-            r.childs_count = self.env['vertical.stage'].search_count([('parent_id', '=', self.id)])
+            r.childs_count = len(r.child_ids)
 
     def action_view_item(self):
         return {
