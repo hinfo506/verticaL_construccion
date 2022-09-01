@@ -37,6 +37,9 @@
         'web.assets_qweb': [
             'project_vertical_building/static/src/xml/*',
         ],
+        'web.assets_common':[
+            'project_vertical_building/static/src/js/lib/bootstrap-menu.js',
+        ],
         'web.assets_backend': [
             'project_vertical_building/static/src/js/legacy/vertical_search_panel_model_extension.js',
             'project_vertical_building/static/src/js/legacy/vertical_search_panel.js',
