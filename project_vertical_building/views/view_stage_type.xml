@@ -9,6 +9,7 @@
                 <tree string="stage_type_tree" editable="bottom">
                     <field name="name"/>
                     <field name="is_end"/>
+                    <field name="is_additional"/>
                     <field name="sequence"/>
                 </tree>
             </field>

@@ -2,11 +2,9 @@
 
 import logging
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
+
 
 class StandardLine(models.Model):
     _name = 'standard.line'
@@ -58,17 +56,20 @@ class StandardLine(models.Model):
                 rec.subtotal_item_capitulo = 0
 
     # Importe Subtotal item Capitulo - Importe con los impuestos
-    @api.depends('tipo_descuento','qty', 'cost_price', 'subtotal_item_capitulo', 'cantidad_descuento','beneficio_estimado','impuesto_porciento')
+    @api.depends('tipo_descuento', 'qty', 'cost_price', 'subtotal_item_capitulo', 'cantidad_descuento',
+                 'beneficio_estimado', 'impuesto_porciento')
     def _compute_subtotal_descuento(self):
         for record in self:
             if record.tipo_descuento == 'cantidad':
                 record.subtotal_descuento = record.subtotal_item_capitulo - record.cantidad_descuento
             elif record.tipo_descuento == 'porciento':
-                record.subtotal_descuento = record.subtotal_item_capitulo - ((record.subtotal_item_capitulo*record.cantidad_descuento)/100)
+                record.subtotal_descuento = record.subtotal_item_capitulo - (
+                            (record.subtotal_item_capitulo * record.cantidad_descuento) / 100)
             else:
                 record.subtotal_descuento = record.subtotal_item_capitulo
 
-            record.importe_venta = ((record.subtotal_item_capitulo * record.beneficio_estimado) / 100) + record.subtotal_item_capitulo
+            record.importe_venta = ((
+                                                record.subtotal_item_capitulo * record.beneficio_estimado) / 100) + record.subtotal_item_capitulo
             record.total_impuesto_item = record.subtotal_descuento * (record.impuesto_porciento / 100)
             record.suma_impuesto_item_y_cost_price = record.subtotal_descuento + record.total_impuesto_item
 

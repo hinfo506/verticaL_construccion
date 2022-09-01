@@ -57,7 +57,7 @@
 
         <menuitem id="menu_root" name="Vertical de Construcción" sequence="1"/>
 
-        <menuitem id="menu_config" name="Configuración" parent="menu_root" sequence="10"/>
+        <menuitem id="menu_config" name="Configuración" parent="menu_root" sequence="60"/>
 
         <menuitem id="menu_stage_type" name="Tipo de Fase" parent="menu_config" action="action_stage_type" sequence="1"/>
         <!-- This Menu Item must have a parent and an action -->
@@ -66,5 +66,17 @@
         <menuitem id="menu_project_inherit" name="Obras" parent="menu_root" action="action_obra" sequence="1"/>
         <menuitem id="menu_vertical_stage" name="Fases" parent="menu_root" action="action_stage" sequence="2"/>
         <menuitem id="menu_item" name="Items" parent="menu_root" action="action_item" sequence="3"/>
+
+        <record id="fases_pendientes_action" model="ir.actions.act_window">
+            <field name="name">Fases Pendientes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vertical.stage</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('estado_fase', '=', 'pendiente')]</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="pendientes_menu" name="Fases Pendientes" parent="menu_root" action="fases_pendientes_action" sequence="30"/>
+
     </data>
 </odoo>
