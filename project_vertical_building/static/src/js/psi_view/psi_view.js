@@ -33,9 +33,37 @@ class ProjectStageItemView extends owl.Component {
     searchModel.display = {
       controlPanel: false,
       searchPanel: false,
-      };
-      useSubEnv({searchModel: searchModel});
+    };
+    useSubEnv({ searchModel: searchModel });
   }
+  mounted(){
+    const self = this;
+    // do something
+    const menu = new BootstrapMenu(".context-menu-item", {
+      /* a function to know which row was the context menu opened on,
+       * given the selected DOM element. When this function is defined,
+       * every user-defined action callback receives its return value as
+       * an argument. */
+      fetchElementData: function ($elem) {
+        const record_id = $elem.data("id");
+        return self.model.data[0];
+      },
+      actions: [
+        {
+          name: "Edit name",
+          onClick: function (record) {
+            alert(record.id);
+          },
+        },
+        {
+          name: "Edit description",
+          onClick: function (record) {
+            alert(record.id);
+          },
+        },
+      ],
+    });
+   }
 }
 
 ProjectStageItemView.type = "project_stage_item";

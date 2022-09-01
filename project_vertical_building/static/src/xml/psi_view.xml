@@ -6,8 +6,9 @@
             <!-- <div class="d-flex flex-column p-2 jorge"> -->
             <div class="position-absolute d-flex flex-column p-2" style="bottom: 0px; left: 0px; right: 0px; top:0px; overflow: hidden;">
                 <div class="d-flex flex-row h-100">
-                    <div class="border">
-                        <div t-foreach="model.data" t-as="record" t-key="record.id" style="cursor: pointer;">
+                    <div class="border" style="overflow-y: auto;">
+                        <p>Project Navigator</p>
+                        <div class="context-menu-item" t-foreach="model.data" t-as="record" t-key="record.id" t-att-data-id="record.id" style="cursor: pointer;">
                             <t t-esc="record.name"/>
                         </div>
                     </div>
