@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="project_vertical_view.Layout" owl="1">
+        <Layout viewType="'project_stage_item'">
+            <!-- <div class="d-flex flex-column p-2 jorge"> -->
+            <div class="position-absolute d-flex flex-column p-2" style="bottom: 0px; left: 0px; right: 0px; top:0px; overflow: hidden;">
+                <div class="d-flex flex-row h-100">
+                    <div class="border" style="overflow-y: auto;">
+                        <p>Project Navigator</p>
+                        <div class="context-menu-item" t-foreach="model.data" t-as="record" t-key="record.id" t-att-data-id="record.id" style="cursor: pointer;">
+                            <t t-esc="record.name"/>
+                        </div>
+                    </div>
+                    <div class="border flex-grow-1">
+                        <p>Contenido principal</p>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover table-striped">
+                                <thead>
+                                    <th>N° Partida</th>
+                                    <th>Nombre Fase</th>
+                                    <th>Finaliza</th>
+                                    <th>Cantidad</th>
+                                    <th>Total</th>
+                                    <th>Tipo de Fase</th>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    </t>
+</templates>

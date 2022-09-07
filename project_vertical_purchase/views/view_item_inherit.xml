@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_tree_inherit" model="ir.ui.view">
+            <field name="name">Items</field>
+            <field name="model">vertical.item</field>
+            <field name="inherit_id" ref="project_vertical_building.item_view_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='uom_id']" position="after">
+                    <field name="amount_confirm" optional="hide"/>
+                    <field name="amount_delivered" optional="hide"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

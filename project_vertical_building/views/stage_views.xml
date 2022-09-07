@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="vertical_stage_psi_view" model="ir.ui.view">
+            <field name="name">vertical_stage_psi_view</field>
+            <field name="model">vertical.stage</field>
+            <field name="arch" type="xml">
+                <project_stage_item></project_stage_item>
+            </field>
+        </record>
 
         <record id="fase_view_form" model="ir.ui.view">
             <field name="name">Fase</field>
