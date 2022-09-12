@@ -1,4 +1,5 @@
 /** @odoo-module **/
+/** SEE https://dgoguerra.github.io/bootstrap-menu/demos.html FOR MORE INFO */
 import { registry } from "@web/core/registry";
 import { Layout } from "@web/views/layout";
 import { KeepLast } from "@web/core/utils/concurrency";
@@ -40,7 +41,7 @@ class ProjectStageItemView extends owl.Component {
     const self = this;
     // do something
     const menu = new BootstrapMenu(".context-menu-item", {
-      /* a function to know which row was the context menu opened on,
+      /* a function to know which element was the context menu opened on,
        * given the selected DOM element. When this function is defined,
        * every user-defined action callback receives its return value as
        * an argument. */
