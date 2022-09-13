@@ -7,8 +7,9 @@
             <field name="binding_model_id" ref="project_vertical_building.model_vertical_stage" />
             <field name="state">code</field>
             <field name="code">
-                   if records:
-                       action = records.purchase_from_stage()
+                   #if records:
+                   #    action = records.purchase_from_stage()
+record.purchase_from_stage()
             </field>
         </record>
 
@@ -18,8 +19,7 @@
             <field name="binding_model_id" ref="project_vertical_building.model_vertical_item" />
             <field name="state">code</field>
             <field name="code">
-                   if records:
-                       action = records.purchase_from_item()
+record.purchase_from_item()
             </field>
         </record>
 
