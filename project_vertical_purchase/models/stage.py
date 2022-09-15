@@ -10,26 +10,6 @@ _logger = logging.getLogger(__name__)
 class VerticalStage(models.Model):
     _inherit = 'vertical.stage'
 
-    # def purchase_from_stage(self):
-    #     act_ids = self.env.context.get('active_ids')
-    #     stage_ids = self.env['vertical.stage'].search([('id', '=', act_ids)])
-    #     # uid = self.env.user
-    #     # raise ValidationError(uid)
-    #     for stage in stage_ids:
-    #         purchase = self.env['purchase.order'].create({
-    #             'partner_id': self.env.user.id,
-    #             'stage_id': stage.id,
-    #         })
-    #         for i in stage.item_ids:
-    #             purchase_line = self.env['purchase.order.line'].create({
-    #                 'order_id': purchase.id,
-    #                 'product_id': i.product_id.id,
-    #                 'name': 'esta es la descripcion',
-    #                 'product_qty': i.product_qty,
-    #                 'price_unit': i.cost_price,
-    #                 'item_id': i.id,
-    #             })
-    
     @api.model
     def purchase_from_stage(self):
         company_id = self.env.user.company_id
@@ -85,8 +65,6 @@ class VerticalStage(models.Model):
 
         # Voy a ciclar por las lineas creadas, que estan agrupadas en el diccionario
         purchase_orders = []
-        _logger.info('purchase_data.keys(): ')
-        _logger.info(purchase_data.keys())
         for vendor_key in purchase_data.keys():
             # Ya existe una purchase order, no debo crearla
             current_po = False
@@ -106,7 +84,8 @@ class VerticalStage(models.Model):
 
         # Debo retornar la acción que abre las purchase orders, pero mostrando solo las PO creadas
 
-        action = self.env["ir.actions.actions"]._for_xml_id("purchase.purchase_rfq")
+        # action = self.env["ir.actions.act_window"]._for_xml_id("purchase.purchase_rfq")
+        action = self.env.ref("purchase.purchase_rfq")
         action['domain'] = [('id', 'in', purchase_orders)]
         action['context'] = {
             'create': False,
