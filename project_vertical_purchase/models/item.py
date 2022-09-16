@@ -11,6 +11,13 @@ class VerticalItem(models.Model):
     amount_confirm = fields.Float(string='Amount_confirm', required=False)
     amount_delivered = fields.Float(string='Amount_delivered', required=False)
 
+    purchase_stage = fields.Selection(string='Estado de compra',
+        selection=[('earring', 'Pendiente'),
+                   ('confirm', 'Confirmada'),
+                   ('qty_earring', 'Cantidades Pendientes'),
+                   ('finished', 'Finalizada'), ], required=False, default='earring')
+
+
     @api.model
     def purchase_from_item(self):
         company_id = self.env.user.company_id

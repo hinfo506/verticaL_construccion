@@ -5,7 +5,8 @@ from odoo.exceptions import ValidationError
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-    stage_id = fields.Many2one(comodel_name='vertical.stage', string='Stage_id', required=False)
+    stage_id = fields.Many2one(comodel_name='vertical.stage', string='Fase', required=False)
+    project_id = fields.Many2one(related='stage_id.project_id', string='Proyecto', required=False)
 
     def button_confirm(self):
         for order in self:
