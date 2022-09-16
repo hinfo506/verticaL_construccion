@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_stage" model="ir.ui.view">
+            <field name="name">Fase</field>
+            <field name="model">vertical.stage</field>
+            <field name="inherit_id" ref="project_vertical_building.fase_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div//button" position="before">
+<!--                <xpath expr="//div//button[@name='action_view_childs']" position="after">-->
+                    <button class="oe_stat_button" name="action_view_purchase" type="object" icon="fa-credit-card">
+                        <field name="purchase_count" string="Compras" widget="statinfo"/>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
