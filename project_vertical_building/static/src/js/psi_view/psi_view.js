@@ -6,12 +6,14 @@ import { KeepLast } from "@web/core/utils/concurrency";
 import { Model, useModel } from "@web/views/helpers/model";
 const { useSubEnv } = owl.hooks;
 
+const FIELDS = ['id','name','parent_id','project_id'];
+// const FIELDS = [];
+
 class ProjectStageItemModel extends Model {
   static services = ["orm"];
 
   setup(params, { orm }) {
     this.model = params.resModel;
-    // console.log(this.model); //vertical.stage
     this.orm = orm;
     this.keepLast = new KeepLast();
   }
@@ -23,7 +25,7 @@ class ProjectStageItemModel extends Model {
       domain.push(['project_id', 'in', params.context.project_id]);
     }
     const rawData = await this.keepLast.add(
-      this.orm.searchRead(this.model, domain, [], { limit: 1000 })
+      this.orm.searchRead(this.model, domain, FIELDS, { limit: 1000 })
     );
     this.rawData = rawData;
     const projectStageItemData = _.map(_.uniq(_.map(rawData, (item) => item.project_id), _.iteratee((project => project[0]))), (project_id) => {return {
