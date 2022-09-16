@@ -26,10 +26,10 @@ class ProjectStageItemModel extends Model {
       this.orm.searchRead(this.model, domain, [], { limit: 1000 })
     );
     this.rawData = rawData;
-    const projectStageItemData = _.map(_.uniq(_.map(rawData, (item) => item.project_id[0])), (project_id) => {return {
+    const projectStageItemData = _.map(_.uniq(_.map(rawData, (item) => item.project_id), _.iteratee((project => project[0]))), (project_id) => {return {
       'id': false,
       'project_id': project_id,
-      'vertical_stage_ids': _.filter(rawData, (stage) => stage.project_id[0] === project_id && stage.parent_id === false),
+      'vertical_stage_ids': _.filter(rawData, (stage) => stage.project_id[0] === project_id[0] && stage.parent_id === false),
     }});
     projectStageItemData.forEach(
       (projectStageItem) => projectStageItem.vertical_stage_ids.forEach(
