@@ -4,9 +4,9 @@ import { registry } from "@web/core/registry";
 import { Layout } from "@web/views/layout";
 import { KeepLast } from "@web/core/utils/concurrency";
 import { Model, useModel } from "@web/views/helpers/model";
-const { useSubEnv } = owl.hooks;
+const { useSubEnv, useState } = owl.hooks;
 
-const FIELDS = ['id','name','parent_id','project_id'];
+const FIELDS = ["id", "name", "parent_id", "project_id"];
 // const FIELDS = [];
 
 class ProjectStageItemModel extends Model {
@@ -21,32 +21,49 @@ class ProjectStageItemModel extends Model {
   async load(params) {
     const self = this;
     const domain = params.domain;
-    if ('project_id' in params.context){
-      domain.push(['project_id', 'in', params.context.project_id]);
+    if ("project_id" in params.context) {
+      domain.push(["project_id", "in", params.context.project_id]);
     }
-    const rawData = await this.keepLast.add(
+    this.rawData = await this.keepLast.add(
       this.orm.searchRead(this.model, domain, FIELDS, { limit: 1000 })
     );
-    this.rawData = rawData;
-    const projectStageItemData = _.map(_.uniq(_.map(rawData, (item) => item.project_id), _.iteratee((project => project[0]))), (project_id) => {return {
-      'id': false,
-      'project_id': project_id,
-      'vertical_stage_ids': _.filter(rawData, (stage) => stage.project_id[0] === project_id[0] && stage.parent_id === false),
-    }});
-    projectStageItemData.forEach(
-      (projectStageItem) => projectStageItem.vertical_stage_ids.forEach(
-        (stage) => self._create_stages_tree(stage)));
+    const projectStageItemData = _.map(
+      _.uniq(
+        _.map(self.rawData, (item) => item.project_id),
+        _.iteratee((project) => project[0])
+      ),
+      (project_id) => {
+        return {
+          id: false,
+          project_id: project_id,
+          vertical_stage_ids: _.filter(
+            rawData,
+            (stage) =>
+              stage.project_id[0] === project_id[0] && stage.parent_id === false
+          ),
+        };
+      }
+    );
+    projectStageItemData.forEach((projectStageItem) =>
+      projectStageItem.vertical_stage_ids.forEach((stage) =>
+        self._create_stages_tree(stage)
+      )
+    );
     console.log(projectStageItemData);
-    this.data = rawData;
+    this.projectStageItemData = projectStageItemData;
     this.notify();
   }
 
-  _create_stages_tree(stagesTree){
+  _create_stages_tree(stagesTree) {
     const self = this;
-    stagesTree.vertical_stage_ids = _.filter(self.rawData, (stage) => stage.parent_id[0] === stagesTree.id);
-    _.map(stagesTree.vertical_stage_ids, (currentStage) => self._create_stages_tree(currentStage));
+    stagesTree.vertical_stage_ids = _.filter(
+      self.rawData,
+      (stage) => stage.parent_id[0] === stagesTree.id
+    );
+    _.map(stagesTree.vertical_stage_ids, (currentStage) =>
+      self._create_stages_tree(currentStage)
+    );
   }
-
 }
 
 class ProjectStageItemView extends owl.Component {
@@ -62,8 +79,23 @@ class ProjectStageItemView extends owl.Component {
       searchPanel: false,
     };
     useSubEnv({ searchModel: searchModel });
+
+    this.state = useState({
+      active: {},
+      expanded: {},
+    });
+    this.scrollTop = 0;
+    this.hasImportedState = false;
+
+    this.importState(this.props.importedState);
   }
-  mounted(){
+
+  async willStart() {
+    await this.env.searchModel.sectionsPromise;
+    this.expandDefaultValue();
+    // this.updateActiveValues();
+  }
+  mounted() {
     const self = this;
     // do something
     const menu = new BootstrapMenu(".context-menu-item", {
@@ -88,11 +120,76 @@ class ProjectStageItemView extends owl.Component {
             alert(record.id);
           },
         },
+        {
+          name: "Tenemos Desplegable Joaquin!!",
+          onClick: function (record) {
+            alert(record.id);
+          },
+        },
       ],
     });
-   }
+  }
+  //---------------------------------------------------------------------
+  // Public
+  //---------------------------------------------------------------------
+
+  exportState() {
+    const exported = {
+      expanded: this.state.expanded,
+      scrollTop: this.el.scrollTop,
+    };
+    return JSON.stringify(exported);
+  }
+
+  importState(stringifiedState) {
+    this.hasImportedState = Boolean(stringifiedState);
+    if (this.hasImportedState) {
+      const state = JSON.parse(stringifiedState);
+      this.state.expanded = state.expanded;
+      this.scrollTop = state.scrollTop;
+    }
+  }
+  //---------------------------------------------------------------------
+  // Protected
+  //---------------------------------------------------------------------
+
+  /**
+   * Expands category values holding the default value of a category.
+   */
+  expandDefaultValue() {
+    if (this.hasImportedState) {
+      return;
+    }
+    // const categories = this.env.searchModel.getSections((s) => s.type === "category");
+    const stages = this.model.data;
+    console.log(stages)
+    for (const stage of stages) {
+      this.state.expanded[stage.id] = {};
+      if (stage.activeValueId) {
+        const ancestorIds = this.getAncestorValueIds(stage, stage.activeValueId);
+        for (const ancestorId of ancestorIds) {
+          this.state.expanded[category.id][ancestorId] = true;
+        }
+      }
+    }
+  }
+  /**
+   * @param {Object} category
+   * @param {number} stage_id
+   * @returns {number[]} list of ids of the ancestors of the given value in
+   *   the given category.
+   */
+  getAncestorValueIds(stage, stage_id) {
+    // const { parent_id } = stage.values.get(stage_id);
+    const self = this;
+    const { parent_id } = _.find(self.model.data, (stage) => stage.parent_id[0] === stage_id);
+    return parent_id[0] ? [...this.getAncestorValueIds(stage, parent_id[0]), parent_id[0]] : [];
+  }
 }
 
+// ProjectStageItemView.props = {
+//   importedState: { type: String, optional: true },
+// };
 ProjectStageItemView.type = "project_stage_item";
 ProjectStageItemView.display_name = "ProjectStageItemView";
 ProjectStageItemView.icon = "fa-heart";
@@ -104,6 +201,5 @@ ProjectStageItemView.subTemplates = {
   project: "project_vertical_view.Project",
   stage: "project_vertical_view.Stage",
 };
-
 
 registry.category("views").add("project_stage_item", ProjectStageItemView);
