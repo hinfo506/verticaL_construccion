@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 import logging
@@ -22,34 +22,17 @@ class VerticalStage(models.Model):
         # raise ValidationError('Abcdefuck')
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Subcapitulos',
-            'res_model': 'sub.capitulo',
+            'name': 'Compras',
+            'res_model': 'purchase.order',
             'view_mode': 'tree,form',
             'domain': [('stage_id', '=', self.id)],
-            # 'context': dict(
-            #     self._context,
-            #     default_capitulo_id=self.id,
-            #     default_project_id=self.project_id.id,
-            #     default_fase_principal_id=self.fase_principal_id.id
-            # ),
+            'context': {'create': False,},
         }
 
     def confirmed_suppliers(self):
         act_ids = self.env.context.get('active_ids', []) #tomar ids activos
-        # company_id = self.env.user.company_id # tomar el id del user autenticado
-        # po_obj = self.env['purchase.order'] #modelo compra vacio
         stages = self.browse(act_ids) # tomar el modelo y los ids que seleccione vertical.stage(89, 90)
         items = stages.mapped('item_ids') # tomo las fases y mapeo por los item obteniendo el modelo vertical.item(5, 6, 7)
-        # product_ids = items.mapped('product_id') # tomo los item y mapeo por los productos obteniendo el modelo product.product(5, 6, 7)
-        #
-        # vendors = self.env['product.supplierinfo'].search([
-        #     # '|',
-        #     # ('product_id', 'in', product_ids.mapped('id')),
-        #     ('product_tmpl_id', 'in', product_ids.mapped('product_tmpl_id.id'))
-        # ]) #tomo los id de los proveedores sin repetirlos product.supplierinfo(11, 12)
-        #
-        # raise ValidationError(vendors)
-
         for i in items:
             if not i.product_id.seller_ids:
                 raise ValidationError('"No se pudo completar la venta: Hay Artículos sin proveedores"')
@@ -84,31 +67,29 @@ class VerticalStage(models.Model):
         _logger.info(purchase_data)
         # por cada producto, debo verificar las cantidades minimas del vendor y proceder
         for item in items:
-            # Me interesan solo los que esten activos
-            for seller in item.product_id.seller_ids.filtered(lambda s: s.name.active):
-                # revisar en la configuración del seller las cantidades y comparar que sea mayor o igual
-                if seller.min_qty <= item.product_qty:
-                    taxes = item.product_id.supplier_taxes_id.filtered(lambda x: x.company_id.id == company_id.id)
-                    product_lang = item.product_id.with_prefetch().with_context(
-                        lang=seller.name.lang,
-                        partner_id=seller.name.id,
-                    )
-                    name = product_lang.with_context(seller_id=seller.id).display_name
-                    if product_lang.description_purchase:
-                        name += '\n' + product_lang.description_purchase
-                    po_line_vals = {
-                        'name': name,
-                        'product_qty': item.product_qty,
-                        'product_id': item.product_id.id,
-                        'product_uom': item.product_id.uom_po_id.id,
-                        # 'price_unit': seller.price,
-                        'price_unit': item.cost_price,
-                        # 'date_planned': date_planned, #Implementar despues
-                        'taxes_id': [(6, 0, taxes.ids)],
-                        # 'order_id': po.id,
-                        'item_id': item.id
-                    }
-                    purchase_data[seller.name.id]['order_lines'].append((0, False, po_line_vals))
+            if item.job_type == 'material':
+                # Me interesan solo los que esten activos
+                for seller in item.product_id.seller_ids.filtered(lambda s: s.name.active):
+                    # revisar en la configuración del seller las cantidades y comparar que sea mayor o igual
+                    if seller.min_qty <= item.product_qty:
+                        taxes = item.product_id.supplier_taxes_id.filtered(lambda x: x.company_id.id == company_id.id)
+                        product_lang = item.product_id.with_prefetch().with_context(
+                            lang=seller.name.lang,
+                            partner_id=seller.name.id,
+                        )
+                        name = product_lang.with_context(seller_id=seller.id).display_name
+                        if product_lang.description_purchase:
+                            name += '\n' + product_lang.description_purchase
+                        po_line_vals = {
+                            'name': name,
+                            'product_qty': item.product_qty,
+                            'product_id': item.product_id.id,
+                            'product_uom': item.product_id.uom_po_id.id,
+                            'price_unit': item.cost_price,
+                            'taxes_id': [(6, 0, taxes.ids)],
+                            'item_id': item.id
+                        }
+                        purchase_data[seller.name.id]['order_lines'].append((0, False, po_line_vals))
 
         # Voy a ciclar por las lineas creadas, que estan agrupadas en el diccionario
         purchase_orders = []
@@ -133,9 +114,32 @@ class VerticalStage(models.Model):
 
         # Debo retornar la acción que abre las purchase orders, pero mostrando solo las PO creadas
 
-        action = self.env["ir.actions.actions"]._for_xml_id("purchase.purchase_rfq")
-        action['domain'] = [('id', 'in', purchase_orders)]
-        action['context'] = {
-            'create': False,
-        }
-        return action
+        # action = self.env["ir.actions.act_window"]._for_xml_id("purchase.purchase_rfq")
+        # action['domain'] = [('id', 'in', purchase_orders)]
+        # action['context'] = {
+        #     'create': False,
+        # }
+        # return action
+        # ir.actions.actions
+        # return self.env['ir.actions.actions']._for_xml_id('purchase.purchase_rfq')
+        # raise ValidationError(purchase_orders)
+        # return {
+        #     'type': 'ir.actions.act_window',
+        #     'name': 'Compras',
+        #     'res_model': 'purchase.order',
+        #     'view_mode': 'tree,form',
+        #     'domain': [('id', 'in', purchase_orders.ids)],
+        #     'context': {'create': False, },
+        # }
+        # return {
+        #     'type': 'ir.actions.client',
+        #     'tag': 'display_notification',
+        #     'params': {
+        #         'type': 'success',
+        #         'title': _("Leads Assigned"),
+        #         'message': "notif_message",
+        #         'next': {
+        #             'type': 'ir.actions.act_window_close'
+        #         },
+        #     }
+        # }
