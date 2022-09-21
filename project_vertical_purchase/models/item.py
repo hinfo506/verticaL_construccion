@@ -90,7 +90,6 @@ class VerticalItem(models.Model):
                             'product_id': item.product_id.id,
                             'product_uom': item.product_id.uom_po_id.id,
                             'price_unit': item.cost_price,
-                            'purchase_stage': 'notconfirm',
                             'taxes_id': [(6, 0, taxes.ids)],
                             'item_id': item.id
                         }
