@@ -45,7 +45,9 @@ class VerticalStage(models.Model):
         po_obj = self.env['purchase.order']
         act_ids = self.env.context.get('active_ids',[])
         stages = self.browse(act_ids)
-        items = stages.mapped('item_ids')
+        itemss = stages.mapped('item_ids')
+        items = self.env['vertical.item'].search([('job_type', '=', 'material'), ('id', 'in', itemss.ids)])#tomo solo los items que son de tipo material
+        # raise ValidationError(items_sin)
         product_ids = items.mapped('product_id')
         # Recupero los proveedores relacionados
         vendors = self.env['product.supplierinfo'].search([
@@ -67,29 +69,29 @@ class VerticalStage(models.Model):
         _logger.info(purchase_data)
         # por cada producto, debo verificar las cantidades minimas del vendor y proceder
         for item in items:
-            if item.job_type == 'material':
-                # Me interesan solo los que esten activos
-                for seller in item.product_id.seller_ids.filtered(lambda s: s.name.active):
-                    # revisar en la configuración del seller las cantidades y comparar que sea mayor o igual
-                    if seller.min_qty <= item.product_qty:
-                        taxes = item.product_id.supplier_taxes_id.filtered(lambda x: x.company_id.id == company_id.id)
-                        product_lang = item.product_id.with_prefetch().with_context(
-                            lang=seller.name.lang,
-                            partner_id=seller.name.id,
-                        )
-                        name = product_lang.with_context(seller_id=seller.id).display_name
-                        if product_lang.description_purchase:
-                            name += '\n' + product_lang.description_purchase
-                        po_line_vals = {
-                            'name': name,
-                            'product_qty': item.product_qty,
-                            'product_id': item.product_id.id,
-                            'product_uom': item.product_id.uom_po_id.id,
-                            'price_unit': item.cost_price,
-                            'taxes_id': [(6, 0, taxes.ids)],
-                            'item_id': item.id
-                        }
-                        purchase_data[seller.name.id]['order_lines'].append((0, False, po_line_vals))
+            # if item.job_type == 'material':
+            # Me interesan solo los que esten activos
+            for seller in item.product_id.seller_ids.filtered(lambda s: s.name.active):
+                # revisar en la configuración del seller las cantidades y comparar que sea mayor o igual
+                if seller.min_qty <= item.product_qty:
+                    taxes = item.product_id.supplier_taxes_id.filtered(lambda x: x.company_id.id == company_id.id)
+                    product_lang = item.product_id.with_prefetch().with_context(
+                        lang=seller.name.lang,
+                        partner_id=seller.name.id,
+                    )
+                    name = product_lang.with_context(seller_id=seller.id).display_name
+                    if product_lang.description_purchase:
+                        name += '\n' + product_lang.description_purchase
+                    po_line_vals = {
+                        'name': name,
+                        'product_qty': item.product_qty,
+                        'product_id': item.product_id.id,
+                        'product_uom': item.product_id.uom_po_id.id,
+                        'price_unit': item.cost_price,
+                        'taxes_id': [(6, 0, taxes.ids)],
+                        'item_id': item.id
+                    }
+                    purchase_data[seller.name.id]['order_lines'].append((0, False, po_line_vals))
 
         # Voy a ciclar por las lineas creadas, que estan agrupadas en el diccionario
         purchase_orders = []
@@ -105,7 +107,7 @@ class VerticalStage(models.Model):
                 #debo crear una nueva PO para el proveedor seleccionado
                 current_po = po_obj.create({
                     'partner_id': vendor_key, # mi identificador del diccionario es el id del proveedor, lo obtuve arriba
-                    'stage_id': item[0].vertical_stage_id.id, # Para que quiero el stage?
+                    'stage_id': item[0].vertical_stage_id.id,
                 })
                 purchase_data[vendor_key]['purchase_order'] = current_po.id #Actualizo mi dict
 
