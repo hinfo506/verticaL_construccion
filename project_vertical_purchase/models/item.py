@@ -50,7 +50,8 @@ class VerticalItem(models.Model):
         company_id = self.env.user.company_id
         po_obj = self.env["purchase.order"]
         active = self.env.context.get("active_ids", [])# tengo los ids activos
-        items = self.browse(active)# tengo los item seleccionados del modelo item
+        itemss = self.browse(active)# tengo los item seleccionados del modelo item
+        items = self.env['vertical.item'].search([('job_type', '=', 'material'), ('id', 'in', itemss.ids)])  # tomo solo los items que son de tipo material
         product_ids = items.mapped("product_id")# mapeeo obteniendo los productos
         vendors = self.env["product.supplierinfo"].search(
             [
