@@ -81,30 +81,17 @@
 
     <t t-name="project_vertical_view.Stage" owl="1">
         <t t-foreach="values" t-as="value" t-key="value.id">
-            <li class="o_search_panel_category_value list-group-item border-0">
-                <header class="list-group-item-action"
-                    t-att-class="{ active: state.active[project.id] === value.id }"
-                    t-on-click="toggleCategory(section, value)"
-                    >
-                    <!-- <label class="o_search_panel_label mb0" t-att-class="{ o_with_counters: section.enableCounters }"> -->
+            <li class="o_search_panel_category_value list-group-item border-0 context-menu-item" t-att-data-id="value.id">
+                <!-- <header class="list-group-item-action" t-att-class="{ active: state.active[project.id] === value.id }" t-on-click="toggleCategory(section, value)"> -->
+                <header class="list-group-item-action" t-att-class="{ active: state.selectedStage === value.id }" t-on-click="toggleStage(value.id)">
                     <label class="o_search_panel_label mb0">
                         <div class="o_toggle_fold">
-                            <t t-log="state"/>
-                            <i t-if="value.vertical_stage_ids.length"
-                                t-attf-class="fa fa-caret-{{ state.expanded[project.id][value.id] ? 'down' : 'right' }}"
-                            />
+                            <i t-if="value.vertical_stage_ids.length" t-attf-class="fa fa-caret-{{ state.activeStages.indexOf(value.id) >= 0 ? 'down' : 'right' }}" />
                         </div>
-                        <!-- <b t-if="value.bold" class="o_search_panel_label_title" t-esc="value.display_name"/> -->
-                        <!-- <b t-if="value.bold" class="o_search_panel_label_title" t-esc="value.name"/> -->
-                        <!-- <span t-else="" class="o_search_panel_label_title" t-esc="value.display_name"/> -->
                         <span class="o_search_panel_label_title" t-esc="value.name"/>
                     </label>
-                    <!-- <span t-if="section.enableCounters and value.__count gt 0"
-                        class="o_search_panel_counter text-muted ml-2 small"
-                        t-esc="value.__count"
-                    /> -->
                 </header>
-                <ul t-if="value.vertical_stage_ids.length and state.expanded[project.id][value.id]" class="list-group d-block">
+                <ul t-if="value.vertical_stage_ids.length and state.activeStages.indexOf(value.id) >= 0" class="list-group d-block">
                     <t t-call="{{ constructor.subTemplates.stage }}">
                         <t t-set="values" t-value="value.vertical_stage_ids"/>
                     </t>

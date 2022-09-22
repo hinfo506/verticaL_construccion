@@ -24,9 +24,9 @@ class ProjectStageItemModel extends Model {
     if ("project_id" in params.context) {
       domain.push(["project_id", "in", params.context.project_id]);
     }
-    this.rawData = await this.keepLast.add(
+    this.rawData = await self.keepLast.add(
       this.orm.searchRead(this.model, domain, FIELDS, { limit: 1000 })
-    );
+    )
     const projectStageItemData = _.map(
       _.uniq(
         _.map(self.rawData, (item) => item.project_id),
@@ -37,7 +37,7 @@ class ProjectStageItemModel extends Model {
           id: false,
           project_id: project_id,
           vertical_stage_ids: _.filter(
-            rawData,
+            self.rawData,
             (stage) =>
               stage.project_id[0] === project_id[0] && stage.parent_id === false
           ),
@@ -73,7 +73,6 @@ class ProjectStageItemView extends owl.Component {
       domain: this.props.domain,
     });
     let searchModel = this.env.searchModel;
-    // console.log(this);
     searchModel.display = {
       controlPanel: false,
       searchPanel: false,
@@ -83,6 +82,9 @@ class ProjectStageItemView extends owl.Component {
     this.state = useState({
       active: {},
       expanded: {},
+      expandedStages: [],
+      activeStages: [],
+      selectedStage: 0,
     });
     this.scrollTop = 0;
     this.hasImportedState = false;
@@ -91,9 +93,18 @@ class ProjectStageItemView extends owl.Component {
   }
 
   async willStart() {
-    await this.env.searchModel.sectionsPromise;
-    this.expandDefaultValue();
-    // this.updateActiveValues();
+    const self = this;
+    // This is ugly, fix it with promises
+    // const handleModelLoaded = () => {
+    //   if (!self.model.rawData){
+    //     setTimeout(() => {
+    //       handleModelLoaded();
+    //     }, 100);
+    //   } else {
+    //     self.expandDefaultValue();
+    //   }
+    // };
+    // handleModelLoaded();
   }
   mounted() {
     const self = this;
@@ -105,13 +116,13 @@ class ProjectStageItemView extends owl.Component {
        * an argument. */
       fetchElementData: function ($elem) {
         const record_id = $elem.data("id");
-        return self.model.data[0];
+        return _.find(self.model.rawData, (stage) => stage.id === record_id);
       },
       actions: [
         {
           name: "Edit name",
           onClick: function (record) {
-            alert(record.id);
+            alert(record.name);
           },
         },
         {
@@ -133,10 +144,28 @@ class ProjectStageItemView extends owl.Component {
   // Public
   //---------------------------------------------------------------------
 
+  toggleStage(stage_id){
+    const stage = _.find(this.model.rawData, (stage) => stage.id === stage_id);
+    if(stage.vertical_stage_ids){
+      const indexOfActiveStage = this.state.activeStages.indexOf(stage_id);
+      if(indexOfActiveStage >= 0){
+        //remove it
+        this.state.activeStages = _.without(this.state.activeStages, stage_id);
+      }else{
+        //put it
+        this.state.activeStages.push(stage_id);
+      }
+    }
+    if(this.state.selectedStage !== stage_id){
+      this.state.selectedStage = stage_id;
+    }
+  }
+
   exportState() {
     const exported = {
       expanded: this.state.expanded,
       scrollTop: this.el.scrollTop,
+      stageTree: this.state.stageTree,
     };
     return JSON.stringify(exported);
   }
@@ -157,21 +186,11 @@ class ProjectStageItemView extends owl.Component {
    * Expands category values holding the default value of a category.
    */
   expandDefaultValue() {
+    const self = this;
     if (this.hasImportedState) {
       return;
     }
-    // const categories = this.env.searchModel.getSections((s) => s.type === "category");
-    const stages = this.model.data;
-    console.log(stages)
-    for (const stage of stages) {
-      this.state.expanded[stage.id] = {};
-      if (stage.activeValueId) {
-        const ancestorIds = this.getAncestorValueIds(stage, stage.activeValueId);
-        for (const ancestorId of ancestorIds) {
-          this.state.expanded[category.id][ancestorId] = true;
-        }
-      }
-    }
+
   }
   /**
    * @param {Object} category
