@@ -6,7 +6,7 @@ import { KeepLast } from "@web/core/utils/concurrency";
 import { Model, useModel } from "@web/views/helpers/model";
 const { useSubEnv, useState } = owl.hooks;
 
-const FIELDS = ["id", "name", "parent_id", "project_id"];
+const FIELDS = ["id", "name", "parent_id", "project_id", "numero_fase", "fecha_finalizacion", "cantidad", "total", "type_stage_id"];
 // const FIELDS = [];
 
 class ProjectStageItemModel extends Model {
@@ -29,7 +29,7 @@ class ProjectStageItemModel extends Model {
     )
     const projectStageItemData = _.map(
       _.uniq(
-        _.map(self.rawData, (item) => item.project_id),
+        _.map(self.rawData, (stage) => stage.project_id),
         _.iteratee((project) => project[0])
       ),
       (project_id) => {
@@ -49,8 +49,18 @@ class ProjectStageItemModel extends Model {
         self._create_stages_tree(stage)
       )
     );
-    console.log(projectStageItemData);
     this.projectStageItemData = projectStageItemData;
+    this.notify();
+  }
+
+  async load_items_for_stage(stage_id){
+    const ITEM_FIELDS = ['id', 'date', 'job_type', 'color_item', 'product_id', 'product_qty', 'reference', 'cost_price', 'subtotal_item_capitulo'];
+    const stageItems = await this.keepLast.add(
+      this.orm.searchRead('vertical.item', [['vertical_stage_id','=',stage_id]], ITEM_FIELDS, { limit: 1000 })
+    );
+    console.log(stageItems);
+    const index = _.findIndex(this.rawData, (stage) => stage.id === stage_id);
+    this.rawData[index]['item_ids'] = stageItems;
     this.notify();
   }
 
@@ -85,6 +95,7 @@ class ProjectStageItemView extends owl.Component {
       expandedStages: [],
       activeStages: [],
       selectedStage: 0,
+      stageObj: {},
     });
     this.scrollTop = 0;
     this.hasImportedState = false;
@@ -144,9 +155,9 @@ class ProjectStageItemView extends owl.Component {
   // Public
   //---------------------------------------------------------------------
 
-  toggleStage(stage_id){
+  async toggleStage(stage_id){
     const stage = _.find(this.model.rawData, (stage) => stage.id === stage_id);
-    if(stage.vertical_stage_ids){
+    if(stage.vertical_stage_ids.length > 0){
       const indexOfActiveStage = this.state.activeStages.indexOf(stage_id);
       if(indexOfActiveStage >= 0){
         //remove it
@@ -156,8 +167,12 @@ class ProjectStageItemView extends owl.Component {
         this.state.activeStages.push(stage_id);
       }
     }
+    else{
+      await this.model.load_items_for_stage(stage_id);
+    }
     if(this.state.selectedStage !== stage_id){
       this.state.selectedStage = stage_id;
+      this.state.stageObj = _.find(this.model.rawData, (stage) => stage.id === stage_id);
     }
   }
 
@@ -211,7 +226,7 @@ class ProjectStageItemView extends owl.Component {
 // };
 ProjectStageItemView.type = "project_stage_item";
 ProjectStageItemView.display_name = "ProjectStageItemView";
-ProjectStageItemView.icon = "fa-heart";
+ProjectStageItemView.icon = "fa-sitemap";
 ProjectStageItemView.multiRecord = true;
 ProjectStageItemView.searchMenuTypes = ["filter", "favorite"];
 ProjectStageItemView.components = { Layout };
