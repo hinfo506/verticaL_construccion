@@ -14,6 +14,11 @@
                     <field name="item_id"/>
                 </xpath>
 
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="project_id"/>
+                    <field name="stage_id"/>
+                </xpath>
+
             </field>
         </record>
 

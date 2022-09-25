@@ -10,13 +10,44 @@ _logger = logging.getLogger(__name__)
 class VerticalStage(models.Model):
     _inherit = 'vertical.stage'
 
+    purchase_count = fields.Integer(string='purchase_count', required=False, compute='get_purchase_count')
+
+    # @api.depends('item_ids')
+    def get_purchase_count(self):
+        for r in self:
+            r.purchase_count = self.env['purchase.order'].search_count([('stage_id', '=', r.id)]) # Esta consulta es menos eficiente que simplemente contar los item_ids
+            # r.purchase_count = len(r.item_ids)
+
+    def action_view_purchase(self):
+        # raise ValidationError('Abcdefuck')
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Compras',
+            'res_model': 'purchase.order',
+            'view_mode': 'tree,form',
+            'domain': [('stage_id', '=', self.id)],
+            'context': {'create': False,},
+        }
+
+    def confirmed_suppliers(self):
+        act_ids = self.env.context.get('active_ids', []) #tomar ids activos
+        stages = self.browse(act_ids) # tomar el modelo y los ids que seleccione vertical.stage(89, 90)
+        items = stages.mapped('item_ids') # tomo las fases y mapeo por los item obteniendo el modelo vertical.item(5, 6, 7)
+        for i in items:
+            if not i.product_id.seller_ids:
+                raise ValidationError('"No se pudo completar la venta: Hay Artículos sin proveedores"')
+
     @api.model
     def purchase_from_stage(self):
+        self.confirmed_suppliers()
+
         company_id = self.env.user.company_id
         po_obj = self.env['purchase.order']
         act_ids = self.env.context.get('active_ids',[])
         stages = self.browse(act_ids)
-        items = stages.mapped('item_ids')
+        itemss = stages.mapped('item_ids')
+        items = self.env['vertical.item'].search([('job_type', '=', 'material'), ('id', 'in', itemss.ids)])#tomo solo los items que son de tipo material
+        # raise ValidationError(items_sin)
         product_ids = items.mapped('product_id')
         # Recupero los proveedores relacionados
         vendors = self.env['product.supplierinfo'].search([
@@ -38,6 +69,7 @@ class VerticalStage(models.Model):
         _logger.info(purchase_data)
         # por cada producto, debo verificar las cantidades minimas del vendor y proceder
         for item in items:
+            # if item.job_type == 'material':
             # Me interesan solo los que esten activos
             for seller in item.product_id.seller_ids.filtered(lambda s: s.name.active):
                 # revisar en la configuración del seller las cantidades y comparar que sea mayor o igual
@@ -55,10 +87,8 @@ class VerticalStage(models.Model):
                         'product_qty': item.product_qty,
                         'product_id': item.product_id.id,
                         'product_uom': item.product_id.uom_po_id.id,
-                        'price_unit': seller.price,
-                        # 'date_planned': date_planned, #Implementar despues
+                        'price_unit': item.cost_price,
                         'taxes_id': [(6, 0, taxes.ids)],
-                        # 'order_id': po.id,
                         'item_id': item.id
                     }
                     purchase_data[seller.name.id]['order_lines'].append((0, False, po_line_vals))
@@ -75,7 +105,7 @@ class VerticalStage(models.Model):
                 #debo crear una nueva PO para el proveedor seleccionado
                 current_po = po_obj.create({
                     'partner_id': vendor_key, # mi identificador del diccionario es el id del proveedor, lo obtuve arriba
-                    # 'stage_id': item_ids[0].vertical_stage_id.id, # Para que quiero el stage?
+                    'stage_id': item[0].vertical_stage_id.id,
                 })
                 purchase_data[vendor_key]['purchase_order'] = current_po.id #Actualizo mi dict
 

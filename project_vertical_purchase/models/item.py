@@ -31,7 +31,7 @@ class VerticalItem(models.Model):
         # Por cada proveedor, debo revisar si tengo al menos una PO en borrador y las guardo en un diccionario
         purchase_data = {}
         for vendor in vendors:
-            po = po_obj.search([("partner_id", "=", vendor.name.id)], limit=1)
+            po = po_obj.search([('partner_id', '=', vendor.name.id)], limit=1)
             p_data = {}
             if len(po) == 1:
                 # Voy a meter las purchase_order_lines que genere en las purchase_orders, tengo esto en 2 diccionarios
@@ -42,6 +42,7 @@ class VerticalItem(models.Model):
         _logger.info(purchase_data)
         # por cada producto, debo verificar las cantidades minimas del vendor y proceder
         for item in items:
+            if item.job_type == 'material':
             # Me interesan solo los que esten activos
             for seller in item.product_id.seller_ids.filtered(lambda s: s.name.active):
                 # revisar en la configuración del seller las cantidades y comparar que sea mayor o igual
@@ -53,39 +54,37 @@ class VerticalItem(models.Model):
                     )
                     name = product_lang.with_context(seller_id=seller.id).display_name
                     if product_lang.description_purchase:
-                        name += "\n" + product_lang.description_purchase
+                        name += '\n' + product_lang.description_purchase
                     po_line_vals = {
-                        "name": name,
-                        "product_qty": item.product_qty,
-                        "product_id": item.product_id.id,
-                        "product_uom": item.product_id.uom_po_id.id,
-                        "price_unit": seller.price,
+                        'name': name,
+                        'product_qty': item.product_qty,
+                        'product_id': item.product_id.id,
+                        'product_uom': item.product_id.uom_po_id.id,
+                        'price_unit':  item.cost_price,
                         # 'date_planned': date_planned, #Implementar despues
-                        "taxes_id": [(6, 0, taxes.ids)],
+                        'taxes_id': [(6, 0, taxes.ids)],
                         # 'order_id': po.id,
-                        "item_id": item.id,
+                        'item_id': item.id
                     }
-                    purchase_data[seller.name.id]["order_lines"].append((0, False, po_line_vals))
+                    purchase_data[seller.name.id]['order_lines'].append((0, False, po_line_vals))
 
         # Voy a ciclar por las lineas creadas, que estan agrupadas en el diccionario
         purchase_orders = []
         for vendor_key in purchase_data.keys():
             # Ya existe una purchase order, no debo crearla
             current_po = False
-            if "purchase_order" in purchase_data[vendor_key]:
+            if 'purchase_order' in purchase_data[vendor_key]:
                 # Busco en la DB
-                current_po = po_obj.browse(purchase_data[vendor_key]["purchase_order"])
+                current_po = po_obj.browse(purchase_data[vendor_key]['purchase_order'])
             else:
-                # debo crear una nueva PO para el proveedor seleccionado
-                current_po = po_obj.create(
-                    {
-                        "partner_id": vendor_key,  # mi identificador del diccionario es el id del proveedor, lo obtuve arriba
-                        # 'stage_id': item_ids[0].vertical_stage_id.id, # Para que quiero el stage?
-                    }
-                )
-                purchase_data[vendor_key]["purchase_order"] = current_po.id  # Actualizo mi dict
+                #debo crear una nueva PO para el proveedor seleccionado
+                current_po = po_obj.create({
+                    'partner_id': vendor_key, # mi identificador del diccionario es el id del proveedor, lo obtuve arriba
+                    'stage_id': items[0].vertical_stage_id.id, # Para que quiero el stage?
+                })
+                purchase_data[vendor_key]['purchase_order'] = current_po.id #Actualizo mi dict
 
-            current_po.order_line = purchase_data[vendor_key]["order_lines"]
+            current_po.order_line = purchase_data[vendor_key]['order_lines']
             purchase_orders.append(current_po.id)
 
         # Debo retornar la acción que abre las purchase orders, pero mostrando solo las PO creadas

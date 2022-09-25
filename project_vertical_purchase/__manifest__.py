@@ -25,5 +25,6 @@
         'views/menu.xml',
         'views/view_purchase_order.xml',
         'views/view_item_inherit.xml',
+        'views/view_stage_inherit.xml',
     ],
 }
