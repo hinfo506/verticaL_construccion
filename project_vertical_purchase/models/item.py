@@ -11,10 +11,43 @@ class VerticalItem(models.Model):
 
     amount_confirm = fields.Float(string="Amount_confirm", required=False)
     amount_delivered = fields.Float(string="Amount_delivered", required=False)
+    purchase_item_count = fields.Integer(string='purchase_item_count', required=False, compute='get_purchase_item_count')
+    purchase_stage = fields.Selection(string='Estado de compra',
+                                      selection=[('earring', 'Pendiente'),
+                                                 ('notconfirm', 'Por Confirmar'),
+                                                 ('confirm', 'Confirmada'),
+                                                 ('qty_earring', 'Cantidades Pendientes'),
+                                                 ('finished', 'Finalizada'), ], required=False, default='earring')
+
+    def get_purchase_item_count(self):
+        for r in self:
+            purchase = r.env['purchase.order.line'].search([('item_id', '=', r.id)]).mapped('order_id')
+            r.purchase_item_count = len(purchase)
+
+    def action_view_purchase_item(self):
+        purchase = self.env['purchase.order.line'].search([('item_id', '=', self.id)]).mapped('order_id')
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Compras',
+            'res_model': 'purchase.order',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', purchase.ids)],
+            'context': {'create': False, },
+        }
+
+    def confirmed_suppliers_item(self):
+        act_ids = self.env.context.get('active_ids', []) #tomar ids activos
+        items = self.browse(act_ids) # tomar el modelo y los ids que seleccione vertical.stage(89, 90)
+        # items = stages.mapped('item_ids') # tomo las fases y mapeo por los item obteniendo el modelo vertical.item(5, 6, 7)
+        for i in items:
+            if not i.product_id.seller_ids:
+                raise ValidationError('"No se pudo completar la venta: Hay Artículos sin proveedores"')
+
 
     @api.model
     def purchase_from_item(self):
         # Este es distinto, ya tenemos los items
+        self.confirmed_suppliers_item()
         company_id = self.env.user.company_id
         po_obj = self.env["purchase.order"]
         active = self.env.context.get("active_ids", [])
