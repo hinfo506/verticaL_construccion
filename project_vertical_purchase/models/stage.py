@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
 import logging
@@ -95,8 +95,6 @@ class VerticalStage(models.Model):
 
         # Voy a ciclar por las lineas creadas, que estan agrupadas en el diccionario
         purchase_orders = []
-        _logger.info('purchase_data.keys(): ')
-        _logger.info(purchase_data.keys())
         for vendor_key in purchase_data.keys():
             # Ya existe una purchase order, no debo crearla
             current_po = False
@@ -117,31 +115,9 @@ class VerticalStage(models.Model):
         # Debo retornar la acción que abre las purchase orders, pero mostrando solo las PO creadas
 
         # action = self.env["ir.actions.act_window"]._for_xml_id("purchase.purchase_rfq")
-        # action['domain'] = [('id', 'in', purchase_orders)]
-        # action['context'] = {
-        #     'create': False,
-        # }
-        # return action
-        # ir.actions.actions
-        # return self.env['ir.actions.actions']._for_xml_id('purchase.purchase_rfq')
-        # raise ValidationError(purchase_orders)
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'name': 'Compras',
-        #     'res_model': 'purchase.order',
-        #     'view_mode': 'tree,form',
-        #     'domain': [('id', 'in', purchase_orders.ids)],
-        #     'context': {'create': False, },
-        # }
-        # return {
-        #     'type': 'ir.actions.client',
-        #     'tag': 'display_notification',
-        #     'params': {
-        #         'type': 'success',
-        #         'title': _("Leads Assigned"),
-        #         'message': "notif_message",
-        #         'next': {
-        #             'type': 'ir.actions.act_window_close'
-        #         },
-        #     }
-        # }
+        action = self.env.ref("purchase.purchase_rfq")
+        action['domain'] = [('id', 'in', purchase_orders)]
+        action['context'] = {
+            'create': False,
+        }
+        return action
