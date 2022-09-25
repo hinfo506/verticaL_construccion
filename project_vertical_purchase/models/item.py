@@ -42,7 +42,7 @@ class VerticalItem(models.Model):
         _logger.info(purchase_data)
         # por cada producto, debo verificar las cantidades minimas del vendor y proceder
         for item in items:
-            if item.job_type == 'material':
+            #if item.job_type == 'material':
             # Me interesan solo los que esten activos
             for seller in item.product_id.seller_ids.filtered(lambda s: s.name.active):
                 # revisar en la configuración del seller las cantidades y comparar que sea mayor o igual
