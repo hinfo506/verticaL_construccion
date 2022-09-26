@@ -6,15 +6,26 @@
             <!-- <div class="d-flex flex-column p-2 jorge"> -->
             <div class="position-absolute d-flex flex-column p-2" style="bottom: 0px; left: 0px; right: 0px; top:0px; overflow: hidden;">
                 <div class="d-flex flex-row h-100">
-                    <div class="border" style="overflow-y: auto;">
-                        <p>Project Navigator</p>
-                        <div class="context-menu-item" t-foreach="model.data" t-as="record" t-key="record.id" t-att-data-id="record.id" style="cursor: pointer;">
-                            <t t-esc="record.name"/>
-                        </div>
+                <!-- <div class="h-100"> -->
+                    <!-- SearchPanel -->
+                    <!-- <div class="o_search_panel" style="resize: horizontal;"> -->
+                    <div class="o_search_panel" style="flex-basis: 390px;">
+                        <section t-foreach="model.projectStageItemData" t-as="project" t-key="project.project_id[0]" class="o_search_panel_section o_search_panel_category">
+                            <header class="o_search_panel_section_header text-uppercase">
+                                <!-- <i t-attf-class="fa {{ project.icon }} o_search_panel_section_icon mr-2" t-att-style="project.color and ('color: ' + project.color)" /> -->
+                                <b t-esc="project.project_id[1]"/>
+                            </header>
+                            <ul class="list-group d-block o_search_panel_field">
+                                <t t-call="{{ constructor.subTemplates.stage }}">
+                                <!-- fix me! -->
+                                    <t t-set="values" t-value="project.vertical_stage_ids"/>
+                                </t>
+                            </ul>
+                        </section>
                     </div>
+                    <!-- SearchPanel -->
                     <div class="border flex-grow-1">
-                        <p>Contenido principal</p>
-                        <div class="table-responsive">
+                        <div class="table-responsive" t-if="'vertical_stage_ids' in state.stageObj and state.stageObj.vertical_stage_ids.length > 0">
                             <table class="table table-sm table-hover table-striped">
                                 <thead>
                                     <th>N° Partida</th>
@@ -24,11 +35,82 @@
                                     <th>Total</th>
                                     <th>Tipo de Fase</th>
                                 </thead>
+                                <tbody>
+                                    <tr t-foreach="state.stageObj.vertical_stage_ids" t-as="stage" style="cursor: pointer;">
+                                        <td><t t-esc="stage.numero_fase ? stage.numero_fase : ''"/></td>
+                                        <td><t t-esc="stage.name"/></td>
+                                        <td><t t-esc="stage.fecha_finalizacion ? stage.fecha_finalizacion : ''"/></td>
+                                        <td><t t-esc="stage.cantidad"/></td>
+                                        <td><t t-esc="stage.total.toFixed(2)"/></td>
+                                        <td><t t-esc="stage.type_stage_id[1]"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"></td>
+                                        <td colspan="2">
+                                            <b><t t-esc="state.stageObj.vertical_stage_ids.map((stage)=>stage.total).reduce((memo, num) => memo+num, 0).toFixed(2)"/></b>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
+                        </div>
+                        <div class="table-responsive" t-if="'item_ids' in state.stageObj and state.stageObj.item_ids.length > 0">
+                            <table class="table table-sm table-hover table-striped">
+                                <thead>
+                                    <th>Fecha</th>
+                                    <th>Tipo de Costo</th>
+                                    <th>Producto</th>
+                                    <th class="text-right">Cantidad</th>
+                                    <th class="text-right">Coste</th>
+                                    <th class="text-right">Importe</th>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="state.stageObj.item_ids" t-as="item" style="cursor: pointer;">
+                                        <td><t t-esc="item.date ? item.date : ''"/></td>
+                                        <td><t t-esc="item.job_type"/></td>
+                                        <td><t t-esc="item.product_id ? item.product_id[1] : ''"/></td>
+                                        <td class="text-right"><t t-esc="item.product_qty"/></td>
+                                        <td class="text-right"><t t-esc="item.cost_price.toFixed(2)"/></td>
+                                        <td class="text-right"><t t-esc="item.subtotal_item_capitulo.toFixed(2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"></td>
+                                        <td class="text-right">
+                                            <b><t t-esc="state.stageObj.item_ids.map((item)=>item.cost_price).reduce((memo, num) => memo+num, 0).toFixed(2)"/></b>
+                                        </td>
+                                        <td class="text-right">
+                                            <b><t t-esc="state.stageObj.item_ids.map((item)=>item.subtotal_item_capitulo).reduce((memo, num) => memo+num, 0).toFixed(2)"/></b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div t-if="('vertical_stage_ids' in state.stageObj ? state.stageObj.vertical_stage_ids.length === 0 : true) and ('item_ids' in state.stageObj ? state.stageObj.item_ids.length === 0 : false)">
+                            <img src="/project_vertical_building/static/src/img/construction.png" style="opacity: .13; position: absolute; bottom: 7px; right: 7px;"/>
                         </div>
                     </div>
                 </div>
             </div>
         </Layout>
+    </t>
+
+    <t t-name="project_vertical_view.Stage" owl="1">
+        <t t-foreach="values" t-as="value" t-key="value.id">
+            <li class="o_search_panel_category_value list-group-item border-0 context-menu-item" t-att-data-id="value.id">
+                <!-- <header class="list-group-item-action" t-att-class="{ active: state.active[project.id] === value.id }" t-on-click="toggleCategory(section, value)"> -->
+                <header class="list-group-item-action" t-att-class="{ active: state.selectedStage === value.id }" t-on-click="toggleStage(value.id)">
+                    <label class="o_search_panel_label mb0">
+                        <div class="o_toggle_fold">
+                            <i t-if="value.vertical_stage_ids.length" t-attf-class="fa fa-caret-{{ state.activeStages.indexOf(value.id) >= 0 ? 'down' : 'right' }}" />
+                        </div>
+                        <span class="o_search_panel_label_title" t-esc="value.name"/>
+                    </label>
+                </header>
+                <ul t-if="value.vertical_stage_ids.length and state.activeStages.indexOf(value.id) >= 0" class="list-group d-block">
+                    <t t-call="{{ constructor.subTemplates.stage }}">
+                        <t t-set="values" t-value="value.vertical_stage_ids"/>
+                    </t>
+                </ul>
+            </li>
+        </t>
     </t>
 </templates>
