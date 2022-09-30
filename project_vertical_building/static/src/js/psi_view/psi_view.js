@@ -84,7 +84,7 @@ class ProjectStageItemView extends owl.Component {
     });
     let searchModel = this.env.searchModel;
     searchModel.display = {
-      controlPanel: false,
+      controlPanel: true,
       searchPanel: false,
     };
     useSubEnv({ searchModel: searchModel });
@@ -129,26 +129,65 @@ class ProjectStageItemView extends owl.Component {
         const record_id = $elem.data("id");
         return _.find(self.model.rawData, (stage) => stage.id === record_id);
       },
-      actions: [
-        {
-          name: "Edit name",
-          onClick: function (record) {
-            alert(record.name);
-          },
-        },
-        {
-          name: "Edit description",
-          onClick: function (record) {
-            alert(record.id);
-          },
-        },
-        {
-          name: "Tenemos Desplegable Joaquin!!",
-          onClick: function (record) {
-            alert(record.id);
-          },
-        },
+      /* group actions by their id to make use of separators between
+      * them in the context menu. Actions not added to any group with
+      * this option will appear in a default group of their own. */
+      actionsGroups: [
+        ['setEditable', 'setUneditable' ],
+        ['deleteRow']
       ],
+      actions: {
+        editName: {
+          name: 'Edit name',
+          iconClass: 'fa-pencil',
+          onClick: function(row) {
+            alert("'Edit name' clicked on '" + row.name + "'");
+          },
+          isEnabled: function(row) {
+            return row.isEditable;
+          }
+        },
+        editDescription: {
+          name: 'Edit description',
+          iconClass: 'fa-pencil',
+          onClick: function(row) {
+            alert("'Edit description' clicked on '" + row.name + "'");
+          },
+          isEnabled: function(row) {
+            return row.isEditable;
+          }
+        },
+        setEditable: {
+          name: 'Set editable',
+          iconClass: 'fa-unlock',
+          onClick: function(row) {
+            alert("'Set editable' clicked on '" + row.name + "'");
+          },
+          isShown: function(row) {
+            return !row.isEditable;
+          }
+        },
+        setUneditable: {
+          name: 'Set uneditable',
+          iconClass: 'fa-lock',
+          onClick: function(row) {
+            alert("'Set uneditable' clicked on '" + row.name + "'");
+          },
+          isShown: function(row) {
+            return row.isEditable;
+          }
+        },
+        deleteRow: {
+          name: 'Delete row',
+          iconClass: 'fa-trash-o',
+          onClick: function(row) {
+            alert("'Delete row' clicked on '" + row.name + "'");
+          },
+          isEnabled: function(row) {
+            return row.isEditable && row.isRemovable;
+          }
+        }
+      }
     });
   }
   //---------------------------------------------------------------------
