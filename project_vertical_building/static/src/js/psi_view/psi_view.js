@@ -132,13 +132,13 @@ class ProjectStageItemView extends owl.Component {
       /* group actions by their id to make use of separators between
       * them in the context menu. Actions not added to any group with
       * this option will appear in a default group of their own. */
-      actionsGroups: [
-        ['setEditable', 'setUneditable' ],
-        ['deleteRow']
-      ],
+      // actionsGroups: [
+      //   ['setEditable', 'setUneditable' ],
+      //   ['deleteRow']
+      // ],
       actions: {
         editName: {
-          name: 'Edit name',
+          name: 'Editar Fase',
           iconClass: 'fa-pencil',
           onClick: function(row) {
             alert("'Edit name' clicked on '" + row.name + "'");
@@ -147,45 +147,49 @@ class ProjectStageItemView extends owl.Component {
             return row.isEditable;
           }
         },
-        editDescription: {
-          name: 'Edit description',
+        createSubStage: {
+          name: 'Crear SubFase',
           iconClass: 'fa-pencil',
           onClick: function(row) {
             alert("'Edit description' clicked on '" + row.name + "'");
           },
-          isEnabled: function(row) {
-            return row.isEditable;
-          }
         },
-        setEditable: {
-          name: 'Set editable',
+        uploadStandar: {
+          name: 'Subir Estandar',
           iconClass: 'fa-unlock',
           onClick: function(row) {
             alert("'Set editable' clicked on '" + row.name + "'");
           },
-          isShown: function(row) {
-            return !row.isEditable;
-          }
+          // isShown: function(row) {
+          //   return !row.isEditable;
+          // }
         },
-        setUneditable: {
-          name: 'Set uneditable',
+        sendToPurchases: {
+          name: 'Enviar a Compra',
           iconClass: 'fa-lock',
           onClick: function(row) {
             alert("'Set uneditable' clicked on '" + row.name + "'");
           },
-          isShown: function(row) {
-            return row.isEditable;
-          }
+          // isShown: function(row) {
+          //   return row.isEditable;
+          // }
         },
-        deleteRow: {
-          name: 'Delete row',
+        globalPurchase: {
+          name: 'Compra Global',
           iconClass: 'fa-trash-o',
           onClick: function(row) {
             alert("'Delete row' clicked on '" + row.name + "'");
           },
-          isEnabled: function(row) {
-            return row.isEditable && row.isRemovable;
-          }
+        },
+        deleteStage: {
+          name: 'Borrar Fase',
+          iconClass: 'fa-trash-o',
+          onClick: function(row) {
+            alert("'Delete row' clicked on '" + row.name + "'");
+          },
+          // isEnabled: function(row) {
+          //   return row.isEditable && row.isRemovable;
+          // }
         }
       }
     });
