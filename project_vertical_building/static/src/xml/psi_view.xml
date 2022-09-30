@@ -40,10 +40,16 @@
                                         <th><input type="checkbox"/></th>
                                         <td><t t-esc="stage.numero_fase ? stage.numero_fase : ''"/></td>
                                         <td><t t-esc="stage.name"/></td>
-                                        <td><t t-esc="stage.fecha_finalizacion ? stage.fecha_finalizacion : ''"/></td>
-                                        <td><t t-esc="stage.cantidad"/></td>
-                                        <td><t t-esc="stage.total.toFixed(2)"/></td>
-                                        <td><t t-esc="stage.type_stage_id[1]"/></td>
+                                        <!-- <td><t t-esc="stage.fecha_finalizacion ? stage.fecha_finalizacion : ''"/></td> -->
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-right"><t t-esc="stage.cantidad"/></td>
+                                        <td class="text-right"><t t-esc="stage.total.toFixed(2)"/></td>
+                                        <td class="text-right"><t t-esc="stage.type_stage_id[1]"/></td>
                                         <td class="text-right vertical-stage-actions">
                                             <a href="#" class="btn btn-sm border"><i class="fa fa-cogs"/></a>
                                             <a href="#" class="btn btn-sm border"><i class="fa fa-cogs"/></a>
