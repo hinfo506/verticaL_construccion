@@ -169,3 +169,16 @@ $vertical-searchpanel-background-color: black;
         }
     }
 }
+
+.bootstrapMenu{
+    color: #434444 !important;
+    ul {
+        width: 100%;
+        li {
+            padding: 7px 4px 7px 4px;
+            a {
+                color: #434444 !important;
+            }
+        }
+    }
+}

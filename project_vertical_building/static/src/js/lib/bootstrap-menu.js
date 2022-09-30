@@ -1,9 +1,558 @@
-!function(t){function n(e){if(o[e])return o[e].exports;var i=o[e]={exports:{},id:e,loaded:!1};return t[e].call(i.exports,i,i.exports,n),i.loaded=!0,i.exports}var o={};return n.m=t,n.c=o,n.p="",n(0)}([function(t,n,o){window.BootstrapMenu=o(1)},function(t,n,o){"use strict";function e(t){var n=f('<div class="dropdown bootstrapMenu" style="z-index:10000;position:absolute;" />'),o=f('<ul class="dropdown-menu" style="position:static;display:block;font-size:0.9em;" />'),e=[];e[0]=[],p.each(t.options.actionsGroups,function(t,n){e[n+1]=[]});var i=!1;p.each(t.options.actions,function(n,o){var r=!1;p.each(t.options.actionsGroups,function(t,n){p.contains(t,o)&&(e[n+1].push(o),r=!0)}),r===!1&&e[0].push(o),"undefined"!=typeof n.iconClass&&(i=!0)});var r=!0;return p.each(e,function(n){0!=n.length&&(r===!1&&o.append('<li class="divider"></li>'),r=!1,p.each(n,function(n){var e=t.options.actions[n];i===!0?o.append('<li role="presentation" data-action="'+n+'"><a href="#" role="menuitem"><i class="fa fa-fw fa-lg '+(e.iconClass||"")+'"></i> <span class="actionName"></span></a></li>'):o.append('<li role="presentation" data-action="'+n+'"><a href="#" role="menuitem"><span class="actionName"></span></a></li>')}),o.append('<li role="presentation" class="noActionsMessage disabled"><a href="#" role="menuitem"><span>'+t.options.noActionsMessage+"</span></a></li>"))}),n.append(o)}function i(t){var n=null;switch(t.options.menuEvent){case"click":n="click";break;case"right-click":n="contextmenu";break;case"hover":n="mouseenter";break;default:throw new Error("Unknown BootstrapMenu 'menuEvent' option")}t.$container.on(n+t.namespace,t.selector,function(n){var o=f(this);return t.open(o,n),!1})}function r(t){t.$container.off(t.namespace)}function s(t){var n=t.options._actionSelectEvent+t.namespace;t.$menu.on(n,function(n){n.preventDefault(),n.stopPropagation();var o=f(n.target),e=o.closest("[data-action]");if(e&&e.length&&!e.is(".disabled")){var i=e.data("action"),r=t.options.fetchElementData(t.$openTarget);t.options.actions[i].onClick(r),t.close()}})}function c(t){t.$menu.off(t.namespace)}function a(t){switch(t.options.menuEvent){case"click":break;case"right-click":break;case"hover":var n=t.$openTarget.add(t.$menu);n.on("mouseleave"+t.closeNamespace,function(o){var e=o.toElement||o.relatedTarget;t.$openTarget.is(e)||t.$menu.is(e)||(n.off(t.closeNamespace),t.close())});break;default:throw new Error("Unknown BootstrapMenu 'menuEvent' option")}t.$container.on("click"+t.closeNamespace,function(){t.close()})}function u(t){t.$container.off(t.closeNamespace)}var l=o(2),f=o(3);o(4);var p=function(){throw new Error("Custom lodash build for BootstrapMenu. lodash chaining is not included")};p.noop=o(6),p.each=o(7),p.contains=o(34),p.extend=o(42),p.uniqueId=o(49),p.isFunction=o(19);var h={container:"body",fetchElementData:p.noop,menuSource:"mouse",menuPosition:"belowLeft",menuEvent:"right-click",actionsGroups:[],noActionsMessage:"No available actions",_actionSelectEvent:"click"},d=function(t,n){this.selector=t,this.options=p.extend({},h,n),this.namespace=p.uniqueId(".BootstrapMenu_"),this.closeNamespace=p.uniqueId(".BootstrapMenuClose_"),this.init()},v=[];d.prototype.init=function(){this.$container=f(this.options.container),this.$menu=e(this),this.$menuList=this.$menu.children(),this.$menu.hide().appendTo(this.$container),this.$openTarget=null,this.openEvent=null,i(this),s(this),v.push(this)},d.prototype.updatePosition=function(){var t=null,n=null,o=null;switch(this.options.menuSource){case"element":n=this.$openTarget;break;case"mouse":n=this.openEvent;break;default:throw new Error("Unknown BootstrapMenu 'menuSource' option")}switch(this.options.menuPosition){case"belowRight":t="right top",o="right bottom";break;case"belowLeft":t="left top",o="left bottom";break;case"aboveRight":t="right bottom",o="right top";break;case"aboveLeft":t="left bottom",o="left top";break;default:throw new Error("Unknown BootstrapMenu 'menuPosition' option")}this.$menu.css({display:"block"}),this.$menu.css({height:this.$menuList.height(),width:this.$menuList.width()}),this.$menu.position({my:t,at:o,of:n})},d.prototype.open=function(t,n){var o=this;d.closeAll(),this.$openTarget=t,this.openEvent=n;var e=o.options.fetchElementData(o.$openTarget),i=this.$menu.find("[data-action]"),r=this.$menu.find(".noActionsMessage");i.show(),r.hide();var s=0;i.each(function(){var t=f(this),n=t.data("action"),i=o.options.actions[n],r=i.classNames||null;return r&&p.isFunction(r)&&(r=r(e)),t.attr("class",l(r||"")),i.isShown&&i.isShown(e)===!1?void t.hide():(s++,t.find(".actionName").html(p.isFunction(i.name)&&i.name(e)||i.name),void(i.isEnabled&&i.isEnabled(e)===!1&&t.addClass("disabled")))}),0===s&&r.show(),this.updatePosition(),this.$menu.show(),a(this)},d.prototype.close=function(){this.$menu.hide(),u(this)},d.prototype.destroy=function(){this.close(),r(this),c(this)},d.closeAll=function(){p.each(v,function(t){t.close()})},t.exports=d},function(t,n,o){var e,i;/*!
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* webpack entry file to build a standalone browser script. */
+	window.BootstrapMenu = __webpack_require__(1);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var classNames = __webpack_require__(2);
+	var $ = __webpack_require__(3);
+	__webpack_require__(4);
+
+	// modular lodash requires
+	var _ = function() {
+	  throw new Error('Custom lodash build for BootstrapMenu. lodash chaining is not included');
+	};
+
+	_.noop = __webpack_require__(6);
+	_.each = __webpack_require__(7);
+	_.contains = __webpack_require__(34);
+	_.extend = __webpack_require__(42);
+	_.uniqueId = __webpack_require__(49);
+	_.isFunction = __webpack_require__(19);
+
+
+	var defaultOptions = {
+	    /* container of the context menu, where it will be created and where
+	     * event listeners will be installed. */
+	    container: 'body',
+
+	    /* user-defined function to obtain specific data about the currently
+	     * opened element, to pass it to the rest of user-defined functions
+	     * of an action. */
+	    fetchElementData: _.noop,
+
+	    /* what the source of the context menu should be when opened.
+	     * Valid values are 'mouse' and 'element'. */
+	    menuSource: 'mouse',
+
+	    /* how to calculate the position of the context menu based on its source.
+	     * Valid values are 'aboveLeft', 'aboveRight', 'belowLeft', and 'belowRight'. */
+	    menuPosition: 'belowLeft',
+
+	    /* the event to listen to open the menu.
+	     * Valid values are 'click', 'right-click', 'hover' */
+	    menuEvent: 'right-click', // TODO rename to menuAction in next mayor version
+
+	    /* group actions to render them next to each other, with a separator
+	     * between each group. */
+	    actionsGroups: [],
+
+	    /* message to show when there are no actions to show in a menu
+	     * (isShown() returned false on all actions) */
+	    noActionsMessage: 'No available actions',
+
+	    /* In some weird cases, another plugin may be installing 'click' listeners
+	     * in the anchors used for each action of the context menu, and stopping
+	     * the event bubbling before it reachs this plugin's listener.
+	     *
+	     * For those cases, _actionSelectEvent can be used to change the event we
+	     * listen to, for example to 'mousedown'.
+	     *
+	     * Unless the context menu is not working due to this and a workaround is
+	     * needed, this option can be safely ignored.
+	     */
+	    _actionSelectEvent: 'click'
+	};
+
+	function renderMenu(_this) {
+	    var $menu = $('<div class="dropdown bootstrapMenu" style="z-index:10000;position:absolute;" />');
+
+	    var $ul = $('<ul class="dropdown-menu" style="position:static;display:block;font-size:0.9em;" />');
+
+	    // group all actions following the actionsGroups option, to
+	    // add a separator between each of them.
+	    var groups = [];
+
+	    // default group where all ungrouped actions will go
+	    groups[0] = [];
+
+	    // add the rest of groups
+	    _.each(_this.options.actionsGroups, function(groupArr, ind) {
+	        groups[ind+1] = [];
+	    });
+
+	    // find out if any of the actions has an icon
+	    var actionsHaveIcon = false;
+
+	    // add each action to the group it belongs to, or the default group
+	    _.each(_this.options.actions, function(action, actionId) {
+	        var addedToGroup = false;
+
+	        _.each(_this.options.actionsGroups, function(groupArr, ind) {
+	            if (_.contains(groupArr, actionId)) {
+	                groups[ind+1].push(actionId);
+	                addedToGroup = true;
+	            }
+	        });
+
+	        if (addedToGroup === false) {
+	            groups[0].push(actionId);
+	        }
+
+	        if (typeof action.iconClass !== 'undefined') {
+	            actionsHaveIcon = true;
+	        }
+	    });
+
+	    var isFirstNonEmptyGroup = true;
+
+	    _.each(groups, function(actionsIds) {
+	        if (actionsIds.length == 0)
+	            return;
+
+	        if (isFirstNonEmptyGroup === false) {
+	            $ul.append('<li class="divider"></li>');
+	        }
+	        isFirstNonEmptyGroup = false;
+
+	        _.each(actionsIds, function(actionId) {
+	            var action = _this.options.actions[actionId];
+
+	            /* At least an action has an icon. Add the icon of the current action,
+	             * or room to align it with the actions which do have one. */
+	            if (actionsHaveIcon === true) {
+	                $ul.append(
+	                    '<li role="presentation" data-action="'+actionId+'">' +
+	                    '<a href="#" role="menuitem">' +
+	                    '<i class="fa fa-fw fa-lg ' + (action.iconClass || '') + '"></i> ' +
+	                    '<span class="actionName"></span>' +
+	                    '</a>' +
+	                    '</li>'
+	                );
+	            }
+	            // neither of the actions have an icon.
+	            else {
+	                $ul.append(
+	                    '<li role="presentation" data-action="'+actionId+'">' +
+	                    '<a href="#" role="menuitem"><span class="actionName"></span></a>' +
+	                    '</li>'
+	                );
+	            }
+	        });
+
+	        $ul.append(
+	            '<li role="presentation" class="noActionsMessage disabled">' +
+	            '<a href="#" role="menuitem">' +
+	            '<span>' + _this.options.noActionsMessage + '</span>' +
+	            '</a>' +
+	            '</li>'
+	        );
+	    });
+
+	    return $menu.append($ul);
+	}
+
+	function setupOpenEventListeners(_this) {
+	    var openEventName = null;
+
+	    switch (_this.options.menuEvent) {
+	        case 'click':
+	            openEventName = 'click';
+	            break;
+	        case 'right-click':
+	            openEventName = 'contextmenu';
+	            break;
+	        case 'hover':
+	            openEventName = 'mouseenter';
+	            break;
+	        default:
+	            throw new Error("Unknown BootstrapMenu 'menuEvent' option");
+	    }
+
+	    // install the handler for every future elements where
+	    // the context menu will open
+	    _this.$container.on(openEventName + _this.namespace, _this.selector, function(evt) {
+	        var $openTarget = $(this);
+
+	        _this.open($openTarget, evt);
+
+	        // cancel event propagation, to avoid it bubbling up to this.$container
+	        // and closing the context menu as if the user clicked outside the menu.
+	        return false;
+	    });
+	}
+
+	function clearOpenEventListeners(_this) {
+	    _this.$container.off(_this.namespace);
+	}
+
+	function setupActionsEventListeners(_this) {
+	    var actionSelectEvent = _this.options._actionSelectEvent + _this.namespace;
+
+	    // handler to run when an option is selected
+	    _this.$menu.on(actionSelectEvent, function(evt) {
+	        evt.preventDefault();
+	        evt.stopPropagation();
+
+	        var $target = $(evt.target);
+	        var $action = $target.closest('[data-action]');
+
+	        // check if the clicked element is an action, and its enabled.
+	        // if not don't do anything
+	        if (!$action || !$action.length || $action.is('.disabled')) {
+	            return;
+	        }
+
+	        var actionId = $action.data('action');
+	        var targetData = _this.options.fetchElementData(_this.$openTarget);
+
+	        /* call the user click handler. It receives the optional user-defined data,
+	         * or undefined. */
+	        _this.options.actions[actionId].onClick(targetData);
+
+	        // close the menu
+	        _this.close();
+	    });
+	}
+
+	function clearActionsEventListeners(_this) {
+	    _this.$menu.off(_this.namespace);
+	}
+
+	function setupCloseEventListeners(_this) {
+	    switch (_this.options.menuEvent) {
+	        case 'click':
+	            break;
+	        case 'right-click':
+	            break;
+	        case 'hover':
+	            // close the menu when the mouse is moved outside both
+	            // the element where the context menu was opened, and
+	            // the context menu itself.
+	            var $elemsToCheck = _this.$openTarget.add(_this.$menu);
+
+	            $elemsToCheck.on('mouseleave' + _this.closeNamespace, function(evt) {
+	                var destElement = evt.toElement || evt.relatedTarget;
+	                if (!_this.$openTarget.is(destElement) && !_this.$menu.is(destElement)) {
+	                    $elemsToCheck.off(_this.closeNamespace);
+	                    _this.close();
+	                }
+	            });
+	            break;
+	        default:
+	            throw new Error("Unknown BootstrapMenu 'menuEvent' option");
+	    }
+
+	    // it the user clicks outside the context menu, close it.
+	    _this.$container.on('click' + _this.closeNamespace, function() {
+	        _this.close();
+	    });
+	}
+
+	function clearCloseEventListeners(_this) {
+	    _this.$container.off(_this.closeNamespace);
+	}
+
+	var BootstrapMenu = function(selector, options) {
+	    this.selector = selector;
+	    this.options = _.extend({}, defaultOptions, options);
+
+	    // namespaces to use when registering event listeners
+	    this.namespace = _.uniqueId('.BootstrapMenu_');
+	    this.closeNamespace = _.uniqueId('.BootstrapMenuClose_');
+
+	    this.init();
+	};
+
+	var existingInstances = [];
+
+	BootstrapMenu.prototype.init = function() {
+	    this.$container = $(this.options.container);
+
+	    // jQuery object of the rendered context menu. Not part of the DOM yet.
+	    this.$menu = renderMenu(this);
+	    this.$menuList = this.$menu.children();
+
+	    /* append the context menu to <body> to be able to use "position: absolute"
+	     * absolute to the whole window. */
+	    this.$menu.hide().appendTo(this.$container);
+
+	    /* the element in which the context menu was opened. Updated every time
+	     * the menu is opened. */
+	    this.$openTarget = null;
+
+	    /* event that triggered the context menu to open. Updated every time
+	     * the menu is opened. */
+	    this.openEvent = null;
+
+	    setupOpenEventListeners(this);
+
+	    setupActionsEventListeners(this);
+
+	    // keep track of all the existing context menu instances in the page
+	    existingInstances.push(this);
+	};
+
+	BootstrapMenu.prototype.updatePosition = function() {
+	    var menuLocation = null; // my
+	    var relativeToElem = null; // of
+	    var relativeToLocation = null; // at
+
+	    switch (this.options.menuSource) {
+	        case 'element':
+	            relativeToElem = this.$openTarget;
+	            break;
+	        case 'mouse':
+	            relativeToElem = this.openEvent;
+	            break;
+	        default:
+	            throw new Error("Unknown BootstrapMenu 'menuSource' option");
+	    }
+
+	    switch (this.options.menuPosition) {
+	        case 'belowRight':
+	            menuLocation = 'right top';
+	            relativeToLocation = 'right bottom';
+	            break;
+	        case 'belowLeft':
+	            menuLocation = 'left top';
+	            relativeToLocation = 'left bottom';
+	            break;
+	        case 'aboveRight':
+	            menuLocation = 'right bottom';
+	            relativeToLocation = 'right top';
+	            break;
+	        case 'aboveLeft':
+	            menuLocation = 'left bottom';
+	            relativeToLocation = 'left top';
+	            break;
+	        default:
+	            throw new Error("Unknown BootstrapMenu 'menuPosition' option");
+	    }
+
+	    // update the menu's height and width manually
+	    this.$menu.css({ display: 'block' });
+
+	    // once the menu is not hidden anymore, we can obtain its content's height and width,
+	    // to manually update it in the menu
+	    this.$menu.css({
+	        height: this.$menuList.height(),
+	        width: this.$menuList.width() + 50
+	    });
+
+		console.log(this.$menuList.height());
+		console.log(this.$menuList.width());
+
+	    this.$menu.position({ my: menuLocation, at: relativeToLocation, of: relativeToElem });
+	};
+
+	// open the context menu
+	BootstrapMenu.prototype.open = function($openTarget, event) {
+	    var _this = this;
+
+	    // first close all open instances of opened context menus in the page
+	    BootstrapMenu.closeAll();
+
+	    this.$openTarget = $openTarget;
+
+	    this.openEvent = event;
+
+	    var targetData = _this.options.fetchElementData(_this.$openTarget);
+
+	    var $actions = this.$menu.find('[data-action]'),
+	        $noActionsMsg = this.$menu.find('.noActionsMessage');
+
+	    // clear previously hidden actions, and hide by default the 'No actions' message
+	    $actions.show();
+	    $noActionsMsg.hide();
+
+	    var numShown = 0;
+
+	    /* go through all actions to update the text to show, which ones to show
+	     * enabled/disabled and which ones to hide. */
+	    $actions.each(function() {
+	        var $action = $(this);
+
+	        var actionId = $action.data('action');
+	        var action = _this.options.actions[actionId];
+
+	        var classes = action.classNames || null;
+
+	        if (classes && _.isFunction(classes))
+	            classes = classes(targetData);
+
+	        $action.attr('class', classNames(classes || ''));
+
+	        if (action.isShown && action.isShown(targetData) === false) {
+	            $action.hide();
+	            return;
+	        } else {
+	            numShown++;
+	        }
+
+	        // the name provided for an action may be dynamic, provided as a function
+	        $action.find('.actionName').html(
+	            _.isFunction(action.name) && action.name(targetData) || action.name
+	        );
+
+	        if (action.isEnabled && action.isEnabled(targetData) === false) {
+	            $action.addClass('disabled');
+	        }
+	    });
+
+	    if (numShown === 0) {
+	        $noActionsMsg.show();
+	    }
+
+	    // once it is known which actions are or arent being shown
+	    // (so we know the final height of the context menu),
+	    // calculate its position
+	    this.updatePosition();
+
+	    this.$menu.show();
+
+	    setupCloseEventListeners(this);
+	};
+
+	// close the context menu
+	BootstrapMenu.prototype.close = function() {
+	    // hide the menu
+	    this.$menu.hide();
+
+	    clearCloseEventListeners(this);
+	};
+
+	BootstrapMenu.prototype.destroy = function() {
+	    this.close();
+	    clearOpenEventListeners(this);
+	    clearActionsEventListeners(this);
+	};
+
+	// close all instances of context menus
+	BootstrapMenu.closeAll = function() {
+	    _.each(existingInstances, function(contextMenu) {
+	        contextMenu.close();
+	    });
+	};
+
+	module.exports = BootstrapMenu;
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	  Copyright (c) 2016 Jed Watson.
 	  Licensed under the MIT License (MIT), see
 	  http://jedwatson.github.io/classnames
 	*/
-!function(){"use strict";function o(){for(var t=[],n=0;n<arguments.length;n++){var e=arguments[n];if(e){var i=typeof e;if("string"===i||"number"===i)t.push(e);else if(Array.isArray(e))t.push(o.apply(null,e));else if("object"===i)for(var s in e)r.call(e,s)&&e[s]&&t.push(s)}}return t.join(" ")}var r={}.hasOwnProperty;"undefined"!=typeof t&&t.exports?t.exports=o:(e=[],i=function(){return o}.apply(n,e),!(void 0!==i&&(t.exports=i)))}()},function(t,n){t.exports=jQuery},function(t,n,o){var e,i,r;/*!
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	module.exports = jQuery;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	 * jQuery UI Position 1.12.0
 	 * http://jqueryui.com
 	 *
@@ -13,4 +562,2031 @@
 	 *
 	 * http://api.jqueryui.com/position/
 	 */
-!function(s){i=[o(3),o(5)],e=s,r="function"==typeof e?e.apply(n,i):e,!(void 0!==r&&(t.exports=r))}(function(t){return function(){function n(t,n,o){return[parseFloat(t[0])*(h.test(t[0])?n/100:1),parseFloat(t[1])*(h.test(t[1])?o/100:1)]}function o(n,o){return parseInt(t.css(n,o),10)||0}function e(n){var o=n[0];return 9===o.nodeType?{width:n.width(),height:n.height(),offset:{top:0,left:0}}:t.isWindow(o)?{width:n.width(),height:n.height(),offset:{top:n.scrollTop(),left:n.scrollLeft()}}:o.preventDefault?{width:0,height:0,offset:{top:o.pageY,left:o.pageX}}:{width:n.outerWidth(),height:n.outerHeight(),offset:n.offset()}}var i,r,s=Math.max,c=Math.abs,a=Math.round,u=/left|center|right/,l=/top|center|bottom/,f=/[\+\-]\d+(\.[\d]+)?%?/,p=/^\w+/,h=/%$/,d=t.fn.position;r=function(){var n=t("<div>").css("position","absolute").appendTo("body").offset({top:1.5,left:1.5}),o=1.5===n.offset().top;return n.remove(),r=function(){return o},o},t.position={scrollbarWidth:function(){if(void 0!==i)return i;var n,o,e=t("<div style='display:block;position:absolute;width:50px;height:50px;overflow:hidden;'><div style='height:100px;width:auto;'></div></div>"),r=e.children()[0];return t("body").append(e),n=r.offsetWidth,e.css("overflow","scroll"),o=r.offsetWidth,n===o&&(o=e[0].clientWidth),e.remove(),i=n-o},getScrollInfo:function(n){var o=n.isWindow||n.isDocument?"":n.element.css("overflow-x"),e=n.isWindow||n.isDocument?"":n.element.css("overflow-y"),i="scroll"===o||"auto"===o&&n.width<n.element[0].scrollWidth,r="scroll"===e||"auto"===e&&n.height<n.element[0].scrollHeight;return{width:r?t.position.scrollbarWidth():0,height:i?t.position.scrollbarWidth():0}},getWithinInfo:function(n){var o=t(n||window),e=t.isWindow(o[0]),i=!!o[0]&&9===o[0].nodeType,r=!e&&!i;return{element:o,isWindow:e,isDocument:i,offset:r?t(n).offset():{left:0,top:0},scrollLeft:o.scrollLeft(),scrollTop:o.scrollTop(),width:o.outerWidth(),height:o.outerHeight()}}},t.fn.position=function(i){if(!i||!i.of)return d.apply(this,arguments);i=t.extend({},i);var h,v,m,g,y,w,x=t(i.of),b=t.position.getWithinInfo(i.within),$=t.position.getScrollInfo(b),W=(i.collision||"flip").split(" "),k={};return w=e(x),x[0].preventDefault&&(i.at="left top"),v=w.width,m=w.height,g=w.offset,y=t.extend({},g),t.each(["my","at"],function(){var t,n,o=(i[this]||"").split(" ");1===o.length&&(o=u.test(o[0])?o.concat(["center"]):l.test(o[0])?["center"].concat(o):["center","center"]),o[0]=u.test(o[0])?o[0]:"center",o[1]=l.test(o[1])?o[1]:"center",t=f.exec(o[0]),n=f.exec(o[1]),k[this]=[t?t[0]:0,n?n[0]:0],i[this]=[p.exec(o[0])[0],p.exec(o[1])[0]]}),1===W.length&&(W[1]=W[0]),"right"===i.at[0]?y.left+=v:"center"===i.at[0]&&(y.left+=v/2),"bottom"===i.at[1]?y.top+=m:"center"===i.at[1]&&(y.top+=m/2),h=n(k.at,v,m),y.left+=h[0],y.top+=h[1],this.each(function(){var e,u,l=t(this),f=l.outerWidth(),p=l.outerHeight(),d=o(this,"marginLeft"),w=o(this,"marginTop"),E=f+d+o(this,"marginRight")+$.width,T=p+w+o(this,"marginBottom")+$.height,j=t.extend({},y),P=n(k.my,l.outerWidth(),l.outerHeight());"right"===i.my[0]?j.left-=f:"center"===i.my[0]&&(j.left-=f/2),"bottom"===i.my[1]?j.top-=p:"center"===i.my[1]&&(j.top-=p/2),j.left+=P[0],j.top+=P[1],r()||(j.left=a(j.left),j.top=a(j.top)),e={marginLeft:d,marginTop:w},t.each(["left","top"],function(n,o){t.ui.position[W[n]]&&t.ui.position[W[n]][o](j,{targetWidth:v,targetHeight:m,elemWidth:f,elemHeight:p,collisionPosition:e,collisionWidth:E,collisionHeight:T,offset:[h[0]+P[0],h[1]+P[1]],my:i.my,at:i.at,within:b,elem:l})}),i.using&&(u=function(t){var n=g.left-j.left,o=n+v-f,e=g.top-j.top,r=e+m-p,a={target:{element:x,left:g.left,top:g.top,width:v,height:m},element:{element:l,left:j.left,top:j.top,width:f,height:p},horizontal:o<0?"left":n>0?"right":"center",vertical:r<0?"top":e>0?"bottom":"middle"};v<f&&c(n+o)<v&&(a.horizontal="center"),m<p&&c(e+r)<m&&(a.vertical="middle"),s(c(n),c(o))>s(c(e),c(r))?a.important="horizontal":a.important="vertical",i.using.call(this,t,a)}),l.offset(t.extend(j,{using:u}))})},t.ui.position={fit:{left:function(t,n){var o,e=n.within,i=e.isWindow?e.scrollLeft:e.offset.left,r=e.width,c=t.left-n.collisionPosition.marginLeft,a=i-c,u=c+n.collisionWidth-r-i;n.collisionWidth>r?a>0&&u<=0?(o=t.left+a+n.collisionWidth-r-i,t.left+=a-o):u>0&&a<=0?t.left=i:a>u?t.left=i+r-n.collisionWidth:t.left=i:a>0?t.left+=a:u>0?t.left-=u:t.left=s(t.left-c,t.left)},top:function(t,n){var o,e=n.within,i=e.isWindow?e.scrollTop:e.offset.top,r=n.within.height,c=t.top-n.collisionPosition.marginTop,a=i-c,u=c+n.collisionHeight-r-i;n.collisionHeight>r?a>0&&u<=0?(o=t.top+a+n.collisionHeight-r-i,t.top+=a-o):u>0&&a<=0?t.top=i:a>u?t.top=i+r-n.collisionHeight:t.top=i:a>0?t.top+=a:u>0?t.top-=u:t.top=s(t.top-c,t.top)}},flip:{left:function(t,n){var o,e,i=n.within,r=i.offset.left+i.scrollLeft,s=i.width,a=i.isWindow?i.scrollLeft:i.offset.left,u=t.left-n.collisionPosition.marginLeft,l=u-a,f=u+n.collisionWidth-s-a,p="left"===n.my[0]?-n.elemWidth:"right"===n.my[0]?n.elemWidth:0,h="left"===n.at[0]?n.targetWidth:"right"===n.at[0]?-n.targetWidth:0,d=-2*n.offset[0];l<0?(o=t.left+p+h+d+n.collisionWidth-s-r,(o<0||o<c(l))&&(t.left+=p+h+d)):f>0&&(e=t.left-n.collisionPosition.marginLeft+p+h+d-a,(e>0||c(e)<f)&&(t.left+=p+h+d))},top:function(t,n){var o,e,i=n.within,r=i.offset.top+i.scrollTop,s=i.height,a=i.isWindow?i.scrollTop:i.offset.top,u=t.top-n.collisionPosition.marginTop,l=u-a,f=u+n.collisionHeight-s-a,p="top"===n.my[1],h=p?-n.elemHeight:"bottom"===n.my[1]?n.elemHeight:0,d="top"===n.at[1]?n.targetHeight:"bottom"===n.at[1]?-n.targetHeight:0,v=-2*n.offset[1];l<0?(e=t.top+h+d+v+n.collisionHeight-s-r,(e<0||e<c(l))&&(t.top+=h+d+v)):f>0&&(o=t.top-n.collisionPosition.marginTop+h+d+v-a,(o>0||c(o)<f)&&(t.top+=h+d+v))}},flipfit:{left:function(){t.ui.position.flip.left.apply(this,arguments),t.ui.position.fit.left.apply(this,arguments)},top:function(){t.ui.position.flip.top.apply(this,arguments),t.ui.position.fit.top.apply(this,arguments)}}}}(),t.ui.position})},function(t,n,o){var e,i,r;!function(s){i=[o(3)],e=s,r="function"==typeof e?e.apply(n,i):e,!(void 0!==r&&(t.exports=r))}(function(t){return t.ui=t.ui||{},t.ui.version="1.12.0"})},function(t,n){function o(){}t.exports=o},function(t,n,o){t.exports=o(8)},function(t,n,o){var e=o(9),i=o(10),r=o(31),s=r(e,i);t.exports=s},function(t,n){function o(t,n){for(var o=-1,e=t.length;++o<e&&n(t[o],o,t)!==!1;);return t}t.exports=o},function(t,n,o){var e=o(11),i=o(30),r=i(e);t.exports=r},function(t,n,o){function e(t,n){return i(t,n,r)}var i=o(12),r=o(16);t.exports=e},function(t,n,o){var e=o(13),i=e();t.exports=i},function(t,n,o){function e(t){return function(n,o,e){for(var r=i(n),s=e(n),c=s.length,a=t?c:-1;t?a--:++a<c;){var u=s[a];if(o(r[u],u,r)===!1)break}return n}}var i=o(14);t.exports=e},function(t,n,o){function e(t){return i(t)?t:Object(t)}var i=o(15);t.exports=e},function(t,n){function o(t){var n=typeof t;return!!t&&("object"==n||"function"==n)}t.exports=o},function(t,n,o){var e=o(17),i=o(21),r=o(15),s=o(25),c=e(Object,"keys"),a=c?function(t){var n=null==t?void 0:t.constructor;return"function"==typeof n&&n.prototype===t||"function"!=typeof t&&i(t)?s(t):r(t)?c(t):[]}:s;t.exports=a},function(t,n,o){function e(t,n){var o=null==t?void 0:t[n];return i(o)?o:void 0}var i=o(18);t.exports=e},function(t,n,o){function e(t){return null!=t&&(i(t)?l.test(a.call(t)):r(t)&&s.test(t))}var i=o(19),r=o(20),s=/^\[object .+?Constructor\]$/,c=Object.prototype,a=Function.prototype.toString,u=c.hasOwnProperty,l=RegExp("^"+a.call(u).replace(/[\\^$.*+?()[\]{}|]/g,"\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,"$1.*?")+"$");t.exports=e},function(t,n,o){function e(t){return i(t)&&c.call(t)==r}var i=o(15),r="[object Function]",s=Object.prototype,c=s.toString;t.exports=e},function(t,n){function o(t){return!!t&&"object"==typeof t}t.exports=o},function(t,n,o){function e(t){return null!=t&&r(i(t))}var i=o(22),r=o(24);t.exports=e},function(t,n,o){var e=o(23),i=e("length");t.exports=i},function(t,n){function o(t){return function(n){return null==n?void 0:n[t]}}t.exports=o},function(t,n){function o(t){return"number"==typeof t&&t>-1&&t%1==0&&t<=e}var e=9007199254740991;t.exports=o},function(t,n,o){function e(t){for(var n=a(t),o=n.length,e=o&&t.length,u=!!e&&c(e)&&(r(t)||i(t)),f=-1,p=[];++f<o;){var h=n[f];(u&&s(h,e)||l.call(t,h))&&p.push(h)}return p}var i=o(26),r=o(27),s=o(28),c=o(24),a=o(29),u=Object.prototype,l=u.hasOwnProperty;t.exports=e},function(t,n,o){function e(t){return r(t)&&i(t)&&c.call(t,"callee")&&!a.call(t,"callee")}var i=o(21),r=o(20),s=Object.prototype,c=s.hasOwnProperty,a=s.propertyIsEnumerable;t.exports=e},function(t,n,o){var e=o(17),i=o(24),r=o(20),s="[object Array]",c=Object.prototype,a=c.toString,u=e(Array,"isArray"),l=u||function(t){return r(t)&&i(t.length)&&a.call(t)==s};t.exports=l},function(t,n){function o(t,n){return t="number"==typeof t||e.test(t)?+t:-1,n=null==n?i:n,t>-1&&t%1==0&&t<n}var e=/^\d+$/,i=9007199254740991;t.exports=o},function(t,n,o){function e(t){if(null==t)return[];a(t)||(t=Object(t));var n=t.length;n=n&&c(n)&&(r(t)||i(t))&&n||0;for(var o=t.constructor,e=-1,u="function"==typeof o&&o.prototype===t,f=Array(n),p=n>0;++e<n;)f[e]=e+"";for(var h in t)p&&s(h,n)||"constructor"==h&&(u||!l.call(t,h))||f.push(h);return f}var i=o(26),r=o(27),s=o(28),c=o(24),a=o(15),u=Object.prototype,l=u.hasOwnProperty;t.exports=e},function(t,n,o){function e(t,n){return function(o,e){var c=o?i(o):0;if(!r(c))return t(o,e);for(var a=n?c:-1,u=s(o);(n?a--:++a<c)&&e(u[a],a,u)!==!1;);return o}}var i=o(22),r=o(24),s=o(14);t.exports=e},function(t,n,o){function e(t,n){return function(o,e,s){return"function"==typeof e&&void 0===s&&r(o)?t(o,e):n(o,i(e,s,3))}}var i=o(32),r=o(27);t.exports=e},function(t,n,o){function e(t,n,o){if("function"!=typeof t)return i;if(void 0===n)return t;switch(o){case 1:return function(o){return t.call(n,o)};case 3:return function(o,e,i){return t.call(n,o,e,i)};case 4:return function(o,e,i,r){return t.call(n,o,e,i,r)};case 5:return function(o,e,i,r,s){return t.call(n,o,e,i,r,s)}}return function(){return t.apply(n,arguments)}}var i=o(33);t.exports=e},function(t,n){function o(t){return t}t.exports=o},function(t,n,o){t.exports=o(35)},function(t,n,o){function e(t,n,o,e){var p=t?r(t):0;return a(p)||(t=l(t),p=t.length),o="number"!=typeof o||e&&c(n,o,e)?0:o<0?f(p+o,0):o||0,"string"==typeof t||!s(t)&&u(t)?o<=p&&t.indexOf(n,o)>-1:!!p&&i(t,n,o)>-1}var i=o(36),r=o(22),s=o(27),c=o(38),a=o(24),u=o(39),l=o(40),f=Math.max;t.exports=e},function(t,n,o){function e(t,n,o){if(n!==n)return i(t,o);for(var e=o-1,r=t.length;++e<r;)if(t[e]===n)return e;return-1}var i=o(37);t.exports=e},function(t,n){function o(t,n,o){for(var e=t.length,i=n+(o?0:-1);o?i--:++i<e;){var r=t[i];if(r!==r)return i}return-1}t.exports=o},function(t,n,o){function e(t,n,o){if(!s(o))return!1;var e=typeof n;if("number"==e?i(o)&&r(n,o.length):"string"==e&&n in o){var c=o[n];return t===t?t===c:c!==c}return!1}var i=o(21),r=o(28),s=o(15);t.exports=e},function(t,n,o){function e(t){return"string"==typeof t||i(t)&&c.call(t)==r}var i=o(20),r="[object String]",s=Object.prototype,c=s.toString;t.exports=e},function(t,n,o){function e(t){return i(t,r(t))}var i=o(41),r=o(16);t.exports=e},function(t,n){function o(t,n){for(var o=-1,e=n.length,i=Array(e);++o<e;)i[o]=t[n[o]];return i}t.exports=o},function(t,n,o){t.exports=o(43)},function(t,n,o){var e=o(44),i=o(45),r=o(47),s=r(function(t,n,o){return o?e(t,n,o):i(t,n)});t.exports=s},function(t,n,o){function e(t,n,o){for(var e=-1,r=i(n),s=r.length;++e<s;){var c=r[e],a=t[c],u=o(a,n[c],c,t,n);(u===u?u===a:a!==a)&&(void 0!==a||c in t)||(t[c]=u)}return t}var i=o(16);t.exports=e},function(t,n,o){function e(t,n){return null==n?t:i(n,r(n),t)}var i=o(46),r=o(16);t.exports=e},function(t,n){function o(t,n,o){o||(o={});for(var e=-1,i=n.length;++e<i;){var r=n[e];o[r]=t[r]}return o}t.exports=o},function(t,n,o){function e(t){return s(function(n,o){var e=-1,s=null==n?0:o.length,c=s>2?o[s-2]:void 0,a=s>2?o[2]:void 0,u=s>1?o[s-1]:void 0;for("function"==typeof c?(c=i(c,u,5),s-=2):(c="function"==typeof u?u:void 0,s-=c?1:0),a&&r(o[0],o[1],a)&&(c=s<3?void 0:c,s=1);++e<s;){var l=o[e];l&&t(n,l,c)}return n})}var i=o(32),r=o(38),s=o(48);t.exports=e},function(t,n){function o(t,n){if("function"!=typeof t)throw new TypeError(e);return n=i(void 0===n?t.length-1:+n||0,0),function(){for(var o=arguments,e=-1,r=i(o.length-n,0),s=Array(r);++e<r;)s[e]=o[n+e];switch(n){case 0:return t.call(this,s);case 1:return t.call(this,o[0],s);case 2:return t.call(this,o[0],o[1],s)}var c=Array(n+1);for(e=-1;++e<n;)c[e]=o[e];return c[n]=s,t.apply(this,c)}}var e="Expected a function",i=Math.max;t.exports=o},function(t,n,o){function e(t){var n=++r;return i(t)+n}var i=o(50),r=0;t.exports=e},function(t,n){function o(t){return null==t?"":t+""}t.exports=o}]);
+
+	//>>label: Position
+	//>>group: Core
+	//>>description: Positions elements relative to other elements.
+	//>>docs: http://api.jqueryui.com/position/
+	//>>demos: http://jqueryui.com/position/
+
+	( function( factory ) {
+		if ( true ) {
+
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(3), __webpack_require__(5) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+
+			// Browser globals
+			factory( jQuery );
+		}
+	}( function( $ ) {
+	( function() {
+	var cachedScrollbarWidth, supportsOffsetFractions,
+		max = Math.max,
+		abs = Math.abs,
+		round = Math.round,
+		rhorizontal = /left|center|right/,
+		rvertical = /top|center|bottom/,
+		roffset = /[\+\-]\d+(\.[\d]+)?%?/,
+		rposition = /^\w+/,
+		rpercent = /%$/,
+		_position = $.fn.position;
+
+	// Support: IE <=9 only
+	supportsOffsetFractions = function() {
+		var element = $( "<div>" )
+				.css( "position", "absolute" )
+				.appendTo( "body" )
+				.offset( {
+					top: 1.5,
+					left: 1.5
+				} ),
+			support = element.offset().top === 1.5;
+
+		element.remove();
+
+		supportsOffsetFractions = function() {
+			return support;
+		};
+
+		return support;
+	};
+
+	function getOffsets( offsets, width, height ) {
+		return [
+			parseFloat( offsets[ 0 ] ) * ( rpercent.test( offsets[ 0 ] ) ? width / 100 : 1 ),
+			parseFloat( offsets[ 1 ] ) * ( rpercent.test( offsets[ 1 ] ) ? height / 100 : 1 )
+		];
+	}
+
+	function parseCss( element, property ) {
+		return parseInt( $.css( element, property ), 10 ) || 0;
+	}
+
+	function getDimensions( elem ) {
+		var raw = elem[ 0 ];
+		if ( raw.nodeType === 9 ) {
+			return {
+				width: elem.width(),
+				height: elem.height(),
+				offset: { top: 0, left: 0 }
+			};
+		}
+		if ( $.isWindow( raw ) ) {
+			return {
+				width: elem.width(),
+				height: elem.height(),
+				offset: { top: elem.scrollTop(), left: elem.scrollLeft() }
+			};
+		}
+		if ( raw.preventDefault ) {
+			return {
+				width: 0,
+				height: 0,
+				offset: { top: raw.pageY, left: raw.pageX }
+			};
+		}
+		return {
+			width: elem.outerWidth(),
+			height: elem.outerHeight(),
+			offset: elem.offset()
+		};
+	}
+
+	$.position = {
+		scrollbarWidth: function() {
+			if ( cachedScrollbarWidth !== undefined ) {
+				return cachedScrollbarWidth;
+			}
+			var w1, w2,
+				div = $( "<div " +
+					"style='display:block;position:absolute;width:50px;height:50px;overflow:hidden;'>" +
+					"<div style='height:100px;width:auto;'></div></div>" ),
+				innerDiv = div.children()[ 0 ];
+
+			$( "body" ).append( div );
+			w1 = innerDiv.offsetWidth;
+			div.css( "overflow", "scroll" );
+
+			w2 = innerDiv.offsetWidth;
+
+			if ( w1 === w2 ) {
+				w2 = div[ 0 ].clientWidth;
+			}
+
+			div.remove();
+
+			return ( cachedScrollbarWidth = w1 - w2 );
+		},
+		getScrollInfo: function( within ) {
+			var overflowX = within.isWindow || within.isDocument ? "" :
+					within.element.css( "overflow-x" ),
+				overflowY = within.isWindow || within.isDocument ? "" :
+					within.element.css( "overflow-y" ),
+				hasOverflowX = overflowX === "scroll" ||
+					( overflowX === "auto" && within.width < within.element[ 0 ].scrollWidth ),
+				hasOverflowY = overflowY === "scroll" ||
+					( overflowY === "auto" && within.height < within.element[ 0 ].scrollHeight );
+			return {
+				width: hasOverflowY ? $.position.scrollbarWidth() : 0,
+				height: hasOverflowX ? $.position.scrollbarWidth() : 0
+			};
+		},
+		getWithinInfo: function( element ) {
+			var withinElement = $( element || window ),
+				isWindow = $.isWindow( withinElement[ 0 ] ),
+				isDocument = !!withinElement[ 0 ] && withinElement[ 0 ].nodeType === 9,
+				hasOffset = !isWindow && !isDocument;
+			return {
+				element: withinElement,
+				isWindow: isWindow,
+				isDocument: isDocument,
+				offset: hasOffset ? $( element ).offset() : { left: 0, top: 0 },
+				scrollLeft: withinElement.scrollLeft(),
+				scrollTop: withinElement.scrollTop(),
+				width: withinElement.outerWidth(),
+				height: withinElement.outerHeight()
+			};
+		}
+	};
+
+	$.fn.position = function( options ) {
+		if ( !options || !options.of ) {
+			return _position.apply( this, arguments );
+		}
+
+		// Make a copy, we don't want to modify arguments
+		options = $.extend( {}, options );
+
+		var atOffset, targetWidth, targetHeight, targetOffset, basePosition, dimensions,
+			target = $( options.of ),
+			within = $.position.getWithinInfo( options.within ),
+			scrollInfo = $.position.getScrollInfo( within ),
+			collision = ( options.collision || "flip" ).split( " " ),
+			offsets = {};
+
+		dimensions = getDimensions( target );
+		if ( target[ 0 ].preventDefault ) {
+
+			// Force left top to allow flipping
+			options.at = "left top";
+		}
+		targetWidth = dimensions.width;
+		targetHeight = dimensions.height;
+		targetOffset = dimensions.offset;
+
+		// Clone to reuse original targetOffset later
+		basePosition = $.extend( {}, targetOffset );
+
+		// Force my and at to have valid horizontal and vertical positions
+		// if a value is missing or invalid, it will be converted to center
+		$.each( [ "my", "at" ], function() {
+			var pos = ( options[ this ] || "" ).split( " " ),
+				horizontalOffset,
+				verticalOffset;
+
+			if ( pos.length === 1 ) {
+				pos = rhorizontal.test( pos[ 0 ] ) ?
+					pos.concat( [ "center" ] ) :
+					rvertical.test( pos[ 0 ] ) ?
+						[ "center" ].concat( pos ) :
+						[ "center", "center" ];
+			}
+			pos[ 0 ] = rhorizontal.test( pos[ 0 ] ) ? pos[ 0 ] : "center";
+			pos[ 1 ] = rvertical.test( pos[ 1 ] ) ? pos[ 1 ] : "center";
+
+			// Calculate offsets
+			horizontalOffset = roffset.exec( pos[ 0 ] );
+			verticalOffset = roffset.exec( pos[ 1 ] );
+			offsets[ this ] = [
+				horizontalOffset ? horizontalOffset[ 0 ] : 0,
+				verticalOffset ? verticalOffset[ 0 ] : 0
+			];
+
+			// Reduce to just the positions without the offsets
+			options[ this ] = [
+				rposition.exec( pos[ 0 ] )[ 0 ],
+				rposition.exec( pos[ 1 ] )[ 0 ]
+			];
+		} );
+
+		// Normalize collision option
+		if ( collision.length === 1 ) {
+			collision[ 1 ] = collision[ 0 ];
+		}
+
+		if ( options.at[ 0 ] === "right" ) {
+			basePosition.left += targetWidth;
+		} else if ( options.at[ 0 ] === "center" ) {
+			basePosition.left += targetWidth / 2;
+		}
+
+		if ( options.at[ 1 ] === "bottom" ) {
+			basePosition.top += targetHeight;
+		} else if ( options.at[ 1 ] === "center" ) {
+			basePosition.top += targetHeight / 2;
+		}
+
+		atOffset = getOffsets( offsets.at, targetWidth, targetHeight );
+		basePosition.left += atOffset[ 0 ];
+		basePosition.top += atOffset[ 1 ];
+
+		return this.each( function() {
+			var collisionPosition, using,
+				elem = $( this ),
+				elemWidth = elem.outerWidth(),
+				elemHeight = elem.outerHeight(),
+				marginLeft = parseCss( this, "marginLeft" ),
+				marginTop = parseCss( this, "marginTop" ),
+				collisionWidth = elemWidth + marginLeft + parseCss( this, "marginRight" ) +
+					scrollInfo.width,
+				collisionHeight = elemHeight + marginTop + parseCss( this, "marginBottom" ) +
+					scrollInfo.height,
+				position = $.extend( {}, basePosition ),
+				myOffset = getOffsets( offsets.my, elem.outerWidth(), elem.outerHeight() );
+
+			if ( options.my[ 0 ] === "right" ) {
+				position.left -= elemWidth;
+			} else if ( options.my[ 0 ] === "center" ) {
+				position.left -= elemWidth / 2;
+			}
+
+			if ( options.my[ 1 ] === "bottom" ) {
+				position.top -= elemHeight;
+			} else if ( options.my[ 1 ] === "center" ) {
+				position.top -= elemHeight / 2;
+			}
+
+			position.left += myOffset[ 0 ];
+			position.top += myOffset[ 1 ];
+
+			// If the browser doesn't support fractions, then round for consistent results
+			if ( !supportsOffsetFractions() ) {
+				position.left = round( position.left );
+				position.top = round( position.top );
+			}
+
+			collisionPosition = {
+				marginLeft: marginLeft,
+				marginTop: marginTop
+			};
+
+			$.each( [ "left", "top" ], function( i, dir ) {
+				if ( $.ui.position[ collision[ i ] ] ) {
+					$.ui.position[ collision[ i ] ][ dir ]( position, {
+						targetWidth: targetWidth,
+						targetHeight: targetHeight,
+						elemWidth: elemWidth,
+						elemHeight: elemHeight,
+						collisionPosition: collisionPosition,
+						collisionWidth: collisionWidth,
+						collisionHeight: collisionHeight,
+						offset: [ atOffset[ 0 ] + myOffset[ 0 ], atOffset [ 1 ] + myOffset[ 1 ] ],
+						my: options.my,
+						at: options.at,
+						within: within,
+						elem: elem
+					} );
+				}
+			} );
+
+			if ( options.using ) {
+
+				// Adds feedback as second argument to using callback, if present
+				using = function( props ) {
+					var left = targetOffset.left - position.left,
+						right = left + targetWidth - elemWidth,
+						top = targetOffset.top - position.top,
+						bottom = top + targetHeight - elemHeight,
+						feedback = {
+							target: {
+								element: target,
+								left: targetOffset.left,
+								top: targetOffset.top,
+								width: targetWidth,
+								height: targetHeight
+							},
+							element: {
+								element: elem,
+								left: position.left,
+								top: position.top,
+								width: elemWidth,
+								height: elemHeight
+							},
+							horizontal: right < 0 ? "left" : left > 0 ? "right" : "center",
+							vertical: bottom < 0 ? "top" : top > 0 ? "bottom" : "middle"
+						};
+					if ( targetWidth < elemWidth && abs( left + right ) < targetWidth ) {
+						feedback.horizontal = "center";
+					}
+					if ( targetHeight < elemHeight && abs( top + bottom ) < targetHeight ) {
+						feedback.vertical = "middle";
+					}
+					if ( max( abs( left ), abs( right ) ) > max( abs( top ), abs( bottom ) ) ) {
+						feedback.important = "horizontal";
+					} else {
+						feedback.important = "vertical";
+					}
+					options.using.call( this, props, feedback );
+				};
+			}
+
+			elem.offset( $.extend( position, { using: using } ) );
+		} );
+	};
+
+	$.ui.position = {
+		fit: {
+			left: function( position, data ) {
+				var within = data.within,
+					withinOffset = within.isWindow ? within.scrollLeft : within.offset.left,
+					outerWidth = within.width,
+					collisionPosLeft = position.left - data.collisionPosition.marginLeft,
+					overLeft = withinOffset - collisionPosLeft,
+					overRight = collisionPosLeft + data.collisionWidth - outerWidth - withinOffset,
+					newOverRight;
+
+				// Element is wider than within
+				if ( data.collisionWidth > outerWidth ) {
+
+					// Element is initially over the left side of within
+					if ( overLeft > 0 && overRight <= 0 ) {
+						newOverRight = position.left + overLeft + data.collisionWidth - outerWidth -
+							withinOffset;
+						position.left += overLeft - newOverRight;
+
+					// Element is initially over right side of within
+					} else if ( overRight > 0 && overLeft <= 0 ) {
+						position.left = withinOffset;
+
+					// Element is initially over both left and right sides of within
+					} else {
+						if ( overLeft > overRight ) {
+							position.left = withinOffset + outerWidth - data.collisionWidth;
+						} else {
+							position.left = withinOffset;
+						}
+					}
+
+				// Too far left -> align with left edge
+				} else if ( overLeft > 0 ) {
+					position.left += overLeft;
+
+				// Too far right -> align with right edge
+				} else if ( overRight > 0 ) {
+					position.left -= overRight;
+
+				// Adjust based on position and margin
+				} else {
+					position.left = max( position.left - collisionPosLeft, position.left );
+				}
+			},
+			top: function( position, data ) {
+				var within = data.within,
+					withinOffset = within.isWindow ? within.scrollTop : within.offset.top,
+					outerHeight = data.within.height,
+					collisionPosTop = position.top - data.collisionPosition.marginTop,
+					overTop = withinOffset - collisionPosTop,
+					overBottom = collisionPosTop + data.collisionHeight - outerHeight - withinOffset,
+					newOverBottom;
+
+				// Element is taller than within
+				if ( data.collisionHeight > outerHeight ) {
+
+					// Element is initially over the top of within
+					if ( overTop > 0 && overBottom <= 0 ) {
+						newOverBottom = position.top + overTop + data.collisionHeight - outerHeight -
+							withinOffset;
+						position.top += overTop - newOverBottom;
+
+					// Element is initially over bottom of within
+					} else if ( overBottom > 0 && overTop <= 0 ) {
+						position.top = withinOffset;
+
+					// Element is initially over both top and bottom of within
+					} else {
+						if ( overTop > overBottom ) {
+							position.top = withinOffset + outerHeight - data.collisionHeight;
+						} else {
+							position.top = withinOffset;
+						}
+					}
+
+				// Too far up -> align with top
+				} else if ( overTop > 0 ) {
+					position.top += overTop;
+
+				// Too far down -> align with bottom edge
+				} else if ( overBottom > 0 ) {
+					position.top -= overBottom;
+
+				// Adjust based on position and margin
+				} else {
+					position.top = max( position.top - collisionPosTop, position.top );
+				}
+			}
+		},
+		flip: {
+			left: function( position, data ) {
+				var within = data.within,
+					withinOffset = within.offset.left + within.scrollLeft,
+					outerWidth = within.width,
+					offsetLeft = within.isWindow ? within.scrollLeft : within.offset.left,
+					collisionPosLeft = position.left - data.collisionPosition.marginLeft,
+					overLeft = collisionPosLeft - offsetLeft,
+					overRight = collisionPosLeft + data.collisionWidth - outerWidth - offsetLeft,
+					myOffset = data.my[ 0 ] === "left" ?
+						-data.elemWidth :
+						data.my[ 0 ] === "right" ?
+							data.elemWidth :
+							0,
+					atOffset = data.at[ 0 ] === "left" ?
+						data.targetWidth :
+						data.at[ 0 ] === "right" ?
+							-data.targetWidth :
+							0,
+					offset = -2 * data.offset[ 0 ],
+					newOverRight,
+					newOverLeft;
+
+				if ( overLeft < 0 ) {
+					newOverRight = position.left + myOffset + atOffset + offset + data.collisionWidth -
+						outerWidth - withinOffset;
+					if ( newOverRight < 0 || newOverRight < abs( overLeft ) ) {
+						position.left += myOffset + atOffset + offset;
+					}
+				} else if ( overRight > 0 ) {
+					newOverLeft = position.left - data.collisionPosition.marginLeft + myOffset +
+						atOffset + offset - offsetLeft;
+					if ( newOverLeft > 0 || abs( newOverLeft ) < overRight ) {
+						position.left += myOffset + atOffset + offset;
+					}
+				}
+			},
+			top: function( position, data ) {
+				var within = data.within,
+					withinOffset = within.offset.top + within.scrollTop,
+					outerHeight = within.height,
+					offsetTop = within.isWindow ? within.scrollTop : within.offset.top,
+					collisionPosTop = position.top - data.collisionPosition.marginTop,
+					overTop = collisionPosTop - offsetTop,
+					overBottom = collisionPosTop + data.collisionHeight - outerHeight - offsetTop,
+					top = data.my[ 1 ] === "top",
+					myOffset = top ?
+						-data.elemHeight :
+						data.my[ 1 ] === "bottom" ?
+							data.elemHeight :
+							0,
+					atOffset = data.at[ 1 ] === "top" ?
+						data.targetHeight :
+						data.at[ 1 ] === "bottom" ?
+							-data.targetHeight :
+							0,
+					offset = -2 * data.offset[ 1 ],
+					newOverTop,
+					newOverBottom;
+				if ( overTop < 0 ) {
+					newOverBottom = position.top + myOffset + atOffset + offset + data.collisionHeight -
+						outerHeight - withinOffset;
+					if ( newOverBottom < 0 || newOverBottom < abs( overTop ) ) {
+						position.top += myOffset + atOffset + offset;
+					}
+				} else if ( overBottom > 0 ) {
+					newOverTop = position.top - data.collisionPosition.marginTop + myOffset + atOffset +
+						offset - offsetTop;
+					if ( newOverTop > 0 || abs( newOverTop ) < overBottom ) {
+						position.top += myOffset + atOffset + offset;
+					}
+				}
+			}
+		},
+		flipfit: {
+			left: function() {
+				$.ui.position.flip.left.apply( this, arguments );
+				$.ui.position.fit.left.apply( this, arguments );
+			},
+			top: function() {
+				$.ui.position.flip.top.apply( this, arguments );
+				$.ui.position.fit.top.apply( this, arguments );
+			}
+		}
+	};
+
+	} )();
+
+	return $.ui.position;
+
+	} ) );
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;( function( factory ) {
+		if ( true ) {
+
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(3) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+
+			// Browser globals
+			factory( jQuery );
+		}
+	} ( function( $ ) {
+
+	$.ui = $.ui || {};
+
+	return $.ui.version = "1.12.0";
+
+	} ) );
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	/**
+	 * A no-operation function that returns `undefined` regardless of the
+	 * arguments it receives.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Utility
+	 * @example
+	 *
+	 * var object = { 'user': 'fred' };
+	 *
+	 * _.noop(object) === undefined;
+	 * // => true
+	 */
+	function noop() {
+	  // No operation performed.
+	}
+
+	module.exports = noop;
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(8);
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayEach = __webpack_require__(9),
+	    baseEach = __webpack_require__(10),
+	    createForEach = __webpack_require__(31);
+
+	/**
+	 * Iterates over elements of `collection` invoking `iteratee` for each element.
+	 * The `iteratee` is bound to `thisArg` and invoked with three arguments:
+	 * (value, index|key, collection). Iteratee functions may exit iteration early
+	 * by explicitly returning `false`.
+	 *
+	 * **Note:** As with other "Collections" methods, objects with a "length" property
+	 * are iterated like arrays. To avoid this behavior `_.forIn` or `_.forOwn`
+	 * may be used for object iteration.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @alias each
+	 * @category Collection
+	 * @param {Array|Object|string} collection The collection to iterate over.
+	 * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+	 * @param {*} [thisArg] The `this` binding of `iteratee`.
+	 * @returns {Array|Object|string} Returns `collection`.
+	 * @example
+	 *
+	 * _([1, 2]).forEach(function(n) {
+	 *   console.log(n);
+	 * }).value();
+	 * // => logs each value from left to right and returns the array
+	 *
+	 * _.forEach({ 'a': 1, 'b': 2 }, function(n, key) {
+	 *   console.log(n, key);
+	 * });
+	 * // => logs each value-key pair and returns the object (iteration order is not guaranteed)
+	 */
+	var forEach = createForEach(arrayEach, baseEach);
+
+	module.exports = forEach;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	/**
+	 * A specialized version of `_.forEach` for arrays without support for callback
+	 * shorthands and `this` binding.
+	 *
+	 * @private
+	 * @param {Array} array The array to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayEach(array, iteratee) {
+	  var index = -1,
+	      length = array.length;
+
+	  while (++index < length) {
+	    if (iteratee(array[index], index, array) === false) {
+	      break;
+	    }
+	  }
+	  return array;
+	}
+
+	module.exports = arrayEach;
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseForOwn = __webpack_require__(11),
+	    createBaseEach = __webpack_require__(30);
+
+	/**
+	 * The base implementation of `_.forEach` without support for callback
+	 * shorthands and `this` binding.
+	 *
+	 * @private
+	 * @param {Array|Object|string} collection The collection to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array|Object|string} Returns `collection`.
+	 */
+	var baseEach = createBaseEach(baseForOwn);
+
+	module.exports = baseEach;
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseFor = __webpack_require__(12),
+	    keys = __webpack_require__(16);
+
+	/**
+	 * The base implementation of `_.forOwn` without support for callback
+	 * shorthands and `this` binding.
+	 *
+	 * @private
+	 * @param {Object} object The object to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseForOwn(object, iteratee) {
+	  return baseFor(object, iteratee, keys);
+	}
+
+	module.exports = baseForOwn;
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var createBaseFor = __webpack_require__(13);
+
+	/**
+	 * The base implementation of `baseForIn` and `baseForOwn` which iterates
+	 * over `object` properties returned by `keysFunc` invoking `iteratee` for
+	 * each property. Iteratee functions may exit iteration early by explicitly
+	 * returning `false`.
+	 *
+	 * @private
+	 * @param {Object} object The object to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @param {Function} keysFunc The function to get the keys of `object`.
+	 * @returns {Object} Returns `object`.
+	 */
+	var baseFor = createBaseFor();
+
+	module.exports = baseFor;
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var toObject = __webpack_require__(14);
+
+	/**
+	 * Creates a base function for `_.forIn` or `_.forInRight`.
+	 *
+	 * @private
+	 * @param {boolean} [fromRight] Specify iterating from right to left.
+	 * @returns {Function} Returns the new base function.
+	 */
+	function createBaseFor(fromRight) {
+	  return function(object, iteratee, keysFunc) {
+	    var iterable = toObject(object),
+	        props = keysFunc(object),
+	        length = props.length,
+	        index = fromRight ? length : -1;
+
+	    while ((fromRight ? index-- : ++index < length)) {
+	      var key = props[index];
+	      if (iteratee(iterable[key], key, iterable) === false) {
+	        break;
+	      }
+	    }
+	    return object;
+	  };
+	}
+
+	module.exports = createBaseFor;
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(15);
+
+	/**
+	 * Converts `value` to an object if it's not one.
+	 *
+	 * @private
+	 * @param {*} value The value to process.
+	 * @returns {Object} Returns the object.
+	 */
+	function toObject(value) {
+	  return isObject(value) ? value : Object(value);
+	}
+
+	module.exports = toObject;
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(1);
+	 * // => false
+	 */
+	function isObject(value) {
+	  // Avoid a V8 JIT bug in Chrome 19-20.
+	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+
+	module.exports = isObject;
+
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(17),
+	    isArrayLike = __webpack_require__(21),
+	    isObject = __webpack_require__(15),
+	    shimKeys = __webpack_require__(25);
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeKeys = getNative(Object, 'keys');
+
+	/**
+	 * Creates an array of the own enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects. See the
+	 * [ES spec](http://ecma-international.org/ecma-262/6.0/#sec-object.keys)
+	 * for more details.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keys(new Foo);
+	 * // => ['a', 'b'] (iteration order is not guaranteed)
+	 *
+	 * _.keys('hi');
+	 * // => ['0', '1']
+	 */
+	var keys = !nativeKeys ? shimKeys : function(object) {
+	  var Ctor = object == null ? undefined : object.constructor;
+	  if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
+	      (typeof object != 'function' && isArrayLike(object))) {
+	    return shimKeys(object);
+	  }
+	  return isObject(object) ? nativeKeys(object) : [];
+	};
+
+	module.exports = keys;
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isNative = __webpack_require__(18);
+
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = object == null ? undefined : object[key];
+	  return isNative(value) ? value : undefined;
+	}
+
+	module.exports = getNative;
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isFunction = __webpack_require__(19),
+	    isObjectLike = __webpack_require__(20);
+
+	/** Used to detect host constructors (Safari > 5). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var fnToString = Function.prototype.toString;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+
+	/**
+	 * Checks if `value` is a native function.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
+	 * @example
+	 *
+	 * _.isNative(Array.prototype.push);
+	 * // => true
+	 *
+	 * _.isNative(_);
+	 * // => false
+	 */
+	function isNative(value) {
+	  if (value == null) {
+	    return false;
+	  }
+	  if (isFunction(value)) {
+	    return reIsNative.test(fnToString.call(value));
+	  }
+	  return isObjectLike(value) && reIsHostCtor.test(value);
+	}
+
+	module.exports = isNative;
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(15);
+
+	/** `Object#toString` result references. */
+	var funcTag = '[object Function]';
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objToString = objectProto.toString;
+
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in older versions of Chrome and Safari which return 'function' for regexes
+	  // and Safari 8 which returns 'object' for typed array constructors.
+	  return isObject(value) && objToString.call(value) == funcTag;
+	}
+
+	module.exports = isFunction;
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is object-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+
+	module.exports = isObjectLike;
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getLength = __webpack_require__(22),
+	    isLength = __webpack_require__(24);
+
+	/**
+	 * Checks if `value` is array-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(getLength(value));
+	}
+
+	module.exports = isArrayLike;
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseProperty = __webpack_require__(23);
+
+	/**
+	 * Gets the "length" property value of `object`.
+	 *
+	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
+	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {*} Returns the "length" value.
+	 */
+	var getLength = baseProperty('length');
+
+	module.exports = getLength;
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	/**
+	 * The base implementation of `_.property` without support for deep paths.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseProperty(key) {
+	  return function(object) {
+	    return object == null ? undefined : object[key];
+	  };
+	}
+
+	module.exports = baseProperty;
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	/**
+	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
+	 * of an array-like value.
+	 */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+
+	module.exports = isLength;
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArguments = __webpack_require__(26),
+	    isArray = __webpack_require__(27),
+	    isIndex = __webpack_require__(28),
+	    isLength = __webpack_require__(24),
+	    keysIn = __webpack_require__(29);
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * A fallback implementation of `Object.keys` which creates an array of the
+	 * own enumerable property names of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function shimKeys(object) {
+	  var props = keysIn(object),
+	      propsLength = props.length,
+	      length = propsLength && object.length;
+
+	  var allowIndexes = !!length && isLength(length) &&
+	    (isArray(object) || isArguments(object));
+
+	  var index = -1,
+	      result = [];
+
+	  while (++index < propsLength) {
+	    var key = props[index];
+	    if ((allowIndexes && isIndex(key, length)) || hasOwnProperty.call(object, key)) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = shimKeys;
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArrayLike = __webpack_require__(21),
+	    isObjectLike = __webpack_require__(20);
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/** Native method references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
+	/**
+	 * Checks if `value` is classified as an `arguments` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isArguments(function() { return arguments; }());
+	 * // => true
+	 *
+	 * _.isArguments([1, 2, 3]);
+	 * // => false
+	 */
+	function isArguments(value) {
+	  return isObjectLike(value) && isArrayLike(value) &&
+	    hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
+	}
+
+	module.exports = isArguments;
+
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(17),
+	    isLength = __webpack_require__(24),
+	    isObjectLike = __webpack_require__(20);
+
+	/** `Object#toString` result references. */
+	var arrayTag = '[object Array]';
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objToString = objectProto.toString;
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeIsArray = getNative(Array, 'isArray');
+
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(function() { return arguments; }());
+	 * // => false
+	 */
+	var isArray = nativeIsArray || function(value) {
+	  return isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag;
+	};
+
+	module.exports = isArray;
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^\d+$/;
+
+	/**
+	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
+	 * of an array-like value.
+	 */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return value > -1 && value % 1 == 0 && value < length;
+	}
+
+	module.exports = isIndex;
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArguments = __webpack_require__(26),
+	    isArray = __webpack_require__(27),
+	    isIndex = __webpack_require__(28),
+	    isLength = __webpack_require__(24),
+	    isObject = __webpack_require__(15);
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Creates an array of the own and inherited enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keysIn(new Foo);
+	 * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+	 */
+	function keysIn(object) {
+	  if (object == null) {
+	    return [];
+	  }
+	  if (!isObject(object)) {
+	    object = Object(object);
+	  }
+	  var length = object.length;
+	  length = (length && isLength(length) &&
+	    (isArray(object) || isArguments(object)) && length) || 0;
+
+	  var Ctor = object.constructor,
+	      index = -1,
+	      isProto = typeof Ctor == 'function' && Ctor.prototype === object,
+	      result = Array(length),
+	      skipIndexes = length > 0;
+
+	  while (++index < length) {
+	    result[index] = (index + '');
+	  }
+	  for (var key in object) {
+	    if (!(skipIndexes && isIndex(key, length)) &&
+	        !(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = keysIn;
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getLength = __webpack_require__(22),
+	    isLength = __webpack_require__(24),
+	    toObject = __webpack_require__(14);
+
+	/**
+	 * Creates a `baseEach` or `baseEachRight` function.
+	 *
+	 * @private
+	 * @param {Function} eachFunc The function to iterate over a collection.
+	 * @param {boolean} [fromRight] Specify iterating from right to left.
+	 * @returns {Function} Returns the new base function.
+	 */
+	function createBaseEach(eachFunc, fromRight) {
+	  return function(collection, iteratee) {
+	    var length = collection ? getLength(collection) : 0;
+	    if (!isLength(length)) {
+	      return eachFunc(collection, iteratee);
+	    }
+	    var index = fromRight ? length : -1,
+	        iterable = toObject(collection);
+
+	    while ((fromRight ? index-- : ++index < length)) {
+	      if (iteratee(iterable[index], index, iterable) === false) {
+	        break;
+	      }
+	    }
+	    return collection;
+	  };
+	}
+
+	module.exports = createBaseEach;
+
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var bindCallback = __webpack_require__(32),
+	    isArray = __webpack_require__(27);
+
+	/**
+	 * Creates a function for `_.forEach` or `_.forEachRight`.
+	 *
+	 * @private
+	 * @param {Function} arrayFunc The function to iterate over an array.
+	 * @param {Function} eachFunc The function to iterate over a collection.
+	 * @returns {Function} Returns the new each function.
+	 */
+	function createForEach(arrayFunc, eachFunc) {
+	  return function(collection, iteratee, thisArg) {
+	    return (typeof iteratee == 'function' && thisArg === undefined && isArray(collection))
+	      ? arrayFunc(collection, iteratee)
+	      : eachFunc(collection, bindCallback(iteratee, thisArg, 3));
+	  };
+	}
+
+	module.exports = createForEach;
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var identity = __webpack_require__(33);
+
+	/**
+	 * A specialized version of `baseCallback` which only supports `this` binding
+	 * and specifying the number of arguments to provide to `func`.
+	 *
+	 * @private
+	 * @param {Function} func The function to bind.
+	 * @param {*} thisArg The `this` binding of `func`.
+	 * @param {number} [argCount] The number of arguments to provide to `func`.
+	 * @returns {Function} Returns the callback.
+	 */
+	function bindCallback(func, thisArg, argCount) {
+	  if (typeof func != 'function') {
+	    return identity;
+	  }
+	  if (thisArg === undefined) {
+	    return func;
+	  }
+	  switch (argCount) {
+	    case 1: return function(value) {
+	      return func.call(thisArg, value);
+	    };
+	    case 3: return function(value, index, collection) {
+	      return func.call(thisArg, value, index, collection);
+	    };
+	    case 4: return function(accumulator, value, index, collection) {
+	      return func.call(thisArg, accumulator, value, index, collection);
+	    };
+	    case 5: return function(value, other, key, object, source) {
+	      return func.call(thisArg, value, other, key, object, source);
+	    };
+	  }
+	  return function() {
+	    return func.apply(thisArg, arguments);
+	  };
+	}
+
+	module.exports = bindCallback;
+
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	/**
+	 * This method returns the first argument provided to it.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Utility
+	 * @param {*} value Any value.
+	 * @returns {*} Returns `value`.
+	 * @example
+	 *
+	 * var object = { 'user': 'fred' };
+	 *
+	 * _.identity(object) === object;
+	 * // => true
+	 */
+	function identity(value) {
+	  return value;
+	}
+
+	module.exports = identity;
+
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(35);
+
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIndexOf = __webpack_require__(36),
+	    getLength = __webpack_require__(22),
+	    isArray = __webpack_require__(27),
+	    isIterateeCall = __webpack_require__(38),
+	    isLength = __webpack_require__(24),
+	    isString = __webpack_require__(39),
+	    values = __webpack_require__(40);
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max;
+
+	/**
+	 * Checks if `target` is in `collection` using
+	 * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+	 * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+	 * from the end of `collection`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @alias contains, include
+	 * @category Collection
+	 * @param {Array|Object|string} collection The collection to search.
+	 * @param {*} target The value to search for.
+	 * @param {number} [fromIndex=0] The index to search from.
+	 * @param- {Object} [guard] Enables use as a callback for functions like `_.reduce`.
+	 * @returns {boolean} Returns `true` if a matching element is found, else `false`.
+	 * @example
+	 *
+	 * _.includes([1, 2, 3], 1);
+	 * // => true
+	 *
+	 * _.includes([1, 2, 3], 1, 2);
+	 * // => false
+	 *
+	 * _.includes({ 'user': 'fred', 'age': 40 }, 'fred');
+	 * // => true
+	 *
+	 * _.includes('pebbles', 'eb');
+	 * // => true
+	 */
+	function includes(collection, target, fromIndex, guard) {
+	  var length = collection ? getLength(collection) : 0;
+	  if (!isLength(length)) {
+	    collection = values(collection);
+	    length = collection.length;
+	  }
+	  if (typeof fromIndex != 'number' || (guard && isIterateeCall(target, fromIndex, guard))) {
+	    fromIndex = 0;
+	  } else {
+	    fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
+	  }
+	  return (typeof collection == 'string' || !isArray(collection) && isString(collection))
+	    ? (fromIndex <= length && collection.indexOf(target, fromIndex) > -1)
+	    : (!!length && baseIndexOf(collection, target, fromIndex) > -1);
+	}
+
+	module.exports = includes;
+
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var indexOfNaN = __webpack_require__(37);
+
+	/**
+	 * The base implementation of `_.indexOf` without support for binary searches.
+	 *
+	 * @private
+	 * @param {Array} array The array to search.
+	 * @param {*} value The value to search for.
+	 * @param {number} fromIndex The index to search from.
+	 * @returns {number} Returns the index of the matched value, else `-1`.
+	 */
+	function baseIndexOf(array, value, fromIndex) {
+	  if (value !== value) {
+	    return indexOfNaN(array, fromIndex);
+	  }
+	  var index = fromIndex - 1,
+	      length = array.length;
+
+	  while (++index < length) {
+	    if (array[index] === value) {
+	      return index;
+	    }
+	  }
+	  return -1;
+	}
+
+	module.exports = baseIndexOf;
+
+
+/***/ },
+/* 37 */
+/***/ function(module, exports) {
+
+	/**
+	 * Gets the index at which the first occurrence of `NaN` is found in `array`.
+	 *
+	 * @private
+	 * @param {Array} array The array to search.
+	 * @param {number} fromIndex The index to search from.
+	 * @param {boolean} [fromRight] Specify iterating from right to left.
+	 * @returns {number} Returns the index of the matched `NaN`, else `-1`.
+	 */
+	function indexOfNaN(array, fromIndex, fromRight) {
+	  var length = array.length,
+	      index = fromIndex + (fromRight ? 0 : -1);
+
+	  while ((fromRight ? index-- : ++index < length)) {
+	    var other = array[index];
+	    if (other !== other) {
+	      return index;
+	    }
+	  }
+	  return -1;
+	}
+
+	module.exports = indexOfNaN;
+
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArrayLike = __webpack_require__(21),
+	    isIndex = __webpack_require__(28),
+	    isObject = __webpack_require__(15);
+
+	/**
+	 * Checks if the provided arguments are from an iteratee call.
+	 *
+	 * @private
+	 * @param {*} value The potential iteratee value argument.
+	 * @param {*} index The potential iteratee index or key argument.
+	 * @param {*} object The potential iteratee object argument.
+	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call, else `false`.
+	 */
+	function isIterateeCall(value, index, object) {
+	  if (!isObject(object)) {
+	    return false;
+	  }
+	  var type = typeof index;
+	  if (type == 'number'
+	      ? (isArrayLike(object) && isIndex(index, object.length))
+	      : (type == 'string' && index in object)) {
+	    var other = object[index];
+	    return value === value ? (value === other) : (other !== other);
+	  }
+	  return false;
+	}
+
+	module.exports = isIterateeCall;
+
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObjectLike = __webpack_require__(20);
+
+	/** `Object#toString` result references. */
+	var stringTag = '[object String]';
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objToString = objectProto.toString;
+
+	/**
+	 * Checks if `value` is classified as a `String` primitive or object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isString('abc');
+	 * // => true
+	 *
+	 * _.isString(1);
+	 * // => false
+	 */
+	function isString(value) {
+	  return typeof value == 'string' || (isObjectLike(value) && objToString.call(value) == stringTag);
+	}
+
+	module.exports = isString;
+
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseValues = __webpack_require__(41),
+	    keys = __webpack_require__(16);
+
+	/**
+	 * Creates an array of the own enumerable property values of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property values.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.values(new Foo);
+	 * // => [1, 2] (iteration order is not guaranteed)
+	 *
+	 * _.values('hi');
+	 * // => ['h', 'i']
+	 */
+	function values(object) {
+	  return baseValues(object, keys(object));
+	}
+
+	module.exports = values;
+
+
+/***/ },
+/* 41 */
+/***/ function(module, exports) {
+
+	/**
+	 * The base implementation of `_.values` and `_.valuesIn` which creates an
+	 * array of `object` property values corresponding to the property names
+	 * of `props`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {Array} props The property names to get values for.
+	 * @returns {Object} Returns the array of property values.
+	 */
+	function baseValues(object, props) {
+	  var index = -1,
+	      length = props.length,
+	      result = Array(length);
+
+	  while (++index < length) {
+	    result[index] = object[props[index]];
+	  }
+	  return result;
+	}
+
+	module.exports = baseValues;
+
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(43);
+
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assignWith = __webpack_require__(44),
+	    baseAssign = __webpack_require__(45),
+	    createAssigner = __webpack_require__(47);
+
+	/**
+	 * Assigns own enumerable properties of source object(s) to the destination
+	 * object. Subsequent sources overwrite property assignments of previous sources.
+	 * If `customizer` is provided it's invoked to produce the assigned values.
+	 * The `customizer` is bound to `thisArg` and invoked with five arguments:
+	 * (objectValue, sourceValue, key, object, source).
+	 *
+	 * **Note:** This method mutates `object` and is based on
+	 * [`Object.assign`](http://ecma-international.org/ecma-262/6.0/#sec-object.assign).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @alias extend
+	 * @category Object
+	 * @param {Object} object The destination object.
+	 * @param {...Object} [sources] The source objects.
+	 * @param {Function} [customizer] The function to customize assigned values.
+	 * @param {*} [thisArg] The `this` binding of `customizer`.
+	 * @returns {Object} Returns `object`.
+	 * @example
+	 *
+	 * _.assign({ 'user': 'barney' }, { 'age': 40 }, { 'user': 'fred' });
+	 * // => { 'user': 'fred', 'age': 40 }
+	 *
+	 * // using a customizer callback
+	 * var defaults = _.partialRight(_.assign, function(value, other) {
+	 *   return _.isUndefined(value) ? other : value;
+	 * });
+	 *
+	 * defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
+	 * // => { 'user': 'barney', 'age': 36 }
+	 */
+	var assign = createAssigner(function(object, source, customizer) {
+	  return customizer
+	    ? assignWith(object, source, customizer)
+	    : baseAssign(object, source);
+	});
+
+	module.exports = assign;
+
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var keys = __webpack_require__(16);
+
+	/**
+	 * A specialized version of `_.assign` for customizing assigned values without
+	 * support for argument juggling, multiple sources, and `this` binding `customizer`
+	 * functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @param {Function} customizer The function to customize assigned values.
+	 * @returns {Object} Returns `object`.
+	 */
+	function assignWith(object, source, customizer) {
+	  var index = -1,
+	      props = keys(source),
+	      length = props.length;
+
+	  while (++index < length) {
+	    var key = props[index],
+	        value = object[key],
+	        result = customizer(value, source[key], key, object, source);
+
+	    if ((result === result ? (result !== value) : (value === value)) ||
+	        (value === undefined && !(key in object))) {
+	      object[key] = result;
+	    }
+	  }
+	  return object;
+	}
+
+	module.exports = assignWith;
+
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseCopy = __webpack_require__(46),
+	    keys = __webpack_require__(16);
+
+	/**
+	 * The base implementation of `_.assign` without support for argument juggling,
+	 * multiple sources, and `customizer` functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseAssign(object, source) {
+	  return source == null
+	    ? object
+	    : baseCopy(source, keys(source), object);
+	}
+
+	module.exports = baseAssign;
+
+
+/***/ },
+/* 46 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copies properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy properties from.
+	 * @param {Array} props The property names to copy.
+	 * @param {Object} [object={}] The object to copy properties to.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseCopy(source, props, object) {
+	  object || (object = {});
+
+	  var index = -1,
+	      length = props.length;
+
+	  while (++index < length) {
+	    var key = props[index];
+	    object[key] = source[key];
+	  }
+	  return object;
+	}
+
+	module.exports = baseCopy;
+
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var bindCallback = __webpack_require__(32),
+	    isIterateeCall = __webpack_require__(38),
+	    restParam = __webpack_require__(48);
+
+	/**
+	 * Creates a `_.assign`, `_.defaults`, or `_.merge` function.
+	 *
+	 * @private
+	 * @param {Function} assigner The function to assign values.
+	 * @returns {Function} Returns the new assigner function.
+	 */
+	function createAssigner(assigner) {
+	  return restParam(function(object, sources) {
+	    var index = -1,
+	        length = object == null ? 0 : sources.length,
+	        customizer = length > 2 ? sources[length - 2] : undefined,
+	        guard = length > 2 ? sources[2] : undefined,
+	        thisArg = length > 1 ? sources[length - 1] : undefined;
+
+	    if (typeof customizer == 'function') {
+	      customizer = bindCallback(customizer, thisArg, 5);
+	      length -= 2;
+	    } else {
+	      customizer = typeof thisArg == 'function' ? thisArg : undefined;
+	      length -= (customizer ? 1 : 0);
+	    }
+	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+	      customizer = length < 3 ? undefined : customizer;
+	      length = 1;
+	    }
+	    while (++index < length) {
+	      var source = sources[index];
+	      if (source) {
+	        assigner(object, source, customizer);
+	      }
+	    }
+	    return object;
+	  });
+	}
+
+	module.exports = createAssigner;
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports) {
+
+	/** Used as the `TypeError` message for "Functions" methods. */
+	var FUNC_ERROR_TEXT = 'Expected a function';
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max;
+
+	/**
+	 * Creates a function that invokes `func` with the `this` binding of the
+	 * created function and arguments from `start` and beyond provided as an array.
+	 *
+	 * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/Web/JavaScript/Reference/Functions/rest_parameters).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Function
+	 * @param {Function} func The function to apply a rest parameter to.
+	 * @param {number} [start=func.length-1] The start position of the rest parameter.
+	 * @returns {Function} Returns the new function.
+	 * @example
+	 *
+	 * var say = _.restParam(function(what, names) {
+	 *   return what + ' ' + _.initial(names).join(', ') +
+	 *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
+	 * });
+	 *
+	 * say('hello', 'fred', 'barney', 'pebbles');
+	 * // => 'hello fred, barney, & pebbles'
+	 */
+	function restParam(func, start) {
+	  if (typeof func != 'function') {
+	    throw new TypeError(FUNC_ERROR_TEXT);
+	  }
+	  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
+	  return function() {
+	    var args = arguments,
+	        index = -1,
+	        length = nativeMax(args.length - start, 0),
+	        rest = Array(length);
+
+	    while (++index < length) {
+	      rest[index] = args[start + index];
+	    }
+	    switch (start) {
+	      case 0: return func.call(this, rest);
+	      case 1: return func.call(this, args[0], rest);
+	      case 2: return func.call(this, args[0], args[1], rest);
+	    }
+	    var otherArgs = Array(start + 1);
+	    index = -1;
+	    while (++index < start) {
+	      otherArgs[index] = args[index];
+	    }
+	    otherArgs[start] = rest;
+	    return func.apply(this, otherArgs);
+	  };
+	}
+
+	module.exports = restParam;
+
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseToString = __webpack_require__(50);
+
+	/** Used to generate unique IDs. */
+	var idCounter = 0;
+
+	/**
+	 * Generates a unique ID. If `prefix` is provided the ID is appended to it.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Utility
+	 * @param {string} [prefix] The value to prefix the ID with.
+	 * @returns {string} Returns the unique ID.
+	 * @example
+	 *
+	 * _.uniqueId('contact_');
+	 * // => 'contact_104'
+	 *
+	 * _.uniqueId();
+	 * // => '105'
+	 */
+	function uniqueId(prefix) {
+	  var id = ++idCounter;
+	  return baseToString(prefix) + id;
+	}
+
+	module.exports = uniqueId;
+
+
+/***/ },
+/* 50 */
+/***/ function(module, exports) {
+
+	/**
+	 * Converts `value` to a string if it's not one. An empty string is returned
+	 * for `null` or `undefined` values.
+	 *
+	 * @private
+	 * @param {*} value The value to process.
+	 * @returns {string} Returns the string.
+	 */
+	function baseToString(value) {
+	  return value == null ? '' : (value + '');
+	}
+
+	module.exports = baseToString;
+
+
+/***/ }
+/******/ ]);
