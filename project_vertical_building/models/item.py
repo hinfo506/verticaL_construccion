@@ -154,3 +154,15 @@ class VerticalItem(models.Model):
             state = 'aprobada' if record.project_id.stage_id.is_prevision else 'pendiente'
             record.write({'estado_item': state})
         return record
+
+    # Onchage para cambiar el dominio
+    @api.onchange('job_type')
+    def _onchange_domain_product(self):
+        product = {}
+        if self.job_type == 'labour':
+            product['domain'] = {'product_id': [('detailed_type', '=', 'service')]}
+            return product
+        else:
+            product['domain'] = {'product_id': [('detailed_type', '!=', 'service')]}
+            return product
+

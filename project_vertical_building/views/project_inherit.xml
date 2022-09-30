@@ -15,8 +15,16 @@
                     <field name="is_building"/>
                 </xpath>
 
-                <xpath expr="//field[@name='user_id']" position="after">
-                    <field name="warehouse"/>
+                <xpath expr="//field[@name='company_id']" position="before">
+<!--                <xpath expr="//label[@for='date_start']//div" position="before">-->
+<!--                    <field name=""/>-->
+                    <label for="date_start_real" string="Fecha real"/>
+                    <div name="datesreal" class="o_row">
+                        <field name="date_start_real" widget="daterange" options="{&quot;related_end_date&quot;: &quot;date_end_real&quot;}"/>
+                        <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon" title="Arrow"/>
+                        <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('date_start_real', '=', False), ('date_end_real', '=', False)]}"/>
+                        <field name="date_end_real" widget="daterange" options="{&quot;related_start_date&quot;: &quot;date_start_real&quot;}"/>
+                    </div>
                 </xpath>
 
                 <xpath expr="//sheet//div//button" position="before">
@@ -37,6 +45,32 @@
                 <xpath expr="//field[@name='company_id']" position="after">
                     <field name="total"/>
                     <field name="total_prevision"/>
+                    <field name="retention"/>
+                    <field name="currency"/>
+                    <field name="surface"/>
+                    <field name="importe_m2"/>
+                    <field name="hh_planned"/>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="accounting" string="Contabilidad">
+                        <group>
+                            <field name="invoice_address_id"/>
+                            <field name="analitic_id"/>
+                        </group>
+                    </page>
+                    <page name="store" string="Almacén">
+                        <group>
+                            <group>
+                                <field name="warehouse_id"/>
+                                <field name="stock_location_id"/>
+                            </group>
+                            <group>
+                                <field name="supervisor_id"/>
+                            </group>
+                        </group>
+                    </page>
+                    
                 </xpath>
                 
             </field>

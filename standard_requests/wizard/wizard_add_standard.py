@@ -43,6 +43,7 @@ class AddStandar(models.TransientModel):
                     'impuesto_porciento': line.impuesto_porciento,
                     'total_impuesto_item': line.total_impuesto_item,
                     'suma_impuesto_item_y_cost_price': line.suma_impuesto_item_y_cost_price,
+                    'standar_id': self.id,
                 })
         else:
             for active in self.active_ids:
