@@ -20,7 +20,25 @@ class ProjectProject(models.Model):
     total = fields.Float('Importe Total')
     total_prevision = fields.Float('Importe Total Previsto', readonly=True)
 
-    warehouse = fields.Many2one(comodel_name='stock.warehouse', string='Almacén', required=False)
+    # Almacen
+    warehouse_id = fields.Many2one(comodel_name='stock.warehouse', string='Almacén', required=False)
+    stock_location_id = fields.Many2one(comodel_name='stock.location', string='Ubicación Stock', required=False)
+    supervisor_id = fields.Many2one(comodel_name='res.users', string='Supervisor de almacén', required=False)
+
+    # Fecha real de inicio y fin
+    date_start_real = fields.Date(string='Date_start_real', required=False)
+    date_end_real = fields.Date(string='Date_start_real', required=False)
+
+    # Contabilidad
+    invoice_address_id = fields.Many2one(comodel_name='res.partner', string='Dirección de Facturación', required=False)
+    analitic_id = fields.Many2one(comodel_name='account.analytic.account', string='Cuenta Analítica', required=False)
+
+    # Datos secundarios
+    retention = fields.Float(string='Retención %', required=False)
+    currency = fields.Many2one(comodel_name='res.currency', string='Moneda', required=False)
+    surface = fields.Float(string='Superficie m2', required=False)
+    importe_m2 = fields.Float(string='Importe m2', required=False)
+    hh_planned = fields.Float(string='HH planificado', required=False)
 
     @api.depends('abreviatura_proyecto', 'number')
     def compute_numero_proyecto(self):

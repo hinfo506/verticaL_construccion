@@ -20,6 +20,7 @@
         'views/view_standard.xml',
         'views/view_stage.xml',
         'wizard/view_add_standard.xml',
+        'views/view_item.xml',
         'views/menu.xml',
 
     ],
