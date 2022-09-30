@@ -87,9 +87,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div t-if="('vertical_stage_ids' in state.stageObj ? state.stageObj.vertical_stage_ids.length === 0 : true) and ('item_ids' in state.stageObj ? state.stageObj.item_ids.length === 0 : false)">
-                            <img src="/project_vertical_building/static/src/img/construction.png" style="opacity: .13; position: absolute; bottom: 0px; right: 0px;"/>
-                        </div>
                     </div>
                 </div>
             </div>
