@@ -30,10 +30,10 @@
                                     <th><input type="checkbox"/></th>
                                     <th>N° Partida</th>
                                     <th>Nombre Fase</th>
-                                    <th>Finaliza</th>
+                                    <th>Proceso de Compra</th>
                                     <th>Cantidad</th>
                                     <th>Total</th>
-                                    <th>Tipo de Fase</th>
+                                    <th colspan="2">Tipo de Fase</th>
                                 </thead>
                                 <tbody>
                                     <tr t-foreach="state.stageObj.vertical_stage_ids" t-as="stage" style="cursor: pointer;">
@@ -44,6 +44,11 @@
                                         <td><t t-esc="stage.cantidad"/></td>
                                         <td><t t-esc="stage.total.toFixed(2)"/></td>
                                         <td><t t-esc="stage.type_stage_id[1]"/></td>
+                                        <td class="text-right vertical-stage-actions">
+                                            <a href="#" class="btn btn-sm border"><i class="fa fa-cogs"/></a>
+                                            <a href="#" class="btn btn-sm border"><i class="fa fa-cogs"/></a>
+                                            <a href="#" class="btn btn-sm border"><i class="fa fa-cogs"/></a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="4"></td>
