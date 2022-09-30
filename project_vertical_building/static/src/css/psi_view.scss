@@ -1,0 +1,171 @@
+// ------- View with SearchPanel -------
+// $vertical-searchpanel-active-bg: rgba(108, 193, 237, 0.3);
+$vertical-searchpanel-active-bg: #edf4fa;
+$vertical-searchpanel-hover-bg: rgba(108, 193, 237, 0.3);
+$vertical-searchpanel-p: $o-horizontal-padding;
+$vertical-searchpanel-p-small: $o-horizontal-padding*0.5;
+$vertical-searchpanel-p-tiny: $vertical-searchpanel-p-small*0.5;
+
+$vertical-searchpanel-category-default-color: $o-brand-primary;
+$vertical-searchpanel-filter-default-color: #D59244;
+
+$vertical-searchpanel-background-color: black;
+
+// .o_component_with_search_panel,
+// .o_controller_with_searchpanel {
+//     display: flex;
+//     align-items: flex-start;
+
+//     .o_renderer,
+//     .o_renderer_with_searchpanel {
+//         flex: 1 1 100%;
+//         overflow: auto; // make the renderer and search panel scroll individually
+//         max-height: 100%;
+//         position: relative;
+//     }
+// }
+
+.vertical_search_panel {
+    flex: 0 0 390px;
+    overflow: auto;
+    height: 100%;
+    padding: $vertical-searchpanel-p-small $vertical-searchpanel-p-small $vertical-searchpanel-p*2 $vertical-searchpanel-p;
+    border-right: 1px solid $gray-300;
+    background-color: $vertical-searchpanel-background-color;
+
+    .vertical_search_panel_category .vertical_search_panel_section_icon {
+        color: $o-brand-odoo;
+    }
+
+    .vertical_search_panel_filter .vertical_search_panel_section_icon {
+        color: $vertical-searchpanel-filter-default-color;
+    }
+
+    .o_toggle_fold {
+        text-align: center;
+        width: 1.5rem;
+    }
+
+    .vertical_search_panel_label {
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        user-select: none;
+        width: 100%;
+    }
+
+    .vertical_search_panel_section_header {
+        cursor: default;
+        padding: $vertical-searchpanel-p-small 0;
+    }
+
+    .list-group {
+        padding-bottom: $vertical-searchpanel-p-tiny;
+        background-color: $vertical-searchpanel-background-color;
+    }
+
+    .list-group-item {
+        padding: 0;
+        background-color: $vertical-searchpanel-background-color;
+        
+
+        .list-group-item {
+            padding: 0 0 0 $custom-control-gutter;
+            margin-bottom: $vertical-searchpanel-p-tiny*0.5;
+        }
+
+        .vertical_search_panel_label_title, .vertical_search_panel_label_title_action {
+            color: #ccc;
+            width: 100%;
+            @include o-text-overflow;
+        }
+
+        header.active {
+            background-color: $vertical-searchpanel-active-bg;
+            color: #434444;
+            .vertical_search_panel_label_title, .vertical_search_panel_label_title_action {
+                color: #434444;
+            }
+        }
+
+        header:hover {
+            background-color: $vertical-searchpanel-hover-bg;
+            color: white;
+            .vertical_search_panel_label_title, .vertical_search_panel_label_title_action {
+                color: white;
+            }
+        }
+
+    }
+
+    .vertical_search_panel_category_value {
+        cursor: pointer;
+
+        header {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 6px 4px 0px;
+            color: #ccc;
+
+            span {
+                color: #ccc;
+            }
+        }
+
+        .vertical_search_panel_label.o_with_counters {
+            overflow: hidden;
+        }
+
+        .vertical_search_panel_category_value {
+            margin-bottom: 0;
+            padding-left: $vertical-searchpanel-p;
+            position: relative;
+
+            &:before,
+            &:after {
+                content: '';
+                background: $gray-500;
+                margin-left: 4px;
+                @include o-position-absolute(0, $left: $vertical-searchpanel-p-tiny);
+                @include size(1px, 100%);
+            }
+
+            &:after {
+                top: 12px;
+                @include size(8px, 1px);
+            }
+
+            &:last-child:before {
+                height: 12px;
+            }
+        }
+    }
+
+    .vertical_search_panel_group_header .custom-control {
+        width: 100%;
+    }
+
+    .vertical_search_panel_filter_value,
+    .vertical_search_panel_filter_group {
+        cursor: pointer;
+        padding-bottom: $vertical-searchpanel-p-small;
+
+        .vertical_search_panel_label,
+        .vertical_search_panel_label_title {
+            padding-right: 6px;
+        }
+    }
+
+    .vertical_search_panel_filter_group {
+
+        header {
+            display: flex;
+        }
+
+        .vertical_search_panel_label.o_with_counters {
+            justify-content: flex-start;
+        }
+    }
+}

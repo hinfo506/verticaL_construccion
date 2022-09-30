@@ -45,6 +45,7 @@
             'project_vertical_building/static/src/js/legacy/vertical_search_panel.js',
             'project_vertical_building/static/src/js/legacy/vertical_stage_tree.js',
             'project_vertical_building/static/src/js/psi_view/psi_view.js',
+            'project_vertical_building/static/src/css/psi_view.scss',
             # 'project_vertical_building/static/src/js/vertical_search_panel.js',
             # 'project_vertical_building/static/src/js/vertical_stage_tree.js',
         ],

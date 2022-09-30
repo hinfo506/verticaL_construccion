@@ -7,14 +7,14 @@
                 <div class="d-flex flex-row h-100">
                 <!-- <div class="h-100"> -->
                     <!-- SearchPanel -->
-                    <!-- <div class="o_search_panel" style="resize: horizontal;"> -->
-                    <div class="o_search_panel" style="flex-basis: 390px; background-color: black;">
-                        <section t-foreach="model.projectStageItemData" t-as="project" t-key="project.project_id[0]" class="o_search_panel_section o_search_panel_category">
-                            <header class="o_search_panel_section_header text-uppercase">
-                                <!-- <i t-attf-class="fa {{ project.icon }} o_search_panel_section_icon mr-2" t-att-style="project.color and ('color: ' + project.color)" /> -->
+                    <!-- <div class="vertical_search_panel" style="resize: horizontal;"> -->
+                    <div class="vertical_search_panel">
+                        <section t-foreach="model.projectStageItemData" t-as="project" t-key="project.project_id[0]" class="vertical_search_panel_section vertical_search_panel_category">
+                            <header class="vertical_search_panel_section_header text-uppercase">
+                                <!-- <i t-attf-class="fa {{ project.icon }} vertical_search_panel_section_icon mr-2" t-att-style="project.color and ('color: ' + project.color)" /> -->
                                 <b t-esc="project.project_id[1]"/>
                             </header>
-                            <ul class="list-group d-block o_search_panel_field" style="background-color: black">
+                            <ul class="list-group d-block vertical_search_panel_field">
                                 <t t-call="{{ constructor.subTemplates.stage }}">
                                 <!-- fix me! -->
                                     <t t-set="values" t-value="project.vertical_stage_ids"/>
@@ -98,16 +98,16 @@
 
     <t t-name="project_vertical_view.Stage" owl="1">
         <t t-foreach="values" t-as="value" t-key="value.id">
-            <li class="o_search_panel_category_value list-group-item border-0 context-menu-item" style="background-color: black; color: #bbb;" t-att-data-id="value.id">
-                <!-- <header class="list-group-item-action" t-att-class="{ active: state.active[project.id] === value.id }" t-on-click="toggleCategory(section, value)"> -->
+            <!-- <li class="vertical_search_panel_category_value list-group-item border-0 context-menu-item" style="background-color: black; color: #bbb;" t-att-data-id="value.id"> -->
+            <li class="vertical_search_panel_category_value list-group-item border-0 context-menu-item" t-att-data-id="value.id">
                 <header class="list-group-item-action" t-att-class="{ active: state.selectedStage === value.id }" t-on-click="toggleStage(value.id)">
-                    <label class="o_search_panel_label mb0">
+                    <label class="vertical_search_panel_label mb0">
                         <div class="o_toggle_fold">
                             <i t-if="value.vertical_stage_ids.length" t-attf-class="fa fa-caret-{{ state.activeStages.indexOf(value.id) >= 0 ? 'down' : 'right' }}" />
                         </div>
-                        <span class="o_search_panel_label_title" t-esc="value.name" t-att-title="value.name" style="color: #bbb;"/>
+                        <span class="vertical_search_panel_label_title" t-esc="value.name" t-att-title="value.name"/>
                         <div class="pull-right">
-                            <span><a class="btn"><i class="fa fa-plus-square"/></a></span>
+                            <span class="vertical_search_panel_label_title_action"><a class="btn"><i class="fa fa-plus-square"/></a></span>
                             <!-- <span><a class="btn"><i class="fa fa-ellipsis-h"/></a></span> -->
                         </div>
                     </label>
