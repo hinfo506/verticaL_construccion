@@ -51,9 +51,9 @@
                                         <td class="text-right"><t t-esc="stage.total.toFixed(2)"/></td>
                                         <td class="text-right"><t t-esc="stage.type_stage_id[1]"/></td>
                                         <td class="text-right vertical-stage-actions">
-                                            <a href="#" onclick="alert('tio! me has picado!!')" class="btn btn-sm border"><i class="fa fa-cogs"/></a>
-                                            <a href="#" onclick="alert('tio! me has picado!!')" class="btn btn-sm border"><i class="fa fa-cogs"/></a>
-                                            <a href="#" onclick="alert('tio! me has picado!!')" class="btn btn-sm border"><i class="fa fa-cogs"/></a>
+                                            <a href="#" onclick="alert('tio! me has picado!!')" class="btn btn-sm border"><i class="fa fa-pencil-square-o"/></a>
+                                            <a href="#" onclick="alert('tio! me has picado!!')" class="btn btn-sm border"><i class="fa fa-bar-chart"/></a>
+                                            <a href="#" onclick="alert('tio! me has picado!!')" class="btn btn-sm border"><i class="fa fa-times"/></a>
                                         </td>
                                     </tr>
                                     <tr>
