@@ -17,8 +17,7 @@ class VerticalStage(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
-    total = fields.Float('Importe Total', compute='_compute_total_fase')
-    # total = fields.Float('Importe Total', compute='_compute_total_parti')
+    total = fields.Float('Precio Coste', compute='_compute_total_fase')
     # total_prevision = fields.Float('Importe Total Previsto')
 
     # Campo de Prueba para poder aprobar o no aprobar
@@ -128,21 +127,32 @@ class VerticalStage(models.Model):
                 for item in order.item_ids:
                     suma += item.suma_impuesto_item_y_cost_price
                 order.update({
-                    # 'amount_untaxed': amount_untaxed,
                     'total': suma,
-                    # 'amount_total': amount_untaxed + amount_tax,
-                    # 'amount_total': amount_untaxed,
                 })
             else:
                 suma = 0.0
                 for fase in order.child_ids:
                     suma += fase.total
                 order.update({
-                    # 'amount_untaxed': amount_untaxed,
                     'total': suma,
-                    # 'amount_total': amount_untaxed + amount_tax,
-                    # 'amount_total': amount_untaxed,
                 })
+
+    total2 = fields.Float('Precio Total', compute='_compute_total')
+
+    def _compute_total(self):
+        for record in self:
+            if record.total != 0 and record.cantidad != 0:
+                result = 0.0
+                result = record.cantidad * record.total
+                record.update({
+                    'total2': result,
+                })
+            else:
+                record.update({
+                    'total2': 0,
+                })
+
+
 
     def approve_fase(self):
         self.estado_fase = 'aprobadaproceso'

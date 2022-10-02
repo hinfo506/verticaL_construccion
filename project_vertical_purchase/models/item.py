@@ -12,17 +12,18 @@ class VerticalItem(models.Model):
     amount_delivered = fields.Float(string='Cantidad Entregada', required=False)
 
     purchase_item_count = fields.Integer(string='purchase_item_count', required=False, compute='get_purchase_item_count')
-    purchase_stage = fields.Selection(string='Estado de compra',
-                                      selection=[('earring', 'Pendiente'),
-                                                 ('notconfirm', 'Por Confirmar'),
-                                                 ('confirm', 'Confirmada'),
-                                                 ('qty_earring', 'Cantidades Pendientes'),
-                                                 ('finished', 'Finalizada'), ], required=False, default='earring')
 
     def get_purchase_item_count(self):
         for r in self:
             purchase = r.env['purchase.order.line'].search([('item_id', '=', r.id)]).mapped('order_id')
             r.purchase_item_count = len(purchase)
+
+    purchase_stage = fields.Selection(string='Estado de compra',
+        selection=[('earring', 'Pendiente'),
+                   ('notconfirm', 'Por Confirmar'),
+                   ('confirm', 'Confirmada'),
+                   ('qty_earring', 'Cantidades Pendientes'),
+                   ('finished', 'Finalizada'), ], required=False, default='earring')
 
     def action_view_purchase_item(self):
         purchase = self.env['purchase.order.line'].search([('item_id', '=', self.id)]).mapped('order_id')
@@ -62,7 +63,7 @@ class VerticalItem(models.Model):
         # Por cada proveedor, debo revisar si tengo al menos una PO en borrador y las guardo en un diccionario
         purchase_data = {}
         for vendor in vendors:
-            po = po_obj.search([('partner_id', '=', vendor.name.id)], limit=1)
+            po = po_obj.search([("partner_id", "=", vendor.name.id)], limit=1)
             p_data = {}
             if len(po) == 1:
                 # Voy a meter las purchase_order_lines que genere en las purchase_orders, tengo esto en 2 diccionarios
