@@ -24,6 +24,8 @@ class Standard(models.Model):
 
     total_cost = fields.Float(string='Total coste', required=False, compute='_compute_total_cost')
 
+
+
     def _compute_total_cost(self):
         for rec in self:
             total = 0
