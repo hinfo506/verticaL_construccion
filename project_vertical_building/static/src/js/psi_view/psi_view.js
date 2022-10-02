@@ -84,7 +84,7 @@ class ProjectStageItemView extends owl.Component {
     });
     let searchModel = this.env.searchModel;
     searchModel.display = {
-      controlPanel: false,
+      controlPanel: true,
       searchPanel: false,
     };
     useSubEnv({ searchModel: searchModel });
@@ -129,26 +129,69 @@ class ProjectStageItemView extends owl.Component {
         const record_id = $elem.data("id");
         return _.find(self.model.rawData, (stage) => stage.id === record_id);
       },
-      actions: [
-        {
-          name: "Edit name",
-          onClick: function (record) {
-            alert(record.name);
+      /* group actions by their id to make use of separators between
+      * them in the context menu. Actions not added to any group with
+      * this option will appear in a default group of their own. */
+      // actionsGroups: [
+      //   ['setEditable', 'setUneditable' ],
+      //   ['deleteRow']
+      // ],
+      actions: {
+        editName: {
+          name: 'Editar Fase',
+          iconClass: 'fa-pencil',
+          onClick: function(row) {
+            alert("'Edit name' clicked on '" + row.name + "'");
+          },
+          isEnabled: function(row) {
+            return row.isEditable;
+          }
+        },
+        createSubStage: {
+          name: 'Crear SubFase',
+          iconClass: 'fa-pencil',
+          onClick: function(row) {
+            alert("'Edit description' clicked on '" + row.name + "'");
           },
         },
-        {
-          name: "Edit description",
-          onClick: function (record) {
-            alert(record.id);
+        uploadStandar: {
+          name: 'Subir Estandar',
+          iconClass: 'fa-unlock',
+          onClick: function(row) {
+            alert("'Set editable' clicked on '" + row.name + "'");
+          },
+          // isShown: function(row) {
+          //   return !row.isEditable;
+          // }
+        },
+        sendToPurchases: {
+          name: 'Enviar a Compra',
+          iconClass: 'fa-lock',
+          onClick: function(row) {
+            alert("'Set uneditable' clicked on '" + row.name + "'");
+          },
+          // isShown: function(row) {
+          //   return row.isEditable;
+          // }
+        },
+        globalPurchase: {
+          name: 'Compra Global',
+          iconClass: 'fa-trash-o',
+          onClick: function(row) {
+            alert("'Delete row' clicked on '" + row.name + "'");
           },
         },
-        {
-          name: "Tenemos Desplegable Joaquin!!",
-          onClick: function (record) {
-            alert(record.id);
+        deleteStage: {
+          name: 'Borrar Fase',
+          iconClass: 'fa-trash-o',
+          onClick: function(row) {
+            alert("'Delete row' clicked on '" + row.name + "'");
           },
-        },
-      ],
+          // isEnabled: function(row) {
+          //   return row.isEditable && row.isRemovable;
+          // }
+        }
+      }
     });
   }
   //---------------------------------------------------------------------
