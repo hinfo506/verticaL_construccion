@@ -114,10 +114,6 @@
                             <i t-if="value.vertical_stage_ids.length" t-attf-class="fa fa-caret-{{ state.activeStages.indexOf(value.id) >= 0 ? 'down' : 'right' }}" />
                         </div>
                         <span class="vertical_search_panel_label_title" t-esc="value.name" t-att-title="value.name"/>
-                        <div class="pull-right">
-                            <span class="vertical_search_panel_label_title_action"><a class="btn"><i class="fa fa-plus-square"/></a></span>
-                            <!-- <span><a class="btn"><i class="fa fa-ellipsis-h"/></a></span> -->
-                        </div>
                     </label>
                 </header>
                 <ul t-if="value.vertical_stage_ids.length and state.activeStages.indexOf(value.id) >= 0" class="list-group d-block">
