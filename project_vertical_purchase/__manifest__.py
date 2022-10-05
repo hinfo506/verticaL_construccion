@@ -8,17 +8,13 @@
     'description': """
         Project Vertical Purchase
     """,
-
     'author': "OdooNext: Raul Rolando Jardinot Gonzalez",
     'website': "http://www.odoonext.com",
 
     'category': 'Uncategorized',
     'version': '15.0.1',
-
-    # any module necessary for this one to work correctly
     'depends': ['base', 'project_vertical_building', 'purchase'],
 
-    # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         # 'views/views.xml',
