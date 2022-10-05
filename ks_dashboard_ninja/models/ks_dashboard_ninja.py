@@ -653,7 +653,6 @@ class KsDashboardNinjaBoard(models.Model):
             'ks_multiplier_active': rec.ks_multiplier_active,
             'ks_multiplier': rec.ks_multiplier,
             'ks_multiplier_lines': ks_multiplier_lines if ks_multiplier_lines else False,
-            'ks_record_data_limit_visibility': rec.ks_record_data_limit_visibility,
         }
         return item
 

@@ -122,7 +122,7 @@ class MailActivity(models.Model):
                     vals.update({
                         'sh_state': vals.get('state')
                     })
-                if vals.get('active') and vals.get('active') == True:
+                if vals.get('active') and vals.get('active'):
                     rec.onchange_state()
         return super(MailActivity, self).write(vals)
 
@@ -411,8 +411,7 @@ class ResUsers(models.Model):
             user_activities[activity['model']]['%s_count' %
                                                activity['states']] += activity['count']
             if activity['states'] in ('today', 'overdue'):
-                user_activities[activity['model']
-                ]['total_count'] += activity['count']
+                user_activities[activity['model']]['total_count'] += activity['count']
 
             user_activities[activity['model']]['actions'] = [{
                 'icon': 'fa-clock-o',
