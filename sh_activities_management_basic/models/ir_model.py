@@ -10,4 +10,3 @@ class IrModel(models.Model):
     @api.model
     def xmlid_to_res_model_res_id(self, xmlid, raise_if_not_found=False):
         return self._xmlid_to_res_model_res_id(xmlid, raise_if_not_found)[1]
-        

@@ -9,14 +9,14 @@ class ActivityFeedback(models.TransientModel):
     _name = 'activity.feedback'
     _description = 'Activity Feedback'
 
-    feedback = fields.Text("Feedback",required=True)
+    feedback = fields.Text("Feedback", required=True)
     done_button_pressed = fields.Boolean()
 
     def action_done(self):
         active_id = self.env.context.get('active_id')
         activity_id = self.env['mail.activity'].sudo().browse(active_id)
-        activity_id.state='done'
-        activity_id.active=False
+        activity_id.state = 'done'
+        activity_id.active = False
         activity_id.activity_done = True
         activity_id.date_done = fields.Date.today()
         activity_id.feedback = self.feedback
@@ -37,8 +37,8 @@ class ActivityFeedback(models.TransientModel):
     def action_schedule_done(self):
         active_id = self.env.context.get('active_id')
         activity_id = self.env['mail.activity'].sudo().browse(active_id)
-        activity_id.state='done'
-        activity_id.active=False
+        activity_id.state = 'done'
+        activity_id.active = False
         activity_id.activity_done = True
         activity_id.date_done = fields.Date.today()
         activity_id.feedback = self.feedback

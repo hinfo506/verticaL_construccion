@@ -25,7 +25,7 @@ class AddStandar(models.TransientModel):
     def action_insertar(self):
         if self.is_one:
             for line in self.list_ids:
-                items = self.env['vertical.item'].create({
+                self.env['vertical.item'].create({
                     'vertical_stage_id': self.active_id.id,
                     'project_id': self.active_id.project_id.id,
                     'cost_price': line.cost_price,
@@ -48,7 +48,7 @@ class AddStandar(models.TransientModel):
         else:
             for active in self.active_ids:
                 for line in self.list_ids:
-                    items = self.env['vertical.item'].create({
+                    self.env['vertical.item'].create({
                         'vertical_stage_id': active.id,
                         'project_id': active.project_id.id,
                         'cost_price': line.cost_price,

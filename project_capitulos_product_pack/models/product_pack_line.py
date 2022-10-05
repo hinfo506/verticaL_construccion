@@ -8,8 +8,6 @@ class ProductPack(models.Model):
 
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Capitulo')
 
-
-
     def get_subcapitulo_id_line_vals(self, line, subcapitulo_id):
         self.ensure_one()
         ##quantity = self.quantity * line.product_uom_qty
@@ -19,30 +17,29 @@ class ProductPack(models.Model):
             "pack_parent_line_id": line.id,
             "pack_depth": line.pack_depth + 1,
             "pack_modifiable": line.product_id.pack_modifiable,
-            "job_type":'material'
+            "job_type": 'material'
         }
         sol = line.new(line_vals)
-        #sol.product_id_change()
-        #sol.product_uom_qty = quantity
-        #sol.product_uom_change()
-        #sol._onchange_discount()
+        # sol.product_id_change()
+        # sol.product_uom_qty = quantity
+        # sol.product_uom_change()
+        # sol._onchange_discount()
         vals = sol._convert_to_write(sol._cache)
         pack_price_types = {"totalized", "ignored"}
         sale_discount = 0.0
-        #if line.product_id.pack_component_price == "detailed":
+        # if line.product_id.pack_component_price == "detailed":
         #    sale_discount = 100.0 - (
         #        (100.0 - sol.discount) * (100.0 - self.sale_discount) / 100.0
         #    )
-       # elif (
+        # elif (
         #    line.product_id.pack_type == "detailed"
         #    and line.product_id.pack_component_price in pack_price_types
-        #):
+        # ):
         #    vals["price_unit"] = 0.0
         vals.update(
             {
-               # "discount": sale_discount,
-                "descripcion": "> "+sol.product_id.display_name,
+                # "discount": sale_discount,
+                "descripcion": "> " + sol.product_id.display_name,
             }
         )
         return vals
-

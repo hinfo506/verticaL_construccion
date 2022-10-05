@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-	'name': 'CRM Dashboard Ninja',
+    'name': 'CRM Dashboard Ninja',
 
-	'summary': """
+    'summary': """
 CRM Dashboard,CRM Odoo Dashboard,CRM dashboard advance,Responsive CRM Dashboard,Detailed dashboard for CRM,Odoo 15 Dashboard,Powerful Dashboards,custom odoo dashboard,odoo 14 dashboard,KPI data,CRM Dashboard Ninja,odoo 13 dashboard
 """,
 
-	'description': """
+    'description': """
 Dashboard Ninja v14.0,
         Best CRM Dashboard Apps
         CRM Dashboard Apps
@@ -35,29 +35,29 @@ Dashboard Ninja v14.0,
         Dashboard Manager Apps
 """,
 
-	'author': 'Ksolves India Ltd.',
+    'author': 'Ksolves India Ltd.',
 
-	'license': 'OPL-1',
+    'license': 'OPL-1',
 
-	'currency': 'EUR',
+    'currency': 'EUR',
 
-	'price': '0',
+    'price': '0',
 
-	'website': 'https://store.ksolves.com/',
+    'website': 'https://store.ksolves.com/',
 
-	'maintainer': 'Ksolves India Ltd.',
+    'maintainer': 'Ksolves India Ltd.',
 
-	'category': 'Tools',
+    'category': 'Tools',
 
-	'support': 'sales@ksolves.com',
+    'support': 'sales@ksolves.com',
 
-	'live_test_url': 'http://dashboardninja15.kappso.in/',
+    'live_test_url': 'http://dashboardninja15.kappso.in/',
 
-	'version': '15.0.1.0.0',
+    'version': '15.0.1.0.0',
 
-	'images': ['static/description/ks_crm_ninja_banner.jpg'],
+    'images': ['static/description/ks_crm_ninja_banner.jpg'],
 
-	'depends': ['ks_dashboard_ninja', 'crm'],
+    'depends': ['ks_dashboard_ninja', 'crm'],
 
-	'data': ['data/ks_crm_data.xml'],
+    'data': ['data/ks_crm_data.xml'],
 }

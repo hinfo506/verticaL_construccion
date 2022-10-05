@@ -40,7 +40,7 @@ class ItemCapitulo(models.Model):
         if self.product_id.pack_ok and self.pack_type == "detailed":
             for subline in self.product_id.get_pack_lines():
                 vals = subline.get_subcapitulo_id_line_vals(self, self.subcapitulo_id)
-                #vals["sequence"] = self.sequence
+                # vals["sequence"] = self.sequence
                 if write:
                     existing_subline = self.search(
                         [
@@ -75,14 +75,11 @@ class ItemCapitulo(models.Model):
                 record.expand_pack_line(write=True)
         return res
 
-
-
     @api.onchange("product_id")
     def check_pack_line_modify(self):
         """Do not let to edit a sale order line if this one belongs to pack"""
         if self._origin.pack_parent_line_id and not self._origin.pack_modifiable:
             raise UserError(_("You can not change this line because is part of a pack included in this order"))
-
 
     def action_open_parent_pack_product_view(self):
         domain = [

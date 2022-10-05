@@ -30,4 +30,4 @@ class VerticalItemVolumetry(models.Model):
     def _compute_total(self):
         for record in self:
             record.total = record.cantidad_volumetria * (
-                        record.longitud_volumetria * record.ancho_volumetria * record.alto_volumetria) * record.precio_coste_volumetria
+                    record.longitud_volumetria * record.ancho_volumetria * record.alto_volumetria) * record.precio_coste_volumetria

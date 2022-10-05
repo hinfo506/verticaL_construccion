@@ -1,18 +1,19 @@
-
-import re
+import datetime
 import io
 import json
-import operator
 import logging
-from odoo.addons.web.controllers.main import ExportFormat,serialize_exception, ExportXlsxWriter
-from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
-import datetime
+import operator
+import os
+
+import pytz
 from odoo import http
 from odoo.http import content_disposition, request
 from odoo.tools import pycompat
-from ..lib.ks_date_filter_selections import ks_get_date, ks_convert_into_utc, ks_convert_into_local
-import os
-import pytz
+from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
+
+from odoo.addons.web.controllers.main import serialize_exception, ExportXlsxWriter
+from ..lib.ks_date_filter_selections import ks_get_date, ks_convert_into_local
+
 _logger = logging.getLogger(__name__)
 
 
@@ -40,7 +41,7 @@ class KsListExport(http.Controller):
                     try:
                         datetime.now(pytz.timezone(ks_timezone))
                     except Exception as e:
-                        _logger.info('Please set the local timezone')
+                        _logger.info('Please set the local timezone' + str(e))
 
                 else:
                     _logger.info('Please set the local timezone')
@@ -56,8 +57,8 @@ class KsListExport(http.Controller):
                 query_end_date = item.ks_query_end_date
                 ks_query = str(item.ks_custom_query)
             if ks_start_date and ks_end_date:
-                ks_start_date = datetime.datetime.strptime(ks_start_date,DEFAULT_SERVER_DATETIME_FORMAT)
-                ks_end_date = datetime.datetime.strptime(ks_end_date,DEFAULT_SERVER_DATETIME_FORMAT)
+                ks_start_date = datetime.datetime.strptime(ks_start_date, DEFAULT_SERVER_DATETIME_FORMAT)
+                ks_end_date = datetime.datetime.strptime(ks_end_date, DEFAULT_SERVER_DATETIME_FORMAT)
             item = item.with_context(ksDateFilterStartDate=ks_start_date)
             item = item.with_context(ksDateFilterEndDate=ks_end_date)
             item = item.with_context(ksDateFilterSelection=ksDateFilterSelection)
@@ -82,7 +83,7 @@ class KsListExport(http.Controller):
                 item = item.with_context(ksDateFilterEndDate=ks_date_data["selected_end_date"])
 
             item_domain = params.get('ks_domain_1', [])
-            ks_chart_domain = item.ks_convert_into_proper_domain(item.ks_domain, item,item_domain)
+            ks_chart_domain = item.ks_convert_into_proper_domain(item.ks_domain, item, item_domain)
             # list_data = item.ks_fetch_list_view_data(item,ks_chart_domain, ks_export_all=
             if list_data['type'] == 'ungrouped':
                 list_data = item.ks_fetch_list_view_data(item, ks_chart_domain, ks_export_all=True)
@@ -107,7 +108,8 @@ class KsListExport(http.Controller):
                         ks_converted_date = False
                         date_string = dataset['data'][count]
                         if dataset['data'][count]:
-                            ks_converted_date = ks_convert_into_local(datetime.datetime.strptime(date_string, '%m/%d/%y %H:%M:%S'),ks_timezone)
+                            ks_converted_date = ks_convert_into_local(
+                                datetime.datetime.strptime(date_string, '%m/%d/%y %H:%M:%S'), ks_timezone)
                         dataset['data'][count] = ks_converted_date
             for ks_count, val in enumerate(dataset['data']):
                 if isinstance(val, (float, int)):
@@ -117,19 +119,19 @@ class KsListExport(http.Controller):
                         except Exception as e:
                             ks_precision = 2
                         dataset['data'][ks_count] = item.env['ir.qweb.field.float'].sudo().value_to_html(val,
-                                                                             {'precision': ks_precision})
+                                                                                                         {
+                                                                                                             'precision': ks_precision})
             import_data.append(dataset['data'])
 
         return request.make_response(self.from_data(columns_headers, import_data),
-            headers=[('Content-Disposition',
-                            content_disposition(self.filename(header))),
-                     ('Content-Type', self.content_type)],
-            # cookies={'fileToken': token}
+                                     headers=[('Content-Disposition',
+                                               content_disposition(self.filename(header))),
+                                              ('Content-Type', self.content_type)],
+                                     # cookies={'fileToken': token}
                                      )
 
 
 class KsListExcelExport(KsListExport, http.Controller):
-
     # Excel needs raw data to correctly handle numbers and date values
     raw_data = True
 
@@ -178,7 +180,7 @@ class KsListCsvExport(KsListExport, http.Controller):
             row = []
             for d in data:
                 # Spreadsheet apps tend to detect formulas on leading =, + and -
-                if isinstance(d, str)    and d.startswith(('=', '-', '+')):
+                if isinstance(d, str) and d.startswith(('=', '-', '+')):
                     d = "'" + d
 
                 row.append(pycompat.to_text(d))

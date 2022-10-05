@@ -1,4 +1,4 @@
-from odoo import models, fields, api, _
+from odoo import models, fields
 
 
 class KsDashboardNinjaBoardItemAction(models.Model):
@@ -10,7 +10,7 @@ class KsDashboardNinjaBoardItemAction(models.Model):
     ks_gridstack_config = fields.Char('Item Configurations')
     # ks_board_active_user_ids = fields.Many2many('res.users')
     ks_active = fields.Boolean("Is Selected")
-    ks_dashboard_menu_name = fields.Char(string="Menu Name", related='ks_dashboard_ninja_id.ks_dashboard_menu_name', store=True)
+    ks_dashboard_menu_name = fields.Char(string="Menu Name", related='ks_dashboard_ninja_id.ks_dashboard_menu_name',
+                                         store=True)
     board_type = fields.Selection([('default', 'Default'), ('child', 'Child')])
     company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
-

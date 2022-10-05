@@ -1,26 +1,21 @@
-
-import re
-import datetime
 import io
 import json
 import operator
 
-from odoo.addons.web.controllers.main import ExportFormat,serialize_exception, ExportXlsxWriter
-from odoo.tools.translate import _
 from odoo import http
 from odoo.http import content_disposition, request
-from odoo.tools.misc import xlwt
-from odoo.exceptions import UserError
 from odoo.tools import pycompat
+
+from odoo.addons.web.controllers.main import serialize_exception, ExportXlsxWriter
 
 
 class KsChartExport(http.Controller):
 
     def base(self, data):
         params = json.loads(data)
-        header,chart_data = operator.itemgetter('header','chart_data')(params)
+        header, chart_data = operator.itemgetter('header', 'chart_data')(params)
         chart_data = json.loads(chart_data)
-        chart_data['labels'].insert(0,'Measure')
+        chart_data['labels'].insert(0, 'Measure')
         columns_headers = chart_data['labels']
         import_data = []
 
@@ -29,17 +24,14 @@ class KsChartExport(http.Controller):
             import_data.append(dataset['data'])
 
         return request.make_response(self.from_data(columns_headers, import_data),
-            headers=[('Content-Disposition',
-                            content_disposition(self.filename(header))),
-                     ('Content-Type', self.content_type)],
-            # cookies={'fileToken': token}
+                                     headers=[('Content-Disposition',
+                                               content_disposition(self.filename(header))),
+                                              ('Content-Type', self.content_type)],
+                                     # cookies={'fileToken': token}
                                      )
 
 
-
-
 class KsChartExcelExport(KsChartExport, http.Controller):
-
     # Excel needs raw data to correctly handle numbers and date values
     raw_data = True
 
@@ -88,7 +80,7 @@ class KsChartCsvExport(KsChartExport, http.Controller):
             row = []
             for d in data:
                 # Spreadsheet apps tend to detect formulas on leading =, + and -
-                if isinstance(d, str)    and d.startswith(('=', '-', '+')):
+                if isinstance(d, str) and d.startswith(('=', '-', '+')):
                     d = "'" + d
 
                 row.append(pycompat.to_text(d))

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 
 _logger = logging.getLogger(__name__)
 
@@ -64,7 +64,7 @@ class StandardLine(models.Model):
                 record.subtotal_descuento = record.subtotal_item_capitulo - record.cantidad_descuento
             elif record.tipo_descuento == 'porciento':
                 record.subtotal_descuento = record.subtotal_item_capitulo - (
-                            (record.subtotal_item_capitulo * record.cantidad_descuento) / 100)
+                        (record.subtotal_item_capitulo * record.cantidad_descuento) / 100)
             else:
                 record.subtotal_descuento = record.subtotal_item_capitulo
 

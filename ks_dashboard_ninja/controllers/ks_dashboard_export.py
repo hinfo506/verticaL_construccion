@@ -2,11 +2,10 @@ import io
 import json
 import operator
 
-from odoo.addons.web.controllers.main import ExportFormat,serialize_exception
-
 from odoo import http
-from odoo.http import request
-from odoo.http import content_disposition,request
+from odoo.http import content_disposition, request
+
+from odoo.addons.web.controllers.main import serialize_exception
 
 
 class KsDashboardExport(http.Controller):
@@ -41,6 +40,7 @@ class KsDashboardJsonExport(KsDashboardExport, http.Controller):
         fp.write(json.dumps(dashboard_data))
 
         return fp.getvalue()
+
 
 class KsItemJsonExport(KsDashboardExport, http.Controller):
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Softhealer Technologies.
 
-from odoo import models, fields, api, modules, exceptions, _,Command
+from odoo import models, fields, api, modules, exceptions, _, Command
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo.tools.misc import clean_context
@@ -25,11 +25,13 @@ class MailActivity(models.Model):
     sh_activity_tags = fields.Many2many(
         "sh.activity.tags", string='Activity Tags')
     state = fields.Selection(
-        selection_add=[("done", "Done"),("cancel","Cancelled")],
+        selection_add=[("done", "Done"), ("cancel", "Cancelled")],
         compute="_compute_state",
-        search = '_search_state'
+        search='_search_state'
     )
-    sh_state = fields.Selection([('overdue','Overdue'),('today','Today'),('planned','Planned'),('done','Done'),('cancel','Cancelled')],string='State ')
+    sh_state = fields.Selection(
+        [('overdue', 'Overdue'), ('today', 'Today'), ('planned', 'Planned'), ('done', 'Done'), ('cancel', 'Cancelled')],
+        string='State ')
     date_done = fields.Date("Completed Date", index=True, readonly=True)
     feedback = fields.Text("Feedback")
 
@@ -47,7 +49,7 @@ class MailActivity(models.Model):
     activity_done = fields.Boolean()
 
     reference = fields.Reference(string='Related Document',
-        selection='_reference_models')
+                                 selection='_reference_models')
 
     @api.model
     def _reference_models(self):
@@ -60,7 +62,7 @@ class MailActivity(models.Model):
     def onchange_reference(self):
         if self.reference:
             if self.reference._name:
-                model_id = self.env['ir.model'].sudo().search([('model','=',self.reference._name)],limit=1)
+                model_id = self.env['ir.model'].sudo().search([('model', '=', self.reference._name)], limit=1)
                 if model_id:
                     self.res_model_id = model_id.id
                     self.res_id = self.reference.id
@@ -105,7 +107,7 @@ class MailActivity(models.Model):
                         'supervisor_id': res.supervisor_id.id,
                         'activity_type_id': res.activity_type_id.id,
                         'summary': res.summary,
-                        'sh_activity_tags':[(6,0,res.sh_activity_tags.ids)],
+                        'sh_activity_tags': [(6, 0, res.sh_activity_tags.ids)],
                         'note': res.note,
                     })
         if res.state:
@@ -117,29 +119,29 @@ class MailActivity(models.Model):
             for rec in self:
                 if vals.get('state'):
                     vals.update({
-                        'sh_state':vals.get('state')
-                        })
+                        'sh_state': vals.get('state')
+                    })
                 if vals.get('active') and vals.get('active') == True:
                     rec.onchange_state()
         return super(MailActivity, self).write(vals)
 
-    def _search_state(self,operator,value):
+    def _search_state(self, operator, value):
         not_done_ids = []
         done_ids = []
         if value == 'done':
-            for record in self.search([('active','=',False),('date_done','!=',False)]):
+            for record in self.search([('active', '=', False), ('date_done', '!=', False)]):
                 done_ids.append(record.id)
         elif value == 'cancel':
-            for record in self.search([('active','=',False),('date_done','=',False)]):
+            for record in self.search([('active', '=', False), ('date_done', '=', False)]):
                 done_ids.append(record.id)
         elif value == 'today':
-            for record in self.search([('date_deadline','=',fields.Date.today())]):
+            for record in self.search([('date_deadline', '=', fields.Date.today())]):
                 done_ids.append(record.id)
         elif value == 'planned':
-            for record in self.search([('date_deadline','>',fields.Date.today())]):
+            for record in self.search([('date_deadline', '>', fields.Date.today())]):
                 done_ids.append(record.id)
         elif value == 'overdue':
-            for record in self.search([('date_deadline','<',fields.Date.today())]):
+            for record in self.search([('date_deadline', '<', fields.Date.today())]):
                 done_ids.append(record.id)
         if operator == '=':
             return [('id', 'in', done_ids)]
@@ -169,7 +171,7 @@ class MailActivity(models.Model):
             activity._compute_state()
         return False
 
-    def unarchive(self,active=True):
+    def unarchive(self, active=True):
         self.ensure_one()
         self.activity_cancel = False
         self.active = True
@@ -196,7 +198,7 @@ class MailActivity(models.Model):
         try:
             self.env[self.res_model].browse(
                 self.res_id).check_access_rule('read')
-            return{
+            return {
                 'name': 'Origin Activity',
                 'res_model': self.res_model,
                 'res_id': self.res_id,
@@ -218,7 +220,7 @@ class MailActivity(models.Model):
             'view_mode': 'form',
             'res_model': 'mail.activity',
             'views': [(view_id, 'form')],
-            'res_id':self.id,
+            'res_id': self.id,
             'type': 'ir.actions.act_window',
             'target': 'new',
         }
@@ -226,7 +228,7 @@ class MailActivity(models.Model):
     def action_done(self):
         """ Wrapper without feedback because web button add context as
         parameter, therefore setting context to feedback """
-        return{
+        return {
             'name': 'Activity Feedback',
             'res_model': 'activity.feedback',
             'type': 'ir.actions.act_window',
@@ -246,7 +248,8 @@ class MailActivity(models.Model):
         if self.state == 'done':
             self.date_done = fields.Date.today()
         self.feedback = feedback
-#         return messages.ids and messages.ids[0] or False
+
+    #         return messages.ids and messages.ids[0] or False
 
     def _action_done(self, feedback=False, attachment_ids=None):
         self.ensure_one()
@@ -277,7 +280,8 @@ class MailActivity(models.Model):
         for activity in self:
             # extract value to generate next activities
             if activity.chaining_type == 'trigger':
-                Activity = self.env['mail.activity'].with_context(activity_previous_deadline=activity.date_deadline)  # context key is required in the onchange to set deadline
+                Activity = self.env['mail.activity'].with_context(
+                    activity_previous_deadline=activity.date_deadline)  # context key is required in the onchange to set deadline
                 vals = Activity.default_get(Activity.fields_get())
 
                 vals.update({
@@ -302,7 +306,8 @@ class MailActivity(models.Model):
                 },
                 subtype_id=self.env['ir.model.data']._xmlid_to_res_id('mail.mt_activities'),
                 mail_activity_type_id=activity.activity_type_id.id,
-                attachment_ids=[Command.link(attachment_id) for attachment_id in attachment_ids] if attachment_ids else [],
+                attachment_ids=[Command.link(attachment_id) for attachment_id in
+                                attachment_ids] if attachment_ids else [],
             )
 
             # Moving the attachments in the message
@@ -329,7 +334,7 @@ class MailActivity(models.Model):
     def action_done_schedule_next(self):
         """ Wrapper without feedback because web button add context as
         parameter, therefore setting context to feedback """
-        return{
+        return {
             'name': 'Activity Feedback',
             'res_model': 'activity.feedback',
             'type': 'ir.actions.act_window',
@@ -337,7 +342,8 @@ class MailActivity(models.Model):
             'context': {'default_done_button_pressed': False},
             'target': 'new',
         }
-#         return self.action_feedback_schedule_next()
+
+    #         return self.action_feedback_schedule_next()
 
     def action_feedback_schedule_next(self, feedback=False):
         ctx = dict(
@@ -405,7 +411,7 @@ class ResUsers(models.Model):
                                                activity['states']] += activity['count']
             if activity['states'] in ('today', 'overdue'):
                 user_activities[activity['model']
-                                ]['total_count'] += activity['count']
+                ]['total_count'] += activity['count']
 
             user_activities[activity['model']]['actions'] = [{
                 'icon': 'fa-clock-o',
@@ -425,7 +431,7 @@ class ActivityDashboard(models.Model):
         cids = request.httprequest.cookies.get('cids', str(user.company_id.id))
         cids = [int(cid) for cid in cids.split(',')]
         doman = [
-            ('company_id','in',cids)
+            ('company_id', 'in', cids)
         ]
         crm_days_filter = filter_date
         custom_date_start = start_date
@@ -547,27 +553,39 @@ class ActivityDashboard(models.Model):
             doman.append(('sh_user_ids', 'in', [int(filter_user)]))
             doman.append(('user_id', '=', int(filter_user)))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('user_id', '!=', self.env.user.id))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
 
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
                 doman.append(('user_id', '=', self.env.user.id))
         if filter_supervisor not in ['', "", None, False]:
             doman.append(('supervisor_id', '=', int(filter_supervisor)))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
-                doman.append(('supervisor_id','=',self.env.user.id))
-                doman.append(('sh_user_ids','in',[self.env.user.id]))
+                doman.append(('supervisor_id', '=', self.env.user.id))
+                doman.append(('sh_user_ids', 'in', [self.env.user.id]))
                 doman.append(('user_id', '=', self.env.user.id))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('supervisor_id', '=', self.env.user.id))
@@ -578,32 +596,36 @@ class ActivityDashboard(models.Model):
         doman.append(('active', '=', False))
         activities = self.env['mail.activity'].search(
             doman, limit=False, order='res_id desc')
-        planned_activities = activities.filtered(lambda x: x.active and x.date_deadline and x.date_deadline >= fields.Date.today()).ids
-        overdue_activities = activities.filtered(lambda x: x.active and x.date_deadline and x.date_deadline < fields.Date.today()).ids
+        planned_activities = activities.filtered(
+            lambda x: x.active and x.date_deadline and x.date_deadline >= fields.Date.today()).ids
+        overdue_activities = activities.filtered(
+            lambda x: x.active and x.date_deadline and x.date_deadline < fields.Date.today()).ids
         all_activities = activities.ids
         completed_activities = activities.filtered(lambda x: not x.active and x.state == 'done').ids
         cancelled_activities = activities.filtered(lambda x: not x.active and x.state == 'cancel').ids
-        return self.env['ir.ui.view'].with_context()._render_template('sh_activities_management_basic.sh_crm_db_activity_count_box', {
-            'planned_activities': planned_activities,
-            'overdue_activities': overdue_activities,
-            'all_activities': all_activities,
-            'completed_activities': completed_activities,
-            'planned_acitvities_count': len(planned_activities),
-            'overdue_activities_count': len(overdue_activities),
-            'completed_activities_count': len(completed_activities),
-            'cancelled_activities_count':len(cancelled_activities),
-            'cancelled_activities':cancelled_activities,
-            'all_activities_count': len(activities.ids),
-        })
+        return self.env['ir.ui.view'].with_context()._render_template(
+            'sh_activities_management_basic.sh_crm_db_activity_count_box', {
+                'planned_activities': planned_activities,
+                'overdue_activities': overdue_activities,
+                'all_activities': all_activities,
+                'completed_activities': completed_activities,
+                'planned_acitvities_count': len(planned_activities),
+                'overdue_activities_count': len(overdue_activities),
+                'completed_activities_count': len(completed_activities),
+                'cancelled_activities_count': len(cancelled_activities),
+                'cancelled_activities': cancelled_activities,
+                'all_activities_count': len(activities.ids),
+            })
 
     @api.model
-    def get_sh_crm_activity_todo_tbl(self, filter_date, filter_user, start_date, end_date, filter_supervisor, current_page):
+    def get_sh_crm_activity_todo_tbl(self, filter_date, filter_user, start_date, end_date, filter_supervisor,
+                                     current_page):
         uid = request.session.uid
         user = request.env['res.users'].sudo().browse(uid)
         cids = request.httprequest.cookies.get('cids', str(user.company_id.id))
         cids = [int(cid) for cid in cids.split(',')]
         doman = [
-            ('company_id','in',cids),
+            ('company_id', 'in', cids),
             ('active', '=', True),
             ('date_deadline', '>=', fields.Date.today())
         ]
@@ -727,26 +749,38 @@ class ActivityDashboard(models.Model):
             doman.append(('sh_user_ids', 'in', [int(filter_user)]))
             doman.append(('user_id', '=', int(filter_user)))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('user_id', '!=', self.env.user.id))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
                 doman.append(('user_id', '=', self.env.user.id))
         if filter_supervisor not in ['', "", None, False]:
             doman.append(('supervisor_id', '=', int(filter_supervisor)))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
-                doman.append(('supervisor_id','=',self.env.user.id))
-                doman.append(('sh_user_ids','in',[self.env.user.id]))
+                doman.append(('supervisor_id', '=', self.env.user.id))
+                doman.append(('sh_user_ids', 'in', [self.env.user.id]))
                 doman.append(('user_id', '=', self.env.user.id))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('supervisor_id', '=', self.env.user.id))
@@ -761,23 +795,25 @@ class ActivityDashboard(models.Model):
             total_pages = math.ceil(
                 float(total_planned_activities) / float(record_limit))
         current_page = int(current_page)
-        start = self.env.company.sh_planned_table * (current_page-1)
+        start = self.env.company.sh_planned_table * (current_page - 1)
         stop = current_page * self.env.company.sh_planned_table
         activities = activities[start:stop]
-        return self.env['ir.ui.view'].with_context()._render_template('sh_activities_management_basic.sh_crm_db_activity_todo_tbl', {
-            'activities': activities,
-            'planned_acitvities_count': len(activities.ids),
-            'total_pages': total_pages,
-            'current_page': current_page,
-        })
+        return self.env['ir.ui.view'].with_context()._render_template(
+            'sh_activities_management_basic.sh_crm_db_activity_todo_tbl', {
+                'activities': activities,
+                'planned_acitvities_count': len(activities.ids),
+                'total_pages': total_pages,
+                'current_page': current_page,
+            })
 
     @api.model
-    def get_sh_crm_activity_all_tbl(self, filter_date, filter_user, start_date, end_date, filter_supervisor, current_page):
+    def get_sh_crm_activity_all_tbl(self, filter_date, filter_user, start_date, end_date, filter_supervisor,
+                                    current_page):
         uid = request.session.uid
         user = request.env['res.users'].sudo().browse(uid)
         cids = request.httprequest.cookies.get('cids', str(user.company_id.id))
         cids = [int(cid) for cid in cids.split(',')]
-        doman = [('company_id','in',cids)]
+        doman = [('company_id', 'in', cids)]
         crm_days_filter = filter_date
         custom_date_start = start_date
         custom_date_end = end_date
@@ -899,27 +935,39 @@ class ActivityDashboard(models.Model):
             doman.append(('sh_user_ids', 'in', [int(filter_user)]))
             doman.append(('user_id', '=', int(filter_user)))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('user_id', '!=', self.env.user.id))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
 
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
         if filter_supervisor not in ['', "", None, False]:
             doman.append(('supervisor_id', '=', int(filter_supervisor)))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
-                doman.append(('supervisor_id','=',self.env.user.id))
-                doman.append(('sh_user_ids','in',[self.env.user.id]))
+                doman.append(('supervisor_id', '=', self.env.user.id))
+                doman.append(('sh_user_ids', 'in', [self.env.user.id]))
                 doman.append(('user_id', '=', self.env.user.id))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('supervisor_id', '=', self.env.user.id))
@@ -937,23 +985,25 @@ class ActivityDashboard(models.Model):
             total_pages = math.ceil(
                 float(total_activities) / float(record_limit))
         current_page = int(current_page)
-        start = self.env.company.sh_all_table * (current_page-1)
+        start = self.env.company.sh_all_table * (current_page - 1)
         stop = current_page * self.env.company.sh_all_table
         activities = activities[start:stop]
-        return self.env['ir.ui.view'].with_context()._render_template('sh_activities_management_basic.sh_crm_db_activity_all_tbl', {
-            'activities': activities,
-            'all_acitvities_count': len(activities.ids),
-            'total_pages': total_pages,
-            'current_page': current_page,
-        })
+        return self.env['ir.ui.view'].with_context()._render_template(
+            'sh_activities_management_basic.sh_crm_db_activity_all_tbl', {
+                'activities': activities,
+                'all_acitvities_count': len(activities.ids),
+                'total_pages': total_pages,
+                'current_page': current_page,
+            })
 
     @api.model
-    def get_sh_crm_activity_completed_tbl(self, filter_date, filter_user, start_date, end_date, filter_supervisor, current_page):
+    def get_sh_crm_activity_completed_tbl(self, filter_date, filter_user, start_date, end_date, filter_supervisor,
+                                          current_page):
         uid = request.session.uid
         user = request.env['res.users'].sudo().browse(uid)
         cids = request.httprequest.cookies.get('cids', str(user.company_id.id))
         cids = [int(cid) for cid in cids.split(',')]
-        doman = [('company_id','in',cids),('active', '=', False),('state','=','done')]
+        doman = [('company_id', 'in', cids), ('active', '=', False), ('state', '=', 'done')]
         crm_days_filter = filter_date
         custom_date_start = start_date
         custom_date_end = end_date
@@ -1074,26 +1124,38 @@ class ActivityDashboard(models.Model):
             doman.append(('user_id', '=', int(filter_user)))
             doman.append(('sh_user_ids', 'in', [int(filter_user)]))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('user_id', '!=', self.env.user.id))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
         if filter_supervisor not in ['', "", None, False]:
             doman.append(('supervisor_id', '=', int(filter_supervisor)))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
-                doman.append(('supervisor_id','=',self.env.user.id))
-                doman.append(('sh_user_ids','in',[self.env.user.id]))
+                doman.append(('supervisor_id', '=', self.env.user.id))
+                doman.append(('sh_user_ids', 'in', [self.env.user.id]))
                 doman.append(('user_id', '=', self.env.user.id))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('supervisor_id', '=', self.env.user.id))
@@ -1108,23 +1170,25 @@ class ActivityDashboard(models.Model):
             total_pages = math.ceil(
                 float(total_completed_activities) / float(record_limit))
         current_page = int(current_page)
-        start = self.env.company.sh_completed_table * (current_page-1)
+        start = self.env.company.sh_completed_table * (current_page - 1)
         stop = current_page * self.env.company.sh_completed_table
         activities = activities[start:stop]
-        return self.env['ir.ui.view'].with_context()._render_template('sh_activities_management_basic.sh_crm_db_activity_completed_tbl', {
-            'activities': activities,
-            'completed_acitvities_count': len(activities.ids),
-            'total_pages': total_pages,
-            'current_page': current_page,
-        })
+        return self.env['ir.ui.view'].with_context()._render_template(
+            'sh_activities_management_basic.sh_crm_db_activity_completed_tbl', {
+                'activities': activities,
+                'completed_acitvities_count': len(activities.ids),
+                'total_pages': total_pages,
+                'current_page': current_page,
+            })
 
     @api.model
-    def get_sh_crm_activity_overdue_tbl(self, filter_date, filter_user, start_date, end_date, filter_supervisor, current_page):
+    def get_sh_crm_activity_overdue_tbl(self, filter_date, filter_user, start_date, end_date, filter_supervisor,
+                                        current_page):
         uid = request.session.uid
         user = request.env['res.users'].sudo().browse(uid)
         cids = request.httprequest.cookies.get('cids', str(user.company_id.id))
         cids = [int(cid) for cid in cids.split(',')]
-        doman = [('company_id','in',cids),('active', '=', True),
+        doman = [('company_id', 'in', cids), ('active', '=', True),
                  ('date_deadline', '<', fields.Date.today())]
         crm_days_filter = filter_date
         custom_date_start = start_date
@@ -1246,26 +1310,38 @@ class ActivityDashboard(models.Model):
             doman.append(('user_id', '=', int(filter_user)))
             doman.append(('sh_user_ids', 'in', [int(filter_user)]))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('user_id', '!=', self.env.user.id))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
         if filter_supervisor not in ['', "", None, False]:
             doman.append(('supervisor_id', '=', int(filter_supervisor)))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
-                doman.append(('supervisor_id','=',self.env.user.id))
-                doman.append(('sh_user_ids','in',[self.env.user.id]))
+                doman.append(('supervisor_id', '=', self.env.user.id))
+                doman.append(('sh_user_ids', 'in', [self.env.user.id]))
                 doman.append(('user_id', '=', self.env.user.id))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('supervisor_id', '=', self.env.user.id))
@@ -1280,23 +1356,25 @@ class ActivityDashboard(models.Model):
             total_pages = math.ceil(
                 float(total_overdue_activities) / float(record_limit))
         current_page = int(current_page)
-        start = self.env.company.sh_due_table * (current_page-1)
+        start = self.env.company.sh_due_table * (current_page - 1)
         stop = current_page * self.env.company.sh_due_table
         activities = activities[start:stop]
-        return self.env['ir.ui.view'].with_context()._render_template('sh_activities_management_basic.sh_crm_db_activity_overdue_tbl', {
-            'activities': activities,
-            'overdue_acitvities_count': len(activities.ids),
-            'total_pages': total_pages,
-            'current_page': current_page,
-        })
+        return self.env['ir.ui.view'].with_context()._render_template(
+            'sh_activities_management_basic.sh_crm_db_activity_overdue_tbl', {
+                'activities': activities,
+                'overdue_acitvities_count': len(activities.ids),
+                'total_pages': total_pages,
+                'current_page': current_page,
+            })
 
     @api.model
-    def get_sh_crm_activity_cancelled_tbl(self,filter_date,filter_user,start_date,end_date,filter_supervisor,current_page):
+    def get_sh_crm_activity_cancelled_tbl(self, filter_date, filter_user, start_date, end_date, filter_supervisor,
+                                          current_page):
         uid = request.session.uid
         user = request.env['res.users'].sudo().browse(uid)
         cids = request.httprequest.cookies.get('cids', str(user.company_id.id))
         cids = [int(cid) for cid in cids.split(',')]
-        doman = [('company_id','in',cids),('active', '=', False),('state','=','cancel')]
+        doman = [('company_id', 'in', cids), ('active', '=', False), ('state', '=', 'cancel')]
         crm_days_filter = filter_date
         custom_date_start = start_date
         custom_date_end = end_date
@@ -1305,150 +1383,164 @@ class ActivityDashboard(models.Model):
             dt_flt1.append('date_deadline')
             dt_flt1.append('>=')
             dt_flt1.append(datetime.now().date().strftime("%Y/%m/%d"))
-            doman.append( tuple(dt_flt1) )
+            doman.append(tuple(dt_flt1))
             dt_flt2 = []
             dt_flt2.append('date_deadline')
             dt_flt2.append('<=')
             dt_flt2.append(datetime.now().date().strftime("%Y/%m/%d"))
-            doman.append( tuple(dt_flt2) )
+            doman.append(tuple(dt_flt2))
         elif crm_days_filter == 'yesterday':
             dt_flt1 = []
             dt_flt1.append('date_deadline')
             dt_flt1.append('>=')
             prev_day = (datetime.now().date() - relativedelta(days=1)).strftime('%Y/%m/%d')
             dt_flt1.append(prev_day)
-            doman.append( tuple(dt_flt1) )
+            doman.append(tuple(dt_flt1))
             dt_flt2 = []
             dt_flt2.append('date_deadline')
             dt_flt2.append('<=')
             prev_day = (datetime.now().date() - relativedelta(days=1)).strftime('%Y/%m/%d')
             dt_flt2.append(prev_day)
-            doman.append( tuple(dt_flt2) )
-        elif crm_days_filter == 'weekly': # current week
+            doman.append(tuple(dt_flt2))
+        elif crm_days_filter == 'weekly':  # current week
             dt_flt1 = []
             dt_flt1.append('date_deadline')
             dt_flt1.append('>')
-            dt_flt1.append( (datetime.now().date() - relativedelta(weeks = 1,weekday=0) ).strftime("%Y/%m/%d") )
-            doman.append( tuple(dt_flt1) )
+            dt_flt1.append((datetime.now().date() - relativedelta(weeks=1, weekday=0)).strftime("%Y/%m/%d"))
+            doman.append(tuple(dt_flt1))
             dt_flt2 = []
             dt_flt2.append('date_deadline')
             dt_flt2.append('<=')
             dt_flt2.append(datetime.now().date().strftime("%Y/%m/%d"))
-            doman.append( tuple(dt_flt2) )
-        elif crm_days_filter == 'prev_week': # Previous week
+            doman.append(tuple(dt_flt2))
+        elif crm_days_filter == 'prev_week':  # Previous week
             dt_flt1 = []
             dt_flt1.append('date_deadline')
             dt_flt1.append('>')
-            dt_flt1.append( (datetime.now().date() - relativedelta(weeks = 2,weekday=0) ).strftime("%Y/%m/%d") )
-            doman.append( tuple(dt_flt1) )
+            dt_flt1.append((datetime.now().date() - relativedelta(weeks=2, weekday=0)).strftime("%Y/%m/%d"))
+            doman.append(tuple(dt_flt1))
             dt_flt2 = []
             dt_flt2.append('date_deadline')
             dt_flt2.append('<=')
-            dt_flt2.append( (datetime.now().date()- relativedelta(weeks = 1,weekday=6) ).strftime("%Y/%m/%d"))
-            doman.append( tuple(dt_flt2) )
-        elif crm_days_filter == 'monthly': # Current Month
+            dt_flt2.append((datetime.now().date() - relativedelta(weeks=1, weekday=6)).strftime("%Y/%m/%d"))
+            doman.append(tuple(dt_flt2))
+        elif crm_days_filter == 'monthly':  # Current Month
             dt_flt1 = []
             dt_flt1.append('date_deadline')
             dt_flt1.append('>')
-            dt_flt1.append( (datetime.now().date() ).strftime("%Y/%m/01") )
-            doman.append( tuple(dt_flt1) )
+            dt_flt1.append((datetime.now().date()).strftime("%Y/%m/01"))
+            doman.append(tuple(dt_flt1))
             dt_flt2 = []
             dt_flt2.append('date_deadline')
             dt_flt2.append('<=')
             dt_flt2.append(datetime.now().date().strftime("%Y/%m/%d"))
-            doman.append( tuple(dt_flt2) )
-        elif crm_days_filter == 'prev_month': # Previous Month
+            doman.append(tuple(dt_flt2))
+        elif crm_days_filter == 'prev_month':  # Previous Month
             dt_flt1 = []
             dt_flt1.append('date_deadline')
             dt_flt1.append('>')
-            dt_flt1.append( (datetime.now().date() - relativedelta(months = 1) ).strftime("%Y/%m/01") )
-            doman.append( tuple(dt_flt1) )
+            dt_flt1.append((datetime.now().date() - relativedelta(months=1)).strftime("%Y/%m/01"))
+            doman.append(tuple(dt_flt1))
             dt_flt2 = []
             dt_flt2.append('date_deadline')
             dt_flt2.append('<')
             dt_flt2.append(datetime.now().date().strftime("%Y/%m/01"))
-            doman.append( tuple(dt_flt2) )
-        elif crm_days_filter == 'cur_year': # Current Year
+            doman.append(tuple(dt_flt2))
+        elif crm_days_filter == 'cur_year':  # Current Year
             dt_flt1 = []
             dt_flt1.append('date_deadline')
             dt_flt1.append('>')
-            dt_flt1.append( (datetime.now().date() ).strftime("%Y/01/01") )
-            doman.append( tuple(dt_flt1) )
+            dt_flt1.append((datetime.now().date()).strftime("%Y/01/01"))
+            doman.append(tuple(dt_flt1))
             dt_flt2 = []
             dt_flt2.append('date_deadline')
             dt_flt2.append('<=')
             dt_flt2.append(datetime.now().date().strftime("%Y/%m/%d"))
-            doman.append( tuple(dt_flt2) )
-        elif crm_days_filter == 'prev_year': # Previous Year
+            doman.append(tuple(dt_flt2))
+        elif crm_days_filter == 'prev_year':  # Previous Year
             dt_flt1 = []
             dt_flt1.append('date_deadline')
             dt_flt1.append('>')
-            dt_flt1.append( (datetime.now().date() - relativedelta(years = 1) ).strftime("%Y/01/01") )
-            doman.append( tuple(dt_flt1))
+            dt_flt1.append((datetime.now().date() - relativedelta(years=1)).strftime("%Y/01/01"))
+            doman.append(tuple(dt_flt1))
             dt_flt2 = []
             dt_flt2.append('date_deadline')
             dt_flt2.append('<')
             dt_flt2.append(datetime.now().date().strftime("%Y/01/01"))
-            doman.append( tuple(dt_flt2) )
+            doman.append(tuple(dt_flt2))
         elif crm_days_filter == 'custom':
-            if  custom_date_start and custom_date_end:
+            if custom_date_start and custom_date_end:
                 dt_flt1 = []
                 dt_flt1.append('date_deadline')
                 dt_flt1.append('>')
-                dt_flt1.append( datetime.strptime(str(custom_date_start),DEFAULT_SERVER_DATE_FORMAT).strftime("%Y/%m/%d") )
-                doman.append( tuple(dt_flt1) )
+                dt_flt1.append(
+                    datetime.strptime(str(custom_date_start), DEFAULT_SERVER_DATE_FORMAT).strftime("%Y/%m/%d"))
+                doman.append(tuple(dt_flt1))
                 dt_flt2 = []
                 dt_flt2.append('date_deadline')
                 dt_flt2.append('<=')
-                dt_flt2.append( datetime.strptime(str(custom_date_end),DEFAULT_SERVER_DATE_FORMAT).strftime("%Y/%m/%d"))
-                doman.append( tuple(dt_flt2) )
+                dt_flt2.append(datetime.strptime(str(custom_date_end), DEFAULT_SERVER_DATE_FORMAT).strftime("%Y/%m/%d"))
+                doman.append(tuple(dt_flt2))
         # FILTER USER
-        if filter_user not in ['',"",None,False]:
+        if filter_user not in ['', "", None, False]:
             doman.append(('|'))
             doman.append(('user_id', '=', int(filter_user)))
             doman.append(('sh_user_ids', 'in', [int(filter_user)]))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
                 doman.append(('user_id', '!=', self.env.user.id))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('user_id', '=', self.env.user.id))
                 doman.append(('sh_user_ids', 'in', [self.env.user.id]))
-        if filter_supervisor not in ['',"",None,False]:
-            doman.append(('supervisor_id','=',int(filter_supervisor)))
+        if filter_supervisor not in ['', "", None, False]:
+            doman.append(('supervisor_id', '=', int(filter_supervisor)))
         else:
-            if self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            if self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
-                doman.append(('supervisor_id','=',self.env.user.id))
-                doman.append(('sh_user_ids','in',[self.env.user.id]))
+                doman.append(('supervisor_id', '=', self.env.user.id))
+                doman.append(('sh_user_ids', 'in', [self.env.user.id]))
                 doman.append(('user_id', '=', self.env.user.id))
-            elif not self.env.user.has_group('sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group('sh_activities_management_basic.group_activity_user') and not self.env.user.has_group('sh_activities_management_basic.group_activity_manager'):
+            elif not self.env.user.has_group(
+                    'sh_activities_management_basic.group_activity_supervisor') and self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_user') and not self.env.user.has_group(
+                'sh_activities_management_basic.group_activity_manager'):
                 doman.append(('|'))
                 doman.append(('|'))
-                doman.append(('supervisor_id','=',self.env.user.id))
-                doman.append(('supervisor_id','!=',self.env.user.id))
-                doman.append(('supervisor_id','=',False))
+                doman.append(('supervisor_id', '=', self.env.user.id))
+                doman.append(('supervisor_id', '!=', self.env.user.id))
+                doman.append(('supervisor_id', '=', False))
         activities = self.env['mail.activity'].sudo().search(
-                doman, order='res_id desc')
+            doman, order='res_id desc')
         total_pages = 0.0
         total_cancelled_activities = len(activities.ids)
         record_limit = self.env.company.sh_cancel_table
         if total_cancelled_activities > 0 and record_limit > 0:
             total_pages = math.ceil(float(total_cancelled_activities) / float(record_limit))
         current_page = int(current_page)
-        start = self.env.company.sh_cancel_table * (current_page-1)
+        start = self.env.company.sh_cancel_table * (current_page - 1)
         stop = current_page * self.env.company.sh_cancel_table
         activities = activities[start:stop]
-        return self.env['ir.ui.view'].with_context()._render_template('sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl', {
+        return self.env['ir.ui.view'].with_context()._render_template(
+            'sh_activities_management_basic.sh_crm_db_activity_cancelled_tbl', {
                 'activities': activities,
                 'cancelled_acitvities_count': len(activities.ids),
-                'total_pages':total_pages,
-                'current_page':current_page,
+                'total_pages': total_pages,
+                'current_page': current_page,
             })
 
     @api.model
@@ -1459,7 +1551,7 @@ class ActivityDashboard(models.Model):
         cids = [int(cid) for cid in cids.split(',')]
         domain = [
             ('company_ids', 'in', cids),
-            ('share','=',False)
+            ('share', '=', False)
         ]
         users = self.env["res.users"].sudo().search_read(domain)
         return users

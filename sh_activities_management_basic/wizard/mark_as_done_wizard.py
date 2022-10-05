@@ -8,15 +8,15 @@ class MarkAsDone(models.TransientModel):
     _name = 'sh.mark.as.done'
     _description = 'Mark As Done'
 
-    feedback = fields.Text("Feedback",required=True)
+    feedback = fields.Text("Feedback", required=True)
 
     def action_done(self):
         active_ids = self.env.context.get('active_ids')
         activity_ids = self.env['mail.activity'].sudo().browse(active_ids)
         if activity_ids:
             for activity_id in activity_ids:
-                activity_id.state='done'
-                activity_id.active=False
+                activity_id.state = 'done'
+                activity_id.active = False
                 activity_id.date_done = fields.Date.today()
                 activity_id.feedback = self.feedback
                 activity_id.activity_done = True
