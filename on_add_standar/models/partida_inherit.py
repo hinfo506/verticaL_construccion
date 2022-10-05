@@ -16,7 +16,7 @@ class Partida(models.Model):
 
     @api.onchange('add_standar')
     def _onchange_standar_id_vacio(self):
-        if (self.add_standar == False) and self.standard_id:
+        if not self.add_standar and self.standard_id:
             self.standard_id = 0
             self.line_ids = False
 
@@ -40,6 +40,7 @@ class Partida(models.Model):
         sub = {}
         sub['domain'] = {'subcapitulo_id': [('capitulo_id', '=', self.capitulo_id.id)]}
         return sub
+
     ################################################################################################
 
     ####################################
@@ -52,6 +53,7 @@ class Partida(models.Model):
                 data = [('standard_id', '=', record.standard_id.id)]
                 line = self.env['standard.line'].search(data)
                 record.line_ids = line
+
     ####################################
 
     ####################################
@@ -109,7 +111,6 @@ class Partida(models.Model):
                     'estado_partida': 'pendiente',
                 })
             return super(Partida, self).create(vals)
-
 
     ########################
     ## Validar la Partida ##
