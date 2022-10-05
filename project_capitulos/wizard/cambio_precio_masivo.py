@@ -70,7 +70,7 @@ class CambioPrecioMasivo(models.TransientModel):
                     self.mostrar_botones = True
                 if len(items) > 0:
                     self.mostrar_botones = False
-                hola = self.vacio()
+                    self.vacio()
 
     def action_guardar_nuevo(self):
         # if self.product_id and self.nuevo_precio:
@@ -103,7 +103,7 @@ class CambioPrecioMasivo(models.TransientModel):
             'view_mode': 'form',
             'context': {
                 'default_capitulo_id': self.capitulo_id.id if self.capitulo_id else False,
-                'default_capitulo_id': self.faseprincipal_id.id if self.faseprincipal_id else False,
+                # 'default_capitulo_id': self.faseprincipal_id.id if self.faseprincipal_id else False,
                 'default_subcapitulo_id': self.subcapitulo_id.id if self.subcapitulo_id else False,
                 'default_partida_id': self.partida_id.id if self.partida_id else False,
                 'default_project_id': self.project_id.id,

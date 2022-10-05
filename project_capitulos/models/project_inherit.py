@@ -247,7 +247,7 @@ class ProyectosInherit(models.Model):
 
         if values.get('stage_id'):
             stage = self.sudo().env['project.project.stage'].search([('id', '=', values.get('stage_id'))])
-            if stage.is_prevision == False and self.total_prevision == 0:
+            if not stage.is_prevision and self.total_prevision == 0:
                 values['total_prevision'] = self.total
 
                 record = super(ProyectosInherit, self).write(values)
