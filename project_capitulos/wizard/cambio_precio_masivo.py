@@ -21,15 +21,16 @@ class CambioPrecioMasivo(models.TransientModel):
     mostrar_botones = fields.Boolean(string='Mostrar', default=True)
 
     # campos de Impuestos
-    tipo_cambio = fields.Selection(string='Tipo cambio', selection=[('nuevocoste', 'Nuevo Coste'), ('todo', 'Todo'), ('impuesto', 'Nuevos Impuestos'),], required=False, )
+    tipo_cambio = fields.Selection(string='Tipo cambio', selection=[('nuevocoste', 'Nuevo Coste'), ('todo', 'Todo'),
+                                                                    ('impuesto', 'Nuevos Impuestos'), ],
+                                   required=False, )
 
-    tipo_descuento = fields.Selection(string='Tipo_descuento', selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ], required=False, )
+    tipo_descuento = fields.Selection(string='Tipo_descuento',
+                                      selection=[('cantidad', 'cantidad'), ('porciento', 'porciento'), ],
+                                      required=False, )
     cant_descuento = fields.Float(string='Cant_descuento', required=False)
     beneficio_estimado = fields.Float(string='Beneficio Estimado en %', required=False)
     impuesto_porciento = fields.Float(string='Impuesto en % (ITBIS)', required=False)
-    
-
-
 
     def vacio(self):
         # self.is_vacio=True
@@ -43,7 +44,6 @@ class CambioPrecioMasivo(models.TransientModel):
     #     # raise ValidationError(self.partida_id.name)
     #     self.info = str(self.project_id.name) + " " + str(self.project_id.capitulos_id.name)
 
-
     ######################################################
     ## aki tengo los item que pertenecen a ese proyecto ##
     ######################################################
@@ -51,14 +51,17 @@ class CambioPrecioMasivo(models.TransientModel):
     def onchange_product(self):
         # hola = self.vacio()
         for record in self:
-            if (record.product_id and record.project_id) or record.capitulo_id or record.subcapitulo_id or record.partida_id or record.faseprincipal_id:
+            if (
+                    record.product_id and record.project_id) or record.capitulo_id or record.subcapitulo_id or record.partida_id or record.faseprincipal_id:
                 data = [('project_id', '=', record.project_id.id), ('product_id', '=', record.product_id.id)]
                 if record.faseprincipal_id:
-                    data = [('faseprincipal_id', '=', record.faseprincipal_id.id), ('product_id', '=', record.product_id.id)]
+                    data = [('faseprincipal_id', '=', record.faseprincipal_id.id),
+                            ('product_id', '=', record.product_id.id)]
                 if record.capitulo_id:
                     data = [('capitulo_id', '=', record.capitulo_id.id), ('product_id', '=', record.product_id.id)]
                 if record.subcapitulo_id:
-                    data = [('subcapitulo_id', '=', record.subcapitulo_id.id), ('product_id', '=', record.product_id.id)]
+                    data = [('subcapitulo_id', '=', record.subcapitulo_id.id),
+                            ('product_id', '=', record.product_id.id)]
                 if record.partida_id:
                     data = [('partidas_id', '=', record.partida_id.id), ('product_id', '=', record.product_id.id)]
                 items = self.env['item.capitulo'].search(data)
@@ -67,9 +70,7 @@ class CambioPrecioMasivo(models.TransientModel):
                     self.mostrar_botones = True
                 if len(items) > 0:
                     self.mostrar_botones = False
-                hola=self.vacio()
-
-
+                hola = self.vacio()
 
     def action_guardar_nuevo(self):
         # if self.product_id and self.nuevo_precio:
@@ -136,4 +137,3 @@ class CambioPrecioMasivo(models.TransientModel):
             })
         else:
             raise ValidationError('Debe seleccionar un Tipo de Cambio')
-

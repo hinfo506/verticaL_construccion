@@ -25,7 +25,6 @@ from odoo.http import request
 
 
 class IrHttp(models.AbstractModel):
-
     _inherit = "ir.http"
 
     def session_info(self):

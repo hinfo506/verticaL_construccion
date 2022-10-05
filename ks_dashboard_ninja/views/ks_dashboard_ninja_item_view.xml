@@ -104,7 +104,9 @@
                                                         ['ks_kpi','ks_tile','ks_bar_chart','ks_horizontalBar_chart','ks_line_chart','ks_area_chart','ks_pie_chart',
                                                         'ks_doughnut_chart','ks_polarArea_chart','ks_list_view'])]}"/>
                         <field name="ks_dashboard_item_type" invisible="1"/>
-                        <field name="ks_update_items_data" attrs="{'invisible':[('ks_dashboard_item_type','=', 'ks_to_do')]}" placeholder="Item Update Interval.."/>
+                        <field name="ks_update_items_data"
+                               attrs="{'invisible':[('ks_dashboard_item_type','=', 'ks_to_do')]}"
+                               placeholder="Item Update Interval.."/>
                     </group>
 
                     <group attrs="{'invisible':[('ks_dashboard_item_type','!=','ks_tile'),('ks_dashboard_item_type','!=','ks_kpi')]}"
@@ -346,7 +348,8 @@
                                 <field name="ks_sort_by_order"
                                        context="{'current_id': id}"
                                        attrs="{'invisible':['|',('ks_fill_temporal','=',True),'&amp;',('ks_goal_lines','!=',[]),('ks_goal_enable','=',True)]}"/>
-                                <field name="ks_record_data_limit_visibility" attrs="{'invisible':[('ks_goal_lines','!=',[]),('ks_goal_enable','=',True)]}"/>
+                                <field name="ks_record_data_limit_visibility"
+                                       attrs="{'invisible':[('ks_goal_lines','!=',[]),('ks_goal_enable','=',True)]}"/>
                                 <field name="ks_record_data_limit"
                                        context="{'current_id': id}"
                                        attrs="{'invisible':['|','|','&amp;',('ks_chart_relation_sub_groupby','!=',False),('ks_dashboard_item_type','not in', ['ks_bar_chart','ks_horizontalBar_chart','ks_line_chart','ks_area_chart',
@@ -515,8 +518,8 @@
                                        options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
                                        attrs="{'invisible':['|',('ks_dashboard_item_type','=','ks_list_view'),('ks_is_client_action','=',False)], 'required':[('ks_is_client_action','=', True)]}"/>
 
-<!--                                <field name="ks_show_records" force_save="1"-->
-<!--                                       attrs="{'invisible': [('ks_data_calculation_type','!=','custom')]}"/>-->
+                                <!--                                <field name="ks_show_records" force_save="1"-->
+                                <!--                                       attrs="{'invisible': [('ks_data_calculation_type','!=','custom')]}"/>-->
                             </group>
                         </page>
                         <page string="Target" name="target_settings"
@@ -532,7 +535,8 @@
                                        attrs="{'invisible' : ['|',('ks_goal_enable','=',False),('ks_dashboard_item_type','!=','ks_kpi')]}"/>
                             </group>
                             <div attrs="{'invisible' : ['|','|',('ks_goal_enable','=',False),('ks_dashboard_item_type','=','ks_kpi'),('ks_chart_relation_sub_groupby','!=',False)]}">
-                                All Target Lines Changes Will be reflected on Chart after saving the record and pagination will be ignore .
+                                All Target Lines Changes Will be reflected on Chart after saving the record and
+                                pagination will be ignore .
                             </div>
                             <field name="ks_goal_lines"
                                    attrs="{'invisible' : ['|','|',('ks_goal_enable','=',False),('ks_dashboard_item_type','=','ks_kpi'),('ks_chart_relation_sub_groupby','!=',False)]}">
@@ -557,7 +561,8 @@
                                        attrs="{'invisible':[('ks_auto_update_type','!=','ks_live_update')]}"/>
                             </group>
                         </page>
-                        <page string="Advance Configuration" attrs="{'invisible':[('ks_dashboard_item_type','=','ks_to_do')]}">
+                        <page string="Advance Configuration"
+                              attrs="{'invisible':[('ks_dashboard_item_type','=','ks_to_do')]}">
                             <group attrs="{'invisible':['|','|',('ks_dashboard_item_type','=','ks_to_do'),('ks_dashboard_item_type','=','ks_tile'),('ks_dashboard_item_type','=','ks_kpi')]}">
                                 <field name="ks_hide_legend" context="{'current_id': id}"
                                        attrs="{'invisible':[('ks_dashboard_item_type','in',['ks_tile', 'ks_kpi', 'ks_list_view'])]}"/>
@@ -574,10 +579,12 @@
 
                                 <field name="ks_multiplier_active" force_save="1"
                                        attrs="{'invisible': ['|','|','&amp;',('ks_dashboard_item_type','=','ks_list_view'),('ks_list_view_type','=','ungrouped'),('ks_data_calculation_type','=','query'),'&amp;',('ks_dashboard_item_type','in',['ks_list_view','ks_bar_chart','ks_pie_chart','ks_to_do','ks_line_chart', 'ks_area_chart', 'ks_horizontalBar_chart','ks_doughnut_chart','ks_polarArea_chart']),('ks_chart_data_count_type', '=', 'count')]}"/>
-                                <field name="ks_multiplier_lines" attrs="{'invisible':[('ks_multiplier_active','=',False)]}">
-                                    <tree editable="bottom" create="false"  delete="false">
+                                <field name="ks_multiplier_lines"
+                                       attrs="{'invisible':[('ks_multiplier_active','=',False)]}">
+                                    <tree editable="bottom" create="false" delete="false">
                                         <field name="ks_model_id" invisible="1"/>
-                                        <field name="ks_multiplier_fields" readonly="1" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                        <field name="ks_multiplier_fields" readonly="1"
+                                               options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                                         <field name="ks_multiplier_value"/>
                                     </tree>
                                 </field>
@@ -585,7 +592,7 @@
                             <group attrs="{'invisible':[('ks_dashboard_item_type','in',['ks_list_view','ks_bar_chart','ks_pie_chart','ks_to_do','ks_line_chart', 'ks_area_chart', 'ks_horizontalBar_chart','ks_doughnut_chart','ks_polarArea_chart'])]}">
                                 <field name="ks_multiplier_active" force_save="1"/>
                                 <field name="ks_multiplier" attrs="{'invisible':[('ks_multiplier_active','=',False)]}"/>
-                           </group>
+                            </group>
                         </page>
                     </notebook>
                 </form>

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from odoo import models, fields
+
 
 class Partidas(models.Model):
     _inherit = 'partidas.partidas'
 
-    purchase_order_ids = fields.One2many(comodel_name='purchase.order', inverse_name='partida_id', string='Purchase_order_ids', required=False)
+    purchase_order_ids = fields.One2many(comodel_name='purchase.order', inverse_name='partida_id',
+                                         string='Purchase_order_ids', required=False)
     it_was_bought = fields.Boolean(string='It_was_bought', required=False, default=False)
 
     def execute_purchase(self):
@@ -25,5 +26,3 @@ class Partidas(models.Model):
                 'product_qty': i.product_qty,
             })
         self.it_was_bought = True
-
-

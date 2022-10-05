@@ -24,10 +24,11 @@ class Volumetria(models.Model):
     total = fields.Float(string='Total', required=False, compute='_compute_total')
     partida_id = fields.Many2one(comodel_name='partidas.partidas', string='Partida', required=False, ondelete='cascade')
     project_id = fields.Many2one('project.project', string='Proyecto')
-    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo',ondelete='cascade')
-    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo',ondelete='cascade')
+    capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo', ondelete='cascade')
+    subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade')
 
-    @api.depends('cantidad_volumetria', 'longitud_volumetria', 'ancho_volumetria', 'alto_volumetria', 'precio_coste_volumetria')
-
+    @api.depends('cantidad_volumetria', 'longitud_volumetria', 'ancho_volumetria', 'alto_volumetria',
+                 'precio_coste_volumetria')
     def _compute_total(self):
-        self.total = self.cantidad_volumetria * (self.longitud_volumetria * self.ancho_volumetria * self.alto_volumetria) * self.precio_coste_volumetria
+        self.total = self.cantidad_volumetria * (
+                self.longitud_volumetria * self.ancho_volumetria * self.alto_volumetria) * self.precio_coste_volumetria

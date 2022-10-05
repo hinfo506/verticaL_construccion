@@ -1,8 +1,9 @@
 import json
-from odoo import models, fields, api, _
-import copy
 import re
-from odoo.exceptions import ValidationError, UserError
+
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
+
 
 class KsDashboardNinjaItems(models.Model):
     _inherit = 'ks_dashboard_ninja.item'
@@ -37,7 +38,7 @@ class KsDashboardNinjaItems(models.Model):
                 ks_dn_header_line_id = str(ks_dn_header_line.id)
                 if type(ks_dn_header_line.id).__name__ != 'int' and ks_dn_header_line.id.ref != None:
                     ks_dn_header_line_id = ks_dn_header_line.id.ref
-                if ' ' in  ks_dn_header_line.ks_to_do_header:
+                if ' ' in ks_dn_header_line.ks_to_do_header:
                     ks_temp = ks_dn_header_line.ks_to_do_header.replace(" ", "")
                     ks_to_do_data['ks_link'].append('#' + ks_temp + ks_dn_header_line_id)
                     ks_to_do_data['ks_href_id'].append(ks_temp + str(ks_dn_header_line.id))
@@ -106,8 +107,6 @@ class KsDashboardNinjaItems(models.Model):
         return ks_to_do_data
 
 
-
-
 class KsToDoheaders(models.Model):
     _name = 'ks_to.do.headers'
     _description = "to do headers"
@@ -122,7 +121,8 @@ class KsToDoheaders(models.Model):
             if rec.ks_to_do_header:
                 ks_check = bool(re.match('^[A-Z, a-z,0-9,_]+$', rec.ks_to_do_header))
                 if not ks_check:
-                    raise ValidationError(_("Special characters are not allowed only string and digits allow for section header"))
+                    raise ValidationError(
+                        _("Special characters are not allowed only string and digits allow for section header"))
 
     @api.onchange('ks_to_do_header')
     def ks_to_do_header_onchange(self):
@@ -130,7 +130,9 @@ class KsToDoheaders(models.Model):
             if rec.ks_to_do_header:
                 ks_check = bool(re.match('^[A-Z, a-z,0-9,_]+$', rec.ks_to_do_header))
                 if not ks_check:
-                    raise ValidationError(_("Special characters are not allowed only string and digits allow for section header"))
+                    raise ValidationError(
+                        _("Special characters are not allowed only string and digits allow for section header"))
+
 
 class KsToDODescription(models.Model):
     _name = 'ks_to.do.description'

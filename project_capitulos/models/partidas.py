@@ -1,11 +1,11 @@
-from odoo import fields, models, api,_
+from odoo import fields, models, api, _
 
 
 class Partidas(models.Model):
     _name = 'partidas.partidas'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-   ###### DATOS PRINCIPALES  ########
+    ###### DATOS PRINCIPALES  ########
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
     numero_partida = fields.Char(string='Número Partida', required=False)
@@ -28,28 +28,27 @@ class Partidas(models.Model):
                    ('noaprobada', 'No aprobada'), ],
         required=False, default='borrador')
 
-
     condicion = fields.Selection(string='Condición', selection=[
         ('presupuestario', 'Presupuestario'),
         ('sobrecoste', 'Sobre Coste'),
         ('adicionales', 'Adicionales'), ], required=False, )
 
     ###### FASES DEL PROYECTO ########
-    project_id = fields.Many2one('project.project', string='Proyecto',required=True)
+    project_id = fields.Many2one('project.project', string='Proyecto', required=True)
     fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=True)
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo', required=True)
     subcapitulo_id = fields.Many2one('sub.capitulo', string='Subcapitulo', ondelete='cascade', required=True)
-    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id', string=_('Volumetría'))
+    volumetria_ids = fields.One2many(comodel_name='volumetria.volumetria', inverse_name='partida_id',
+                                     string=_('Volumetría'))
 
     ###### CONTADORES  ########
     activi_count_parti = fields.Integer(string='Contador Actividades', compute='get_acti_count')
 
-    @api.onchange('number', 'capitulo_id','subcapitulo_id')
+    @api.onchange('number', 'capitulo_id', 'subcapitulo_id')
     def _onchange_join_number(self):
         self.numero_partida = str(self.subcapitulo_id.numero_subcapitulo) + "." + str(self.number)
 
-
-    material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all' ,readonly='True')
+    material_total = fields.Float(string='Total Coste Materiales', compute='_amount_all', readonly='True')
     labor_total = fields.Float(string='Total Coste Mano de Obra', readonly='True')
     machinerycost_total = fields.Float(string='Total Coste Maquinaria', readonly='True')
     overhead_total = fields.Float(string='Total Costes Generales', readonly='True')
@@ -74,14 +73,13 @@ class Partidas(models.Model):
                 # 'amount_total': amount_untaxed,
             })
 
-
     #############################
     ## Prueba despues quitamos ##
     #############################
     item_capitulo_ids = fields.One2many(
         comodel_name='item.capitulo',
         inverse_name='partidas_id',
-        string='Materiales',)
+        string='Materiales', )
     ##############################################
 
     item_capitulo_materiales_ids = fields.One2many(
@@ -115,7 +113,7 @@ class Partidas(models.Model):
 
     def get_item_count(self):
         for r in self:
-            r.item_count = self.env['item.capitulo'].search_count([('partidas_id', '=',  self.id)])
+            r.item_count = self.env['item.capitulo'].search_count([('partidas_id', '=', self.id)])
 
     def action_view_item(self):
         return {
@@ -125,8 +123,10 @@ class Partidas(models.Model):
             'view_mode': 'tree,form',
             # 'domain': [('partidas_id', '=',  self.id)],
             'domain': [('id', 'in', self.item_capitulo_ids.ids)],
-            'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'), (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
-            'context': dict(self._context, default_partidas_id=self.id, default_faseprincipal_id=self.fase_principal_id.id),
+            'views': [(self.env.ref('project_capitulos.itemsubcapitulo_view_tree').id, 'tree'),
+                      (self.env.ref('project_capitulos.itemsubcapitulo_view_form').id, 'form')],
+            'context': dict(self._context, default_partidas_id=self.id,
+                            default_faseprincipal_id=self.fase_principal_id.id),
         }
 
     def wizard_cambio_precio(self):
@@ -138,7 +138,10 @@ class Partidas(models.Model):
             'context': {
                 'default_is_vacio': True,
                 'default_partida_id': self.id,
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br>" + "/<strong>"+ str(self.subcapitulo_id.capitulo_id.project_id.name)+"/"+str(self.fase_principal_id.name)+"/"+ str(self.subcapitulo_id.capitulo_id.name)+ "/"+str(self.subcapitulo_id.name) + "/"+str(self.name) + " :</strong>",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br>" + "/<strong>" + str(
+                    self.subcapitulo_id.capitulo_id.project_id.name) + "/" + str(
+                    self.fase_principal_id.name) + "/" + str(self.subcapitulo_id.capitulo_id.name) + "/" + str(
+                    self.subcapitulo_id.name) + "/" + str(self.name) + " :</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',
@@ -185,7 +188,8 @@ class Partidas(models.Model):
 
     def get_acti_count(self):
         for r in self:
-            count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','partidas.partidas')])
+            count = self.env['mail.activity'].search_count(
+                [('res_id', '=', self.id), ('res_model', '=', 'partidas.partidas')])
             r.activi_count_parti = count if count else 0
 
     def met_activi_partidas(self):
@@ -194,7 +198,7 @@ class Partidas(models.Model):
             'name': 'Actividades',
             'res_model': 'mail.activity',
             'view_mode': 'kanban,tree,form',
-            'domain': [('res_id', '=',  self.id),('res_model','=','partidas.partidas')],
+            'domain': [('res_id', '=', self.id), ('res_model', '=', 'partidas.partidas')],
         }
 
     def _compute_total_parti(self):

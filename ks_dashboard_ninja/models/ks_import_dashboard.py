@@ -1,8 +1,11 @@
 import base64
 import logging
-from odoo import api, fields, models,_
+
+from odoo import fields, models, _
 from odoo.exceptions import ValidationError
+
 _logger = logging.getLogger(__name__)
+
 
 class KsDashboardNInjaImport(models.TransientModel):
     _name = 'ks_dashboard_ninja.import'

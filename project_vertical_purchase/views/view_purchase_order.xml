@@ -9,7 +9,7 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
 
-<!--                <xpath expr="//field[@name='name']" position="">-->
+                <!--                <xpath expr="//field[@name='name']" position="">-->
                 <xpath expr="//notebook//page//tree//field[@name='price_subtotal']" position="after">
                     <field name="item_id"/>
                 </xpath>

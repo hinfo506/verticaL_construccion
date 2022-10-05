@@ -39,7 +39,7 @@ class AddStandar(models.TransientModel):
         })
 
         for line in self.line_ids:
-            items = self.env['item.capitulo'].create({
+            self.env['item.capitulo'].create({
                 'partidas_id': partida.id,
                 'subcapitulo_id': self.subcapitulo_id.id,
                 'capitulo_id': self.subcapitulo_id.capitulo_id.id,
@@ -78,7 +78,8 @@ class AddStandar(models.TransientModel):
             'res_model': 'partidas.partidas',
             'view_mode': 'tree',
             'domain': [('subcapitulo_id', '=', self.subcapitulo_id.id)],
-            'views': [(self.env.ref('project_capitulos.partidas_view_tree').id, 'tree'),(self.env.ref('project_capitulos.partidas_view_form').id, 'form')],
+            'views': [(self.env.ref('project_capitulos.partidas_view_tree').id, 'tree'),
+                      (self.env.ref('project_capitulos.partidas_view_form').id, 'form')],
             # 'target': 'new',
             'context': dict(self._context, default_subcapitulo_id=self.subcapitulo_id.id),
             'type': 'ir.actions.act_window',

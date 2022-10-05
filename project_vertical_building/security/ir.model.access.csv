@@ -1,5 +1,5 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_vertical_stage,vertical.stage,model_vertical_stage,,1,1,1,1
-access_vertical_item,vertical.item,model_vertical_item,,1,1,1,1
-access_vertical_item_volumetria,vertical.vertical.item.volumetry,model_vertical_item_volumetry,,1,1,1,1
-access_vertical_stage_type,vertical.stage.type,model_vertical_stage_type,,1,1,1,1
+id                             ,name                            ,model_id:id                  ,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vertical_stage          ,vertical.stage                  ,model_vertical_stage         ,           ,1        ,1         ,1          ,1
+access_vertical_item           ,vertical.item                   ,model_vertical_item          ,           ,1        ,1         ,1          ,1
+access_vertical_item_volumetria,vertical.vertical.item.volumetry,model_vertical_item_volumetry,           ,1        ,1         ,1          ,1
+access_vertical_stage_type     ,vertical.stage.type             ,model_vertical_stage_type    ,           ,1        ,1         ,1          ,1

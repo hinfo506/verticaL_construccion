@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Softhealer Technologies.
 
-from odoo import fields, models
 from random import randint
+
+from odoo import fields, models
 
 
 class ActivityTags(models.Model):

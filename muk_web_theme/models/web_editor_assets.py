@@ -21,15 +21,11 @@
 ###################################################################################
 
 import re
-import uuid
-import base64
 
-from odoo import models, fields, api
-from odoo.modules import module
+from odoo import models
 
 
 class ScssEditor(models.AbstractModel):
-    
     _inherit = 'web_editor.assets'
 
     # ----------------------------------------------------------
@@ -64,7 +60,7 @@ class ScssEditor(models.AbstractModel):
         if not content:
             content = self.get_asset_content(url)
         return self._get_variables(content.decode('utf-8'), variables)
-    
+
     def replace_variables_values(self, url, bundle, variables):
         original = self.get_asset_content(url).decode('utf-8')
         content = self._replace_variables(original, variables)

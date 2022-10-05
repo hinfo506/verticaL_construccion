@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-	'name': 'Sales Dashboard Ninja',
+    'name': 'Sales Dashboard Ninja',
 
-	'summary': """
+    'summary': """
 Sales Dashboard,Sales Dashboard Ninja,Sales Odoo Dashboard,Responsive Sales Dashboard,Sales dashboard ninja,Odoo 12 dashboard ,odoo 13 dashboard,custom odoo dashboard,Modern Odoo Dashboards,Odoo 15 Dashboard,odoo 14 dashboard
 """,
 
-	'description': """
+    'description': """
 Dashboard Ninja v15.0,
         Odoo Dashboard,
         Dashboard,
@@ -82,29 +82,29 @@ Dashboard Ninja v15.0,
         Project management Apps
 """,
 
-	'author': 'Ksolves India Ltd.',
+    'author': 'Ksolves India Ltd.',
 
-	'license': 'OPL-1',
+    'license': 'OPL-1',
 
-	'currency': 'EUR',
+    'currency': 'EUR',
 
-	'price': '0',
+    'price': '0',
 
-	'website': 'https://store.ksolves.com/',
+    'website': 'https://store.ksolves.com/',
 
-	'maintainer': 'Ksolves India Ltd.',
+    'maintainer': 'Ksolves India Ltd.',
 
-	'live_test_url': 'http://dashboardninja15.kappso.in/',
+    'live_test_url': 'http://dashboardninja15.kappso.in/',
 
-	'category': 'Tools',
+    'category': 'Tools',
 
-	'support': 'sales@ksolves.com',
+    'support': 'sales@ksolves.com',
 
-	'version': '15.0.1.0.0',
+    'version': '15.0.1.0.0',
 
-	'images': ['static/description/ks_sales_banner.jpg'],
+    'images': ['static/description/ks_sales_banner.jpg'],
 
-	'depends': ['ks_dashboard_ninja', 'sale', 'sale_management'],
+    'depends': ['ks_dashboard_ninja', 'sale', 'sale_management'],
 
-	'data': ['data/ks_sales_data.xml'],
+    'data': ['data/ks_sales_data.xml'],
 }

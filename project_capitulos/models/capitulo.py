@@ -1,13 +1,4 @@
-import ast
-import json
-from collections import defaultdict
-from datetime import timedelta, datetime
-from random import randint
-
-from odoo import api, Command, fields, models, tools, SUPERUSER_ID, _
-from odoo.exceptions import UserError, ValidationError, AccessError
-from odoo.tools import format_amount
-from odoo.osv.expression import OR
+from odoo import api, fields, models
 
 
 class Capitulo(models.Model):
@@ -23,24 +14,25 @@ class Capitulo(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
-    total = fields.Float('Importe Total',compute='_compute_total_cap')
+    total = fields.Float('Importe Total', compute='_compute_total_cap')
     total_prevision = fields.Float('Importe Total Previsto')
 
     descripcion = fields.Text('Descripción del Capitulo')
     condicion = fields.Selection(string='Condición', selection=[
         ('presupuestario', 'Presupuestario'),
         ('sobrecoste', 'Sobre Coste'),
-        ('adicionales', 'Adicionales'), ],required=False, )
+        ('adicionales', 'Adicionales'), ], required=False, )
 
- 
     ###### FASES DEL PROYECTO  ########
     project_id = fields.Many2one('project.project', string='Proyecto', required=True)
-    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=True, ondelete='cascade')
+    fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=True,
+                                        ondelete='cascade')
 
     # prueba
     # name_faseini = fields.Char(string='Fase',related="project_id.nombre_fase", required=False)
 
-    subcapitulo_ids = fields.One2many(comodel_name='sub.capitulo', inverse_name='capitulo_id', string='Subcapitulos', required=False)
+    subcapitulo_ids = fields.One2many(comodel_name='sub.capitulo', inverse_name='capitulo_id', string='Subcapitulos',
+                                      required=False)
 
     ####### CONTADORES  ########
     sub_count = fields.Integer(string='Cantidad Subcapitulos', required=False, compute='subcapitulos_count')
@@ -93,7 +85,8 @@ class Capitulo(models.Model):
 
     def get_acti_count(self):
         for r in self:
-            count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','capitulo.capitulo')])
+            count = self.env['mail.activity'].search_count(
+                [('res_id', '=', self.id), ('res_model', '=', 'capitulo.capitulo')])
             r.activi_count = count if count else 0
 
     def met_activi_capitulos(self):
@@ -102,7 +95,7 @@ class Capitulo(models.Model):
             'name': 'Actividades',
             'res_model': 'mail.activity',
             'view_mode': 'kanban,tree,form',
-            'domain': [('res_id', '=',  self.id),('res_model','=','capitulo.capitulo')],
+            'domain': [('res_id', '=', self.id), ('res_model', '=', 'capitulo.capitulo')],
         }
 
     def wizard_cambio_precio(self):
@@ -115,7 +108,9 @@ class Capitulo(models.Model):
                 'default_capitulo_id': self.id,
                 'default_is_vacio': '1',
                 # 'default_nuevo_precio': '70',
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.project_id.name)+"/"+str(self.fase_principal_id.name)+"/"+str(self.name)+" :</strong>",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>" + str(
+                    self.project_id.name) + "/" + str(self.fase_principal_id.name) + "/" + str(
+                    self.name) + " :</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

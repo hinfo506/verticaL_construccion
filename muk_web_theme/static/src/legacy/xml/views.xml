@@ -21,23 +21,23 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
   -->
-  
+
 <templates id="template" xml:space="preserve">
 
 	<t t-name="muk_web_theme.MenuStatusbarButtons">
         <div class="dropdown">
             <button class="o_statusbar_buttons_dropdown btn btn-secondary dropdown-toggle" type="button"
-            		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Actions
             </button>
         </div>
     </t>
-    
+
     <t t-name="muk_web_theme.IconButton">
         <i t-attf-class="d-inline d-sm-none fa fa-#{icon}" t-att-title="label"/>
         <span class="d-none d-sm-inline" t-esc="label"/>
     </t>
-    
+
     <t t-extend="FormView.buttons">
     	<t t-jquery=".o_form_button_edit" t-operation="inner">
             <t t-call="muk_web_theme.IconButton">
@@ -45,7 +45,7 @@
                 <t t-set="label">Edit</t>
             </t>
         </t>
-    	<t t-jquery=".o_form_button_create" t-operation="inner">
+        <t t-jquery=".o_form_button_create" t-operation="inner">
             <t t-call="muk_web_theme.IconButton">
                 <t t-set="icon" t-value="'plus'"/>
                 <t t-set="label">Create</t>
@@ -64,7 +64,7 @@
             </t>
         </t>
     </t>
-    
+
     <t t-extend="ListView.buttons">
         <t t-jquery=".o_list_button_add" t-operation="inner">
             <t t-call="muk_web_theme.IconButton">
@@ -87,7 +87,7 @@
             </t>
         </t>
     </t>
-    
+
     <t t-extend="KanbanView.buttons">
         <t t-jquery="button" t-operation="inner">
             <t t-call="muk_web_theme.IconButton">
@@ -99,9 +99,9 @@
 
     <t t-extend="SearchView.FavoriteMenu">
 		<t t-jquery="button[data-toggle='dropdown']" t-operation="inner">
-	        <span class="fa fa-star"/> 
-	        <span class="mk_dropdown_text">Favorites</span>
-	        <span t-if="widget.isMobile" class="fa fa-chevron-right float-right mt4"/>
+	        <span class="fa fa-star"/>
+            <span class="mk_dropdown_text">Favorites</span>
+            <span t-if="widget.isMobile" class="fa fa-chevron-right float-right mt4"/>
 	    </t>
     </t>
 

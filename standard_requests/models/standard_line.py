@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+
 from odoo import models, fields, api
 
 _logger = logging.getLogger(__name__)
@@ -69,7 +70,7 @@ class StandardLine(models.Model):
                 record.subtotal_descuento = record.subtotal_item_capitulo
 
             record.importe_venta = ((
-                                                record.subtotal_item_capitulo * record.beneficio_estimado) / 100) + record.subtotal_item_capitulo
+                                            record.subtotal_item_capitulo * record.beneficio_estimado) / 100) + record.subtotal_item_capitulo
             record.total_impuesto_item = record.subtotal_descuento * (record.impuesto_porciento / 100)
             record.suma_impuesto_item_y_cost_price = record.subtotal_descuento + record.total_impuesto_item
 

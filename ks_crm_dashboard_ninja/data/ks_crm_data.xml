@@ -97,7 +97,8 @@
             <field name="ks_record_count_type_2">count</field>
             <field name="ks_model_id" eval="ref('crm.model_crm_lead')"/>
             <field name="ks_model_id_2" eval="ref('crm.model_crm_lead')"/>
-            <field name="ks_domain">[["type","=","opportunity"],["active","=",True],["stage_id.is_won","=",True]]</field>
+            <field name="ks_domain">[["type","=","opportunity"],["active","=",True],["stage_id.is_won","=",True]]
+            </field>
             <field name="ks_date_filter_field" eval="ref('crm.field_crm_lead__create_date')"/>
             <field name="ks_domain_2">[["type","=","opportunity"],["active","=",False]]</field>
             <field name="ks_data_comparison">Ratio</field>
@@ -151,7 +152,7 @@
             <field name="ks_company_id" eval="0"/>
         </record>
 
-<!--        expected_revenue-->
+        <!--        expected_revenue-->
         <record id="ks_crm_item_8" model="ks_dashboard_ninja.item">
             <field name="name">Revenue Salesperson wise</field>
             <field name="ks_dashboard_item_type">ks_pie_chart</field>
@@ -196,8 +197,7 @@
         </record>
 
 
-
-         <record id="ks_crm_item_11" model="ks_dashboard_ninja.item">
+        <record id="ks_crm_item_11" model="ks_dashboard_ninja.item">
             <field name="name">Top 5 probability Opportunity customer wise</field>
             <field name="ks_dashboard_item_type">ks_horizontalBar_chart</field>
             <field name="ks_chart_data_count_type">sum</field>
@@ -216,7 +216,7 @@
             <field name="ks_company_id" eval="0"/>
         </record>
 
-         <record id="ks_crm_item_12" model="ks_dashboard_ninja.item">
+        <record id="ks_crm_item_12" model="ks_dashboard_ninja.item">
             <field name="name">Campaign wise lead</field>
             <field name="ks_dashboard_item_type">ks_line_chart</field>
             <field name="ks_chart_data_count_type">count</field>
@@ -229,7 +229,7 @@
             <field name="ks_company_id" eval="0"/>
         </record>
 
-         <record id="ks_crm_item_14" model="ks_dashboard_ninja.item">
+        <record id="ks_crm_item_14" model="ks_dashboard_ninja.item">
             <field name="name">New Opportunites</field>
             <field name="ks_dashboard_item_type">ks_tile</field>
             <field name="ks_record_count_type">count</field>
@@ -244,7 +244,7 @@
             <field name="ks_layout">layout6</field>
             <field name="ks_company_id" eval="0"/>
         </record>
-         <record id="ks_crm_item_15" model="ks_dashboard_ninja.item">
+        <record id="ks_crm_item_15" model="ks_dashboard_ninja.item">
             <field name="name">Won Opportunites</field>
             <field name="ks_dashboard_item_type">ks_tile</field>
             <field name="ks_record_count_type">count</field>
@@ -259,7 +259,7 @@
             <field name="ks_layout">layout2</field>
             <field name="ks_company_id" eval="0"/>
         </record>
-         <record id="ks_crm_item_16" model="ks_dashboard_ninja.item">
+        <record id="ks_crm_item_16" model="ks_dashboard_ninja.item">
             <field name="name">Proposition Opportunites</field>
             <field name="ks_dashboard_item_type">ks_tile</field>
             <field name="ks_record_count_type">count</field>
@@ -273,10 +273,10 @@
             <field name="ks_default_icon_color">#ffffff,0.99</field>
             <field name="ks_layout">layout5</field>
             <field name="ks_company_id" eval="0"/>
-         </record>
+        </record>
 
-         <record id="ks_crm_item_17" model="ks_dashboard_ninja.item">
-             <field name="name">Qualified Opportunites</field>
+        <record id="ks_crm_item_17" model="ks_dashboard_ninja.item">
+            <field name="name">Qualified Opportunites</field>
             <field name="ks_dashboard_item_type">ks_tile</field>
             <field name="ks_record_count_type">count</field>
             <field name="ks_model_id" eval="ref('crm.model_crm_lead')"/>
@@ -291,7 +291,7 @@
             <field name="ks_company_id" eval="0"/>
         </record>
 
-                <!-- Single CRM Demo Dashboard Templates-->
+        <!-- Single CRM Demo Dashboard Templates-->
 
         <record id="demo_crm_dashboard" model="ks_dashboard_ninja.board">
             <field name="name">CRM Dashboard</field>

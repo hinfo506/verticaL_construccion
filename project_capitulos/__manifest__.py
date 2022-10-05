@@ -39,7 +39,6 @@
         # Menu
         "views/menu.xml",
 
-
     ],
     "application": False,
 }

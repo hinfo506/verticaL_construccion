@@ -7,14 +7,16 @@
             <form string="Activity Feedback">
                 <group>
                     <group>
-                        <field name="done_button_pressed" invisible="1" />
-                        <field name="feedback" />
+                        <field name="done_button_pressed" invisible="1"/>
+                        <field name="feedback"/>
                     </group>
                 </group>
                 <footer>
-                    <button name="action_done" string="Done" type="object" class="btn-primary" attrs="{'invisible':[('done_button_pressed','=',False)]}" />
-                    <button name="action_schedule_done" string="Done &amp; Schedule Next" type="object" class="btn-primary" />
-                    <button string="Cancel" class="btn-default" special="cancel" />
+                    <button name="action_done" string="Done" type="object" class="btn-primary"
+                            attrs="{'invisible':[('done_button_pressed','=',False)]}"/>
+                    <button name="action_schedule_done" string="Done &amp; Schedule Next" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
                 </footer>
             </form>
         </field>

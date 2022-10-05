@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-import dateutil
 import datetime as dt
-import pytz
 import json
-import babel
-from datetime import timedelta
-from odoo.tools.safe_eval import safe_eval
-from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 from collections import defaultdict
 from datetime import datetime
+from datetime import timedelta
+
+import babel
+import dateutil
+import pytz
 from dateutil import relativedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError, UserError
+from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools.safe_eval import safe_eval
+
 from odoo.addons.ks_dashboard_ninja.lib.ks_date_filter_selections import ks_get_date, ks_convert_into_utc, \
     ks_convert_into_local
 
@@ -300,7 +302,8 @@ class KsDashboardNinjaItems(models.Model):
         ('l_custom', 'Custom Filter'),
     ], string="Kpi Date Filter Selection", required=True, default='l_none')
 
-    ks_previous_period = fields.Boolean(string=" Compare With Previous Period ", help='Checkbox to show comparison between the data of present day and the previous selected period. ')
+    ks_previous_period = fields.Boolean(string=" Compare With Previous Period ",
+                                        help='Checkbox to show comparison between the data of present day and the previous selected period. ')
 
     # ------------------------ Pro Fields --------------------
     ks_dashboard_ninja_board_id = fields.Many2one('ks_dashboard_ninja.board', string="Dashboard",
@@ -469,8 +472,8 @@ class KsDashboardNinjaItems(models.Model):
     ks_year_period_2 = fields.Integer(string="KPI Same Period Previous Years")
 
     ks_multiplier_active = fields.Boolean(string="Apply Multiplier", default=False,
-                                        help="Provides the visibility of multiplier field")
-    ks_multiplier = fields.Float(string="Multiplier",default=1, help="Provides the multiplication of record value")
+                                          help="Provides the visibility of multiplier field")
+    ks_multiplier = fields.Float(string="Multiplier", default=1, help="Provides the multiplication of record value")
 
     # Adding refresh per item override global update interval
     ks_update_items_data = fields.Selection([
@@ -521,11 +524,13 @@ class KsDashboardNinjaItems(models.Model):
     ks_button_color = fields.Char(string="Top Button Color",
                                   default="#000000,0.99")
     ks_auto_update_type = fields.Selection(
-        [('ks_live_update', 'Update at every instance.'), ('ks_update_interval', ' Update after the selected interval')],
+        [('ks_live_update', 'Update at every instance.'),
+         ('ks_update_interval', ' Update after the selected interval')],
         string='Auto Update Type',
         default=lambda self: 'ks_update_interval' if self._context.get('ks_set_interval', False) else False,
         help='Select the update type.')
-    ks_show_live_pop_up = fields.Boolean(string='Show Live Update Pop Up', help='Checkbox to enable notification after every update. ')
+    ks_show_live_pop_up = fields.Boolean(string='Show Live Update Pop Up',
+                                         help='Checkbox to enable notification after every update. ')
 
     ks_is_client_action = fields.Boolean('Client Action', default=False)
     ks_client_action = fields.Many2one('ir.actions.client',
@@ -544,7 +549,7 @@ class KsDashboardNinjaItems(models.Model):
     @api.onchange('ks_year_period', 'ks_year_period_2')
     def ks_year_neg_val_not_allow(self):
         for rec in self:
-            if rec.ks_year_period < 0 or rec.ks_year_period_2 < 0 :
+            if rec.ks_year_period < 0 or rec.ks_year_period_2 < 0:
                 raise ValidationError(_(" Negative periods are not allowed "))
 
     @api.onchange('ks_item_start_date', 'ks_item_end_date')
@@ -575,6 +580,7 @@ class KsDashboardNinjaItems(models.Model):
                 rec.ks_precision_digits = ks_precision_digits
             except Exception as E:
                 rec.ks_precision_digits = 2
+
     # default = lambda self: self.sudo().env.ref('ks_dashboard_ninja.ks_dashboard_ninja_precision')
 
     @api.onchange('ks_multiplier_active', 'ks_chart_measure_field', 'ks_list_view_group_fields')
@@ -598,10 +604,6 @@ class KsDashboardNinjaItems(models.Model):
                 rec.ks_multiplier_lines = [(6, 0, ks_temp_list)]
                 # rec.write({'ks_multiplier_lines': ks_temp_list})
 
-
-
-
-
     @api.onchange('ks_list_view_type')
     def _ks_onchange_ks_list_view_type(self):
         for rec in self:
@@ -623,16 +625,14 @@ class KsDashboardNinjaItems(models.Model):
             elif rec.ks_goal_enable and not rec.ks_goal_lines:
                 rec.ks_pagination_limit = 15
 
-
     @api.onchange('ks_goal_enable')
     def ks_is_goal_enable(self):
         for rec in self:
-            if not rec.ks_goal_enable :
+            if not rec.ks_goal_enable:
                 rec.ks_goal_lines = False
                 rec.ks_pagination_limit = 15
             elif rec.ks_goal_enable and not rec.ks_goal_lines:
                 rec.ks_pagination_limit = 15
-
 
     @api.onchange('ks_pagination_limit')
     def ks_on_negativ_limit(self):
@@ -655,8 +655,6 @@ class KsDashboardNinjaItems(models.Model):
         for rec in self:
             if not rec.ks_record_data_limit_visibility:
                 rec.ks_record_data_limit = 0
-
-
 
     @api.onchange('ks_fill_temporal')
     def ks_onchange_fill_temporal(self):
@@ -1167,10 +1165,6 @@ class KsDashboardNinjaItems(models.Model):
                 rec.ks_goal_enable = False
                 rec.ks_fill_temporal = False
 
-
-
-
-
     @api.onchange('ks_chart_relation_sub_groupby', 'ks_fill_temporal', 'ks_goal_lines')
     def ks_empty_limit(self):
         for rec in self:
@@ -1202,7 +1196,7 @@ class KsDashboardNinjaItems(models.Model):
                  'ks_standard_goal_value', 'ks_goal_bar_line', 'ks_chart_relation_sub_groupby',
                  'ks_chart_date_sub_groupby', 'ks_date_filter_field', 'ks_item_start_date', 'ks_item_end_date',
                  'ks_compare_period', 'ks_year_period', 'ks_unit', 'ks_unit_selection', 'ks_chart_unit',
-                 'ks_fill_temporal', 'ks_domain_extension','ks_multiplier_active', 'ks_multiplier_lines',)
+                 'ks_fill_temporal', 'ks_domain_extension', 'ks_multiplier_active', 'ks_multiplier_lines', )
     def ks_get_chart_data(self):
         for rec in self:
             rec.ks_chart_data = rec._ks_get_chart_data(domain=[])
@@ -1239,7 +1233,6 @@ class KsDashboardNinjaItems(models.Model):
                         ks_chart_measure_field_with_type.append(rec.ks_sort_by_field.name + ':' + 'sum')
                     else:
                         ks_chart_measure_field_with_type.append(rec.ks_sort_by_field.name)
-
 
                 ks_chart_data['datasets'].append({'data': [], 'label': "Count"})
             else:
@@ -1790,10 +1783,11 @@ class KsDashboardNinjaItems(models.Model):
                     ks_chart_data = False
             if self.ks_multiplier_active:
                 for ks_multiplier in self.ks_multiplier_lines:
-                    for i in range(0,len(ks_chart_data['datasets'])):
-                        if ks_multiplier.ks_multiplier_fields.field_description in ks_chart_data['datasets'][i]['label']:
+                    for i in range(0, len(ks_chart_data['datasets'])):
+                        if ks_multiplier.ks_multiplier_fields.field_description in ks_chart_data['datasets'][i][
+                            'label']:
                             data_values = ks_chart_data['datasets'][i]['data']
-                            data_values = list(map(lambda x : ks_multiplier.ks_multiplier_value*x, data_values))
+                            data_values = list(map(lambda x: ks_multiplier.ks_multiplier_value * x, data_values))
                             ks_chart_data['datasets'][i]['data'] = data_values
             return json.dumps(ks_chart_data)
         else:
@@ -1872,8 +1866,8 @@ class KsDashboardNinjaItems(models.Model):
 
                 try:
                     ks_list_view_records = self.env[self.ks_model_name]. \
-                    read_group(ks_chart_domain, ks_list_fields, [self.ks_chart_relation_groupby.name],
-                               orderby=orderby, limit=limit, offset=ksoffset, lazy=False)
+                        read_group(ks_chart_domain, ks_list_fields, [self.ks_chart_relation_groupby.name],
+                                   orderby=orderby, limit=limit, offset=ksoffset, lazy=False)
                 except Exception as e:
                     ks_list_view_records = []
                 for res in ks_list_view_records:
@@ -1927,9 +1921,9 @@ class KsDashboardNinjaItems(models.Model):
                         ks_list_view_data['label'].remove(self.ks_list_target_deviation_field.field_description)
                 try:
                     ks_list_view_records = self.env[self.ks_model_name]. \
-                    read_group(ks_chart_domain, ks_list_field + list_target_deviation_field,
-                               [self.ks_chart_relation_groupby.name + ':' + ks_chart_date_groupby],
-                               orderby=orderby, limit=limit, offset=ksoffset, lazy=False)
+                        read_group(ks_chart_domain, ks_list_field + list_target_deviation_field,
+                                   [self.ks_chart_relation_groupby.name + ':' + ks_chart_date_groupby],
+                                   orderby=orderby, limit=limit, offset=ksoffset, lazy=False)
                 except Exception as E:
                     ks_list_view_records = []
                 if all(list_fields in res for res in ks_list_view_records for list_fields in
@@ -2004,8 +1998,8 @@ class KsDashboardNinjaItems(models.Model):
 
                 try:
                     ks_list_view_records = self.env[self.ks_model_name] \
-                    .read_group(ks_chart_domain, ks_list_fields, [self.ks_chart_relation_groupby.name],
-                                orderby=orderby, limit=limit, offset=ksoffset, lazy=False)
+                        .read_group(ks_chart_domain, ks_list_fields, [self.ks_chart_relation_groupby.name],
+                                    orderby=orderby, limit=limit, offset=ksoffset, lazy=False)
                 except Exception as e:
                     ks_list_view_records = []
                 for res in ks_list_view_records:
@@ -2042,8 +2036,8 @@ class KsDashboardNinjaItems(models.Model):
 
                 try:
                     ks_list_view_records = self.env[self.ks_model_name] \
-                    .read_group(ks_chart_domain, ks_list_fields, [self.ks_chart_relation_groupby.name],
-                                orderby=orderby, limit=limit, offset=ksoffset, lazy=False)
+                        .read_group(ks_chart_domain, ks_list_fields, [self.ks_chart_relation_groupby.name],
+                                    orderby=orderby, limit=limit, offset=ksoffset, lazy=False)
                 except Exception as E:
                     ks_list_view_records = []
                 for res in ks_list_view_records:
@@ -2070,7 +2064,8 @@ class KsDashboardNinjaItems(models.Model):
                 if label in ks_list_view_data['label']:
                     index = ks_list_view_data['label'].index(label)
                     for i in range(0, len(ks_list_view_data['data_rows'])):
-                        data_values = ks_list_view_data['data_rows'][i]['data'][index] * ks_multiplier.ks_multiplier_value
+                        data_values = ks_list_view_data['data_rows'][i]['data'][
+                                          index] * ks_multiplier.ks_multiplier_value
                         ks_list_view_data['data_rows'][i]['data'][index] = data_values
         return ks_list_view_data
 
@@ -2156,7 +2151,7 @@ class KsDashboardNinjaItems(models.Model):
                     ks_list_labels_dates.append(label)
 
             for label in ks_list_labels_dates:
-                data_rows = {'data': [label], 'ks_column_type': [],'store':True}
+                data_rows = {'data': [label], 'ks_column_type': [], 'store': True}
                 data = ks_list_records.get(label, False)
                 if data:
                     data_rows['data'] = data_rows['data'] + data['measure_field']
@@ -2197,7 +2192,8 @@ class KsDashboardNinjaItems(models.Model):
             for res in ks_list_view_records:
                 if all(list_fields in res for list_fields in ks_list_fields):
                     counter = 0
-                    data_row = {'id': 0, 'data': [], 'domain': json.dumps(res['__domain']), 'ks_column_type': [],'store':True}
+                    data_row = {'id': 0, 'data': [], 'domain': json.dumps(res['__domain']), 'ks_column_type': [],
+                                'store': True}
                     for field_rec in ks_list_fields:
                         data_row['data'].append(res[field_rec])
                     data_row['data'].append(rec.ks_standard_goal_value)
@@ -2402,7 +2398,8 @@ class KsDashboardNinjaItems(models.Model):
             elif rec.ks_record_field:
                 try:
                     data = \
-                        self.env[rec.ks_model_name].read_group(proper_domain, [rec.ks_record_field.name], [], lazy=False)[0]
+                        self.env[rec.ks_model_name].read_group(proper_domain, [rec.ks_record_field.name], [],
+                                                               lazy=False)[0]
                 except Exception as E:
                     data = {}
                 if rec.ks_record_count_type == 'sum':
@@ -3034,10 +3031,11 @@ class KsDashboardNinjaItems(models.Model):
                                                        ks_chart_data)
             if record.ks_multiplier_active:
                 for ks_multiplier in record.ks_multiplier_lines:
-                    for i in range(0,len(ks_chart_data['datasets'])):
-                        if ks_multiplier.ks_multiplier_fields.field_description in ks_chart_data['datasets'][i]['label']:
+                    for i in range(0, len(ks_chart_data['datasets'])):
+                        if ks_multiplier.ks_multiplier_fields.field_description in ks_chart_data['datasets'][i][
+                            'label']:
                             data_values = ks_chart_data['datasets'][i]['data']
-                            data_values = list(map(lambda x : ks_multiplier.ks_multiplier_value*x, data_values))
+                            data_values = list(map(lambda x: ks_multiplier.ks_multiplier_value * x, data_values))
                             ks_chart_data['datasets'][i]['data'] = data_values
             return {
                 'ks_chart_data': json.dumps(ks_chart_data),
@@ -3362,6 +3360,7 @@ class KsDashboardItemsActions(models.Model):
         for rec in self:
             if not (rec.ks_item_action_field.ttype == 'datetime' or rec.ks_item_action_field.ttype == 'date'):
                 rec.ks_item_action_date_groupby = False
+
 
 class KsDashboardItemMultiplier(models.Model):
     _name = 'ks_dashboard_item.multiplier'

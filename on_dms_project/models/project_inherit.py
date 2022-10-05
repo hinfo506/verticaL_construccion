@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields
+
 
 class Proyecto(models.Model):
     _inherit = 'project.project'
 
     directorios_id = fields.One2many(comodel_name='dms.directory', inverse_name='project_id', string='Directorios',
-                                   required=False)
+                                     required=False)
 
     directory_count = fields.Integer(string='Directorios', compute='get_directory_count')
 
@@ -14,7 +15,6 @@ class Proyecto(models.Model):
         for r in self:
             count = self.env['dms.directory'].search_count([('project_id', '=', self.id)])
             r.directory_count = count if count else 0
-
 
     def met_directorios(self):
         return {

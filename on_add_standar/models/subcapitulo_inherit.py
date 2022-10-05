@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import models
 
 
 class Subcapitulo(models.Model):
@@ -11,10 +11,11 @@ class Subcapitulo(models.Model):
             'view_mode': 'form',
             'res_model': 'add.standar',
             'context': {
-            #     # 'default_is_vacio': True,
+                #     # 'default_is_vacio': True,
                 'default_subcapitulo_id': self.id,
                 'default_info': "El STANDAR SE INCLUIRÁ COMO UNA NUEVA PARTIDA EN EL SUBCAPITULO: </br>" + "<strong>" + str(
-                    self.capitulo_id.project_id.name) + "/" + str(self.fase_principal_id.name) + "/" + str(self.capitulo_id.name) + "/" + str(
+                    self.capitulo_id.project_id.name) + "/" + str(self.fase_principal_id.name) + "/" + str(
+                    self.capitulo_id.name) + "/" + str(
                     self.name) + " :</strong>",
             },
             'type': 'ir.actions.act_window',
@@ -36,5 +37,3 @@ class Subcapitulo(models.Model):
         #     'type': 'ir.actions.act_window',
         #     'target': 'new',
         # }
-
-

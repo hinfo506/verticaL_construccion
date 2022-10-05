@@ -166,7 +166,7 @@
         </span>
     </div>
 
-<!--     GridStack List View Item Container-->
+    <!--     GridStack List View Item Container-->
     <t t-name="ks_gridstack_list_view_container">
         <div class="grid-stack-item" t-att-id="item_id">
             <div class="grid-stack-item-content ks_list_view_container ks_dashboard_item_hover card shadow">
@@ -243,12 +243,14 @@
                                         <div class="ks_chart_export_menu_header">
                                             <span>Export</span>
                                         </div>
-                                        <div class="chart_xls_export ks_chart_xls_csv_export ks_chart_export_menu_item" t-att-data-chart-id="item_id"
+                                        <div class="chart_xls_export ks_chart_xls_csv_export ks_chart_export_menu_item"
+                                             t-att-data-chart-id="item_id"
                                              data-format="list_xls">
                                             <i class="fa fa-file-excel-o"/>
                                             <span>Export to Excel</span>
                                         </div>
-                                        <div class="ks_chart_xls_csv_export ks_chart_export_menu_item" t-att-data-chart-id="item_id"
+                                        <div class="ks_chart_xls_csv_export ks_chart_export_menu_item"
+                                             t-att-data-chart-id="item_id"
                                              data-format="list_csv">
                                             <i class="fa fa-file-code-o"/>
                                             <span>Export to CSV</span>
@@ -340,10 +342,10 @@
                                     </t>
                                     <tr t-if="count">
                                         <td class="ks_font">
-<!--                                            <span>(-->
-<!--                                                <t t-esc="count"/>-->
-<!--                                                records more)-->
-<!--                                            </span>-->
+                                            <!--                                            <span>(-->
+                                            <!--                                                <t t-esc="count"/>-->
+                                            <!--                                                records more)-->
+                                            <!--                                            </span>-->
                                         </td>
                                     </tr>
                                 </tbody>
@@ -361,12 +363,13 @@
 
     <t t-name="ks_list_view_table">
         <t t-if="list_view_data">
-            <table id="ksListViewTable" class="table table-hover ks_list_view_layout_1" t-att-data-model="list_view_data['model']">
+            <table id="ksListViewTable" class="table table-hover ks_list_view_layout_1"
+                   t-att-data-model="list_view_data['model']">
                 <thead>
                     <t t-call="ks_list_view_header"/>
                 </thead>
                 <tbody class="ks_table_body">
-<!--                    <t t-call="ks_list_view_tmpl"/>-->
+                    <!--                    <t t-call="ks_list_view_tmpl"/>-->
                 </tbody>
             </table>
 

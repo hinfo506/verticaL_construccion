@@ -94,8 +94,8 @@
             <field name="ks_background_color">#d9534f,0.99</field>
             <field name="ks_font_color">#ffffff,0.99</field>
             <field name="ks_default_icon_color">#ffffff,0.99</field>
-<!--            <field name="ks_auto_update_type">ks_live_update</field>-->
-<!--            <field name="ks_show_live_pop_up">1</field>-->
+            <!--            <field name="ks_auto_update_type">ks_live_update</field>-->
+            <!--            <field name="ks_show_live_pop_up">1</field>-->
             <field name="ks_layout">layout3</field>
             <field name="ks_company_id" eval="0"/>
         </record>
@@ -220,7 +220,7 @@
         </record>
 
         <record id="ks_sales_item_12" model="ks_dashboard_ninja.item">
-            <field name="name">Sale Order Draft : Total amount </field>
+            <field name="name">Sale Order Draft : Total amount</field>
             <field name="ks_dashboard_item_type">ks_kpi</field>
             <field name="ks_record_count_type">count</field>
             <field name="ks_record_count_type_2">sum</field>
@@ -242,7 +242,7 @@
         </record>
 
         <record id="ks_sales_item_13" model="ks_dashboard_ninja.item">
-            <field name="name">Partner/sale order </field>
+            <field name="name">Partner/sale order</field>
             <field name="ks_dashboard_item_type">ks_kpi</field>
             <field name="ks_record_count_type">count</field>
             <field name="ks_record_count_type_2">count</field>

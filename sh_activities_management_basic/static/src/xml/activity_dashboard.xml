@@ -53,7 +53,7 @@
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar lh--9 op-6"></i>
                                     </div>
-                                    <input type="date" id="start_date" name="start_date" class="form-control" />
+                                    <input type="date" id="start_date" name="start_date" class="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                         <i class="fa fa-calendar lh--9 op-6"></i>
                                     </div>
                                 </div>
-                                <input type="date" id="end_date" name="end_date" class="form-control" />
+                                <input type="date" id="end_date" name="end_date" class="form-control"/>
                             </div>
                         </div>
                     </div>
@@ -84,13 +84,14 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <input type="hidden" id="popup_activity_id" name="popup_activity_id" />
+                                        <input type="hidden" id="popup_activity_id" name="popup_activity_id"/>
                                         <label for="activity_feedback">Feedback</label>
                                         <textarea class="form-control rounded-0" id="activity_feedback"></textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="popup-action-done btn btn-primary" id="popup_action_done">Done</button>
+                                    <button type="button" class="popup-action-done btn btn-primary"
+                                            id="popup_action_done">Done</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>

@@ -16,24 +16,28 @@
                 </xpath>
 
                 <xpath expr="//field[@name='company_id']" position="before">
-<!--                <xpath expr="//label[@for='date_start']//div" position="before">-->
-<!--                    <field name=""/>-->
+                    <!--                <xpath expr="//label[@for='date_start']//div" position="before">-->
+                    <!--                    <field name=""/>-->
                     <label for="date_start_real" string="Fecha real"/>
                     <div name="datesreal" class="o_row">
-                        <field name="date_start_real" widget="daterange" options="{&quot;related_end_date&quot;: &quot;date_end_real&quot;}"/>
+                        <field name="date_start_real" widget="daterange"
+                               options="{&quot;related_end_date&quot;: &quot;date_end_real&quot;}"/>
                         <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon" title="Arrow"/>
-                        <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('date_start_real', '=', False), ('date_end_real', '=', False)]}"/>
-                        <field name="date_end_real" widget="daterange" options="{&quot;related_start_date&quot;: &quot;date_start_real&quot;}"/>
+                        <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow"
+                           attrs="{'invisible': [('date_start_real', '=', False), ('date_end_real', '=', False)]}"/>
+                        <field name="date_end_real" widget="daterange"
+                               options="{&quot;related_start_date&quot;: &quot;date_start_real&quot;}"/>
                     </div>
                 </xpath>
 
                 <xpath expr="//sheet//div//button" position="before">
                     <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
-                                <field name="activi_count" string="Actividades" widget="statinfo"/>
+                        <field name="activi_count" string="Actividades" widget="statinfo"/>
                     </button>
                     <!-- <button class="oe_stat_button" name="action_view_fase" type="object" icon="fa-sitemap"> -->
                     <button class="oe_stat_button" name="action_view_fase" type="object">
-                        <img src="/project_vertical_building/static/src/img/sitemap.png" style="margin: 0px 10px 0px 10px; width: 26px;" />
+                        <img src="/project_vertical_building/static/src/img/sitemap.png"
+                             style="margin: 0px 10px 0px 10px; width: 26px;"/>
                         <span>Fases</span>
                     </button>
                 </xpath>
@@ -70,13 +74,13 @@
                             </group>
                         </group>
                     </page>
-                    
+
                 </xpath>
-                
+
             </field>
         </record>
 
-                        <!-- Inherit Form View to Modify it -->
+        <!-- Inherit Form View to Modify it -->
         <record id="kanban_inherit_view" model="ir.ui.view">
             <field name="name">Proyectos</field>
             <field name="model">project.project</field>
@@ -96,8 +100,10 @@
                                     <!-- <a class="o_project_kanban_box" name="action_view_items_tree" type="object"> -->
                                     <a class="o_project_kanban_box" name="action_view_fase" type="object">
                                         <div>
-                                            <span class="o_value"><t t-esc="record.fase_kanban_count.value"/></span>
-<!--                                            <span class="o_label"><t t-esc="record.nombre_fase.value"/></span>-->
+                                            <span class="o_value">
+                                                <t t-esc="record.fase_kanban_count.value"/>
+                                            </span>
+                                            <!--                                            <span class="o_label"><t t-esc="record.nombre_fase.value"/></span>-->
                                             <span class="o_label">Fases</span>
                                         </div>
                                     </a>
@@ -111,7 +117,9 @@
                                 <div class="o_project_kanban_boxes">
                                     <a class="o_project_kanban_box" name="met_items" type="object">
                                         <div>
-                                            <span class="o_value"><t t-esc="record.item_kanban_count.value"/></span>
+                                            <span class="o_value">
+                                                <t t-esc="record.item_kanban_count.value"/>
+                                            </span>
                                             <span class="o_label">Items</span>
                                         </div>
                                     </a>
@@ -128,7 +136,7 @@
 
         <record id="view_project_project_filter_inherit" model="ir.ui.view">
             <field name="name">view_project_project_filter_inherit</field>
-            <field name="model">project.project</field>            
+            <field name="model">project.project</field>
             <field name="inherit_id" ref="project.view_project_project_filter"/>
             <field name="arch" type="xml">
                 <filter name="own_projects" position="after">

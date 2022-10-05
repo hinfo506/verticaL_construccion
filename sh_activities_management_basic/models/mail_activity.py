@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 # Part of Softhealer Technologies.
 
-from odoo import models, fields, api, modules, exceptions, _, Command
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from odoo.tools.misc import clean_context
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
-from odoo.tools import html2plaintext
 import math
 from collections import defaultdict
+from datetime import datetime
+
+from dateutil.relativedelta import relativedelta
+from odoo import models, fields, api, modules, exceptions, _, Command
 from odoo.http import request
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+from odoo.tools import html2plaintext
+from odoo.tools.misc import clean_context
 
 
 class MailActivity(models.Model):

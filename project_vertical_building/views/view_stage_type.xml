@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        
+
         <record id="stage_type_view_tree" model="ir.ui.view">
             <field name="name">Tipo de Fase</field>
             <field name="model">vertical.stage.type</field>
@@ -14,6 +14,6 @@
                 </tree>
             </field>
         </record>
-    
+
     </data>
 </odoo>

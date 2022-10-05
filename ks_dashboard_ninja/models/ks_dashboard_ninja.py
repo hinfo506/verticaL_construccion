@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
-from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.exceptions import ValidationError
 import datetime
 import json
-from odoo.addons.ks_dashboard_ninja.lib.ks_date_filter_selections import ks_get_date, ks_convert_into_local, \
-    ks_convert_into_utc
-from odoo.tools.safe_eval import safe_eval
-import locale
+
 from dateutil.parser import parse
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
+from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools.safe_eval import safe_eval
+
+from odoo.addons.ks_dashboard_ninja.lib.ks_date_filter_selections import ks_get_date
+
 
 class KsDashboardNinjaBoard(models.Model):
     _name = 'ks_dashboard_ninja.board'
@@ -19,7 +20,8 @@ class KsDashboardNinjaBoard(models.Model):
     ks_dashboard_items_ids = fields.One2many('ks_dashboard_ninja.item', 'ks_dashboard_ninja_board_id',
                                              string='Dashboard Items')
     ks_dashboard_menu_name = fields.Char(string="Menu Name")
-    ks_dashboard_top_menu_id = fields.Many2one('ir.ui.menu', domain="['|',('action','=',False),('parent_id','=',False)]",
+    ks_dashboard_top_menu_id = fields.Many2one('ir.ui.menu',
+                                               domain="['|',('action','=',False),('parent_id','=',False)]",
                                                string="Show Under Menu")
     ks_dashboard_client_action_id = fields.Many2one('ir.actions.client')
     ks_dashboard_menu_id = fields.Many2one('ir.ui.menu')
@@ -1052,7 +1054,8 @@ class KsDashboardNinjaBoard(models.Model):
                 result = dashboard_id.ks_child_dashboard_ids.browse(int(data['ks_selected_board_id'])).write(
                     {'ks_active': True})
             else:
-                result = dashboard_id.ks_child_dashboard_ids.search([['ks_active', '=', True]]).write({'ks_active': False})
+                result = dashboard_id.ks_child_dashboard_ids.search([['ks_active', '=', True]]).write(
+                    {'ks_active': False})
         return result
 
     def ks_prepare_dashboard_domain(self):

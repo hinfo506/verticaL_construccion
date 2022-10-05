@@ -21,7 +21,7 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
   -->
-  
+
 <templates xml:space="preserve">
 
 	<t t-name="muk_web_theme.AppsMenu" t-inherit="web.Dropdown" t-inherit-mode="primary" owl="1">

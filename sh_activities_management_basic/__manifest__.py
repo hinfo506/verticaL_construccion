@@ -2,7 +2,7 @@
 # Part of Softhealer Technologies.
 {
     'name': "Activities Management Basic | All In One Schedule Activities | Activity Dashboard | Advance Schedule Activity | Dynamic Action For Multiple Activities | Activity Management Dashboard | Activities Dashboard",
-    'author' : 'Softhealer Technologies',
+    'author': 'Softhealer Technologies',
     'website': 'https://www.softhealer.com',
     "support": "support@softhealer.com",
     'category': 'Discuss',
@@ -27,7 +27,7 @@
             'sh_activities_management_basic/static/src/css/crm_dashboard.css',
             'sh_activities_management_basic/static/src/js/action_manager_act_window.js',
             'sh_activities_management_basic/static/src/js/activity_dashboard.js',
-            ],
+        ],
         'web.assets_qweb': [
             'sh_activities_management_basic/static/src/xml/**/*',
         ],

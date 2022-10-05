@@ -1,5 +1,4 @@
-from odoo import fields, models, api
-from odoo.exceptions import ValidationError
+from odoo import models
 
 
 class Project(models.Model):
@@ -13,7 +12,8 @@ class Project(models.Model):
             'res_model': 'change.product',
             'context': {
                 'default_project_id': self.id,
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.name)+" :</strong>",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>" + str(
+                    self.name) + " :</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',

@@ -1,5 +1,4 @@
 from odoo import fields, models, api
-from odoo.exceptions import ValidationError
 
 
 class VerticalStage(models.Model):
@@ -151,8 +150,6 @@ class VerticalStage(models.Model):
                 record.update({
                     'total2': 0,
                 })
-
-
 
     def approve_fase(self):
         self.estado_fase = 'aprobadaproceso'

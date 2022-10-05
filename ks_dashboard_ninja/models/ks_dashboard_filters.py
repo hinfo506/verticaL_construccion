@@ -45,7 +45,6 @@ class KsDashboardNinjaTemplate(models.Model):
                 raise ValidationError(_("Domain can not be empty"))
 
 
-
 class KsDashboardNinjaTemplate(models.Model):
     _name = 'ks_dashboard_ninja.board_custom_filters'
     _description = 'Dashboard Ninja Custom Filters'

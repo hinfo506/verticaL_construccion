@@ -24,18 +24,17 @@ from odoo import models, fields
 
 
 class ResCompany(models.Model):
-    
     _inherit = 'res.company'
-    
-    #----------------------------------------------------------
+
+    # ----------------------------------------------------------
     # Database
-    #----------------------------------------------------------
-    
+    # ----------------------------------------------------------
+
     background_image = fields.Binary(
         string='Apps Menu Background Image',
         attachment=True
     )
-    
+
     background_blend_mode = fields.Selection(
         selection=[
             ('normal', 'Normal'),
@@ -54,26 +53,26 @@ class ResCompany(models.Model):
             ('saturation', 'Saturation'),
             ('color', 'Color'),
             ('luminosity', 'Luminosity'),
-        ], 
+        ],
         string='Apps Menu Background Blend Mode',
         default='normal'
     )
-    
+
     default_sidebar_preference = fields.Selection(
         selection=[
             ('invisible', 'Invisible'),
             ('small', 'Small'),
             ('large', 'Large')
-        ], 
+        ],
         string='Sidebar Type',
         default='large'
     )
-    
+
     default_chatter_preference = fields.Selection(
         selection=[
             ('normal', 'Normal'),
             ('sided', 'Sided'),
-        ], 
-        string='Chatter Position', 
+        ],
+        string='Chatter Position',
         default='sided'
     )

@@ -37,7 +37,7 @@
         'web.assets_qweb': [
             'project_vertical_building/static/src/xml/*',
         ],
-        'web.assets_common':[
+        'web.assets_common': [
             # 'project_vertical_building/static/src/js/lib/bootstrap-menu.js',
             'project_vertical_building/static/src/js/lib/bootstrap-menu.min.js',
         ],

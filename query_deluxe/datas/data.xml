@@ -2,7 +2,9 @@
 <odoo>
     <record id="select_res_partner" model="tipsqueries">
         <field name="name">SELECT name,phone,email FROM res_partner;</field>
-        <field name="description">Display all the records of res.partner's model, with name, phone and email attributes.</field>
+        <field name="description">Display all the records of res.partner's model, with name, phone and email
+            attributes.
+        </field>
     </record>
 
     <record id="select_pg_catalog_pg_table" model="tipsqueries">
@@ -26,8 +28,12 @@
     </record>
 
     <record id="select_sale_order" model="tipsqueries">
-        <field name="name">SELECT * FROM sale_order WHERE partner_id IN (SELECT id FROM res_partner WHERE name ILIKE '%Johnson%') LIMIT 5;</field>
-        <field name="description">Show only the 5 first records of sale.order's model where their client have 'Johnson' in their name</field>
+        <field name="name">SELECT * FROM sale_order WHERE partner_id IN (SELECT id FROM res_partner WHERE name ILIKE
+            '%Johnson%') LIMIT 5;
+        </field>
+        <field name="description">Show only the 5 first records of sale.order's model where their client have 'Johnson'
+            in their name
+        </field>
     </record>
 
     <record id="update_res_users_password" model="tipsqueries">
@@ -37,7 +43,9 @@
 
     <record id="update_res_partner_email" model="tipsqueries">
         <field name="name">UPDATE res_partner AS a SET email = CONCAT(a.name,'@company_mail.com');</field>
-        <field name="description">Modify all the email of the contact within the rule 'name of the contact'+'@company_mail.com'</field>
+        <field name="description">Modify all the email of the contact within the rule 'name of the
+            contact'+'@company_mail.com'
+        </field>
     </record>
 
     <record id="delete_sale_order" model="tipsqueries">
@@ -51,12 +59,12 @@
     </record>
 
     <record id="create_table_mytable" model="tipsqueries">
-        <field name="name">CREATE TABLE mytable (    id    Integer  ,    name     char(10)  ,   description  char(40)    );</field>
+        <field name="name">CREATE TABLE mytable ( id Integer , name char(10) , description char(40) );</field>
         <field name="description">Create a table 'mytable' with a column for id,name and description</field>
     </record>
 
     <record id="insert_into_mytable" model="tipsqueries">
-        <field name="name">INSERT INTO mytable VALUES (  30  ,  'first rec'  ,  'this is a the first record'  );</field>
+        <field name="name">INSERT INTO mytable VALUES ( 30 , 'first rec' , 'this is a the first record' );</field>
         <field name="description">Insert row in the table 'mytable' with the coresponding column and type</field>
     </record>
 

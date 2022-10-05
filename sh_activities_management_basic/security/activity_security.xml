@@ -7,29 +7,31 @@
     </record>
     <record id="group_activity_user" model="res.groups">
         <field name="name">Activity User</field>
-        <field name="category_id" ref="module_activity_category" />
+        <field name="category_id" ref="module_activity_category"/>
         <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
-        <field name="implied_ids" eval="[(4,ref('base.group_user'))]" />
+        <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>
     </record>
     <record id="group_activity_supervisor" model="res.groups">
         <field name="name">Activity Supervisor</field>
-        <field name="category_id" ref="module_activity_category" />
-        <field name="implied_ids" eval="[(4, ref('group_activity_user'))]" />
+        <field name="category_id" ref="module_activity_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_activity_user'))]"/>
     </record>
     <record id="group_activity_manager" model="res.groups">
         <field name="name">Activity Manager</field>
-        <field name="category_id" ref="module_activity_category" />
-        <field name="implied_ids" eval="[(4, ref('group_activity_user')),(4,ref('group_activity_supervisor'))]" />
-        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
+        <field name="category_id" ref="module_activity_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_activity_user')),(4,ref('group_activity_supervisor'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
     </record>
     <record id="group_assign_multiple_activity_management" model="res.groups">
-		<field name="name">Mass Activities Dynamic Action</field>
-		<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
-	</record>
-	<record id="mail.mail_activity_rule_user" model="ir.rule">
+        <field name="name">Mass Activities Dynamic Action</field>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="mail.mail_activity_rule_user" model="ir.rule">
         <field name="name">mail.activity: user: write/unlink only (created or assigned)</field>
         <field name="model_id" ref="model_mail_activity"/>
-        <field name="domain_force">['|', '|',('user_id', '=', user.id), ('create_uid', '=', user.id),('sh_user_ids', 'in', [user.id])]</field>
+        <field name="domain_force">['|', '|',('user_id', '=', user.id), ('create_uid', '=', user.id),('sh_user_ids',
+            'in', [user.id])]
+        </field>
         <field name="groups" eval="[(4, ref('base.group_user'))]"/>
         <field name="perm_create" eval="False"/>
         <field name="perm_read" eval="False"/>
@@ -41,5 +43,5 @@
         <field name="model_id" ref="model_mail_activity"/>
         <field name="global" eval="True"/>
         <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
-   	</record>
+    </record>
 </odoo>

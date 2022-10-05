@@ -9,14 +9,14 @@
                 <form string="Items">
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button class="oe_stat_button" name="met_itemvolumetria"  type="object" icon="fa-archive">
-                                <field name="itemvolumetria_count" string="Item Volumetría"  widget="statinfo"/>
+                            <button class="oe_stat_button" name="met_itemvolumetria" type="object" icon="fa-archive">
+                                <field name="itemvolumetria_count" string="Item Volumetría" widget="statinfo"/>
                             </button>
                         </div>
 
                         <group>
                             <group name="datos_productos" string="Datos del Producto">
-                                <field name="project_id" />
+                                <field name="project_id"/>
                                 <field name="faseprincipal_id"/>
                                 <field name="capitulo_id"/>
                                 <field name="subcapitulo_id"/>
@@ -25,36 +25,36 @@
                                 <field name="date"/>
                                 <field name="reference"/>
                                 <field name="job_type"/>
-                                <field name="color_item_id" invisible= "1"/>
+                                <field name="color_item_id" invisible="1"/>
                                 <field name="product_id"/>
                                 <field name="descripcion"/>
                                 <field name="uom_id"/>
                             </group>
                             <group name="detalle_costes" string="Detalles de Costes">
                                 <field name="product_qty" string="Cantidad"/>
-                                <field name="longitud" invisible = "1"/>
-                                <field name="ancho" invisible = "1"/>
-                                <field name="alto" invisible = "1"/>
+                                <field name="longitud" invisible="1"/>
+                                <field name="ancho" invisible="1"/>
+                                <field name="alto" invisible="1"/>
                                 <field name="cost_price" string="Precio Coste"/>
                                 <field name="subtotal_item_capitulo" string="Importe"/>
                                 <field name="tipo_descuento" string="Tipo Dto."/>
                                 <field name="cantidad_descuento" string="Importe Dto."/>
                                 <field name="subtotal_descuento" string="Subtotal"/>
-<!--                                <field name="impuesto_item"/>-->
+                                <!--                                <field name="impuesto_item"/>-->
                                 <field name="impuesto_porciento" string="Impuesto %"/>
                                 <field name="total_impuesto_item" string="Imp. Impuesto"/>
                                 <field name="suma_impuesto_item_y_cost_price" string="Total"/>
-<!--                                <field name="total_impuesto_item"/>-->
-<!--                                <field name="suma_impuesto_item_y_cost_price"/>-->
-<!--                                <field name="actual_quantity" invisible = "1"/>-->
-<!--                                <field name="total_item_capitulo"/>-->
+                                <!--                                <field name="total_impuesto_item"/>-->
+                                <!--                                <field name="suma_impuesto_item_y_cost_price"/>-->
+                                <!--                                <field name="actual_quantity" invisible = "1"/>-->
+                                <!--                                <field name="total_item_capitulo"/>-->
                             </group>
                             <group name="detalle_costes" string="Detalles de Precio Venta Publico">
-                                
+
                                 <field name="beneficio_estimado" string="Marge Beneficio %"/>
                                 <field name="importe_venta" string="Importe PVP"/>
-<!--                                <field name="impuesto_item"/>-->
-                               
+                                <!--                                <field name="impuesto_item"/>-->
+
                             </group>
                         </group>
                     </sheet>
@@ -71,59 +71,61 @@
             <field name="name">item.capitulo.tree</field>
             <field name="model">item.capitulo</field>
             <field name="arch" type="xml">
-                 <tree string="Items"  decoration-danger="color_item_id=='red'" decoration-info="color_item_id=='blue'" decoration-success="color_item_id=='green'" decoration-muted="color_item_id=='grey'" decoration-warning="color_item_id=='brown'" decoration-primary="color_item_id=='purple'"> 
+                <tree string="Items" decoration-danger="color_item_id=='red'" decoration-info="color_item_id=='blue'"
+                      decoration-success="color_item_id=='green'" decoration-muted="color_item_id=='grey'"
+                      decoration-warning="color_item_id=='brown'" decoration-primary="color_item_id=='purple'">
                     <!-- <tree string="Items"> -->
                     <field name="date"/>
                     <field name="job_type"/>
-                    <field name="color_item_id" invisible= "1"/>
+                    <field name="color_item_id" invisible="1"/>
                     <field name="product_id"/>
-                    <field name="descripcion" invisible = "1"/>
+                    <field name="descripcion" invisible="1"/>
                     <field name="product_qty" string="Cantidad"/>
-                    <field name="reference" invisible = "1"/>
-                    <field name="longitud" invisible = "1"/>
-                    <field name="ancho" invisible = "1"/>
-                    <field name="alto" invisible = "1"/>
+                    <field name="reference" invisible="1"/>
+                    <field name="longitud" invisible="1"/>
+                    <field name="ancho" invisible="1"/>
+                    <field name="alto" invisible="1"/>
                     <field name="cost_price"/>
                     <field name="subtotal_item_capitulo" string="Importe"/>
                     <field name="tipo_descuento" string="Tipo Dto."/>
                     <field name="cantidad_descuento" string="Imp. Dto."/>
                     <field name="subtotal_descuento" string="Subtotal"/>
-                    <field name="beneficio_estimado" invisible= "1"/>
-                    <field name="importe_venta" invisible= "1"/>
-<!--                                <field name="impuesto_item"/>-->
+                    <field name="beneficio_estimado" invisible="1"/>
+                    <field name="importe_venta" invisible="1"/>
+                    <!--                                <field name="impuesto_item"/>-->
                     <field name="impuesto_porciento" string="ITBIS %"/>
-                    <field name="total_impuesto_item" invisible= "1"/>
+                    <field name="total_impuesto_item" invisible="1"/>
                     <field name="suma_impuesto_item_y_cost_price" string="P.U. + ITBIS"/>
                     <field name="total_prevision"/>
-<!--                    <field name="subtotal_item_capitulo"/>-->
-<!--                    <field name="impuesto_porciento"/>-->
-<!--                    <field name="total_impuesto_item"/>-->
-<!--                    <field name="suma_impuesto_item_y_cost_price"/>-->
-<!--                    <field name="actual_quantity" invisible = "1"/>-->
-<!--                    <field name="total_item_capitulo"/>-->
-<!--                     <field name="total_puibis"/>-->
+                    <!--                    <field name="subtotal_item_capitulo"/>-->
+                    <!--                    <field name="impuesto_porciento"/>-->
+                    <!--                    <field name="total_impuesto_item"/>-->
+                    <!--                    <field name="suma_impuesto_item_y_cost_price"/>-->
+                    <!--                    <field name="actual_quantity" invisible = "1"/>-->
+                    <!--                    <field name="total_item_capitulo"/>-->
+                    <!--                     <field name="total_puibis"/>-->
                     <field name="uom_id"/>
-                    <button type="object" string=" Volumetria" name="met_itemvolumetria" class="btn btn-primary" icon="fa-hand-o-right"/>
+                    <button type="object" string=" Volumetria" name="met_itemvolumetria" class="btn btn-primary"
+                            icon="fa-hand-o-right"/>
                 </tree>
             </field>
         </record>
 
 
-
         <record id="item_search_job_type" model="ir.ui.view">
             <field name="name">Item Search Job Type</field>
             <field name="model">item.capitulo</field>
-             <field name="arch" type="xml"> 
+            <field name="arch" type="xml">
                 <search>
-                     <field name="product_id" string="en campo Producto"/>
-                     <field name="partidas_id" string="en campo Partida"/>
-                     <filter name="job_type" string="Materiales" domain="[('job_type', '=', 'material')]" />
-                     <filter name="job_type" string="Mano de Obra" domain="[('job_type', '=', 'labour')]" />
-                     <filter name="job_type" string="Maquinaria" domain="[('job_type', '=', 'machinery')]" />
-                     <filter name="job_type" string="Gastos Generales" domain="[('job_type', '=', 'overhead')]" />
+                    <field name="product_id" string="en campo Producto"/>
+                    <field name="partidas_id" string="en campo Partida"/>
+                    <filter name="job_type" string="Materiales" domain="[('job_type', '=', 'material')]"/>
+                    <filter name="job_type" string="Mano de Obra" domain="[('job_type', '=', 'labour')]"/>
+                    <filter name="job_type" string="Maquinaria" domain="[('job_type', '=', 'machinery')]"/>
+                    <filter name="job_type" string="Gastos Generales" domain="[('job_type', '=', 'overhead')]"/>
                 </search>
             </field>
-        </record> 
-    
+        </record>
+
     </data>
 </odoo>

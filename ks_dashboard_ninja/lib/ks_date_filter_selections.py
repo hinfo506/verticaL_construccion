@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo.fields import datetime
-from odoo import _
-from odoo.exceptions import ValidationError
-from datetime import timedelta
-import pytz
 import os
 import os.path
+from datetime import timedelta
+
+import pytz
+from odoo import _
+from odoo.exceptions import ValidationError
+from odoo.fields import datetime
 
 
 def ks_get_date(ks_date_filter_selection, self, type):

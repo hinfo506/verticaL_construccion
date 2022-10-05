@@ -16,7 +16,7 @@ class Project(models.Model):
         new_project = self.copy(
             default={"name": new_name, "active": True, "alias_name": False}
         )
-        #if new_project.subtask_project_id != new_project:
+        # if new_project.subtask_project_id != new_project:
         #    new_project.subtask_project_id = new_project.id
 
         # SINCE THE END DATE DOESN'T COPY OVER ON TASKS
