@@ -7,10 +7,7 @@ class AddStandar(models.TransientModel):
     standard_id = fields.Many2one(comodel_name='standard', string='Standard_id', required=False)
     active_ids = fields.Many2many(comodel_name='vertical.stage', string='Active_ids')
     list_ids = fields.Many2many(comodel_name='standard.line', string='List_ids')
-    active_id = fields.Many2one(
-        comodel_name='vertical.stage',
-        string='Active_id',
-        required=False)
+    active_id = fields.Many2one(comodel_name='vertical.stage', string='Active_id', required=False)
 
     is_one = fields.Boolean(string='Is_one', required=False)
 

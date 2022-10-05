@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="catalogue_view_form" model="ir.ui.view">
+            <field name="name">Catalogo</field>
+            <field name="model">vertical.catalogue</field>
+            <field name="arch" type="xml">
+                <form string="catalogue_form">
+                    <sheet>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="line_catalogue_ids">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="qty"/>
+                                </tree>
+                            </field>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

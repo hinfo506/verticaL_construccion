@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+
+      <record id="catalogue_action" model="ir.actions.act_window">
+          <field name="name">Catalogo de Compra</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">vertical.catalogue</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+
+      <menuitem name="Catálogo de Compra" id="menu_catalogue_vertical" parent="project_vertical_building.menu_config" action="catalogue_action" sequence="5"/>
+
+
+  </data>
+</odoo>
