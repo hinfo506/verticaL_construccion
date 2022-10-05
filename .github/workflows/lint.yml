@@ -1,10 +1,7 @@
 name: Linting
 
-on:
-  push:
-    paths:
-      - "**.py"
-  pull_request:
+on: [ push ]
+
 
 jobs:
   flake8:
