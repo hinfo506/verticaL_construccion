@@ -6,7 +6,7 @@ from odoo import fields, models
 class ProductPack(models.Model):
     _inherit = "product.pack.line"
 
-    subcapitulo_id = fields.Many2one('sub.capitulo', string='Capitulo')
+    subcapitulo_id = fields.Many2one("sub.capitulo", string="Capitulo")
 
     def get_subcapitulo_id_line_vals(self, line, subcapitulo_id):
         self.ensure_one()
@@ -17,7 +17,7 @@ class ProductPack(models.Model):
             "pack_parent_line_id": line.id,
             "pack_depth": line.pack_depth + 1,
             "pack_modifiable": line.product_id.pack_modifiable,
-            "job_type": 'material'
+            "job_type": "material",
         }
         sol = line.new(line_vals)
         # sol.product_id_change()
@@ -25,8 +25,6 @@ class ProductPack(models.Model):
         # sol.product_uom_change()
         # sol._onchange_discount()
         vals = sol._convert_to_write(sol._cache)
-        pack_price_types = {"totalized", "ignored"}
-        sale_discount = 0.0
         # if line.product_id.pack_component_price == "detailed":
         #    sale_discount = 100.0 - (
         #        (100.0 - sol.discount) * (100.0 - self.sale_discount) / 100.0
@@ -39,7 +37,8 @@ class ProductPack(models.Model):
         vals.update(
             {
                 # "discount": sale_discount,
-                "descripcion": "> " + sol.product_id.display_name,
+                "descripcion": "> "
+                + sol.product_id.display_name,
             }
         )
         return vals
