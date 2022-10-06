@@ -1,6 +1,6 @@
-from odoo import fields, models, api
 from collections import defaultdict
-from odoo.exceptions import UserError, ValidationError
+
+from odoo import fields, models, api
 
 
 class ProyectosInherit(models.Model):
@@ -8,7 +8,8 @@ class ProyectosInherit(models.Model):
 
     # DATOS PRINCIPALES
 
-    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True,compute='_compute_numero_pryecto')
+    numero_proyecto = fields.Char(string='Número proyecto', required=False, readonly=True,
+                                  compute='_compute_numero_pryecto')
     abreviatura_proyecto = fields.Char(string='Abreviatura Proyecto', required=False)
     nombre_fase = fields.Char(string='Nombre Fase Principal', required=False, default='Fase Inicial')
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
@@ -17,24 +18,30 @@ class ProyectosInherit(models.Model):
     total = fields.Float('Importe Total', compute='_compute_total_cap')
     total_prevision = fields.Float('Importe Total Previsto')
 
-    warehouse = fields.Many2one(comodel_name='stock.warehouse',string='Almacén', required=False)
+    warehouse = fields.Many2one(comodel_name='stock.warehouse', string='Almacén', required=False)
 
-    @api.depends('abreviatura_proyecto','number')
+    @api.depends('abreviatura_proyecto', 'number')
     def _compute_numero_pryecto(self):
         self.numero_proyecto = str(self.abreviatura_proyecto) + "-" + str(self.number)
 
-
     # FASES DEL PROYECTO
-    fase_principal_ids = fields.One2many(comodel_name='fase.principal', inverse_name='project_id', string='Fase_principal_ids', required=False)
-    capitulos_id = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='project_id', string='Capitulos_id', required=False)
-    item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='project_id', string='Item_ids', required=False)
+    fase_principal_ids = fields.One2many(comodel_name='fase.principal', inverse_name='project_id',
+                                         string='Fase_principal_ids', required=False)
+    capitulos_id = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='project_id', string='Capitulos_id',
+                                   required=False)
+    item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='project_id', string='Item_ids',
+                               required=False)
     # partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='project_id',string='Partidas_ids', required=False)
     # subcapitulos_ids = fields.One2many(comodel_name='sub.capitulo', inverse_name='project_id', string='Subcapitulos_ids', required=False)
 
-    fase_principal_kanban_count = fields.Integer(string='FasePrincipal_kanban_count', compute='_compute_faseprincipal_count', required=False)
-    capitulos_kanban_count = fields.Integer(string='Capitulos_kanban_count', compute='_compute_capitulo_count', required=False)
-    subcapitulos_kanban_count = fields.Integer(string='Subcapitulos_kanban_count', compute='_compute_subcapitulo_count', required=False)
-    partidas_kanban_count = fields.Integer(string='Partidas_kanban_count', compute='_compute_partidas_count', required=False)
+    fase_principal_kanban_count = fields.Integer(string='FasePrincipal_kanban_count',
+                                                 compute='_compute_faseprincipal_count', required=False)
+    capitulos_kanban_count = fields.Integer(string='Capitulos_kanban_count', compute='_compute_capitulo_count',
+                                            required=False)
+    subcapitulos_kanban_count = fields.Integer(string='Subcapitulos_kanban_count', compute='_compute_subcapitulo_count',
+                                               required=False)
+    partidas_kanban_count = fields.Integer(string='Partidas_kanban_count', compute='_compute_partidas_count',
+                                           required=False)
     item_kanban_count = fields.Integer(string='Item_kanban_count', compute='_compute_item_count', required=False)
 
     def met_fase_principal(self):
@@ -93,7 +100,7 @@ class ProyectosInherit(models.Model):
             'name': 'Actividades',
             'res_model': 'mail.activity',
             'view_mode': 'kanban,tree,form',
-            'domain': [('res_id', '=',  self.id),('res_model','=','project.project')],
+            'domain': [('res_id', '=', self.id), ('res_model', '=', 'project.project')],
         }
 
     ######################
@@ -103,10 +110,12 @@ class ProyectosInherit(models.Model):
 
     def get_acti_count(self):
         for r in self:
-            count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','project.project')])
+            count = self.env['mail.activity'].search_count(
+                [('res_id', '=', self.id), ('res_model', '=', 'project.project')])
             r.activi_count = count if count else 0
+
     ######################
-    
+
     def _compute_faseprincipal_count(self):
         task_data = self.env['fase.principal'].read_group(
             [('project_id', 'in', self.ids)],
@@ -166,7 +175,8 @@ class ProyectosInherit(models.Model):
             'context': {
                 'default_project_id': self.id,
                 'default_is_vacio': True,
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.name)+" :</strong>",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>" + str(
+                    self.name) + " :</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',
@@ -195,14 +205,26 @@ class ProyectosInherit(models.Model):
                 for capitulo_id in faseprincipal_id.capitulos_ids:
                     capitulo_id.subcapitulo_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
                     for subcapitulo_id in capitulo_id.subcapitulo_ids:
-                        subcapitulo_id.partidas_ids.write({'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
+                        subcapitulo_id.partidas_ids.write(
+                            {'project_id': copia_proyecto.id, 'capitulo_id': capitulo_id.id})
                         for partidas_id in subcapitulo_id.partidas_ids:
-                            partidas_id.item_capitulo_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                            partidas_id.item_capitulo_materiales_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                            partidas_id.item_mano_obra_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                            partidas_id.item_capitulo_gastos_generales.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                            partidas_id.item_capitulo_maquinaria.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
-                            partidas_id.volumetria_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id, 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.item_capitulo_ids.write(
+                                {'project_id': proyecto.id, 'capitulo_id': capitulo_id.id,
+                                 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.item_capitulo_materiales_ids.write(
+                                {'project_id': proyecto.id, 'capitulo_id': capitulo_id.id,
+                                 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.item_mano_obra_ids.write(
+                                {'project_id': proyecto.id, 'capitulo_id': capitulo_id.id,
+                                 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.item_capitulo_gastos_generales.write(
+                                {'project_id': proyecto.id, 'capitulo_id': capitulo_id.id,
+                                 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.item_capitulo_maquinaria.write(
+                                {'project_id': proyecto.id, 'capitulo_id': capitulo_id.id,
+                                 'subcapitulo_id': subcapitulo_id.id})
+                            partidas_id.volumetria_ids.write({'project_id': proyecto.id, 'capitulo_id': capitulo_id.id,
+                                                              'subcapitulo_id': subcapitulo_id.id})
 
         return {
             'name': 'Proyecto',
@@ -225,7 +247,7 @@ class ProyectosInherit(models.Model):
 
         if values.get('stage_id'):
             stage = self.sudo().env['project.project.stage'].search([('id', '=', values.get('stage_id'))])
-            if stage.is_prevision == False and self.total_prevision == 0:
+            if not stage.is_prevision and self.total_prevision == 0:
                 values['total_prevision'] = self.total
 
                 record = super(ProyectosInherit, self).write(values)

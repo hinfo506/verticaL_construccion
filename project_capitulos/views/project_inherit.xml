@@ -13,7 +13,7 @@
                     <button name='wizard_cambio_precio' string='Cambiar Precio Masivo'
                             class='oe_highlight'
                             type='object'
-                        />
+                    />
                 </xpath>
 
                 <xpath expr="//field[@name='label_tasks']" position="before">
@@ -27,14 +27,15 @@
 
                 <xpath expr="//sheet//div//button" position="before">
                     <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
-                                <field name="activi_count" string="Actividades" widget="statinfo"/>
+                        <field name="activi_count" string="Actividades" widget="statinfo"/>
                     </button>
-<!--                    <button class="oe_stat_button" name="met_capitulos" type="object" icon="fa-archive">-->
-<!--                        <field name="capitulos_count"  widget="statinfo"/>-->
-<!--                    </button>-->
+                    <!--                    <button class="oe_stat_button" name="met_capitulos" type="object" icon="fa-archive">-->
+                    <!--                        <field name="capitulos_count"  widget="statinfo"/>-->
+                    <!--                    </button>-->
                     <button class="oe_stat_button" name="met_fase_principal" type="object" icon="fa-archive">
-<!--                        <field name="fases_principal_count"  widget="statinfo" string="Fase Principal" options="{'label_field': 'nombre_fase'}"/>-->
-                        <field name="fase_principal_kanban_count"  widget="statinfo" string="Fase Principal" options="{'label_field': 'nombre_fase'}"/>
+                        <!--                        <field name="fases_principal_count"  widget="statinfo" string="Fase Principal" options="{'label_field': 'nombre_fase'}"/>-->
+                        <field name="fase_principal_kanban_count" widget="statinfo" string="Fase Principal"
+                               options="{'label_field': 'nombre_fase'}"/>
                     </button>
                 </xpath>
 
@@ -47,7 +48,8 @@
                                 <field name="cantidad"/>
                                 <field name="total"/>
                                 <!-- <field name="descripcion"/> -->
-                                <button type="object" string=" Subcapítulos" name="met_subcapitulos" class="btn btn-primary" icon="fa-hand-o-right"/>
+                                <button type="object" string=" Subcapítulos" name="met_subcapitulos"
+                                        class="btn btn-primary" icon="fa-hand-o-right"/>
                             </tree>
                         </field>
                     </page>
@@ -61,11 +63,11 @@
                     <field name="total"/>
                     <field name="total_prevision"/>
                 </xpath>
-                
+
             </field>
         </record>
 
-                        <!-- Inherit Form View to Modify it -->
+        <!-- Inherit Form View to Modify it -->
         <record id="kanban_iherit_view" model="ir.ui.view">
             <field name="name">Proyectos</field>
             <field name="model">project.project</field>
@@ -85,8 +87,12 @@
                                 <div class="o_project_kanban_boxes">
                                     <a class="o_project_kanban_box" name="met_fase_principal" type="object">
                                         <div>
-                                            <span class="o_value"><t t-esc="record.fase_principal_kanban_count.value"/></span>
-                                            <span class="o_label"><t t-esc="record.nombre_fase.value"/></span>
+                                            <span class="o_value">
+                                                <t t-esc="record.fase_principal_kanban_count.value"/>
+                                            </span>
+                                            <span class="o_label">
+                                                <t t-esc="record.nombre_fase.value"/>
+                                            </span>
                                         </div>
                                     </a>
                                 </div>
@@ -99,7 +105,9 @@
                                 <div class="o_project_kanban_boxes">
                                     <a class="o_project_kanban_box" name="met_capitulos" type="object">
                                         <div>
-                                            <span class="o_value"><t t-esc="record.capitulos_kanban_count.value"/></span>
+                                            <span class="o_value">
+                                                <t t-esc="record.capitulos_kanban_count.value"/>
+                                            </span>
                                             <span class="o_label">Capítulos</span>
                                         </div>
                                     </a>
@@ -107,7 +115,9 @@
                                 <div class="o_project_kanban_boxes">
                                     <a class="o_project_kanban_box" name="met_subcapitulos" type="object">
                                         <div>
-                                            <span class="o_value"><t t-esc="record.subcapitulos_kanban_count.value"/></span>
+                                            <span class="o_value">
+                                                <t t-esc="record.subcapitulos_kanban_count.value"/>
+                                            </span>
                                             <span class="o_label">Subcapítulos</span>
                                         </div>
                                     </a>
@@ -123,7 +133,9 @@
                                 <div class="o_project_kanban_boxes">
                                     <a class="o_project_kanban_box" name="met_partidas" type="object">
                                         <div>
-                                            <span class="o_value"><t t-esc="record.partidas_kanban_count.value"/></span>
+                                            <span class="o_value">
+                                                <t t-esc="record.partidas_kanban_count.value"/>
+                                            </span>
                                             <span class="o_label">Partidas</span>
                                         </div>
                                     </a>
@@ -131,7 +143,9 @@
                                 <div class="o_project_kanban_boxes">
                                     <a class="o_project_kanban_box" name="met_items" type="object">
                                         <div>
-                                            <span class="o_value"><t t-esc="record.item_kanban_count.value"/></span>
+                                            <span class="o_value">
+                                                <t t-esc="record.item_kanban_count.value"/>
+                                            </span>
                                             <span class="o_label">Items</span>
                                         </div>
                                     </a>

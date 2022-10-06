@@ -15,64 +15,74 @@
         <template t-name="project_report_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="proy">
-<!--                    <t t-call="web.external_layout">-->
-                        <div class="header">
-                            <h2>Presupuesto y Mediciones</h2>
-                            <table class="table table-sm o_main_table">
-                                <thead>
-                                    <tr>
-                                        <th>CÓDIGO</th>
-                                        <th>RESUMEN</th>
-                                        <th>UDS</th>
-                                        <th>LONGITUD</th>
-                                        <th>ANCHURA</th>
-                                        <th>ALTURA</th>
-                                        <th>CANTIDAD</th>
-                                        <th>PRECIO</th>
-                                        <th>IMPORTE</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                    <!--                    <t t-call="web.external_layout">-->
+                    <div class="header">
+                        <h2>Presupuesto y Mediciones</h2>
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>CÓDIGO</th>
+                                    <th>RESUMEN</th>
+                                    <th>UDS</th>
+                                    <th>LONGITUD</th>
+                                    <th>ANCHURA</th>
+                                    <th>ALTURA</th>
+                                    <th>CANTIDAD</th>
+                                    <th>PRECIO</th>
+                                    <th>IMPORTE</th>
+                                </tr>
+                            </thead>
+                        </table>
 
-                        </div>
-                        <div class="page">
-                            <table class="table table-sm o_main_table">
-                                <tbody>
-                                    <t t-foreach="proy.capitulos_id" t-as="cap">
+                    </div>
+                    <div class="page">
+                        <table class="table table-sm o_main_table">
+                            <tbody>
+                                <t t-foreach="proy.capitulos_id" t-as="cap">
+                                    <tr>
+                                        <td>
+                                            <span t-field="cap.numero_capitulo"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="cap.name"/>
+                                        </td>
+                                    </tr>
+
+                                    <t t-foreach="cap.subcapitulo_ids" t-as="sub">
                                         <tr>
-                                            <td><span t-field="cap.numero_capitulo"/></td>
-                                            <td><span t-field="cap.name"/></td>
+                                            <td>
+                                                <span t-field="sub.numero_subcapitulo"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="sub.name"/>
+                                            </td>
                                         </tr>
 
-                                        <t t-foreach="cap.subcapitulo_ids" t-as="sub">
+                                        <t t-foreach="sub.partidas_ids" t-as="par">
                                             <tr>
-                                                <td><span t-field="sub.numero_subcapitulo"/></td>
-                                                <td><span t-field="sub.name"/></td>
+                                                <!--                                                    <td><span t-field="par.numero_partida"/></td>-->
+                                                <td></td>
+                                                <td>
+                                                    <span t-field="par.name"/>
+                                                </td>
                                             </tr>
-
-                                            <t t-foreach="sub.partidas_ids" t-as="par">
+                                            <t t-foreach="par.item_capitulo_ids" t-as="item">
                                                 <tr>
-<!--                                                    <td><span t-field="par.numero_partida"/></td>-->
-                                                    <td></td>
-                                                    <td><span t-field="par.name"/></td>
+                                                    <!--                                                    <td><span t-field="par.numero_partida"/></td>-->
+                                                    <!--                                                    <td><span t-field="par.name"/></td>-->
                                                 </tr>
-                                                <t t-foreach="par.item_capitulo_ids" t-as="item">
-                                                    <tr>
-    <!--                                                    <td><span t-field="par.numero_partida"/></td>-->
-    <!--                                                    <td><span t-field="par.name"/></td>-->
-                                                    </tr>
-                                                </t>
                                             </t>
                                         </t>
                                     </t>
-                                </tbody>
-                            </table>
-                        </div>
-                    </t>
-<!--                </t>-->
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+                <!--                </t>-->
             </t>
         </template>
-        
+
 
     </data>
 </odoo>

@@ -9,31 +9,40 @@
                 <form string="cambio_precio_form">
                     <sheet>
                         <field name="info" readonly="1"/>
-                        <div name="is_guardado" class="alert alert-success text-center o_form_header" attrs="{'invisible': [('is_guardado','=',False)]}" role="alert">
+                        <div name="is_guardado" class="alert alert-success text-center o_form_header"
+                             attrs="{'invisible': [('is_guardado','=',False)]}" role="alert">
                             <a class="close" data-dismiss="alert" href="#">x</a>
                             <div>
                                 <strong>Se a cambiado el precio de coste satisfactoriamente</strong>
                             </div>
                         </div>
-<!--                        <div name="is_vacio" class="alert alert-info text-center o_form_header" attrs="{'invisible': [('is_vacio','=',True)]}" role="alert">-->
-<!--                            <a class="close" data-dismiss="alert" href="#">x</a>-->
-<!--                            <div>-->
-<!--                                <strong>No existe ningun artículo en la fase actual</strong>-->
-<!--                            </div>-->
-<!--                        </div>-->
-                        
+                        <!--                        <div name="is_vacio" class="alert alert-info text-center o_form_header" attrs="{'invisible': [('is_vacio','=',True)]}" role="alert">-->
+                        <!--                            <a class="close" data-dismiss="alert" href="#">x</a>-->
+                        <!--                            <div>-->
+                        <!--                                <strong>No existe ningun artículo en la fase actual</strong>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+
                         <group>
                             <field name="is_guardado" invisible="1"/>
                             <field name="mostrar_botones" invisible="1"/>
                             <field name="is_vacio" invisible="1"/>
-<!--                            <field name="faseprincipal_id"/>-->
-                            <group><field name="product_id"/></group>
-                            <group><field name="tipo_cambio"/></group>
+                            <!--                            <field name="faseprincipal_id"/>-->
+                            <group>
+                                <field name="product_id"/>
+                            </group>
+                            <group>
+                                <field name="tipo_cambio"/>
+                            </group>
                             <group attrs="{'invisible': [('tipo_cambio','=',False)]}">
-                                <field name="nuevo_precio" string="Nuevo Precio Coste" attrs="{'invisible': [('tipo_cambio','=','impuesto')]}" />
-                                <field name="tipo_descuento" string="Tipo Dto." attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
-                                <field name="cant_descuento" string="Importe Dto." attrs="{'invisible': [('tipo_cambio','=','nuevocoste'),]}"/>
-                                <field name="impuesto_porciento" string="Marge Beneficio %" attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
+                                <field name="nuevo_precio" string="Nuevo Precio Coste"
+                                       attrs="{'invisible': [('tipo_cambio','=','impuesto')]}"/>
+                                <field name="tipo_descuento" string="Tipo Dto."
+                                       attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
+                                <field name="cant_descuento" string="Importe Dto."
+                                       attrs="{'invisible': [('tipo_cambio','=','nuevocoste'),]}"/>
+                                <field name="impuesto_porciento" string="Marge Beneficio %"
+                                       attrs="{'invisible': [('tipo_cambio','=','nuevocoste')]}"/>
                             </group>
                             <group>
 
@@ -50,15 +59,17 @@
                                         <field name="tipo_descuento" string="Tipo Dto."/>
                                         <field name="total_impuesto_item" string="Imp. Impuesto"/>
                                         <field name="suma_impuesto_item_y_cost_price" string="Total"/>
-<!--                                        <field name="total_item_capitulo"/>-->
+                                        <!--                                        <field name="total_item_capitulo"/>-->
                                     </tree>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
                     <footer>
-                        <button string="Guardar y nuevo" name="action_guardar_nuevo" type="object" class="oe_highlight" attrs="{'invisible': [('mostrar_botones','!=',False)]}"/>
-                        <button string="Guardar" name="action_guardar" type="object" class="oe_highlight" attrs="{'invisible': [('mostrar_botones','!=',False)]}"/>
+                        <button string="Guardar y nuevo" name="action_guardar_nuevo" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('mostrar_botones','!=',False)]}"/>
+                        <button string="Guardar" name="action_guardar" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('mostrar_botones','!=',False)]}"/>
                         <button string="Cancel" special="cancel"/>
                     </footer>
                 </form>

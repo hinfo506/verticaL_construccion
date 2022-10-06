@@ -1,5 +1,5 @@
 from odoo import fields, models, api
-from odoo.exceptions import UserError, ValidationError,RedirectWarning
+
 
 class Subcapitulo(models.Model):
     _name = 'sub.capitulo'
@@ -7,7 +7,7 @@ class Subcapitulo(models.Model):
 
     ###### DATOS PRINCIPALES  ########
     number = fields.Char(string='Number', required=True, copy=False, readonly='True',
-                       default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
+                         default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.subcapitulo'))
     numero_subcapitulo = fields.Char(string='Número Subcapítulo', required=False)
     name = fields.Char(string='Subcapítulo', required=True)
     descripcion = fields.Text('Descripción del Subcapítulo')
@@ -15,7 +15,7 @@ class Subcapitulo(models.Model):
     fecha_inicio = fields.Date('Fecha Inicio')
     fecha_finalizacion = fields.Date('Acaba el')
 
-    total = fields.Float('Importe Total',compute='_compute_total_sub')
+    total = fields.Float('Importe Total', compute='_compute_total_sub')
     total_prevision = fields.Float('Importe Total Previsto')
 
     condicion = fields.Selection(string='Condición', selection=[
@@ -28,8 +28,10 @@ class Subcapitulo(models.Model):
     capitulo_id = fields.Many2one('capitulo.capitulo', string='Capitulo', ondelete='cascade', required=True)
     fase_principal_id = fields.Many2one(comodel_name='fase.principal', string='Fase Principal', required=True)
     # fase_principal_id = fields.Many2one(related='capitulo_id.fase_principal_id', string='Fase Principal', required=False)
-    subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo', required=False)
-    partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='subcapitulo_id', string='Partidas id', required=False)
+    subcapitulo_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='subcapitulo_id', string='Subcapitulo',
+                                      required=False)
+    partidas_ids = fields.One2many(comodel_name='partidas.partidas', inverse_name='subcapitulo_id',
+                                   string='Partidas id', required=False)
 
     ###### CONTADORES  ########
     partidas_count = fields.Integer(string='Contador Item', compute='get_partidas_count')
@@ -72,17 +74,17 @@ class Subcapitulo(models.Model):
                 # 'amount_total': amount_untaxed,
             })
 
-
     def get_partidas_count(self):
         for r in self:
-            r.partidas_count = self.env['partidas.partidas'].search_count([('subcapitulo_id', '=',  self.id)])
+            r.partidas_count = self.env['partidas.partidas'].search_count([('subcapitulo_id', '=', self.id)])
 
     ###############
     # Actividades #
     ###############
     def get_acts_count(self):
         for r in self:
-            count = self.env['mail.activity'].search_count([('res_id', '=', self.id),('res_model','=','sub.capitulo')])
+            count = self.env['mail.activity'].search_count(
+                [('res_id', '=', self.id), ('res_model', '=', 'sub.capitulo')])
             r.activ_count = count if count else 0
 
     def met_activi_subcapitulo(self):
@@ -91,7 +93,7 @@ class Subcapitulo(models.Model):
             'name': 'Actividades',
             'res_model': 'mail.activity',
             'view_mode': 'kanban,tree,form',
-            'domain': [('res_id', '=',  self.id),('res_model','=','sub.capitulo')],
+            'domain': [('res_id', '=', self.id), ('res_model', '=', 'sub.capitulo')],
         }
 
     def action_view_partidas(self):
@@ -119,7 +121,9 @@ class Subcapitulo(models.Model):
             'context': {
                 'default_is_vacio': True,
                 'default_subcapitulo_id': self.id,
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br>" + "<strong>"+ str(self.capitulo_id.project_id.name)+"/"+str(self.fase_principal_id.name)+"/"+str(self.capitulo_id.name)+"/" + str(self.name) + " :</strong>",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br>" + "<strong>" + str(
+                    self.capitulo_id.project_id.name) + "/" + str(self.fase_principal_id.name) + "/" + str(
+                    self.capitulo_id.name) + "/" + str(self.name) + " :</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',
@@ -187,4 +191,3 @@ class Subcapitulo(models.Model):
             })
         # Add code here
         return super(Subcapitulo, self).create(values)
-

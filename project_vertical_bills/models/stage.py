@@ -4,7 +4,8 @@ from odoo import fields, models, api
 class VerticalStage(models.Model):
     _inherit = 'vertical.stage'
 
-    bills_ids = fields.One2many(comodel_name='vertical.bills', inverse_name='stage_id', string='Bills_ids', required=False)
+    bills_ids = fields.One2many(comodel_name='vertical.bills', inverse_name='stage_id', string='Bills_ids',
+                                required=False)
     bills_count = fields.Integer(string='Contador Gastos', compute='get_bills_count')
 
     @api.depends('bills_ids')
@@ -24,5 +25,3 @@ class VerticalStage(models.Model):
             #           (self.env.ref('project_vertical_building.item_view_form').id, 'form')],
             'context': dict(self._context, default_stage_id=self.id),
         }
-
-

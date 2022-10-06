@@ -11,8 +11,8 @@
 
                 <xpath expr="//header" position="inside">
                     <button name='add_standars_one_id' string='Agregar Standard'
-                        class='oe_highlight'
-                        type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"
+                            class='oe_highlight'
+                            type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"
                     />
                 </xpath>
 

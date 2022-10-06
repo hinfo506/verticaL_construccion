@@ -22,22 +22,23 @@
 
                 <xpath expr="//notebook" position="inside">
                     <page name="items" string="Items del Standard" attrs="{'invisible': [('add_standar', '=', False)]}">
-<!--                        <group>-->
-<!--                            <field name="item_capitulo_ids" readonly="1"/>-->
-                            <field name="line_ids" readonly="1">
-                                <tree editable="bottom">
-                                    <field name="product_id"/>
-<!--                                        <field name="qty"/>-->
-<!--                                        <field name="qty_done"/>-->
-<!--                                        <field name="uom_id"/>-->
-                                </tree>
-                            </field>
-<!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <field name="item_capitulo_ids" readonly="1"/>-->
+                        <field name="line_ids" readonly="1">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <!--                                        <field name="qty"/>-->
+                                <!--                                        <field name="qty_done"/>-->
+                                <!--                                        <field name="uom_id"/>-->
+                            </tree>
+                        </field>
+                        <!--                        </group>-->
                     </page>
                 </xpath>
 
                 <xpath expr="//header" position="inside">
-                    <button name="validar_partida" type="object" string="Validar la partida" attrs="{'invisible': [('estado_partida', '!=', 'pendiente')]}"/>
+                    <button name="validar_partida" type="object" string="Validar la partida"
+                            attrs="{'invisible': [('estado_partida', '!=', 'pendiente')]}"/>
 
                 </xpath>
 

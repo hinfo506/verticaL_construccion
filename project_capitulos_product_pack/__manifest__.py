@@ -8,7 +8,7 @@
     "website": "https://github.com/OCA/product-pack",
     "author": "NaN·tic, ADHOC SA, Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "depends": ["product_pack", "sale","project_capitulos"],
+    "depends": ["product_pack", "sale", "project_capitulos"],
     "data": ["views/product_pack_line_views.xml"],
     "installable": True,
 }

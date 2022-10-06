@@ -1,5 +1,4 @@
 from odoo import fields, models, api
-from odoo.exceptions import UserError, ValidationError, RedirectWarning
 
 
 class VerticalItem(models.Model):
@@ -115,12 +114,12 @@ class VerticalItem(models.Model):
                 record.subtotal_descuento = record.subtotal_item_capitulo - record.cantidad_descuento
             elif record.tipo_descuento == 'porciento':
                 record.subtotal_descuento = record.subtotal_item_capitulo - (
-                            (record.subtotal_item_capitulo * record.cantidad_descuento) / 100)
+                        (record.subtotal_item_capitulo * record.cantidad_descuento) / 100)
             else:
                 record.subtotal_descuento = record.subtotal_item_capitulo
 
             record.importe_venta = ((
-                                                record.subtotal_item_capitulo * record.beneficio_estimado) / 100) + record.subtotal_item_capitulo
+                                            record.subtotal_item_capitulo * record.beneficio_estimado) / 100) + record.subtotal_item_capitulo
             record.total_impuesto_item = record.subtotal_descuento * (record.impuesto_porciento / 100)
             record.suma_impuesto_item_y_cost_price = record.subtotal_descuento + record.total_impuesto_item
 
@@ -165,4 +164,3 @@ class VerticalItem(models.Model):
         else:
             product['domain'] = {'product_id': [('detailed_type', '!=', 'service')]}
             return product
-

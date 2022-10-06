@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from odoo import models, fields, api, _
+
+from odoo import models, fields
 
 _logger = logging.getLogger(__name__)
 
@@ -24,13 +25,9 @@ class Standard(models.Model):
 
     total_cost = fields.Float(string='Total coste', required=False, compute='_compute_total_cost')
 
-
-
     def _compute_total_cost(self):
         for rec in self:
             total = 0
-            for l in rec.line_ids:
-                total += l.suma_impuesto_item_y_cost_price
-            rec.update({
-                'total_cost': total,
-            })
+            if rec.line_ids:
+                total = sum(rec.line_ids.mapped('suma_impuesto_item_y_cost_price'))
+            rec.update({'total_cost': total})

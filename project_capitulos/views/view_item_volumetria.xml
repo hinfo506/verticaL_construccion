@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        
+
         <record id="item_volumetria_view_form" model="ir.ui.view">
             <field name="name">Item Volumetria</field>
             <field name="model">item.volumetria</field>

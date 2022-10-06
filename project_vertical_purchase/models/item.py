@@ -1,17 +1,19 @@
+import logging
+
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
-import logging
 _logger = logging.getLogger(__name__)
 
 
 class VerticalItem(models.Model):
     _inherit = 'vertical.item'
-    
+
     amount_confirm = fields.Float(string='Cantidad Confirmada', required=False)
     amount_delivered = fields.Float(string='Cantidad Entregada', required=False)
 
-    purchase_item_count = fields.Integer(string='purchase_item_count', required=False, compute='get_purchase_item_count')
+    purchase_item_count = fields.Integer(string='purchase_item_count', required=False,
+                                         compute='get_purchase_item_count')
 
     def get_purchase_item_count(self):
         for r in self:
@@ -19,11 +21,11 @@ class VerticalItem(models.Model):
             r.purchase_item_count = len(purchase)
 
     purchase_stage = fields.Selection(string='Estado de compra',
-        selection=[('earring', 'Pendiente'),
-                   ('notconfirm', 'Por Confirmar'),
-                   ('confirm', 'Confirmada'),
-                   ('qty_earring', 'Cantidades Pendientes'),
-                   ('finished', 'Finalizada'), ], required=False, default='earring')
+                                      selection=[('earring', 'Pendiente'),
+                                                 ('notconfirm', 'Por Confirmar'),
+                                                 ('confirm', 'Confirmada'),
+                                                 ('qty_earring', 'Cantidades Pendientes'),
+                                                 ('finished', 'Finalizada'), ], required=False, default='earring')
 
     def action_view_purchase_item(self):
         purchase = self.env['purchase.order.line'].search([('item_id', '=', self.id)]).mapped('order_id')
@@ -37,8 +39,8 @@ class VerticalItem(models.Model):
         }
 
     def confirmed_suppliers_item(self):
-        act_ids = self.env.context.get('active_ids', []) #tomar ids activos
-        items = self.browse(act_ids) # tomar el modelo y los ids que seleccione vertical.stage(89, 90)
+        act_ids = self.env.context.get('active_ids', [])  # tomar ids activos
+        items = self.browse(act_ids)  # tomar el modelo y los ids que seleccione vertical.stage(89, 90)
         # items = stages.mapped('item_ids') # tomo las fases y mapeo por los item obteniendo el modelo vertical.item(5, 6, 7)
         for i in items:
             if not i.product_id.seller_ids:
@@ -49,10 +51,11 @@ class VerticalItem(models.Model):
         self.confirmed_suppliers_item()
         company_id = self.env.user.company_id
         po_obj = self.env["purchase.order"]
-        active = self.env.context.get("active_ids", [])# tengo los ids activos
-        itemss = self.browse(active)# tengo los item seleccionados del modelo item
-        items = self.env['vertical.item'].search([('job_type', '=', 'material'), ('id', 'in', itemss.ids)])  # tomo solo los items que son de tipo material
-        product_ids = items.mapped("product_id")# mapeeo obteniendo los productos
+        active = self.env.context.get("active_ids", [])  # tengo los ids activos
+        itemss = self.browse(active)  # tengo los item seleccionados del modelo item
+        items = self.env['vertical.item'].search(
+            [('job_type', '=', 'material'), ('id', 'in', itemss.ids)])  # tomo solo los items que son de tipo material
+        product_ids = items.mapped("product_id")  # mapeeo obteniendo los productos
         vendors = self.env["product.supplierinfo"].search(
             [
                 "|",
@@ -105,13 +108,13 @@ class VerticalItem(models.Model):
                 # Busco en la DB
                 current_po = po_obj.browse(purchase_data[vendor_key]['purchase_order'])
             else:
-                #debo crear una nueva PO para el proveedor seleccionado
+                # debo crear una nueva PO para el proveedor seleccionado
                 current_po = po_obj.create({
-                    'partner_id': vendor_key, # mi identificador del diccionario es el id del proveedor, lo obtuve arriba
-                    'stage_id': items[0].vertical_stage_id.id, # Para que quiero el stage?
+                    'partner_id': vendor_key,
+                    # mi identificador del diccionario es el id del proveedor, lo obtuve arriba
+                    'stage_id': items[0].vertical_stage_id.id,  # Para que quiero el stage?
                 })
-                purchase_data[vendor_key]['purchase_order'] = current_po.id #Actualizo mi dict
+                purchase_data[vendor_key]['purchase_order'] = current_po.id  # Actualizo mi dict
 
             current_po.order_line = purchase_data[vendor_key]['order_lines']
             purchase_orders.append(current_po.id)
-

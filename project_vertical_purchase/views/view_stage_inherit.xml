@@ -10,7 +10,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//div//button" position="before">
-<!--                <xpath expr="//div//button[@name='action_view_childs']" position="after">-->
+                    <!--                <xpath expr="//div//button[@name='action_view_childs']" position="after">-->
                     <button class="oe_stat_button" name="action_view_purchase" type="object" icon="fa-credit-card">
                         <field name="purchase_count" string="Compras" widget="statinfo"/>
                     </button>

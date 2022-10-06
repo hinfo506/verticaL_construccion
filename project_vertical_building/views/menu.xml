@@ -28,13 +28,16 @@
             <field name="res_model">project.project</field>
             <field name="view_mode">kanban,tree,form</field>
             <!-- <field name="domain">[('is_building', '=', True)]</field> -->
-            <field name="context">{'search_default_building_projects': 1,'default_is_building':1, 'search_default_groupby_stage': 1}</field>
+            <field name="context">{'search_default_building_projects': 1,'default_is_building':1,
+                'search_default_groupby_stage': 1}
+            </field>
         </record>
 
         <record id="vertical_project_kanban" model="ir.actions.act_window.view">
             <field name="sequence" eval="1"/>
             <field name="view_mode">kanban</field>
-            <field name="view_id" ref="kanban_inherit_view"/> <!-- Apunto a tu vista kanban que esta en project_inherit.xml-->
+            <field name="view_id"
+                   ref="kanban_inherit_view"/> <!-- Apunto a tu vista kanban que esta en project_inherit.xml-->
             <field name="act_window_id" ref="action_obra"/>
         </record>
         <!-- Apunto a una vista tree si tuvieramos una personalizada, como no la tenemos, omitimos -->
@@ -47,7 +50,8 @@
         <record id="vertical_project_form" model="ir.actions.act_window.view">
             <field name="sequence" eval="3"/>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="project_view_inherit"/> <!-- Apunto a tu vista form que esta en project_inherit.xml-->
+            <field name="view_id"
+                   ref="project_view_inherit"/> <!-- Apunto a tu vista form que esta en project_inherit.xml-->
             <field name="act_window_id" ref="action_obra"/>
         </record>
 
@@ -59,9 +63,10 @@
 
         <menuitem id="menu_config" name="Configuración" parent="menu_root" sequence="60"/>
 
-        <menuitem id="menu_stage_type" name="Tipo de Fase" parent="menu_config" action="action_stage_type" sequence="1"/>
+        <menuitem id="menu_stage_type" name="Tipo de Fase" parent="menu_config" action="action_stage_type"
+                  sequence="1"/>
         <!-- This Menu Item must have a parent and an action -->
-<!--        <menuitem id="menu_tipofase" name="" parent="" action="" sequence=""/>-->
+        <!--        <menuitem id="menu_tipofase" name="" parent="" action="" sequence=""/>-->
 
         <menuitem id="menu_project_inherit" name="Obras" parent="menu_root" action="action_obra" sequence="1"/>
         <menuitem id="menu_vertical_stage" name="Fases" parent="menu_root" action="action_stage" sequence="2"/>
@@ -76,7 +81,8 @@
         </record>
 
         <!-- This Menu Item must have a parent and an action -->
-        <menuitem id="pendientes_menu" name="Fases Pendientes" parent="menu_root" action="fases_pendientes_action" sequence="30"/>
+        <menuitem id="pendientes_menu" name="Fases Pendientes" parent="menu_root" action="fases_pendientes_action"
+                  sequence="30"/>
 
     </data>
 </odoo>

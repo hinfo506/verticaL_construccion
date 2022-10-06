@@ -1,6 +1,4 @@
 from odoo import fields, models, api
-from collections import defaultdict
-from odoo.exceptions import UserError, ValidationError
 
 
 class FaseInicial(models.Model):
@@ -16,9 +14,11 @@ class FaseInicial(models.Model):
                          default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.faseprincipal'))
 
     # FASES DEL PROYECTO
-    project_id = fields.Many2one(comodel_name='project.project', string='Proyecto', required=False,ondelete='cascade')
-    capitulos_ids = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='fase_principal_id', string='Capitulos_id', required=False)
-    item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='faseprincipal_id', string='Item_ids', required=False)
+    project_id = fields.Many2one(comodel_name='project.project', string='Proyecto', required=False, ondelete='cascade')
+    capitulos_ids = fields.One2many(comodel_name='capitulo.capitulo', inverse_name='fase_principal_id',
+                                    string='Capitulos_id', required=False)
+    item_ids = fields.One2many(comodel_name='item.capitulo', inverse_name='faseprincipal_id', string='Item_ids',
+                               required=False)
 
     etapa_id = fields.Many2one(comodel_name='stage.stage', string='Etapa', required=False)
 
@@ -44,8 +44,6 @@ class FaseInicial(models.Model):
     @api.onchange('number', 'project_id')
     def _onchange_join_number_faseprincipal(self):
         self.numero_fase_principal = str(self.project_id.numero_proyecto) + "." + str(self.number)
-
-
 
     def met_capitulos(self):
         return {
@@ -98,7 +96,8 @@ class FaseInicial(models.Model):
                 'default_faseprincipal_id': self.id,
                 'default_is_vacio': '1',
                 # 'default_nuevo_precio': '70',
-                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>"+str(self.project_id.name)+"/"+str(self.name)+" :</strong>",
+                'default_info': "LOS PRECIOS SERAN CAMBIADOS A PARTIR DE </br><strong>" + str(
+                    self.project_id.name) + "/" + str(self.name) + " :</strong>",
             },
             'type': 'ir.actions.act_window',
             'target': 'new',
@@ -136,4 +135,3 @@ class FaseInicial(models.Model):
             })
         # Add code here
         return super(FaseInicial, self).create(values)
-

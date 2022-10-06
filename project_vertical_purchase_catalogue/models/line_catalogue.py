@@ -1,12 +1,8 @@
-from odoo import fields, models, api
+from odoo import fields, models
 
 
 class VerticalLineCatalogue(models.Model):
     _name = 'vertical.line.catalogue'
 
-    name = fields.Char()
-
-    product_id = fields.Many2one(comodel_name='product.product', string='Product_id')
-    qty = fields.Float(string='Cantidad', required=False)
-
+    name = fields.Char(string="Nombre")
     catalogue_id = fields.Many2one(comodel_name='vertical.catalogue', string='Catalogue_id', required=False)

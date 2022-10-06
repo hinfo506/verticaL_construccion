@@ -1,9 +1,8 @@
-from odoo import fields, models, api
+from odoo import fields, models
 
 
 class Capitulo(models.Model):
     _inherit = 'capitulo.capitulo'
-
 
     directorios_ids = fields.One2many(comodel_name='dms.directory', inverse_name='capitulo_id', string='Directorios',
                                       required=False)
@@ -15,7 +14,6 @@ class Capitulo(models.Model):
             count = self.env['dms.directory'].search_count([('capitulo_id', '=', self.id)])
             r.directory_count = count if count else 0
 
-
     def met_directorios(self):
         return {
             'type': 'ir.actions.act_window',
@@ -23,5 +21,5 @@ class Capitulo(models.Model):
             'res_model': 'dms.directory',
             'view_mode': 'kanban,tree,form',
             'domain': [('id', 'in', self.directorios_ids.ids)],
-            'context': dict(self._context, default_project_id=self.project_id.id,default_capitulo_id=self.id),
+            'context': dict(self._context, default_project_id=self.project_id.id, default_capitulo_id=self.id),
         }

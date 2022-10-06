@@ -9,15 +9,15 @@
             <field name="inherit_id" ref="project_capitulos.subcapitulo_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//sheet//div//button" position="before">
-<!--                    <div class="oe_button_box" name="button_box">-->
-                        <button class="oe_stat_button" name="met_directorios" type="object" icon="fa-archive">
-                            <field name="directory_count"   string="Directorios" widget="statinfo"/>
-                        </button>
-<!--                    </div>-->
+                    <!--                    <div class="oe_button_box" name="button_box">-->
+                    <button class="oe_stat_button" name="met_directorios" type="object" icon="fa-archive">
+                        <field name="directory_count" string="Directorios" widget="statinfo"/>
+                    </button>
+                    <!--                    </div>-->
                 </xpath>
             </field>
         </record>
 
-        
+
     </data>
 </odoo>

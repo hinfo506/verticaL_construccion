@@ -1,7 +1,7 @@
 import logging
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError,ValidationError
-from odoo.osv import expression
+
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -25,7 +25,6 @@ class ChangeProduct(models.TransientModel):
     subcapitulo_id = fields.Many2one(comodel_name='sub.capitulo', string='Subcapitulo', required=False)
     partida_id = fields.Many2one(comodel_name='partidas.partidas', string='Partida', required=False)
 
-
     ######################################################
     ## aki tengo los item que pertenecen a ese proyecto ##
     ######################################################
@@ -33,7 +32,8 @@ class ChangeProduct(models.TransientModel):
     def onchange_product(self):
         # hola = self.vacio()
         for record in self:
-            if (record.product_id and record.project_id) or record.capitulo_id or record.subcapitulo_id or record.partida_id or record.faseprincipal_id:
+            if (
+                    record.product_id and record.project_id) or record.capitulo_id or record.subcapitulo_id or record.partida_id or record.faseprincipal_id:
                 data = [('project_id', '=', record.project_id.id), ('product_id', '=', record.product_id.id)]
                 if record.faseprincipal_id:
                     data = [('faseprincipal_id', '=', record.faseprincipal_id.id),
@@ -72,5 +72,3 @@ class ChangeProduct(models.TransientModel):
                         })
             else:
                 raise ValidationError('No hay pruductos que coincidan')
-
-

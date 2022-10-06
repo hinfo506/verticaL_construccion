@@ -1,6 +1,6 @@
-from odoo import fields, models, api
 from collections import defaultdict
-from odoo.exceptions import UserError, ValidationError
+
+from odoo import fields, models, api
 
 
 class ProjectProject(models.Model):

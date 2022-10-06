@@ -1,11 +1,12 @@
-from odoo import fields, models, api
-from odoo.exceptions import UserError, ValidationError,RedirectWarning
+from odoo import fields, models
+
 
 class Subcapitulo(models.Model):
     _inherit = 'sub.capitulo'
 
-    directorios_ids = fields.One2many(comodel_name='dms.directory', inverse_name='sub_capitulo_id', string='Directorios',
-                                     required=False)
+    directorios_ids = fields.One2many(comodel_name='dms.directory', inverse_name='sub_capitulo_id',
+                                      string='Directorios',
+                                      required=False)
 
     directory_count = fields.Integer(string='Directorios', compute='get_directory_count')
 
@@ -14,7 +15,6 @@ class Subcapitulo(models.Model):
             count = self.env['dms.directory'].search_count([('sub_capitulo_id', '=', self.id)])
             r.directory_count = count if count else 0
 
-
     def met_directorios(self):
         return {
             'type': 'ir.actions.act_window',
@@ -22,5 +22,6 @@ class Subcapitulo(models.Model):
             'res_model': 'dms.directory',
             'view_mode': 'kanban,tree,form',
             'domain': [('id', 'in', self.directorios_ids.ids)],
-            'context': dict(self._context, default_project_id=self.capitulo_id.project_id.id,default_sub_capitulo_id=self.id),
+            'context': dict(self._context, default_project_id=self.capitulo_id.project_id.id,
+                            default_sub_capitulo_id=self.id),
         }
