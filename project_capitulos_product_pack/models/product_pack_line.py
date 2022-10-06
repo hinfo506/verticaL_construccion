@@ -25,8 +25,6 @@ class ProductPack(models.Model):
         # sol.product_uom_change()
         # sol._onchange_discount()
         vals = sol._convert_to_write(sol._cache)
-        pack_price_types = {"totalized", "ignored"}
-        sale_discount = 0.0
         # if line.product_id.pack_component_price == "detailed":
         #    sale_discount = 100.0 - (
         #        (100.0 - sol.discount) * (100.0 - self.sale_discount) / 100.0
