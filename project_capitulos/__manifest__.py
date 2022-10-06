@@ -10,14 +10,15 @@
     "category": "Project Management",
     "version": "14.0.1.1.0",
     "license": "AGPL-3",
-    "depends": ["project",
-                "stock",
-                'sh_activities_management_basic',
-                'base_setup',
-                'mail'],
+    "depends": [
+        "project",
+        "stock",
+        "sh_activities_management_basic",
+        "base_setup",
+        "mail",
+    ],
     "data": [
-        'security/ir.model.access.csv',
-
+        "security/ir.model.access.csv",
         # Views
         "views/view_capitulo.xml",
         "views/view_subcapitulo.xml",
@@ -29,16 +30,12 @@
         "views/view_etapa.xml",
         "views/activity_inherit.xml",
         "views/sequence.xml",
-
         # Wizard
         "wizard/cambio_precio_view.xml",
-
         # Reportes
         "report/project_report.xml",
-
         # Menu
         "views/menu.xml",
-
     ],
     "application": False,
 }
