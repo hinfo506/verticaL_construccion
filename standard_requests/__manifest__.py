@@ -1,19 +1,11 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Standard Requests",
-    'summary': """Standard Requests
-    
-    """,
-
-    'description': """Standard Requests
-    
-    """,
-
-    'author': "OdooNext:Raul Rolando Jardinot Gonzalez",
-    'website': "",
-
+    'summary': "Standard Requests",
+    'author': "OdooNext,Raul Rolando Jardinot Gonzalez",
+    'website': "http://odoonext.com",
     'category': 'Uncategorized',
-    'version': '15.0.1',
+    'version': '15.0.1.0.0',
     'depends': ['base', 'stock', 'purchase_requisition', 'project_vertical_building'],
     'data': [
         'security/ir.model.access.csv',
