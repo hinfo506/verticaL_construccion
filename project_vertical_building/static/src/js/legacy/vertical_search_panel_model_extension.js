@@ -5,12 +5,8 @@ odoo.define(
 
     const ActionModel = require("web.ActionModel");
     const SearchPanelModelExtension = require("web.searchPanelModelExtension");
-    // import ActionModel from "web.ActionModel";
-    // import { sortBy } from "web.utils";
-    // import Domain from "web.Domain";
     const pyUtils = require("web.py_utils");
 
-    const DEFAULT_VIEW_TYPES = ["kanban", "tree"];
     const DEFAULT_LIMIT = 200;
     let nextSectionId = 1;
 
