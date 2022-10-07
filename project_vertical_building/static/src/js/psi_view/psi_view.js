@@ -219,6 +219,30 @@ class ProjectStageItemView extends owl.Component {
     }
   }
 
+  onRowClicked(stage_id){
+    const viewRegistry = registry.category("views");
+    console.log(viewRegistry);
+    const stage = _.find(this.model.rawData, (stage) => stage.id === stage_id);
+    const action = {
+      type: "ir.actions.act_window",
+      name: stage.name,
+      res_model: 'vertical.stage',
+      view_mode: "form",
+      target: "current",
+      res_id: stage_id,
+      // views: ['form'],
+      context: {},
+      domain: [['id','=',stage_id]]
+    };
+    console.log('JSON.stringify(action): ');
+    console.log(JSON.stringify(action));
+    if (stage_id){
+      // env.services.action.doAction(action.actionID, { clearBreadcrumbs: true });
+      // this.env.services.action.doAction(action, {viewType: 'form'});
+      this.env.services.action.switchView("form", {resId: stage_id});
+    }
+  }
+
   exportState() {
     const exported = {
       expanded: this.state.expanded,
@@ -280,3 +304,44 @@ ProjectStageItemView.subTemplates = {
 };
 
 registry.category("views").add("project_stage_item", ProjectStageItemView);
+
+/**
+ listrenderer.js
+  _onRowClicked: function (ev) {
+    // The special_click property explicitely allow events to bubble all
+    // the way up to bootstrap's level rather than being stopped earlier.
+    if (!ev.target.closest('.o_list_record_selector') && !$(ev.target).prop('special_click') && !this.no_open) {
+        var id = $(ev.currentTarget).data('id');
+        if (id) {
+            this.trigger_up('open_record', { id: id, target: ev.target });
+        }
+    }
+},
+ */
+
+
+/**
+ * abstract
+     * When an Odoo event arrives requesting a record to be opened, this method
+     * gets the res_id, and request a switch view in the appropriate mode
+     *
+     * Note: this method seems wrong, it relies on the model being a basic model,
+     * to get the res_id.  It should receive the res_id in the event data
+     * @todo move this to basic controller?
+     *
+     * @private
+     * @param {OdooEvent} ev
+     * @param {number} ev.data.id The local model ID for the record to be
+     *   opened
+     * @param {string} [ev.data.mode='readonly']
+     */
+ /*_onOpenRecord: function (ev) {
+  ev.stopPropagation();
+  var record = this.model.get(ev.data.id, {raw: true});
+  this.trigger_up('switch_view', {
+      view_type: 'form',
+      res_id: record.res_id,
+      mode: ev.data.mode || 'readonly',
+      model: this.modelName,
+  });
+},*/
