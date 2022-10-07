@@ -10,14 +10,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='parent_id']" position="before">
-                    <field name="cost_analysis_id"/>
-                </xpath>
-
-                <xpath expr="//header" position="inside">
-                    <button name='add_cost_analysis' string='Agregar Análisis de Coste'
-                        class='oe_highlight'
-                        type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"
-                    />
+                    <field name="cost_analysis_id" attrs="{'invisible':[('related_is_end','!=',True)]}"/>
                 </xpath>
 
             </field>

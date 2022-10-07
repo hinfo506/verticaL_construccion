@@ -23,7 +23,6 @@
         'security/ir.model.access.csv',
         'views/view_cost_analysis.xml',
         'views/view_stage.xml',
-        'wizard/view_wizard_cost_analysis.xml',
         'views/menu.xml',
     ],
 }
