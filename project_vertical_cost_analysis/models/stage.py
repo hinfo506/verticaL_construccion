@@ -7,6 +7,7 @@ class VerticalStage(models.Model):
 
     cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste', required=False)
 
+    # Depreciar este método
     @api.onchange('cost_analysis_id')
     def onchange_method(self):
         item_obj = self.env["vertical.item"]
@@ -38,4 +39,18 @@ class VerticalStage(models.Model):
                         })
             # else:
             #     raise ValidationError('no tiene valor')
+    
+    # implementación de analisis de coste con campo computado
+    # Este era el original
+    # item_ids = fields.One2many(comodel_name='vertical.item', inverse_name='vertical_stage_id', string='Items', )
+    item_ids = fields.Many2many(
+        'vertical.item',
+        'item_stage_rel',
+        'stage_id',
+        'item_id',
+        string='Items', compute="compute_item_ids", store=True)
 
+    @api.depends('cost_analysis_id', 'cost_analysis_id.cost_analysis_line_ids')
+    def compute_item_ids(self):
+        for stage in self:
+            stage.item_ids = [(6, False, stage.cost_analysis_id.ids)]
