@@ -43,14 +43,36 @@ class VerticalStage(models.Model):
     # implementación de analisis de coste con campo computado
     # Este era el original
     # item_ids = fields.One2many(comodel_name='vertical.item', inverse_name='vertical_stage_id', string='Items', )
-    item_ids = fields.Many2many(
-        'vertical.item',
-        'item_stage_rel',
-        'stage_id',
-        'item_id',
-        string='Items', compute="compute_item_ids", store=True)
+    # item_ids2 = fields.Many2many(
+    #     'vertical.item',
+    #     'item_stage_rel',
+    #     'stage_id',
+    #     'item_id',
+    #     string='Items', compute="compute_item_ids", store=True)
+    #
+    # @api.depends('cost_analysis_id', 'cost_analysis_id.cost_analysis_line_ids')
+    # def compute_item_ids(self):
+    #     for stage in self:
+    #         stage.item_ids2 = [(6, False, stage.cost_analysis_id.ids)]
 
-    @api.depends('cost_analysis_id', 'cost_analysis_id.cost_analysis_line_ids')
-    def compute_item_ids(self):
-        for stage in self:
-            stage.item_ids = [(6, False, stage.cost_analysis_id.ids)]
+    def action_view_standards(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Items Standars',
+            'res_model': 'vertical.standard.item',
+            'view_mode': 'tree,form',
+            # 'domain': [('partidas_id', '=',  self.id)],
+            'domain': [('id', 'in', self.item_ids.ids)],
+            'views': [(self.env.ref('project_vertical_building.item_view_tree').id, 'tree'),
+                      (self.env.ref('project_vertical_building.item_view_form').id, 'form')],
+            'context': dict(self._context, default_vertical_stage_id=self.id,
+                            default_project_id=self.project_id.id),
+        }
+
+    item_count = fields.Integer(string='Contador Item', compute='get_item_count_standars')
+
+    @api.depends('item_ids')
+    def get_item_count_standars(self):
+        for r in self:
+            # r.item_count = self.env['vertical.item'].search_count([('vertical_stage_id', '=', r.id)]) # Esta consulta es menos eficiente que simplemente contar los item_ids
+            r.item_count = len(r.item_ids)

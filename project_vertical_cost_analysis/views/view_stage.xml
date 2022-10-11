@@ -13,6 +13,12 @@
                     <field name="cost_analysis_id" attrs="{'invisible':[('related_is_end','!=',True)]}"/>
                 </xpath>
 
+                <xpath expr="//div//button" position="before">
+                    <button class="oe_stat_button" name="action_view_standards" type="object" icon="fa-credit-card">
+                        <field name="purchase_count" string="Standars Items" widget="statinfo"/>
+                    </button>
+                </xpath>
+
             </field>
         </record>
 

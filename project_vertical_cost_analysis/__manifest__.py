@@ -23,6 +23,7 @@
         'security/ir.model.access.csv',
         'views/view_cost_analysis.xml',
         'views/view_stage.xml',
+        'views/view_standar_item.xml',
         'views/menu.xml',
     ],
 }
