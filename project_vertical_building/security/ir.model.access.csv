@@ -7,3 +7,5 @@ access_vertical_stage_type,vertical.stage.type,model_vertical_stage_type,,1,1,1,
 standard,standard,model_standard,,1,1,1,1
 standard_line,standard.line,model_standard_line,,1,1,1,1
 wizard_standard,wizard.standard,model_wizard_standard,,1,1,1,1
+access_vertical_cost_analysis,vertical.cost.analysis,model_vertical_cost_analysis,,1,1,1,1
+access_cost_analysis_line,cost.analysis.line,model_cost_analysis_line,,1,1,1,1

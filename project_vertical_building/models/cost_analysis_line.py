@@ -7,3 +7,4 @@ class CostAnalysisLine(models.Model):
 
     cost_analysis_id = fields.Many2one('vertical.cost.analysis', string='Estandar')
 
+

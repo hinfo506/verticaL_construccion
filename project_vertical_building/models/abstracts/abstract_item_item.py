@@ -59,10 +59,6 @@ class ItemItem(models.Model):
             else:
                 rec.subtotal_item_capitulo = 0
 
-
-
-
-
     # Importe Subtotal item Capitulo - Importe sin contar con los impuestos
     @api.depends('qty', 'cost_price')
     def _compute_subtotal(self):
