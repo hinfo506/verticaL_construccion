@@ -1,4 +1,4 @@
-from odoo import fields, models,api
+from odoo import fields, models, api
 
 
 class ItemItem(models.Model):
@@ -36,7 +36,6 @@ class ItemItem(models.Model):
                                                    compute='_compute_subtotal_descuento', store=False)
     cost_price = fields.Float(string='Coste', copy=False, )
     qty = fields.Float(string='Cantidad', required=1)
-
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
@@ -101,8 +100,6 @@ class ItemItem(models.Model):
             self.uom_id = self.product_id.uom_id.id
         domain['uom_id'] = [('category_id', '=', self.product_id.uom_id.category_id.id)]
         return {'domain': domain}
-
-
 
     def action_standar_line(self):
         return {

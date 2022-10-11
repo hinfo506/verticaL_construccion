@@ -58,7 +58,6 @@ class VerticalItem(models.Model):
         required=False,
     )
 
-
     estado_item = fields.Selection(
         string="Estado_partida",
         selection=[
@@ -74,7 +73,6 @@ class VerticalItem(models.Model):
 
     standar_id = fields.Many2one(comodel_name="standard", string="Standar Relacionado", required=False)
 
-
     def get_item_volumetry_count(self):
         for r in self:
             r.item_volumetry_count = self.env["vertical.item.volumetry"].search_count([("item_id", "=", self.id)])
@@ -89,7 +87,6 @@ class VerticalItem(models.Model):
             "context": dict(self._context, default_item_id=self.id),
         }
 
-
     @api.model
     def create(self, vals):
         record = super(VerticalItem, self).create(vals)
@@ -97,5 +94,3 @@ class VerticalItem(models.Model):
             state = "aprobada" if record.project_id.stage_id.is_prevision else "pendiente"
             record.write({"estado_item": state})
         return record
-
-

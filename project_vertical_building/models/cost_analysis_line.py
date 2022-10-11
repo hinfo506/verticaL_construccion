@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models
 
 
 class CostAnalysisLine(models.Model):
@@ -6,5 +6,3 @@ class CostAnalysisLine(models.Model):
     _inherit = "item.item"
 
     cost_analysis_id = fields.Many2one('vertical.cost.analysis', string='Estandar')
-
-

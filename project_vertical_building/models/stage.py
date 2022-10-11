@@ -1,6 +1,7 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
+
 class VerticalStage(models.Model):
     _name = "vertical.stage"
     _inherit = ["mail.thread", "mail.activity.mixin"]
@@ -59,7 +60,8 @@ class VerticalStage(models.Model):
     jobcost_total = fields.Float(string="Total Coste", readonly="True")
     item_count = fields.Integer(string="Contador Item", compute="get_item_count")
     childs_count = fields.Integer(string="Contador Childs", compute="get_childs_count")
-    cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste', required=False)
+    cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste',
+                                       required=False)
     item_count = fields.Integer(string='Contador Item', compute='get_item_count_standars')
 
     @api.depends("item_ids")
@@ -93,14 +95,11 @@ class VerticalStage(models.Model):
                 }
             )
 
-
     @api.depends("item_ids")
     def get_item_count(self):
         for r in self:
             # r.item_count = self.env['vertical.item'].search_count([('vertical_stage_id', '=', r.id)]) # Esta consulta es menos eficiente que simplemente contar los item_ids
             r.item_count = len(r.item_ids)
-
-
 
     @api.depends("child_ids")
     def get_childs_count(self):
@@ -200,9 +199,9 @@ class VerticalStage(models.Model):
     def create(self, vals):
         record = super(VerticalStage, self).create(vals)
         if (
-            record.project_id
-            and record.project_id.stage_id
-            and record.project_id.stage_id.is_prevision
+                record.project_id
+                and record.project_id.stage_id
+                and record.project_id.stage_id.is_prevision
         ):
             state = (
                 "aprobada" if record.project_id.stage_id.is_prevision else "pendiente"
@@ -248,7 +247,7 @@ class VerticalStage(models.Model):
     @api.onchange('cost_analysis_id')
     def onchange_method(self):
         item_obj = self.env["vertical.item"]
-        actual=self._origin.cost_analysis_id
+        actual = self._origin.cost_analysis_id
         if self.cost_analysis_id:
             # raise ValidationError(self._origin.cost_analysis_id)
             delete_ids = self.env['vertical.item'].search([('cost_analysis_id', '=', actual.id)]).unlink()
@@ -287,8 +286,6 @@ class VerticalStage(models.Model):
             'context': dict(self._context, default_vertical_stage_id=self.id,
                             default_project_id=self.project_id.id),
         }
-
-
 
     @api.depends('item_ids')
     def get_item_count_standars(self):
