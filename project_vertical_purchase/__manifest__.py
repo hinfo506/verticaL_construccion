@@ -13,7 +13,7 @@
     "depends": ["base", "project_vertical_building", "purchase"],
     "data": [
         # 'security/ir.model.access.csv',
-        # 'views/views.xml',
+        # 'views/view_standar.xml',
         "views/menu.xml",
         "views/view_purchase_order.xml",
         "views/view_item_inherit.xml",

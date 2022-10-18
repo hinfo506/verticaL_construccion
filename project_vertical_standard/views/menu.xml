@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        
+        <record id="standard_action" model="ir.actions.act_window">
+            <field name="name">Standard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">standard</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Standards" id="standards_menu_root"/>
+        <menuitem name="Standard" id="menu_standard" parent="standards_menu_root" action="standard_action_window"/>
+        <menuitem name="Alta de Standar" id="menu_standard" parent="standards_menu_root" action="standard_action" sequence="2"/>
+
+    </data>
+</odoo>
