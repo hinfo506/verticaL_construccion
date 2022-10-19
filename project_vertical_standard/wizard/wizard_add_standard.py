@@ -29,22 +29,22 @@ class AddStandar(models.TransientModel):
                     {
                         "vertical_stage_id": self.active_id.id,
                         "project_id": self.active_id.project_id.id,
+                        "standar_id": self.id,
+                        "job_type": line.job_type,
+                        "product_id": line.product_id.id,
+                        "descripcion": line.descripcion,
+                        "uom_id": line.uom_id.id,
+                        "product_qty": line.product_qty,
                         "cost_price": line.cost_price,
-                        # "product_id": line.product_id.id,
-                        # "uom_id": line.uom_id.id,
-                        # "product_qty": line.product_qty,
-                        # "descripcion": line.descripcion,
-                        # "job_type": line.job_type,
-                        # "subtotal_item_capitulo": line.subtotal_item_capitulo,
-                        # "tipo_descuento": line.tipo_descuento,
-                        # "cantidad_descuento": line.cantidad_descuento,
-                        # "subtotal_descuento": line.subtotal_descuento,
-                        # "beneficio_estimado": line.beneficio_estimado,
-                        # "importe_venta": line.importe_venta,
-                        # "impuesto_porciento": line.impuesto_porciento,
-                        # "total_impuesto_item": line.total_impuesto_item,
-                        # "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
-                        # "standar_id": self.id,
+                        "subtotal_item_capitulo": line.subtotal_item_capitulo,#ver si necesito enviarlo
+                        "tipo_descuento": line.tipo_descuento,
+                        "cantidad_descuento": line.cantidad_descuento,
+                        "subtotal_descuento": line.subtotal_descuento,#ver si necesito enviarlo
+                        "impuesto_porciento": line.impuesto_porciento,
+                        "total_impuesto_item": line.total_impuesto_item,#ver si necesito enviarlo
+                        "beneficio_estimado": line.beneficio_estimado,
+                        "importe_venta": line.importe_venta,#ver si necesito enviarlo
+                        "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,#ver si necesito enviarlo
                     }
                 )
         else:
