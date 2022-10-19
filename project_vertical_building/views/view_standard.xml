@@ -32,7 +32,7 @@
                                 <field name="product_id"/>
                                 <!--                                <field name="descripcion"/>-->
                                 <field name="uom_id"/>
-                                <field name="qty"/>
+                                <field name="product_qty"/>
                                 <field name="cost_price"/>
                                 <!--                                <field name="subtotal_item_capitulo"/>-->
                                 <field name="tipo_descuento"/>
@@ -58,7 +58,7 @@
                                             <field name="uom_id"/>
                                         </group>
                                         <group name="detalle_costes" string="Detalles de Costes">
-                                            <field name="qty" string="Cantidad"/>
+                                            <field name="product_qty" string="Cantidad"/>
                                             <!-- <field name="longitud" invisible = "1"/> -->
                                             <!-- <field name="ancho" invisible = "1"/> -->
                                             <!-- <field name="alto" invisible = "1"/> -->

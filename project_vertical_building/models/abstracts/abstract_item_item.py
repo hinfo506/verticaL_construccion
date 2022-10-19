@@ -35,7 +35,7 @@ class ItemItem(models.Model):
     suma_impuesto_item_y_cost_price = fields.Float(string='Total (P.U. + ITBIS)', required=False,
                                                    compute='_compute_subtotal_descuento', store=False)
     cost_price = fields.Float(string='Coste', copy=False, )
-    qty = fields.Float(string='Cantidad', required=1)
+    # qty = fields.Float(string='Cantidad', required=1)
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
@@ -59,21 +59,21 @@ class ItemItem(models.Model):
                 rec.subtotal_item_capitulo = 0
 
     # Importe Subtotal item Capitulo - Importe sin contar con los impuestos
-    @api.depends('qty', 'cost_price')
+    @api.depends('product_qty', 'cost_price')
     def _compute_subtotal(self):
         # raise ValidationError('sda')
         for rec in self:
             if rec.job_type == 'material':
-                rec.subtotal_item_capitulo = rec.qty * rec.cost_price
+                rec.subtotal_item_capitulo = rec.product_qty * rec.cost_price
             elif rec.job_type == 'labour':
-                rec.subtotal_item_capitulo = rec.qty * rec.cost_price
+                rec.subtotal_item_capitulo = rec.product_qty * rec.cost_price
             elif rec.job_type == 'machinery':
-                rec.subtotal_item_capitulo = rec.qty * 3  # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
+                rec.subtotal_item_capitulo = rec.product_qty * 3  # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
             else:
                 rec.subtotal_item_capitulo = 0
 
     # Importe Subtotal item Capitulo - Importe con los impuestos
-    @api.depends('tipo_descuento', 'qty', 'cost_price', 'subtotal_item_capitulo', 'cantidad_descuento',
+    @api.depends('tipo_descuento', 'product_qty', 'cost_price', 'subtotal_item_capitulo', 'cantidad_descuento',
                  'beneficio_estimado', 'impuesto_porciento')
     def _compute_subtotal_descuento(self):
         for record in self:

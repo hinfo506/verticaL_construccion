@@ -20,7 +20,7 @@
                                         <field name="job_type"/>
                                         <field name="product_id"/>
                                         <field name="uom_id"/>
-                                        <field name="qty"/>
+                                        <field name="product_qty"/>
                                         <field name="cost_price"/>
                                         <field name="tipo_descuento"/>
                                         <field name="cantidad_descuento"/>
