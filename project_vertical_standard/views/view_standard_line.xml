@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="standard_line_view_form" model="ir.ui.view">
+            <field name="name">Standard Line</field>
+            <field name="model">standard.line</field>
+            <field name="arch" type="xml">
+                <form string="standard_line_form">
+                    <sheet>
+                        <group>
+                            <group name="datos_productos" string="Datos del Producto">
+<!--                                <field name="project_id"/>-->
+<!--                                <field name="vertical_stage_id"/>-->
+<!--                                <field name="date"/>-->
+                                <field name="reference"/>
+                                <field name="job_type"/>
+<!--                                <field name="color_item" invisible="1"/>-->
+                                <field name="product_id"/>
+                                <field name="descripcion"/>
+                                <field name="uom_id"/>
+                            </group>
+                            <group name="detalle_costes" string="Detalles de Costes">
+                                <field name="product_qty" string="Cantidad"/>
+<!--                                <field name="longitud" invisible="1"/>-->
+<!--                                <field name="ancho" invisible="1"/>-->
+<!--                                <field name="alto" invisible="1"/>-->
+                                <field name="cost_price" string="Precio Coste"/>
+                                <field name="subtotal_item_capitulo" string="Importe"/>
+                                <field name="tipo_descuento" string="Tipo Dto."/>
+                                <field name="cantidad_descuento" string="Importe Dto."/>
+                                <field name="subtotal_descuento" string="Subtotal"/>
+                                <field name="impuesto_porciento" string="Impuesto %"/>
+                                <field name="total_impuesto_item" string="Imp. Impuesto"/>
+                                <field name="suma_impuesto_item_y_cost_price" string="Total"/>
+                            </group>
+                            <group name="detalle_costes" string="Detalles de Precio Venta Publico">
+
+                                <field name="beneficio_estimado" string="Marge Beneficio %"/>
+                                <field name="importe_venta" string="Importe PVP"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'post_refresh':True}" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

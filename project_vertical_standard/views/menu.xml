@@ -9,8 +9,19 @@
         </record>
 
         <menuitem name="Standards" id="standards_menu_root"/>
-        <menuitem name="Standard" id="menu_standard" parent="standards_menu_root" action="standard_action_window"/>
-        <menuitem name="Alta de Standar" id="menu_standard" parent="standards_menu_root" action="standard_action" sequence="2"/>
+        <menuitem name="Standard" id="menu_standard" parent="standards_menu_root" action="standard_action"/>
+        <menuitem name="Alta de Standar" id="menu_alta_standard" parent="project_vertical_building.menu_config" action="standard_action" sequence="2"/>
+
+        <record model="ir.actions.server" id="action_add_standards">
+            <field name="name">Agregar Standards</field>
+            <field name="model_id" ref="project_vertical_building.model_vertical_stage"/>
+            <field name="binding_model_id" ref="project_vertical_building.model_vertical_stage"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                action = records.add_standars()
+            </field>
+        </record>
 
     </data>
 </odoo>

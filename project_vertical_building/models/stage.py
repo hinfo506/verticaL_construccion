@@ -60,9 +60,9 @@ class VerticalStage(models.Model):
     jobcost_total = fields.Float(string="Total Coste", readonly="True")
     item_count = fields.Integer(string="Contador Item", compute="get_item_count")
     childs_count = fields.Integer(string="Contador Childs", compute="get_childs_count")
-    cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste',
-                                       required=False)
-    item_count = fields.Integer(string='Contador Item', compute='get_item_count_standars')
+    # cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste',
+    #                                    required=False)
+    # item_count = fields.Integer(string='Contador Item', compute='get_item_count_standars')
 
     @api.depends("item_ids")
     def _amount_all(self):

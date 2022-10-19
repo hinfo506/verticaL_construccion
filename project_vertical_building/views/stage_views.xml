@@ -18,10 +18,10 @@
                         <button name='approve_fase' string='Validar'
                                 class='oe_highlight' attrs="{'invisible': [('estado_fase', '!=', 'pendiente')]}"
                                 type='object'/>
-                        <button name='add_standars_one_id' string='Agregar Standard'
-                                class='oe_highlight'
-                                type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"
-                        />
+<!--                        <button name='add_standars_one_id' string='Agregar Standard'-->
+<!--                                class='oe_highlight'-->
+<!--                                type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"-->
+<!--                        />-->
                     </header>
                     <sheet>
                         <field name="related_is_prevision" invisible="1"/>

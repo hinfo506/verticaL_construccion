@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+
+    <record id="cost_analysis_action" model="ir.actions.act_window">
+        <field name="name">Análisis de Coste</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vertical.cost.analysis</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="cost_analysis_alta_menu" name="Alta de Análisis de Coste" parent="project_vertical_building.menu_config" action="cost_analysis_action" sequence="3"/>
+
+  </data>
+</odoo>

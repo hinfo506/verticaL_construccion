@@ -1,18 +1,16 @@
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class AddStandar(models.TransientModel):
     _name = "wizard.standard"
 
     standard_id = fields.Many2one(
-        comodel_name="standard", string="Estandar", required=False
+        comodel_name="standard", string="Standard", required=False
     )
     active_ids = fields.Many2many(comodel_name="vertical.stage", string="Actividades")
     list_ids = fields.Many2many(comodel_name="standard.line", string="Lineas")
-    active_id = fields.Many2one(
-        comodel_name="vertical.stage", string="Actividad", required=False
-    )
-
+    active_id = fields.Many2one(comodel_name="vertical.stage", string="Actividad", required=False)
     is_one = fields.Boolean(string="Is_one", required=False)
 
     @api.onchange("standard_id")
@@ -26,26 +24,27 @@ class AddStandar(models.TransientModel):
     def action_insertar(self):
         if self.is_one:
             for line in self.list_ids:
+                # raise ValidationError(self.active_id)
                 self.env["vertical.item"].create(
                     {
                         "vertical_stage_id": self.active_id.id,
                         "project_id": self.active_id.project_id.id,
                         "cost_price": line.cost_price,
-                        "product_id": line.product_id.id,
-                        "uom_id": line.uom_id.id,
-                        "product_qty": line.qty,
-                        "descripcion": line.descripcion,
-                        "job_type": line.job_type,
-                        "subtotal_item_capitulo": line.subtotal_item_capitulo,
-                        "tipo_descuento": line.tipo_descuento,
-                        "cantidad_descuento": line.cantidad_descuento,
-                        "subtotal_descuento": line.subtotal_descuento,
-                        "beneficio_estimado": line.beneficio_estimado,
-                        "importe_venta": line.importe_venta,
-                        "impuesto_porciento": line.impuesto_porciento,
-                        "total_impuesto_item": line.total_impuesto_item,
-                        "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
-                        "standar_id": self.id,
+                        # "product_id": line.product_id.id,
+                        # "uom_id": line.uom_id.id,
+                        # "product_qty": line.product_qty,
+                        # "descripcion": line.descripcion,
+                        # "job_type": line.job_type,
+                        # "subtotal_item_capitulo": line.subtotal_item_capitulo,
+                        # "tipo_descuento": line.tipo_descuento,
+                        # "cantidad_descuento": line.cantidad_descuento,
+                        # "subtotal_descuento": line.subtotal_descuento,
+                        # "beneficio_estimado": line.beneficio_estimado,
+                        # "importe_venta": line.importe_venta,
+                        # "impuesto_porciento": line.impuesto_porciento,
+                        # "total_impuesto_item": line.total_impuesto_item,
+                        # "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
+                        # "standar_id": self.id,
                     }
                 )
         else:
@@ -58,7 +57,7 @@ class AddStandar(models.TransientModel):
                             "cost_price": line.cost_price,
                             "product_id": line.product_id.id,
                             "uom_id": line.uom_id.id,
-                            "product_qty": line.qty,
+                            "product_qty": line.product_qty,
                             "descripcion": line.descripcion,
                             "job_type": line.job_type,
                             "subtotal_item_capitulo": line.subtotal_item_capitulo,

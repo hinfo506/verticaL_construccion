@@ -29,6 +29,11 @@ class VerticalItem(models.Model):
     project_id = fields.Many2one("project.project", string="Proyecto", ondelete="cascade")
     vertical_stage_id = fields.Many2one(comodel_name="vertical.stage", string="Fase", required=False)
 
+    type_item = fields.Selection(string='Tipo de Item', selection=[
+                    ('cost_analysis', 'Analisis de coste'),
+                    ('standard', 'Standard'),
+                    ('indefine', 'Indefinido'), ], required=False, )
+
     ###### CAMPOS DESECHADOS ########
     longitud = fields.Float("Longitud", default=1)
     ancho = fields.Float("Ancho", default=1)
