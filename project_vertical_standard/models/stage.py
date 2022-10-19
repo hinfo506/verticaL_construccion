@@ -6,6 +6,7 @@ class VerticalStage(models.Model):
     _name = 'vertical.stage'
 
     def add_standars(self):
+        raise ValidationError('abcdefuck')
         act_ids = self.env.context.get('active_ids')
         active_ids = self.env['vertical.stage'].search([('id', '=', act_ids)])
 

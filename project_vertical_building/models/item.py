@@ -32,7 +32,7 @@ class VerticalItem(models.Model):
     type_item = fields.Selection(string='Tipo de Item', selection=[
                     ('cost_analysis', 'Analisis de coste'),
                     ('standard', 'Standard'),
-                    ('indefine', 'Indefinido'), ], required=False, )
+                    ('indefine', 'Indefinido'), ], required=False, default='indefine')#campo en estudio
 
     ###### CAMPOS DESECHADOS ########
     longitud = fields.Float("Longitud", default=1)
@@ -76,7 +76,7 @@ class VerticalItem(models.Model):
         default="borrador",
     )
 
-    standar_id = fields.Many2one(comodel_name="standard", string="Standar Relacionado", required=False)
+    # standar_id = fields.Many2one(comodel_name="standard", string="Standar Relacionado", required=False)
 
     def get_item_volumetry_count(self):
         for r in self:
