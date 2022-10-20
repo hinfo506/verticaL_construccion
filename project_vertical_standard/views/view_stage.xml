@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <record id="stage_inherit_view" model="ir.ui.view">
+        <record id="stage_fromstandard_inherit_view" model="ir.ui.view">
             <field name="name">Fase</field>
             <field name="model">vertical.stage</field>
             <field name="inherit_id" ref="project_vertical_building.fase_view_form"/>

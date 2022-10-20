@@ -24,5 +24,6 @@
         'views/menu.xml',
         'views/view_cost_analysis.xml',
         'views/view_cost_analysis_line.xml',
+        'views/view_stage.xml',
     ],
 }
