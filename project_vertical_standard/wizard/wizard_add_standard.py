@@ -29,6 +29,7 @@ class AddStandar(models.TransientModel):
                     {
                         "vertical_stage_id": self.active_id.id,
                         "project_id": self.active_id.project_id.id,
+                        "type_item": 'standard',
                         # "standar_id": self.id,
                         "job_type": line.job_type,
                         "product_id": line.product_id.id,
@@ -53,8 +54,9 @@ class AddStandar(models.TransientModel):
                 for line in self.list_ids:
                     record = self.env["vertical.item"].create(
                         {
-                            "vertical_stage_id": self.active_id.id,
-                            "project_id": self.active_id.project_id.id,
+                            "vertical_stage_id": active.id,
+                            "project_id": active.project_id.id,
+                            "type_item": 'standard',
                             # "standar_id": self.id,
                             "job_type": line.job_type,
                             "product_id": line.product_id.id,

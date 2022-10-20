@@ -16,6 +16,12 @@
 
                 </xpath>
 
+                <xpath expr="//sheet//div//button" position="before">
+                    <button class="oe_stat_button" name="action_view_item_standard" type="object" icon="fa-archive">
+                        <field name="itemstand_count" string="Items Standard" widget="statinfo"/>
+                    </button>
+                </xpath>
+
             </field>
         </record>
 
