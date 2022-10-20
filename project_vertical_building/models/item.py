@@ -32,7 +32,7 @@ class VerticalItem(models.Model):
     type_item = fields.Selection(string='Tipo de Item', selection=[
                     ('cost_analysis', 'Analisis de coste'),
                     ('standard', 'Standard'),
-                    ('indefine', 'Indefinido'), ], required=False, default='indefine')#campo en estudio
+                    ('indefine', 'Indefinido'), ], required=False, default='indefine')
 
     ###### CAMPOS DESECHADOS ########
     longitud = fields.Float("Longitud", default=1)

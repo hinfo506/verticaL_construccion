@@ -36,21 +36,22 @@ class AddStandar(models.TransientModel):
                         "uom_id": line.uom_id.id,
                         "product_qty": line.product_qty,
                         "cost_price": line.cost_price,
-                        "subtotal_item_capitulo": line.subtotal_item_capitulo,#ver si necesito enviarlo
+                        "subtotal_item_capitulo": line.subtotal_item_capitulo,
                         "tipo_descuento": line.tipo_descuento,
                         "cantidad_descuento": line.cantidad_descuento,
-                        "subtotal_descuento": line.subtotal_descuento,#ver si necesito enviarlo
+                        "subtotal_descuento": line.subtotal_descuento,
                         "impuesto_porciento": line.impuesto_porciento,
-                        "total_impuesto_item": line.total_impuesto_item,#ver si necesito enviarlo
+                        "total_impuesto_item": line.total_impuesto_item,
                         "beneficio_estimado": line.beneficio_estimado,
-                        "importe_venta": line.importe_venta,#ver si necesito enviarlo
-                        "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,#ver si necesito enviarlo
+                        "importe_venta": line.importe_venta,
+                        "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
                     }
                 )
         else:
+            # raise ValidationError('active_ids')
             for active in self.active_ids:
                 for line in self.list_ids:
-                    self.env["vertical.item"].create(
+                    record = self.env["vertical.item"].create(
                         {
                             "vertical_stage_id": self.active_id.id,
                             "project_id": self.active_id.project_id.id,
@@ -61,14 +62,14 @@ class AddStandar(models.TransientModel):
                             "uom_id": line.uom_id.id,
                             "product_qty": line.product_qty,
                             "cost_price": line.cost_price,
-                            "subtotal_item_capitulo": line.subtotal_item_capitulo,#ver si necesito enviarlo
+                            "subtotal_item_capitulo": line.subtotal_item_capitulo,
                             "tipo_descuento": line.tipo_descuento,
                             "cantidad_descuento": line.cantidad_descuento,
-                            "subtotal_descuento": line.subtotal_descuento,#ver si necesito enviarlo
+                            "subtotal_descuento": line.subtotal_descuento,
                             "impuesto_porciento": line.impuesto_porciento,
-                            "total_impuesto_item": line.total_impuesto_item,#ver si necesito enviarlo
+                            "total_impuesto_item": line.total_impuesto_item,
                             "beneficio_estimado": line.beneficio_estimado,
-                            "importe_venta": line.importe_venta,#ver si necesito enviarlo
-                            "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,#ver si necesito enviarlo
+                            "importe_venta": line.importe_venta,
+                            "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
                         }
                     )
