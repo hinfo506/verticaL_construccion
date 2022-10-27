@@ -1,5 +1,8 @@
+import logging
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class VerticalStage(models.Model):
@@ -81,6 +84,7 @@ class VerticalStage(models.Model):
                     "vertical_stage_id": record.id,
                     "project_id": record.project_id.id,
                     "type_item": 'cost_analysis',
+                    "cost_analysis_id": record.cost_analysis_id.id,
                     # "standar_id": self.id,
                     "job_type": line.job_type,
                     "product_id": line.product_id.id,
@@ -103,10 +107,47 @@ class VerticalStage(models.Model):
 
     def write(self, values):
         record = super(VerticalStage, self).write(values)
-        if values.get("cost_analysis_id") == 0:
-            raise ValidationError('has editado el analisis de coste')
-        # if values.get("cost_analysis_id"):
+        _logger.info("Error al crear usuario: ")
+        # if values.get("cost_analysis_id") == 0:
         #     raise ValidationError('has editado el analisis de coste')
-            return record
+        if values.get("cost_analysis_id"):
+
+            if self.cost_analysis_id:
+                old_value = self._origin.cost_analysis_id
+
+                # raise ValidationError(old_value)
+                value_unlink = self.env['vertical.item'].search([('cost_analysis_id', '=', old_value.id)]).unlink()
+                for line in self.cost_analysis_id.cost_analysis_line_ids:
+                    # raise ValidationError(self.active_id)
+                    self.env["vertical.item"].create(
+                        {
+                            "vertical_stage_id": self.id,
+                            "project_id": self.project_id.id,
+                            "type_item": 'cost_analysis',
+                            "cost_analysis_id": self.cost_analysis_id.id,
+                            # "standar_id": self.id,
+                            "job_type": line.job_type,
+                            "product_id": line.product_id.id,
+                            "descripcion": line.descripcion,
+                            "uom_id": line.uom_id.id,
+                            "product_qty": line.product_qty,
+                            "cost_price": line.cost_price,
+                            "subtotal_item_capitulo": line.subtotal_item_capitulo,
+                            "tipo_descuento": line.tipo_descuento,
+                            "cantidad_descuento": line.cantidad_descuento,
+                            "subtotal_descuento": line.subtotal_descuento,
+                            "impuesto_porciento": line.impuesto_porciento,
+                            "total_impuesto_item": line.total_impuesto_item,
+                            "beneficio_estimado": line.beneficio_estimado,
+                            "importe_venta": line.importe_venta,
+                            "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
+                        }
+                    )
+                    return record
+                else:
+                    return record
+
         else:
             return record
+
+    # def create_analisis_coste(self):
