@@ -28,5 +28,18 @@
             </field>
         </record>
 
+        <record id="stage_fromcost_inherit_view_tree" model="ir.ui.view">
+            <field name="name">Fase</field>
+            <field name="model">vertical.stage</field>
+            <field name="inherit_id" ref="project_vertical_building.fase_view_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='type_stage_id']" position="after">
+                    <button type="object" string=" AC" name="action_view_item_cost" class="btn btn-primary" icon="fa-hand-o-right" attrs="{'invisible':[('related_is_end','!=',True)]}"/>
+                </xpath>
+
+            </field>
+        </record>
+
     </data>
 </odoo>
