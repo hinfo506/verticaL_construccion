@@ -22,3 +22,6 @@ class VerticalCostAnalysis(models.Model):
                 sumatoria = record.cost_standard + sum(
                     c.suma_impuesto_item_y_cost_price for c in record.cost_analysis_line_ids)
             record.cost_cost_analysis = sumatoria
+
+    # def write(self, values):
+    #     return super(VerticalCostAnalysis, self).write(values)

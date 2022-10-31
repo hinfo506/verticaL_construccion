@@ -22,12 +22,13 @@ class AddStandar(models.TransientModel):
     def action_insertar(self):
         if self.is_one:
             for line in self.list_ids:
+                # raise ValidationError(self.id,)
                 self.env["vertical.item"].create(
                     {
                         "vertical_stage_id": self.active_id.id,
                         "project_id": self.active_id.project_id.id,
                         "type_item": 'standard',
-                        "standar_id": self.id,
+                        "standar_id": self.standard_id.id,
                         "job_type": line.job_type,
                         "product_id": line.product_id.id,
                         "descripcion": line.descripcion,
@@ -53,7 +54,7 @@ class AddStandar(models.TransientModel):
                             "vertical_stage_id": active.id,
                             "project_id": active.project_id.id,
                             "type_item": 'standard',
-                            "standar_id": self.id,
+                            "standar_id": self.standard_id.id,
                             "job_type": line.job_type,
                             "product_id": line.product_id.id,
                             "descripcion": line.descripcion,
