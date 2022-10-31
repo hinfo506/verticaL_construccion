@@ -19,14 +19,12 @@ class VerticalStage(models.Model):
 
     # Campo  aprobar o no aprobar fase
     estado_fase = fields.Selection(string="Estado_partida",
-        selection=[
-            ("borrador", "Borrador"),
-            ("aprobada", "Aprobada en Prevision"),
-            ("aprobadaproceso", "Aprobada en Proceso"),
-            ("pendiente", "Pdte Validar"),
-            ("noaprobada", "No aprobada"),
-        ], required=False, default="borrador",
-    )
+                                   selection=[
+                                       ("borrador", "Borrador"),
+                                       ("aprobada", "Aprobada en Prevision"),
+                                       ("aprobadaproceso", "Aprobada en Proceso"),
+                                       ("pendiente", "Pdte Validar"),
+                                       ("noaprobada", "No aprobada"), ], required=False, default="borrador",)
 
     item_ids = fields.One2many(
         comodel_name="vertical.item",
@@ -281,7 +279,7 @@ class VerticalStage(models.Model):
                     "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
                 }
             )
-            for l in record.cost_analysis_id.standard_id.line_ids:
+            for li in record.cost_analysis_id.standard_id.line_ids:
                 record.env["vertical.item"].create(
                     {
                         "vertical_stage_id": record.id,
@@ -289,21 +287,21 @@ class VerticalStage(models.Model):
                         "type_item": 'standard',
                         "cost_analysis_id": record.cost_analysis_id.id,
                         "standar_id": record.cost_analysis_id.standard_id.id,
-                        "job_type": l.job_type,
-                        "product_id": l.product_id.id,
-                        "descripcion": l.descripcion,
-                        "uom_id": l.uom_id.id,
-                        "product_qty": l.product_qty,
-                        "cost_price": l.cost_price,
-                        "subtotal_item_capitulo": l.subtotal_item_capitulo,
-                        "tipo_descuento": l.tipo_descuento,
-                        "cantidad_descuento": l.cantidad_descuento,
-                        "subtotal_descuento": l.subtotal_descuento,
-                        "impuesto_porciento": l.impuesto_porciento,
-                        "total_impuesto_item": l.total_impuesto_item,
-                        "beneficio_estimado": l.beneficio_estimado,
-                        "importe_venta": l.importe_venta,
-                        "suma_impuesto_item_y_cost_price": l.suma_impuesto_item_y_cost_price,
+                        "job_type": li.job_type,
+                        "product_id": li.product_id.id,
+                        "descripcion": li.descripcion,
+                        "uom_id": li.uom_id.id,
+                        "product_qty": li.product_qty,
+                        "cost_price": li.cost_price,
+                        "subtotal_item_capitulo": li.subtotal_item_capitulo,
+                        "tipo_descuento": li.tipo_descuento,
+                        "cantidad_descuento": li.cantidad_descuento,
+                        "subtotal_descuento": li.subtotal_descuento,
+                        "impuesto_porciento": li.impuesto_porciento,
+                        "total_impuesto_item": li.total_impuesto_item,
+                        "beneficio_estimado": li.beneficio_estimado,
+                        "importe_venta": li.importe_venta,
+                        "suma_impuesto_item_y_cost_price": li.suma_impuesto_item_y_cost_price,
                     }
                 )
         return record
@@ -337,7 +335,7 @@ class VerticalStage(models.Model):
                             "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
                         }
                     )
-                    for l in self.cost_analysis_id.standard_id.line_ids:
+                    for li in self.cost_analysis_id.standard_id.line_ids:
                         self.env["vertical.item"].create(
                             {
                                 "vertical_stage_id": self.id,
@@ -345,21 +343,21 @@ class VerticalStage(models.Model):
                                 "type_item": 'standard',
                                 "cost_analysis_id": self.cost_analysis_id.id,
                                 "standar_id": self.cost_analysis_id.standard_id.id,
-                                "job_type": l.job_type,
-                                "product_id": l.product_id.id,
-                                "descripcion": l.descripcion,
-                                "uom_id": l.uom_id.id,
-                                "product_qty": l.product_qty,
-                                "cost_price": l.cost_price,
-                                "subtotal_item_capitulo": l.subtotal_item_capitulo,
-                                "tipo_descuento": l.tipo_descuento,
-                                "cantidad_descuento": l.cantidad_descuento,
-                                "subtotal_descuento": l.subtotal_descuento,
-                                "impuesto_porciento": l.impuesto_porciento,
-                                "total_impuesto_item": l.total_impuesto_item,
-                                "beneficio_estimado": l.beneficio_estimado,
-                                "importe_venta": l.importe_venta,
-                                "suma_impuesto_item_y_cost_price": l.suma_impuesto_item_y_cost_price,
+                                "job_type": li.job_type,
+                                "product_id": li.product_id.id,
+                                "descripcion": li.descripcion,
+                                "uom_id": li.uom_id.id,
+                                "product_qty": li.product_qty,
+                                "cost_price": li.cost_price,
+                                "subtotal_item_capitulo": li.subtotal_item_capitulo,
+                                "tipo_descuento": li.tipo_descuento,
+                                "cantidad_descuento": li.cantidad_descuento,
+                                "subtotal_descuento": li.subtotal_descuento,
+                                "impuesto_porciento": li.impuesto_porciento,
+                                "total_impuesto_item": li.total_impuesto_item,
+                                "beneficio_estimado": li.beneficio_estimado,
+                                "importe_venta": li.importe_venta,
+                                "suma_impuesto_item_y_cost_price": li.suma_impuesto_item_y_cost_price,
                             }
                         )
                     return record
@@ -370,7 +368,10 @@ class VerticalStage(models.Model):
 
     def on_delete_ac(self):
         for record in self:
-            value_unlink = self.env['vertical.item'].search([('cost_analysis_id', '=', record.cost_analysis_id.id),('vertical_stage_id', '=', record.id),('project_id', '=', record.project_id.id)]).unlink()
+            value_unlink = self.env['vertical.item'].search([(
+                'cost_analysis_id', '=', record.cost_analysis_id.id),
+                ('vertical_stage_id', '=', record.id),
+                ('project_id', '=', record.project_id.id)]).unlink()
             record.cost_analysis_id = []
 
     is_ac_true = fields.Boolean(string='Is_ac_true', required=False, compute='method_is_ac_true')

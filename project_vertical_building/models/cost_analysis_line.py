@@ -1,5 +1,6 @@
 from odoo import fields, models
 
+
 class CostAnalysisLine(models.Model):
     _name = 'cost.analysis.line'
     _inherit = "item.item"
