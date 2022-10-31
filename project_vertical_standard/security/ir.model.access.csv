@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_standard,standard,model_standard,,1,1,1,1
-access_standard_line,standard.line,model_standard_line,,1,1,1,1
-access_wizard_standard,wizard.standard,model_wizard_standard,,1,1,1,1

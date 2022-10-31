@@ -10,21 +10,14 @@
                     <sheet>
                         <group>
                             <group name="datos_productos" string="Datos del Producto">
-<!--                                <field name="project_id"/>-->
-<!--                                <field name="vertical_stage_id"/>-->
-<!--                                <field name="date"/>-->
                                 <field name="reference"/>
                                 <field name="job_type"/>
-<!--                                <field name="color_item" invisible="1"/>-->
                                 <field name="product_id"/>
                                 <field name="descripcion"/>
                                 <field name="uom_id"/>
                             </group>
                             <group name="detalle_costes" string="Detalles de Costes">
                                 <field name="product_qty" string="Cantidad"/>
-<!--                                <field name="longitud" invisible="1"/>-->
-<!--                                <field name="ancho" invisible="1"/>-->
-<!--                                <field name="alto" invisible="1"/>-->
                                 <field name="cost_price" string="Precio Coste"/>
                                 <field name="subtotal_item_capitulo" string="Importe"/>
                                 <field name="tipo_descuento" string="Tipo Dto."/>

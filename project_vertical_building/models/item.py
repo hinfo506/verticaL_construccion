@@ -76,7 +76,8 @@ class VerticalItem(models.Model):
         default="borrador",
     )
 
-    # standar_id = fields.Many2one(comodel_name="standard", string="Standar Relacionado", required=False)
+    cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='cost_analysis_id', required=False)
+    standar_id = fields.Many2one(comodel_name="standard", string="standard_id", required=False)
 
     def get_item_volumetry_count(self):
         for r in self:
