@@ -9,7 +9,7 @@ class VerticalStage(models.Model):
     _inherit = 'vertical.stage'
 
 
-    cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis',string='Cost_analysis_id', required=False)
+    cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste', required=False)
     itemcost_count = fields.Integer(string='Itemcost_count', required=False, compute='get_item_cost_count')
 
     def get_item_cost_count(self):
@@ -107,18 +107,10 @@ class VerticalStage(models.Model):
 
     def write(self, values):
         record = super(VerticalStage, self).write(values)
-        _logger.info("Error al crear usuario: ")
-        # if values.get("cost_analysis_id") == 0:
-        #     raise ValidationError('has editado el analisis de coste')
         if values.get("cost_analysis_id"):
-
+            # raise ValidationError('usted a modificado el ac')
             if self.cost_analysis_id:
-                old_value = self._origin.cost_analysis_id
-
-                # raise ValidationError(old_value)
-                value_unlink = self.env['vertical.item'].search([('cost_analysis_id', '=', old_value.id)]).unlink()
                 for line in self.cost_analysis_id.cost_analysis_line_ids:
-                    # raise ValidationError(self.active_id)
                     self.env["vertical.item"].create(
                         {
                             "vertical_stage_id": self.id,
@@ -143,11 +135,38 @@ class VerticalStage(models.Model):
                             "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
                         }
                     )
+                    for l in self.cost_analysis_id.standard_id.line_ids:
+                        self.env["vertical.item"].create(
+                            {
+                                "vertical_stage_id": self.id,
+                                "project_id": self.project_id.id,
+                                "type_item": 'standard',
+                                "cost_analysis_id": self.cost_analysis_id.id,
+                                # "standar_id": self.cost_analysis_id.standard_id.id,
+                                "job_type": l.job_type,
+                                "product_id": l.product_id.id,
+                                "descripcion": l.descripcion,
+                                "uom_id": l.uom_id.id,
+                                "product_qty": l.product_qty,
+                                "cost_price": l.cost_price,
+                                "subtotal_item_capitulo": l.subtotal_item_capitulo,
+                                "tipo_descuento": l.tipo_descuento,
+                                "cantidad_descuento": l.cantidad_descuento,
+                                "subtotal_descuento": l.subtotal_descuento,
+                                "impuesto_porciento": l.impuesto_porciento,
+                                "total_impuesto_item": l.total_impuesto_item,
+                                "beneficio_estimado": l.beneficio_estimado,
+                                "importe_venta": l.importe_venta,
+                                "suma_impuesto_item_y_cost_price": l.suma_impuesto_item_y_cost_price,
+                            }
+                        )
                     return record
                 else:
                     return record
-
         else:
             return record
 
-    # def create_analisis_coste(self):
+    def on_delete_ac(self):
+        for record in self:
+            value_unlink = self.env['vertical.item'].search([('cost_analysis_id', '=', record.cost_analysis_id.id),('vertical_stage_id', '=', record.id),('project_id', '=', record.project_id.id)]).unlink()
+            record.cost_analysis_id=[]

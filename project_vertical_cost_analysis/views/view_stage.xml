@@ -9,15 +9,13 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="cost_analysis_id"/>
+                    <field name="cost_analysis_id" attrs="{'readonly': [('cantidad', '=', True)]}"/>
                 </xpath>
 
-<!--                <xpath expr="//sheet" position="before">-->
-<!--                    <header>-->
-<!--                        <button name='add_cost_one_id' string='Agregar Análisis Coste' class='oe_highlight'-->
-<!--                                type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"/>-->
-<!--                    </header>-->
-<!--                </xpath>-->
+                <xpath expr="//header" position="inside">
+                    <button name="on_delete_ac" type="object" string="Eliminar AC" class='oe_highlight'
+                    attrs="{'invisible': [('cost_analysis_id', '=', False)]}"/>
+                </xpath>
 
                 <xpath expr="//sheet//div//button" position="before">
                     <button class="oe_stat_button" name="action_view_item_cost" type="object" icon="fa-archive" attrs="{'invisible': [('related_is_end', '!=', True)]}">
