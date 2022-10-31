@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <record id="cost_analysis_view_form" model="ir.ui.view">
@@ -7,8 +6,14 @@
             <field name="arch" type="xml">
                 <form string="cost_analysis_form">
                     <sheet>
+                        <div class="oe_title">
+                          <label class="o_form_label" for="name"/>
+                          <h1>
+                            <field name="name" required="1"/>
+                          </h1>
+                        </div>
                         <group>
-                            <field name="name"/>
+                            <field name="code"/>
                             <field name="standard_id"/>
                             <field name="cost_cost_analysis"/>
                         </group>
@@ -16,7 +21,7 @@
                             <page name="list_items" string="Lista de Artículos">
                                 <field name="cost_analysis_line_ids">
                                     <tree editable="bottom">
-                                        <field name="cost_analysis_id" invisible="1"/>
+<!--                                        <field name="standard_id" invisible="1"/>-->
                                         <field name="job_type"/>
                                         <field name="product_id"/>
                                         <field name="uom_id"/>
@@ -26,7 +31,7 @@
                                         <field name="cantidad_descuento"/>
                                         <field name="impuesto_porciento"/>
                                         <field name="beneficio_estimado"/>
-                                        <field name="suma_impuesto_item_y_cost_price" string="Total" sum="Total Coste"/>
+                                        <field name="suma_impuesto_item_y_cost_price" string="Total"/>
                                         <button type="object" string=" Ver" name="action_standar_line" class="btn btn-primary" icon="fa-credit-card"/>
                                     </tree>
                                 </field>

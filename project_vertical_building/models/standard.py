@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-
 from odoo import models, fields
-
 _logger = logging.getLogger(__name__)
 
 
@@ -14,6 +12,7 @@ class Standard(models.Model):
     _parent_store = True
 
     name = fields.Char(string="Nombre", required=1)
+    code = fields.Char(string='Código', required=False)
     parent_id = fields.Many2one("standard", string="Padre")
     # line_ids = fields.One2many('standard.line', 'standard_id', copy=True)
     line_ids = fields.One2many(

@@ -2,7 +2,6 @@
 <odoo>
     <data>
 
-        <!-- Inherit Form View to Modify it -->
         <record id="project_view_inherit" model="ir.ui.view">
             <field name="name">Proyectos</field>
             <field name="model">project.project</field>
@@ -16,8 +15,6 @@
                 </xpath>
 
                 <xpath expr="//field[@name='company_id']" position="before">
-                    <!--                <xpath expr="//label[@for='date_start']//div" position="before">-->
-                    <!--                    <field name=""/>-->
                     <label for="date_start_real" string="Fecha real"/>
                     <div name="datesreal" class="o_row">
                         <field name="date_start_real" widget="daterange"
@@ -34,7 +31,6 @@
                     <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
                         <field name="activi_count" string="Actividades" widget="statinfo"/>
                     </button>
-                    <!-- <button class="oe_stat_button" name="action_view_fase" type="object" icon="fa-sitemap"> -->
                     <button class="oe_stat_button" name="action_view_fase" type="object">
                         <img src="/project_vertical_building/static/src/img/sitemap.png"
                              style="margin: 0px 10px 0px 10px; width: 26px;"/>
@@ -80,7 +76,6 @@
             </field>
         </record>
 
-        <!-- Inherit Form View to Modify it -->
         <record id="kanban_inherit_view" model="ir.ui.view">
             <field name="name">Proyectos</field>
             <field name="model">project.project</field>
@@ -88,6 +83,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//kanban" position="attributes">
                     <attribute name="on_create"></attribute>
+                </xpath>
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="js_class"></attribute>
                 </xpath>
                 <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
                     <field name="fase_kanban_count" invisible="1"/>
@@ -97,13 +95,11 @@
                         <div class="o_kanban_record_bottom mt-3">
                             <div class="oe_kanban_bottom_left">
                                 <div class="o_project_kanban_boxes">
-                                    <!-- <a class="o_project_kanban_box" name="action_view_items_tree" type="object"> -->
                                     <a class="o_project_kanban_box" name="action_view_fase" type="object">
                                         <div>
                                             <span class="o_value">
                                                 <t t-esc="record.fase_kanban_count.value"/>
                                             </span>
-                                            <!--                                            <span class="o_label"><t t-esc="record.nombre_fase.value"/></span>-->
                                             <span class="o_label">Fases</span>
                                         </div>
                                     </a>

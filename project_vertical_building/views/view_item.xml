@@ -82,7 +82,7 @@
                     <field name="total_impuesto_item" invisible="1"/>
                     <field name="suma_impuesto_item_y_cost_price" string="P.U. + ITBIS"/>
                     <field name="uom_id"/>
-                    <field name="standar_id" optional="hide"/>
+<!--                    <field name="standar_id" optional="hide"/>-->
                     <button type="object" string=" Volumetria" name="met_itemvolumetria" class="btn btn-primary"
                             icon="fa-hand-o-right"/>
                 </tree>

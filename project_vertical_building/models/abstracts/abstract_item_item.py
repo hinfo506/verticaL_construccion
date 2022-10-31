@@ -8,7 +8,7 @@ class ItemItem(models.Model):
 
     descripcion = fields.Text("Descripción")
     product_id = fields.Many2one("product.product", string="Producto", required=1)
-    product_qty = fields.Float(string="Cantidad Planificada", copy=False, digits=(12, 2))
+    product_qty = fields.Float(string="Cantidad Planificada", copy=False, digits=(12, 2), required=1)
     uom_id = fields.Many2one("uom.uom", string="Unid. de Medida", )
     reference = fields.Char(string="Referencia", copy=False)
     job_type = fields.Selection(

@@ -7,11 +7,7 @@ class VerticalStage(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     ###### DATOS PRINCIPALES  ########
-    # number = fields.Char(string='Number', required=True, copy=False, readonly='True',
-    #                      default=lambda self: self.env['ir.sequence'].next_by_code('secuencia.partidas'))
-    numero_fase = fields.Char(
-        string="Número Fase", required=False, track_visibility="always"
-    )
+    numero_fase = fields.Char(string="Número Fase", required=False, track_visibility="always")
     name = fields.Char(string="Nombre Fase", required=True)
     name_complete = fields.Char(string="Nombre Completo", required=True)
     descripcion = fields.Text("Descripción de la Partida")
@@ -20,52 +16,121 @@ class VerticalStage(models.Model):
     fecha_finalizacion = fields.Date("Acaba el")
 
     total = fields.Float("Precio Coste", compute="_compute_total_fase")
-    # total_prevision = fields.Float('Importe Total Previsto')
 
-    # Campo de Prueba para poder aprobar o no aprobar
-    estado_fase = fields.Selection(
-        string="Estado_partida",
-        selection=[
-            ("borrador", "Borrador"),
-            ("aprobada", "Aprobada en Prevision"),
-            ("aprobadaproceso", "Aprobada en Proceso"),
-            ("pendiente", "Pdte Validar"),
-            ("noaprobada", "No aprobada"),
-        ],
-        required=False,
-        default="borrador",
-    )
+    # Campo  aprobar o no aprobar fase
+    estado_fase = fields.Selection(string="Estado_partida",
+                                   selection=[
+                                       ("borrador", "Borrador"),
+                                       ("aprobada", "Aprobada en Prevision"),
+                                       ("aprobadaproceso", "Aprobada en Proceso"),
+                                       ("pendiente", "Pdte Validar"),
+                                       ("noaprobada", "No aprobada"), ], required=False, default="borrador",)
 
-    # Related
     item_ids = fields.One2many(
         comodel_name="vertical.item",
         inverse_name="vertical_stage_id",
         string="Items",
     )
-    project_id = fields.Many2one(
-        comodel_name="project.project", string="Proyecto", required=False
+    project_id = fields.Many2one(comodel_name="project.project", string="Proyecto", required=False)
+
+    parent_id = fields.Many2one(comodel_name="vertical.stage", string="Depende de", required=False)
+    child_ids = fields.One2many(
+        comodel_name="vertical.stage",
+        inverse_name="parent_id",
+        string="Childs",
+        required=False,
     )
 
-    related_is_prevision = fields.Boolean(
-        "Es prevision", related="project_id.stage_id.is_prevision"
-    )
+    related_is_prevision = fields.Boolean("Es prevision", related="project_id.stage_id.is_prevision")
 
     # Calculos Generales
-    material_total = fields.Float(
-        string="Total Coste Materiales", compute="_amount_all", readonly="True"
-    )
+    material_total = fields.Float(string="Total Coste Materiales", compute="_compute_amount_all", readonly="True")
     labor_total = fields.Float(string="Total Coste Mano de Obra", readonly="True")
     machinerycost_total = fields.Float(string="Total Coste Maquinaria", readonly="True")
     overhead_total = fields.Float(string="Total Costes Generales", readonly="True")
     jobcost_total = fields.Float(string="Total Coste", readonly="True")
-    item_count = fields.Integer(string="Contador Item", compute="get_item_count")
-    childs_count = fields.Integer(string="Contador Childs", compute="get_childs_count")
+
+    type_stage_id = fields.Many2one(comodel_name="vertical.stage.type", string="Tipo de Fase", required=False)
+    related_is_end = fields.Boolean("Is_End", related="type_stage_id.is_end")
+    total2 = fields.Float("Precio Total", compute="_compute_total")
+
+    item_count = fields.Integer(string="Contador Item", compute="_compute_item_count")
+    childs_count = fields.Integer(string="Contador Childs", compute="_compute_childs_count")
+
+    # Cost Analysis
     cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste',
                                        required=False)
-    item_count = fields.Integer(string='Contador Item', compute='get_item_count_standars')
+    itemcost_count = fields.Integer(string='Itemcost_count', required=False, compute='_compute_item_cost_count')
+
+    # Standard
+    itemstand_count = fields.Integer(string='Itemstand_count', required=False, compute='_compute_item_stand_count')
+
+    def _compute_item_stand_count(self):
+        for r in self:
+            r.itemstand_count = self.env['vertical.item'].search_count(
+                [("id", "in", self.item_ids.ids), ("type_item", "=", 'standard')])
+
+    def action_view_item_standard(self):
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Items",
+            "res_model": "vertical.item",
+            "view_mode": "tree,form",
+            "domain": [("id", "in", self.item_ids.ids), ("type_item", "=", 'standard')],
+        }
+
+    def add_standars(self):
+        act_ids = self.env.context.get('active_ids')
+        active_ids = self.env['vertical.stage'].search([('id', '=', act_ids)])
+
+        # Comprobar que las fases a las que se va a agregar el standar sean partidas
+        for active in active_ids:
+            if not active.type_stage_id.is_end:
+                raise ValidationError('Debe seleccionar solo Fases de tipo Final')
+
+        return {
+            'name': 'Add Standard',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'wizard.standard',
+            'context': {
+                'default_active_ids': act_ids,
+            },
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }
+
+    def add_standars_one_id(self):
+        return {
+            'name': 'Add Standard',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'wizard.standard',
+            'context': {
+                'default_active_id': self.id,
+                'default_is_one': True,
+            },
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }
+    ###########################################################
+
+    # Cost Analysis
+    def _compute_item_cost_count(self):
+        for r in self:
+            r.itemcost_count = self.env['vertical.item'].search_count([("id", "in", self.item_ids.ids), ("type_item", "=", 'cost_analysis')])
+
+    def action_view_item_cost(self):
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Items",
+            "res_model": "vertical.item",
+            "view_mode": "tree,form",
+            "domain": [("id", "in", self.item_ids.ids), ("type_item", "=", 'cost_analysis')],
+        }
 
     @api.depends("item_ids")
-    def _amount_all(self):
+    def _compute_amount_all(self):
         """
         Compute the total amounts of the SO.
         """
@@ -96,13 +161,12 @@ class VerticalStage(models.Model):
             )
 
     @api.depends("item_ids")
-    def get_item_count(self):
+    def _compute_item_count(self):
         for r in self:
-            # r.item_count = self.env['vertical.item'].search_count([('vertical_stage_id', '=', r.id)]) # Esta consulta es menos eficiente que simplemente contar los item_ids
             r.item_count = len(r.item_ids)
 
     @api.depends("child_ids")
-    def get_childs_count(self):
+    def _compute_childs_count(self):
         for r in self:
             r.childs_count = len(r.child_ids)
 
@@ -112,7 +176,6 @@ class VerticalStage(models.Model):
             "name": "Items",
             "res_model": "vertical.item",
             "view_mode": "tree,form",
-            # 'domain': [('partidas_id', '=',  self.id)],
             "domain": [("id", "in", self.item_ids.ids)],
             "views": [
                 (self.env.ref("project_vertical_building.item_view_tree").id, "tree"),
@@ -125,20 +188,6 @@ class VerticalStage(models.Model):
             ),
         }
 
-    parent_id = fields.Many2one(
-        comodel_name="vertical.stage", string="Depende de", required=False
-    )
-    child_ids = fields.One2many(
-        comodel_name="vertical.stage",
-        inverse_name="parent_id",
-        string="Childs",
-        required=False,
-    )
-    type_stage_id = fields.Many2one(
-        comodel_name="vertical.stage.type", string="Tipo de Fase", required=False
-    )
-    related_is_end = fields.Boolean("Is_End", related="type_stage_id.is_end")
-
     def action_view_childs(self):
         return {
             "type": "ir.actions.act_window",
@@ -146,8 +195,6 @@ class VerticalStage(models.Model):
             "res_model": "vertical.stage",
             "view_mode": "tree,form",
             "domain": [("id", "in", self.child_ids.ids)],
-            # 'views': [(self.env.ref('project_vertical_building.item_view_tree').id, 'tree'),
-            #           (self.env.ref('project_vertical_building.item_view_form').id, 'form')],
             "context": dict(self._context, default_parent_id=self.id),
         }
 
@@ -172,8 +219,6 @@ class VerticalStage(models.Model):
                         "total": suma,
                     }
                 )
-
-    total2 = fields.Float("Precio Total", compute="_compute_total")
 
     def _compute_total(self):
         for record in self:
@@ -207,87 +252,132 @@ class VerticalStage(models.Model):
                 "aprobada" if record.project_id.stage_id.is_prevision else "pendiente"
             )
             record.write({"estado_fase": state})
+
+        for line in record.cost_analysis_id.cost_analysis_line_ids:
+            record.env["vertical.item"].create(
+                {
+                    "vertical_stage_id": record.id,
+                    "project_id": record.project_id.id,
+                    "type_item": 'cost_analysis',
+                    "cost_analysis_id": record.cost_analysis_id.id,
+                    "standar_id": record.cost_analysis_id.standard_id.id,
+                    "job_type": line.job_type,
+                    "product_id": line.product_id.id,
+                    "descripcion": line.descripcion,
+                    "uom_id": line.uom_id.id,
+                    "product_qty": line.product_qty,
+                    "cost_price": line.cost_price,
+                    "subtotal_item_capitulo": line.subtotal_item_capitulo,
+                    "tipo_descuento": line.tipo_descuento,
+                    "cantidad_descuento": line.cantidad_descuento,
+                    "subtotal_descuento": line.subtotal_descuento,
+                    "impuesto_porciento": line.impuesto_porciento,
+                    "total_impuesto_item": line.total_impuesto_item,
+                    "beneficio_estimado": line.beneficio_estimado,
+                    "importe_venta": line.importe_venta,
+                    "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
+                }
+            )
+            for li in record.cost_analysis_id.standard_id.line_ids:
+                record.env["vertical.item"].create(
+                    {
+                        "vertical_stage_id": record.id,
+                        "project_id": record.project_id.id,
+                        "type_item": 'standard',
+                        "cost_analysis_id": record.cost_analysis_id.id,
+                        "standar_id": record.cost_analysis_id.standard_id.id,
+                        "job_type": li.job_type,
+                        "product_id": li.product_id.id,
+                        "descripcion": li.descripcion,
+                        "uom_id": li.uom_id.id,
+                        "product_qty": li.product_qty,
+                        "cost_price": li.cost_price,
+                        "subtotal_item_capitulo": li.subtotal_item_capitulo,
+                        "tipo_descuento": li.tipo_descuento,
+                        "cantidad_descuento": li.cantidad_descuento,
+                        "subtotal_descuento": li.subtotal_descuento,
+                        "impuesto_porciento": li.impuesto_porciento,
+                        "total_impuesto_item": li.total_impuesto_item,
+                        "beneficio_estimado": li.beneficio_estimado,
+                        "importe_venta": li.importe_venta,
+                        "suma_impuesto_item_y_cost_price": li.suma_impuesto_item_y_cost_price,
+                    }
+                )
         return record
 
-    def add_standars(self):
-        act_ids = self.env.context.get("active_ids")
-        active_ids = self.env["vertical.stage"].search([("id", "=", act_ids)])
+    def write(self, values):
+        record = super(VerticalStage, self).write(values)
+        if values.get("cost_analysis_id"):
+            if self.cost_analysis_id:
+                for line in self.cost_analysis_id.cost_analysis_line_ids:
+                    self.env["vertical.item"].create(
+                        {
+                            "vertical_stage_id": self.id,
+                            "project_id": self.project_id.id,
+                            "type_item": 'cost_analysis',
+                            "cost_analysis_id": self.cost_analysis_id.id,
+                            "standar_id": self.cost_analysis_id.standard_id.id,
+                            "job_type": line.job_type,
+                            "product_id": line.product_id.id,
+                            "descripcion": line.descripcion,
+                            "uom_id": line.uom_id.id,
+                            "product_qty": line.product_qty,
+                            "cost_price": line.cost_price,
+                            "subtotal_item_capitulo": line.subtotal_item_capitulo,
+                            "tipo_descuento": line.tipo_descuento,
+                            "cantidad_descuento": line.cantidad_descuento,
+                            "subtotal_descuento": line.subtotal_descuento,
+                            "impuesto_porciento": line.impuesto_porciento,
+                            "total_impuesto_item": line.total_impuesto_item,
+                            "beneficio_estimado": line.beneficio_estimado,
+                            "importe_venta": line.importe_venta,
+                            "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
+                        }
+                    )
+                    for li in self.cost_analysis_id.standard_id.line_ids:
+                        self.env["vertical.item"].create(
+                            {
+                                "vertical_stage_id": self.id,
+                                "project_id": self.project_id.id,
+                                "type_item": 'standard',
+                                "cost_analysis_id": self.cost_analysis_id.id,
+                                "standar_id": self.cost_analysis_id.standard_id.id,
+                                "job_type": li.job_type,
+                                "product_id": li.product_id.id,
+                                "descripcion": li.descripcion,
+                                "uom_id": li.uom_id.id,
+                                "product_qty": li.product_qty,
+                                "cost_price": li.cost_price,
+                                "subtotal_item_capitulo": li.subtotal_item_capitulo,
+                                "tipo_descuento": li.tipo_descuento,
+                                "cantidad_descuento": li.cantidad_descuento,
+                                "subtotal_descuento": li.subtotal_descuento,
+                                "impuesto_porciento": li.impuesto_porciento,
+                                "total_impuesto_item": li.total_impuesto_item,
+                                "beneficio_estimado": li.beneficio_estimado,
+                                "importe_venta": li.importe_venta,
+                                "suma_impuesto_item_y_cost_price": li.suma_impuesto_item_y_cost_price,
+                            }
+                        )
+                    return record
+                else:
+                    return record
+        else:
+            return record
 
-        # Comprobar que las fases a las que se va a agregar el standar sean partidas
-        for active in active_ids:
-            if not active.type_stage_id.is_end:
-                raise ValidationError("Debe seleccionar solo partidas")
+    def on_delete_ac(self):
+        for record in self:
+            value_unlink = self.env['vertical.item'].search([(
+                'cost_analysis_id', '=', record.cost_analysis_id.id),
+                ('vertical_stage_id', '=', record.id),
+                ('project_id', '=', record.project_id.id)]).unlink()
+            record.cost_analysis_id = []
 
-        return {
-            "name": "Add Standard",
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "wizard.standard",
-            "context": {
-                "default_active_ids": act_ids,
-            },
-            "type": "ir.actions.act_window",
-            "target": "new",
-        }
+    is_ac_true = fields.Boolean(string='Is_ac_true', required=False, compute='_compute_method_is_ac_true')
 
-    def add_standars_one_id(self):
-        return {
-            "name": "Add Standard",
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "wizard.standard",
-            "context": {
-                "default_active_id": self.id,
-                "default_is_one": True,
-            },
-            "type": "ir.actions.act_window",
-            "target": "new",
-        }
-
-    @api.onchange('cost_analysis_id')
-    def onchange_method(self):
-        item_obj = self.env["vertical.item"]
-        actual = self._origin.cost_analysis_id
-        if self.cost_analysis_id:
-            # raise ValidationError(self._origin.cost_analysis_id)
-            delete_ids = self.env['vertical.item'].search([('cost_analysis_id', '=', actual.id)]).unlink()
-            for line in self.cost_analysis_id.cost_analysis_line_ids:
-                current_item = item_obj.create({
-                    'vertical_stage_id': self.id,
-                    'project_id': self.project_id.id,
-                    'cost_price': line.cost_price,
-                    'product_id': line.product_id.id,
-                    'uom_id': line.uom_id.id,
-                    'product_qty': line.qty,
-                    'descripcion': line.descripcion,
-                    'job_type': line.job_type,
-                    'subtotal_item_capitulo': line.subtotal_item_capitulo,
-                    'tipo_descuento': line.tipo_descuento,
-                    'cantidad_descuento': line.cantidad_descuento,
-                    'subtotal_descuento': line.subtotal_descuento,
-                    'beneficio_estimado': line.beneficio_estimado,
-                    'importe_venta': line.importe_venta,
-                    'impuesto_porciento': line.impuesto_porciento,
-                    'total_impuesto_item': line.total_impuesto_item,
-                    'suma_impuesto_item_y_cost_price': line.suma_impuesto_item_y_cost_price,
-                    'cost_analysis_id': self.cost_analysis_id.id,
-                    # 'standar_id': self.id,
-                })
-
-    def action_view_standards(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Items Standars',
-            'res_model': 'vertical.standard.item',
-            'view_mode': 'tree,form',
-            'domain': [('id', 'in', self.item_ids.ids)],
-            'views': [(self.env.ref('project_vertical_building.item_view_tree').id, 'tree'),
-                      (self.env.ref('project_vertical_building.item_view_form').id, 'form')],
-            'context': dict(self._context, default_vertical_stage_id=self.id,
-                            default_project_id=self.project_id.id),
-        }
-
-    @api.depends('item_ids')
-    def get_item_count_standars(self):
-        for r in self:
-            r.item_count = len(r.item_ids)
+    def _compute_method_is_ac_true(self):
+        for record in self:
+            if record.cost_analysis_id:
+                record.is_ac_true = True
+            else:
+                record.is_ac_true = False

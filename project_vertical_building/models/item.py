@@ -29,6 +29,11 @@ class VerticalItem(models.Model):
     project_id = fields.Many2one("project.project", string="Proyecto", ondelete="cascade")
     vertical_stage_id = fields.Many2one(comodel_name="vertical.stage", string="Fase", required=False)
 
+    type_item = fields.Selection(string='Tipo de Item', selection=[
+                    ('cost_analysis', 'Analisis de coste'),
+                    ('standard', 'Standard'),
+                    ('indefine', 'Indefinido'), ], required=False, default='indefine')
+
     ###### CAMPOS DESECHADOS ########
     longitud = fields.Float("Longitud", default=1)
     ancho = fields.Float("Ancho", default=1)
@@ -43,7 +48,7 @@ class VerticalItem(models.Model):
     item_volumetry_count = fields.Integer(
         string="item_volumetry_count",
         required=False,
-        compute="get_item_volumetry_count",
+        compute="_compute_item_volumetry_count",
     )
     color_item = fields.Selection(
         selection=[
@@ -71,9 +76,10 @@ class VerticalItem(models.Model):
         default="borrador",
     )
 
-    standar_id = fields.Many2one(comodel_name="standard", string="Standar Relacionado", required=False)
+    cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste', required=False)
+    standar_id = fields.Many2one(comodel_name="standard", string="Standard", required=False)
 
-    def get_item_volumetry_count(self):
+    def _compute_item_volumetry_count(self):
         for r in self:
             r.item_volumetry_count = self.env["vertical.item.volumetry"].search_count([("item_id", "=", self.id)])
 
