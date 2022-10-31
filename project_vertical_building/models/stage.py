@@ -44,7 +44,7 @@ class VerticalStage(models.Model):
     related_is_prevision = fields.Boolean("Es prevision", related="project_id.stage_id.is_prevision")
 
     # Calculos Generales
-    material_total = fields.Float(string="Total Coste Materiales", compute="_amount_all", readonly="True")
+    material_total = fields.Float(string="Total Coste Materiales", compute="_compute_amount_all", readonly="True")
     labor_total = fields.Float(string="Total Coste Mano de Obra", readonly="True")
     machinerycost_total = fields.Float(string="Total Coste Maquinaria", readonly="True")
     overhead_total = fields.Float(string="Total Costes Generales", readonly="True")
@@ -54,22 +54,21 @@ class VerticalStage(models.Model):
     related_is_end = fields.Boolean("Is_End", related="type_stage_id.is_end")
     total2 = fields.Float("Precio Total", compute="_compute_total")
 
-    item_count = fields.Integer(string="Contador Item", compute="get_item_count")
-    childs_count = fields.Integer(string="Contador Childs", compute="get_childs_count")
+    item_count = fields.Integer(string="Contador Item", compute="_compute_item_count")
+    childs_count = fields.Integer(string="Contador Childs", compute="_compute_childs_count")
 
     # Cost Analysis
     cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste',
                                        required=False)
-    itemcost_count = fields.Integer(string='Itemcost_count', required=False, compute='get_item_cost_count')
+    itemcost_count = fields.Integer(string='Itemcost_count', required=False, compute='_compute_item_cost_count')
 
     # Standard
-    itemstand_count = fields.Integer(string='Itemstand_count', required=False, compute='get_item_stand_count')
+    itemstand_count = fields.Integer(string='Itemstand_count', required=False, compute='_compute_item_stand_count')
 
-    def get_item_stand_count(self):
+    def _compute_item_stand_count(self):
         for r in self:
             r.itemstand_count = self.env['vertical.item'].search_count(
                 [("id", "in", self.item_ids.ids), ("type_item", "=", 'standard')])
-            # r.item_count = len(r.item_ids)
 
     def action_view_item_standard(self):
         return {
@@ -117,7 +116,7 @@ class VerticalStage(models.Model):
     ###########################################################
 
     # Cost Analysis
-    def get_item_cost_count(self):
+    def _compute_item_cost_count(self):
         for r in self:
             r.itemcost_count = self.env['vertical.item'].search_count([("id", "in", self.item_ids.ids), ("type_item", "=", 'cost_analysis')])
 
@@ -131,7 +130,7 @@ class VerticalStage(models.Model):
         }
 
     @api.depends("item_ids")
-    def _amount_all(self):
+    def _compute_amount_all(self):
         """
         Compute the total amounts of the SO.
         """
@@ -162,12 +161,12 @@ class VerticalStage(models.Model):
             )
 
     @api.depends("item_ids")
-    def get_item_count(self):
+    def _compute_item_count(self):
         for r in self:
             r.item_count = len(r.item_ids)
 
     @api.depends("child_ids")
-    def get_childs_count(self):
+    def _compute_childs_count(self):
         for r in self:
             r.childs_count = len(r.child_ids)
 
@@ -374,9 +373,9 @@ class VerticalStage(models.Model):
                 ('project_id', '=', record.project_id.id)]).unlink()
             record.cost_analysis_id = []
 
-    is_ac_true = fields.Boolean(string='Is_ac_true', required=False, compute='method_is_ac_true')
+    is_ac_true = fields.Boolean(string='Is_ac_true', required=False, compute='_compute_method_is_ac_true')
 
-    def method_is_ac_true(self):
+    def _compute_method_is_ac_true(self):
         for record in self:
             if record.cost_analysis_id:
                 record.is_ac_true = True

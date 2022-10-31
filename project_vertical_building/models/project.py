@@ -22,7 +22,7 @@ class ProjectProject(models.Model):
         string="Número proyecto",
         required=False,
         readonly=True,
-        compute="compute_numero_proyecto",
+        compute="_compute_numero_proyecto",
     )
     nombre_fase = fields.Char(
         string="Nombre Fase Principal", required=False, default="Fase Inicial"
@@ -66,7 +66,7 @@ class ProjectProject(models.Model):
     hh_planned = fields.Float(string="HH planificado", required=False)
 
     @api.depends("abreviatura_proyecto", "number")
-    def compute_numero_proyecto(self):
+    def _compute_numero_proyecto(self):
         for record in self:
             record.numero_proyecto = (
                 str(record.abreviatura_proyecto) + "-" + record.number
@@ -151,10 +151,10 @@ class ProjectProject(models.Model):
     #### Actividades #####
     ######################
     activi_count = fields.Integer(
-        string="Contador Actividades", compute="get_acti_count"
+        string="Contador Actividades", compute="_compute_acti_count"
     )
 
-    def get_acti_count(self):
+    def _compute_acti_count(self):
         for r in self:
             count = self.env["mail.activity"].search_count(
                 [("res_id", "=", self.id), ("res_model", "=", "project.project")]

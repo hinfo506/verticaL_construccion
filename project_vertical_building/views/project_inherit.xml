@@ -2,7 +2,6 @@
 <odoo>
     <data>
 
-        <!-- Inherit Form View to Modify it -->
         <record id="project_view_inherit" model="ir.ui.view">
             <field name="name">Proyectos</field>
             <field name="model">project.project</field>
@@ -77,7 +76,6 @@
             </field>
         </record>
 
-        <!-- Inherit Form View to Modify it -->
         <record id="kanban_inherit_view" model="ir.ui.view">
             <field name="name">Proyectos</field>
             <field name="model">project.project</field>
@@ -97,13 +95,11 @@
                         <div class="o_kanban_record_bottom mt-3">
                             <div class="oe_kanban_bottom_left">
                                 <div class="o_project_kanban_boxes">
-                                    <!-- <a class="o_project_kanban_box" name="action_view_items_tree" type="object"> -->
                                     <a class="o_project_kanban_box" name="action_view_fase" type="object">
                                         <div>
                                             <span class="o_value">
                                                 <t t-esc="record.fase_kanban_count.value"/>
                                             </span>
-                                            <!--                                            <span class="o_label"><t t-esc="record.nombre_fase.value"/></span>-->
                                             <span class="o_label">Fases</span>
                                         </div>
                                     </a>

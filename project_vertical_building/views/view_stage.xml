@@ -28,10 +28,6 @@
                         <field name="related_is_end" invisible="1"/>
                         <field name="estado_fase" readonly="1"/>
                         <div class="oe_button_box" name="button_box">
-<!--                            <button class="oe_stat_button" name="action_view_item" type="object" icon="fa-archive"-->
-<!--                                    attrs="{'invisible':[('related_is_end','!=',True)]}">-->
-<!--                                <field name="item_count" string="Item" widget="statinfo"/>-->
-<!--                            </button>-->
                             <button class="oe_stat_button" name="action_view_childs" type="object" icon="fa-archive"
                                     attrs="{'invisible':[('related_is_end','=',True)]}">
                                 <field name="childs_count" string="Childs" widget="statinfo"/>
@@ -75,19 +71,12 @@
                         </group>
                         <notebook>
                             <page name="descripcion" string="Descripción">
-                                <!--                                <group>-->
                                 <field name="descripcion" string="Descripción"/>
-                                <!--                                </group>-->
                             </page>
                             <page name="items" string="Items" attrs="{'invisible': [('related_is_end', '!=', True)]}">
-                                <!--                                <group>-->
                                 <field name="item_ids"/>
-                                <!--                                </group>-->
                             </page>
                         </notebook>
-                        <!--                        <group>-->
-                        <!--                            <field name="descripcion" string="Descripción"/>-->
-                        <!--                        </group>-->
                         <group class="oe_subtotal_footer oe_right" colspan="2" name="jobcost_total">
                             <field name="material_total" widget="monetary"/>
                             <field name="labor_total" widget="monetary"/>

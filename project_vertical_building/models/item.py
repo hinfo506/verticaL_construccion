@@ -48,7 +48,7 @@ class VerticalItem(models.Model):
     item_volumetry_count = fields.Integer(
         string="item_volumetry_count",
         required=False,
-        compute="get_item_volumetry_count",
+        compute="_compute_item_volumetry_count",
     )
     color_item = fields.Selection(
         selection=[
@@ -76,10 +76,10 @@ class VerticalItem(models.Model):
         default="borrador",
     )
 
-    cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='cost_analysis_id', required=False)
-    standar_id = fields.Many2one(comodel_name="standard", string="standard_id", required=False)
+    cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste', required=False)
+    standar_id = fields.Many2one(comodel_name="standard", string="Standard", required=False)
 
-    def get_item_volumetry_count(self):
+    def _compute_item_volumetry_count(self):
         for r in self:
             r.item_volumetry_count = self.env["vertical.item.volumetry"].search_count([("item_id", "=", self.id)])
 
