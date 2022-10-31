@@ -18,10 +18,8 @@
                         <button name='approve_fase' string='Validar'
                                 class='oe_highlight' attrs="{'invisible': [('estado_fase', '!=', 'pendiente')]}"
                                 type='object'/>
-<!--                        <button name='add_standars_one_id' string='Agregar Standard'-->
-<!--                                class='oe_highlight'-->
-<!--                                type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"-->
-<!--                        />-->
+                        <button name='add_standars_one_id' string='Agregar Standard' class='oe_highlight'
+                                type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"/>
                     </header>
                     <sheet>
                         <field name="related_is_prevision" invisible="1"/>
@@ -35,6 +33,9 @@
                             <button class="oe_stat_button" name="action_view_childs" type="object" icon="fa-archive"
                                     attrs="{'invisible':[('related_is_end','=',True)]}">
                                 <field name="childs_count" string="Childs" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" name="action_view_item_standard" type="object" icon="fa-archive" attrs="{'invisible': [('related_is_end', '!=', True)]}">
+                                <field name="itemstand_count" string="Items Stand" widget="statinfo"/>
                             </button>
                         </div>
                         <group>
@@ -61,8 +62,6 @@
                                     <field name="fecha_finalizacion" widget="daterange"
                                            options="{&quot;related_start_date&quot;: &quot;fecha_inicio&quot;}"/>
                                 </div>
-                                <!--                                <field name="total" attrs="{'readonly': [('id', '!=', False)]}"/>-->
-                                <!--                                <field name="total2" attrs="{'readonly': [('id', '!=', False)]}"/>-->
                                 <field name="total" readonly="1"/>
                                 <field name="total2" readonly="1"/>
                             </group>
@@ -115,6 +114,7 @@
                     <field name="cantidad" string="Cantidad"/>
                     <field name="total" string="Total" sum="Total Coste"/>
                     <field name="type_stage_id" string="Tipo de Fase"/>
+                    <button type="object" string=" STA" name="action_view_item_standard" class="btn btn-primary" icon="fa-hand-o-right" attrs="{'invisible':[('related_is_end','!=',True)]}"/>
                     <button type="object" string=" Item" name="action_view_item" class="btn btn-primary"
                             icon="fa-hand-o-right" attrs="{'invisible':[('related_is_end','!=',True)]}"/>
                 </tree>

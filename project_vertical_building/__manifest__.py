@@ -26,9 +26,10 @@
         "views/view_item.xml",
         "views/project_stage_view_inherit.xml",
         "views/sequence.xml",
+        "views/view_standard.xml",
+        "views/view_standard_line.xml",
+        "wizard/view_add_standard.xml",
         # "views/view_cost_analysis.xml",
-        # "views/view_standard.xml",
-        # "wizard/view_add_standard.xml",
         "views/menu.xml",
     ],
     "assets": {

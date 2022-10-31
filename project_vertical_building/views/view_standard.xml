@@ -1,101 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-
-        <record id="standard_view_form" model="ir.ui.view">
-            <field name="name">standard_view_form</field>
-            <field name="model">standard</field>
-            <field name="arch" type="xml">
-                <form string="standard_form">
-                    <sheet>
-                        <div class="oe_title">
-                            <label class="o_form_label" for="name"/>
-                            <h1>
-                                <field name="name" required="1"/>
-                            </h1>
-                        </div>
-                        <group>
-                            <group>
-                                <field name='is_purchase'/>
-                                <field name='is_warehouse'/>
-                            </group>
-                            <group>
-                                <field name="total_cost"/>
-                            </group>
-                        </group>
-                        <field name='parent_path' invisible="1"/>
-                        <field name="line_ids">
-                            <!--                            <tree>-->
-                            <tree editable="bottom">
-                                <field name="standard_id" invisible="1"/>
-                                <field name="job_type"/>
-                                <field name="product_id"/>
-                                <!--                                <field name="descripcion"/>-->
-                                <field name="uom_id"/>
-                                <field name="qty"/>
-                                <field name="cost_price"/>
-                                <!--                                <field name="subtotal_item_capitulo"/>-->
-                                <field name="tipo_descuento"/>
-                                <field name="cantidad_descuento"/>
-                                <!--                                <field name="subtotal_descuento"/>-->
-                                <field name="impuesto_porciento"/>
-                                <!--                                <field name="total_impuesto_item"/>-->
-                                <field name="beneficio_estimado"/>
-                                <!--                                <field name="importe_venta"/>-->
-                                <field name="suma_impuesto_item_y_cost_price" string="Total"/>
-                                <button type="object" string=" Ver" name="action_standar_line" class="btn btn-primary"
-                                        icon="fa-credit-card"/>
-                            </tree>
-                            <form string="Line">
-                                <sheet>
-                                    <group>
-                                        <group name="datos_productos" string="Datos del Producto">
-                                            <!-- <field name="reference"/> -->
-                                            <field name="job_type"/>
-                                            <!-- <field name="color_item_id" invisible= "1"/> -->
-                                            <field name="product_id"/>
-                                            <field name="descripcion"/>
-                                            <field name="uom_id"/>
-                                        </group>
-                                        <group name="detalle_costes" string="Detalles de Costes">
-                                            <field name="qty" string="Cantidad"/>
-                                            <!-- <field name="longitud" invisible = "1"/> -->
-                                            <!-- <field name="ancho" invisible = "1"/> -->
-                                            <!-- <field name="alto" invisible = "1"/> -->
-                                            <field name="cost_price" string="Precio Coste"/>
-                                            <field name="subtotal_item_capitulo" string="Importe"/>
-                                            <field name="tipo_descuento" string="Tipo Dto."/>
-                                            <field name="cantidad_descuento" string="Importe Dto."/>
-                                            <field name="subtotal_descuento" string="Subtotal"/>
-                                            <field name="impuesto_porciento" string="Impuesto %"/>
-                                            <field name="total_impuesto_item" string="Imp. Impuesto"/>
-                                            <field name="suma_impuesto_item_y_cost_price" string="Total"/>
-                                        </group>
-                                        <group name="detalle_costes" string="Detalles de Precio Venta Publico">
-
-                                            <field name="beneficio_estimado" string="Marge Beneficio %"/>
-                                            <field name="importe_venta" string="Importe PVP"/>
-                                        </group>
-                                    </group>
-                                </sheet>
-                            </form>
-                        </field>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="standard_view_tree" model="ir.ui.view">
-            <field name="name">standard</field>
-            <field name="model">standard</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="name"/>
-                    <field name='parent_path' invisible="1"/>
+  <data>
+    <record id="standard_view_form" model="ir.ui.view">
+      <field name="name">standard_view_form</field>
+      <field name="model">standard</field>
+      <field name="arch" type="xml">
+        <form string="standard_form">
+          <sheet>
+            <div class="oe_title">
+              <label class="o_form_label" for="name"/>
+              <h1>
+                <field name="name" required="1"/>
+              </h1>
+            </div>
+            <group>
+                <group>
+                    <field name="code"/>
+                    <field name='is_purchase'/>
+                    <field name='is_warehouse'/>
+                </group>
+                <group>
                     <field name="total_cost"/>
+                </group>
+            </group>
+            <field name='parent_path' invisible="1"/>
+            <field name="line_ids">
+                <tree editable="bottom">
+                    <field name="standard_id" invisible="1"/>
+                    <field name="job_type"/>
+                    <field name="product_id"/>
+                    <field name="uom_id"/>
+                    <field name="product_qty"/>
+                    <field name="cost_price"/>
+                    <field name="tipo_descuento"/>
+                    <field name="cantidad_descuento"/>
+                    <field name="impuesto_porciento"/>
+                    <field name="beneficio_estimado"/>
+                    <field name="suma_impuesto_item_y_cost_price" string="Total"/>
+                    <button type="object" string=" Ver" name="action_standar_line" class="btn btn-primary" icon="fa-credit-card"/>
                 </tree>
             </field>
-        </record>
+          </sheet>
+        </form>
+      </field>
+    </record>
 
-    </data>
+    <record id="standard_view_tree" model="ir.ui.view">
+      <field name="name">standard</field>
+      <field name="model">standard</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name='parent_path' invisible="1"/>
+          <field name="total_cost"/>
+        </tree>
+      </field>
+    </record>
+  </data>
 </odoo>
