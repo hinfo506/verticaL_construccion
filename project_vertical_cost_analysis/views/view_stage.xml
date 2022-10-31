@@ -9,7 +9,8 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="cost_analysis_id" attrs="{'readonly': [('cantidad', '=', True)]}"/>
+                    <field name="cost_analysis_id" attrs="{'readonly': [('is_ac_true', '=', True)]}"/>
+                    <field name="is_ac_true" invisible="1"/>
                 </xpath>
 
                 <xpath expr="//header" position="inside">
