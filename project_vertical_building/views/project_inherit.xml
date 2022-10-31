@@ -16,8 +16,6 @@
                 </xpath>
 
                 <xpath expr="//field[@name='company_id']" position="before">
-                    <!--                <xpath expr="//label[@for='date_start']//div" position="before">-->
-                    <!--                    <field name=""/>-->
                     <label for="date_start_real" string="Fecha real"/>
                     <div name="datesreal" class="o_row">
                         <field name="date_start_real" widget="daterange"
@@ -34,7 +32,6 @@
                     <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
                         <field name="activi_count" string="Actividades" widget="statinfo"/>
                     </button>
-                    <!-- <button class="oe_stat_button" name="action_view_fase" type="object" icon="fa-sitemap"> -->
                     <button class="oe_stat_button" name="action_view_fase" type="object">
                         <img src="/project_vertical_building/static/src/img/sitemap.png"
                              style="margin: 0px 10px 0px 10px; width: 26px;"/>
@@ -88,6 +85,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//kanban" position="attributes">
                     <attribute name="on_create"></attribute>
+                </xpath>
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="js_class"></attribute>
                 </xpath>
                 <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
                     <field name="fase_kanban_count" invisible="1"/>
