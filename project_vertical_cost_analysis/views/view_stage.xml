@@ -20,7 +20,7 @@
 
                 <xpath expr="//sheet//div//button" position="before">
                     <button class="oe_stat_button" name="action_view_item_cost" type="object" icon="fa-archive" attrs="{'invisible': [('related_is_end', '!=', True)]}">
-                        <field name="itemcost_count" string="Items Analisis Cost" widget="statinfo" />
+                        <field name="itemcost_count" string="Items AC" widget="statinfo" />
                     </button>
                 </xpath>
 
