@@ -253,117 +253,8 @@ class VerticalStage(models.Model):
             )
             record.write({"estado_fase": state})
 
-        # for line in record.cost_analysis_id.cost_analysis_line_ids:
-        #     record.env["vertical.item"].create(
-        #         {
-        #             "vertical_stage_id": record.id,
-        #             "project_id": record.project_id.id,
-        #             "type_item": 'cost_analysis',
-        #             "cost_analysis_id": record.cost_analysis_id.id,
-        #             "standard_id": record.cost_analysis_id.standard_id.id,
-        #             "job_type": line.job_type,
-        #             "product_id": line.product_id.id,
-        #             "descripcion": line.descripcion,
-        #             "uom_id": line.uom_id.id,
-        #             "product_qty": line.product_qty,
-        #             "cost_price": line.cost_price,
-        #             "subtotal_item_capitulo": line.subtotal_item_capitulo,
-        #             "tipo_descuento": line.tipo_descuento,
-        #             "cantidad_descuento": line.cantidad_descuento,
-        #             "subtotal_descuento": line.subtotal_descuento,
-        #             "impuesto_porciento": line.impuesto_porciento,
-        #             "total_impuesto_item": line.total_impuesto_item,
-        #             "beneficio_estimado": line.beneficio_estimado,
-        #             "importe_venta": line.importe_venta,
-        #             "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
-        #         }
-        #     )
-        #     for li in record.cost_analysis_id.standard_id.line_ids:
-        #         record.env["vertical.item"].create(
-        #             {
-        #                 "vertical_stage_id": record.id,
-        #                 "project_id": record.project_id.id,
-        #                 "type_item": 'standard',
-        #                 "cost_analysis_id": record.cost_analysis_id.id,
-        #                 "standard_id": record.cost_analysis_id.standard_id.id,
-        #                 "job_type": li.job_type,
-        #                 "product_id": li.product_id.id,
-        #                 "descripcion": li.descripcion,
-        #                 "uom_id": li.uom_id.id,
-        #                 "product_qty": li.product_qty,
-        #                 "cost_price": li.cost_price,
-        #                 "subtotal_item_capitulo": li.subtotal_item_capitulo,
-        #                 "tipo_descuento": li.tipo_descuento,
-        #                 "cantidad_descuento": li.cantidad_descuento,
-        #                 "subtotal_descuento": li.subtotal_descuento,
-        #                 "impuesto_porciento": li.impuesto_porciento,
-        #                 "total_impuesto_item": li.total_impuesto_item,
-        #                 "beneficio_estimado": li.beneficio_estimado,
-        #                 "importe_venta": li.importe_venta,
-        #                 "suma_impuesto_item_y_cost_price": li.suma_impuesto_item_y_cost_price,
-        #             }
-        #         )
         return record
 
-    # def write(self, values):
-    #     record = super(VerticalStage, self).write(values)
-    #     if values.get("cost_analysis_id"):
-    #         if self.cost_analysis_id:
-    #             for line in self.cost_analysis_id.cost_analysis_line_ids:
-    #                 self.env["vertical.item"].create(
-    #                     {
-    #                         "vertical_stage_id": self.id,
-    #                         "project_id": self.project_id.id,
-    #                         "type_item": 'cost_analysis',
-    #                         "cost_analysis_id": self.cost_analysis_id.id,
-    #                         "standard_id": self.cost_analysis_id.standard_id.id,
-    #                         "job_type": line.job_type,
-    #                         "product_id": line.product_id.id,
-    #                         "descripcion": line.descripcion,
-    #                         "uom_id": line.uom_id.id,
-    #                         "product_qty": line.product_qty,
-    #                         "cost_price": line.cost_price,
-    #                         "subtotal_item_capitulo": line.subtotal_item_capitulo,
-    #                         "tipo_descuento": line.tipo_descuento,
-    #                         "cantidad_descuento": line.cantidad_descuento,
-    #                         "subtotal_descuento": line.subtotal_descuento,
-    #                         "impuesto_porciento": line.impuesto_porciento,
-    #                         "total_impuesto_item": line.total_impuesto_item,
-    #                         "beneficio_estimado": line.beneficio_estimado,
-    #                         "importe_venta": line.importe_venta,
-    #                         "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
-    #                     }
-    #                 )
-    #                 for li in self.cost_analysis_id.standard_id.line_ids:
-    #                     self.env["vertical.item"].create(
-    #                         {
-    #                             "vertical_stage_id": self.id,
-    #                             "project_id": self.project_id.id,
-    #                             "type_item": 'standard',
-    #                             "cost_analysis_id": self.cost_analysis_id.id,
-    #                             "standard_id": self.cost_analysis_id.standard_id.id,
-    #                             "job_type": li.job_type,
-    #                             "product_id": li.product_id.id,
-    #                             "descripcion": li.descripcion,
-    #                             "uom_id": li.uom_id.id,
-    #                             "product_qty": li.product_qty,
-    #                             "cost_price": li.cost_price,
-    #                             "subtotal_item_capitulo": li.subtotal_item_capitulo,
-    #                             "tipo_descuento": li.tipo_descuento,
-    #                             "cantidad_descuento": li.cantidad_descuento,
-    #                             "subtotal_descuento": li.subtotal_descuento,
-    #                             "impuesto_porciento": li.impuesto_porciento,
-    #                             "total_impuesto_item": li.total_impuesto_item,
-    #                             "beneficio_estimado": li.beneficio_estimado,
-    #                             "importe_venta": li.importe_venta,
-    #                             "suma_impuesto_item_y_cost_price": li.suma_impuesto_item_y_cost_price,
-    #                         }
-    #                     )
-    #                 return record
-    #             else:
-    #                 return record
-    #     else:
-    #         return record
 
     def on_delete_ac(self):
         for record in self:
@@ -373,22 +264,11 @@ class VerticalStage(models.Model):
                 ('project_id', '=', record.project_id.id)]).unlink()
             # record.cost_analysis_id = []
 
-    # is_ac_true = fields.Boolean(string='Is_ac_true', required=False, compute='_compute_method_is_ac_true')
-    #
-    # def _compute_method_is_ac_true(self):
-    #     for record in self:
-    #         if record.cost_analysis_id:
-    #             record.is_ac_true = True
-    #         else:
-    #             record.is_ac_true = False
 
     @api.onchange('cost_analysis_id')
     def onchange_project_id(self):
         if self.cost_analysis_id:
-            self.item_ids = [(5, 0, 0)]
-            # self.on_delete_ac()
-            # for line in self.cost_analysis_id.cost_analysis_line_ids:
-            self.item_ids = [(0, 0, {
+            self.item_ids = [(5, 0, {
                 "vertical_stage_id": self.id,
                 "project_id": self.project_id.id,
                 # "type_item": 'cost_analysis',
