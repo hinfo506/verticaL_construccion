@@ -391,8 +391,8 @@ class VerticalStage(models.Model):
             self.item_ids = [(0, 0, {
                 "vertical_stage_id": self.id,
                 "project_id": self.project_id.id,
-                "type_item": 'cost_analysis',
-                "cost_analysis_id": self.cost_analysis_id.id,
+                # "type_item": 'cost_analysis',
+                # "cost_analysis_id": self.cost_analysis_id.id,
                 "standard_id": self.cost_analysis_id.standard_id.id,
                 "job_type": line.job_type,
                 "product_id": line.product_id.id,
