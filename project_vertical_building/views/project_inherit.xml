@@ -31,9 +31,7 @@
                     <button class="oe_stat_button" name="met_activi_proyecto" type="object" icon="fa-archive">
                         <field name="activi_count" string="Actividades" widget="statinfo"/>
                     </button>
-                    <button class="oe_stat_button" name="action_view_fase" type="object">
-                        <img src="/project_vertical_building/static/src/img/sitemap.png"
-                             style="margin: 0px 10px 0px 10px; width: 26px;"/>
+                    <button class="oe_stat_button" name="action_view_fase" type="object" icon="fa-sitemap">
                         <span>Fases</span>
                     </button>
                 </xpath>
