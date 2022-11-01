@@ -18,10 +18,10 @@
                         <button name='approve_fase' string='Validar'
                                 class='oe_highlight' attrs="{'invisible': [('estado_fase', '!=', 'pendiente')]}"
                                 type='object'/>
-                        <button name='add_standars_one_id' string='Agregar Standard' class='oe_highlight'
-                                type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"/>
-                        <button name="on_delete_ac" type="object" string="Eliminar AC" class='oe_highlight'
-                                attrs="{'invisible': [('cost_analysis_id', '=', False)]}"/>
+<!--                        <button name='add_standars_one_id' string='Agregar Standard' class='oe_highlight'-->
+<!--                                type='object' attrs="{'invisible': [('related_is_end', '!=', True)]}"/>-->
+<!--                        <button name="on_delete_ac" type="object" string="Eliminar AC" class='oe_highlight'-->
+<!--                                attrs="{'invisible': [('cost_analysis_id', '=', False)]}"/>-->
                     </header>
                     <sheet>
                         <field name="related_is_prevision" invisible="1"/>
@@ -45,8 +45,9 @@
                                 <field name="type_stage_id"/>
                                 <field name="name_complete" string="Nombre Completo"/>
                                 <field name="name" string="Nombre Reducido"/>
-                                <field name="cost_analysis_id" attrs="{'readonly': [('is_ac_true', '=', True)]}"/>
-                                <field name="is_ac_true" invisible="1"/>
+                                <field name="cost_analysis_id"/>
+<!--                                <field name="cost_analysis_id" attrs="{'readonly': [('is_ac_true', '=', True)]}"/>-->
+<!--                                <field name="is_ac_true" invisible="1"/>-->
                                 <field name="parent_id"/>
                                 <field name="related_is_end" invisible="1"/>
                             </group>

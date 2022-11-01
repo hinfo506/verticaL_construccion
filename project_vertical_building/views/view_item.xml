@@ -84,6 +84,9 @@
                     <field name="uom_id"/>
                     <field name="standard_id" optional="hide"/>
                     <field name="cost_analysis_id" optional="hide"/>
+                    <field name="vertical_stage_id" optional="hide"/>
+                    <field name="project_id" optional="hide"/>
+                    <field name="type_item" optional="hide"/>
                     <button type="object" string=" Volumetria" name="met_itemvolumetria" class="btn btn-primary"
                             icon="fa-hand-o-right"/>
                 </tree>
