@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
-    <data>
+<odoo>
+    <data noupdate="1">
 
         <record id="standard_line_view_form" model="ir.ui.view">
             <field name="name">Standard Line</field>

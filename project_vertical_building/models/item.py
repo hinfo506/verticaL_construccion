@@ -47,7 +47,9 @@ class VerticalItem(models.Model):
     )
     # Campos Sumatorios
     item_volumetry_count = fields.Integer(
-        string="Item Volumetria Count", required=False,compute="_compute_item_volum_count",)
+        string="Item Volumetria Count",
+        required=False,
+        compute="_compute_item_volum_count",)
 
     color_item = fields.Selection(
         selection=[

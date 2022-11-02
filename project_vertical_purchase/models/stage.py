@@ -134,4 +134,3 @@ class VerticalStage(models.Model):
 
             current_po.order_line = purchase_data[vendor_key]["order_lines"]
             purchase_orders.append(current_po.id)
-
