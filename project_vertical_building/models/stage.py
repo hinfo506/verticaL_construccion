@@ -24,12 +24,17 @@ class VerticalStage(models.Model):
                                        ("aprobada", "Aprobada en Prevision"),
                                        ("aprobadaproceso", "Aprobada en Proceso"),
                                        ("pendiente", "Pdte Validar"),
-                                       ("noaprobada", "No aprobada"), ], required=False, default="borrador",)
+                                       ("noaprobada", "No aprobada"), ], required=False, default="borrador", )
 
-    item_ids = fields.One2many(
+    item_standard_ids = fields.One2many(
         comodel_name="vertical.item",
-        inverse_name="vertical_stage_id",
-        string="Items",
+        inverse_name="standard_stage_id",
+        string="Items Standard",
+    )
+    item_cost_analysis_ids = fields.One2many(
+        comodel_name="vertical.item",
+        inverse_name="cost_stage_id",
+        string="Items Analisis de Costo",
     )
     project_id = fields.Many2one(comodel_name="project.project", string="Proyecto", required=False)
 
@@ -54,21 +59,22 @@ class VerticalStage(models.Model):
     related_is_end = fields.Boolean("Is_End", related="type_stage_id.is_end")
     total2 = fields.Float("Precio Total", compute="_compute_total")
 
-    item_count = fields.Integer(string="Contador Item", compute="_compute_item_count")
     childs_count = fields.Integer(string="Contador Childs", compute="_compute_childs_count")
 
     # Cost Analysis
     cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste',
                                        required=False)
-    itemcost_count = fields.Integer(string='Itemcost_count', required=False, compute='_compute_item_cost_count')
+    item_cost_count = fields.Integer(string='Item Costo Count', required=False, compute='_compute_item_count',
+                                     hide=True)
 
     # Standard
-    itemstand_count = fields.Integer(string='Itemstand_count', required=False, compute='_compute_item_stand_count')
+    item_standard_count = fields.Integer(string='Item Standard Count', required=False, compute='_compute_item_count',
+                                         hide=True)
 
-    def _compute_item_stand_count(self):
+    def _compute_item_count(self):
         for r in self:
-            r.itemstand_count = self.env['vertical.item'].search_count(
-                [("id", "in", self.item_ids.ids), ("type_item", "=", 'standard')])
+            r.item_cost_count = len(self.item_cost_analysis_ids)
+            r.item_standard_count = len(self.item_standard_ids)
 
     def action_view_item_standard(self):
         return {
@@ -76,7 +82,7 @@ class VerticalStage(models.Model):
             "name": "Items",
             "res_model": "vertical.item",
             "view_mode": "tree,form",
-            "domain": [("id", "in", self.item_ids.ids), ("type_item", "=", 'standard')],
+            "domain": [("id", "in", self.item_standard_ids.ids), ("type_item", "=", 'standard')],
         }
 
     def add_standars(self):
@@ -113,12 +119,8 @@ class VerticalStage(models.Model):
             'type': 'ir.actions.act_window',
             'target': 'new',
         }
-    ###########################################################
 
-    # Cost Analysis
-    def _compute_item_cost_count(self):
-        for r in self:
-            r.itemcost_count = self.env['vertical.item'].search_count([("id", "in", self.item_ids.ids), ("type_item", "=", 'cost_analysis')])
+    ###########################################################
 
     def action_view_item_cost(self):
         return {
@@ -126,67 +128,13 @@ class VerticalStage(models.Model):
             "name": "Items",
             "res_model": "vertical.item",
             "view_mode": "tree,form",
-            "domain": [("id", "in", self.item_ids.ids), ("type_item", "=", 'cost_analysis')],
+            "domain": [("id", "in", self.item_cost_analysis_ids.ids), ("type_item", "=", 'cost_analysis')],
         }
-
-    @api.depends("item_ids")
-    def _compute_amount_all(self):
-        """
-        Compute the total amounts of the SO.
-        """
-        for order in self:
-            material_total = labour_total = 0.0
-            machinery_total = overhead_total = 0.0
-            for line in order.item_ids:
-                # amount_untaxed += 1
-                # amount_untaxed += line.price_subtotal
-                if line.job_type == "material":
-                    material_total += line.suma_impuesto_item_y_cost_price
-                if line.job_type == "labour":
-                    labour_total += line.suma_impuesto_item_y_cost_price
-                if line.job_type == "machinery":
-                    machinery_total += line.suma_impuesto_item_y_cost_price
-                if line.job_type == "overhead":
-                    overhead_total += line.suma_impuesto_item_y_cost_price
-            order.update(
-                {
-                    # 'amount_untaxed': amount_untaxed,
-                    "material_total": material_total,
-                    "labor_total": labour_total,
-                    "machinerycost_total": machinery_total,
-                    "overhead_total": overhead_total,
-                    # 'amount_total': amount_untaxed + amount_tax,
-                    # 'amount_total': amount_untaxed,
-                }
-            )
-
-    @api.depends("item_ids")
-    def _compute_item_count(self):
-        for r in self:
-            r.item_count = len(r.item_ids)
 
     @api.depends("child_ids")
     def _compute_childs_count(self):
         for r in self:
             r.childs_count = len(r.child_ids)
-
-    def action_view_item(self):
-        return {
-            "type": "ir.actions.act_window",
-            "name": "Items",
-            "res_model": "vertical.item",
-            "view_mode": "tree,form",
-            "domain": [("id", "in", self.item_ids.ids)],
-            "views": [
-                (self.env.ref("project_vertical_building.item_view_tree").id, "tree"),
-                (self.env.ref("project_vertical_building.item_view_form").id, "form"),
-            ],
-            "context": dict(
-                self._context,
-                default_vertical_stage_id=self.id,
-                default_project_id=self.project_id.id,
-            ),
-        }
 
     def action_view_childs(self):
         return {
@@ -203,22 +151,14 @@ class VerticalStage(models.Model):
         for order in self:
             if order.type_stage_id.is_end:
                 suma = 0.0
-                for item in order.item_ids:
+                for item in order.item_cost_analysis_ids:
                     suma += item.suma_impuesto_item_y_cost_price
-                order.update(
-                    {
-                        "total": suma,
-                    }
-                )
+                order.update({"total": suma})
             else:
                 suma = 0.0
                 for fase in order.child_ids:
                     suma += fase.total
-                order.update(
-                    {
-                        "total": suma,
-                    }
-                )
+                order.update({"total": suma})
 
     def _compute_total(self):
         for record in self:
@@ -256,37 +196,80 @@ class VerticalStage(models.Model):
         return record
 
 
-    def on_delete_ac(self):
-        for record in self:
-            value_unlink = self.env['vertical.item'].search([
-                ('cost_analysis_id', '=', record.cost_analysis_id.id),
-                ('vertical_stage_id', '=', record.id),
-                ('project_id', '=', record.project_id.id)]).unlink()
-            # record.cost_analysis_id = []
-
-
     @api.onchange('cost_analysis_id')
     def onchange_project_id(self):
         if self.cost_analysis_id:
-            self.item_ids = [(5, 0, {
-                "vertical_stage_id": self.id,
-                "project_id": self.project_id.id,
-                # "type_item": 'cost_analysis',
-                # "cost_analysis_id": self.cost_analysis_id.id,
-                "standard_id": self.cost_analysis_id.standard_id.id,
-                "job_type": line.job_type,
-                "product_id": line.product_id.id,
-                "descripcion": line.descripcion,
-                "uom_id": line.uom_id.id,
-                "product_qty": line.product_qty,
-                "cost_price": line.cost_price,
-                "subtotal_item_capitulo": line.subtotal_item_capitulo,
-                "tipo_descuento": line.tipo_descuento,
-                "cantidad_descuento": line.cantidad_descuento,
-                "subtotal_descuento": line.subtotal_descuento,
-                "impuesto_porciento": line.impuesto_porciento,
-                "total_impuesto_item": line.total_impuesto_item,
-                "beneficio_estimado": line.beneficio_estimado,
-                "importe_venta": line.importe_venta,
-                "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
-            }) for line in self.cost_analysis_id.cost_analysis_line_ids]
+            item_cost_analysis_ids = [(5, 0, 0)]
+            item_standard_ids = [(5, 0, 0)]
+            for line in self.cost_analysis_id.cost_analysis_line_ids:
+                item_cost_analysis_ids.append((0, 0, {
+                    "cost_analysis_id": self.cost_analysis_id.id,
+                    "project_id": self.project_id.id,
+                    "job_type": line.job_type,
+                    "product_id": line.product_id.id,
+                    "descripcion": line.descripcion,
+                    "uom_id": line.uom_id.id,
+                    "product_qty": line.product_qty,
+                    "cost_price": line.cost_price,
+                    "subtotal_item_capitulo": line.subtotal_item_capitulo,
+                    "tipo_descuento": line.tipo_descuento,
+                    "cantidad_descuento": line.cantidad_descuento,
+                    "subtotal_descuento": line.subtotal_descuento,
+                    "impuesto_porciento": line.impuesto_porciento,
+                    "total_impuesto_item": line.total_impuesto_item,
+                    "beneficio_estimado": line.beneficio_estimado,
+                    "importe_venta": line.importe_venta,
+                    "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
+                }))
+            for line in self.cost_analysis_id.standard_id.line_ids:
+                item_standard_ids.append((0, 0, {
+                    "project_id": self.project_id.id,
+                    "standard_id": self.cost_analysis_id.standard_id.id,
+                    "job_type": line.job_type,
+                    "product_id": line.product_id.id,
+                    "descripcion": line.descripcion,
+                    "uom_id": line.uom_id.id,
+                    "product_qty": line.product_qty,
+                    "cost_price": line.cost_price,
+                    "subtotal_item_capitulo": line.subtotal_item_capitulo,
+                    "tipo_descuento": line.tipo_descuento,
+                    "cantidad_descuento": line.cantidad_descuento,
+                    "subtotal_descuento": line.subtotal_descuento,
+                    "impuesto_porciento": line.impuesto_porciento,
+                    "total_impuesto_item": line.total_impuesto_item,
+                    "beneficio_estimado": line.beneficio_estimado,
+                    "importe_venta": line.importe_venta,
+                    "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
+                }))
+
+            self.item_cost_analysis_ids = item_cost_analysis_ids
+            self.item_standard_ids = item_standard_ids
+
+
+
+    @api.depends("cost_analysis_id")
+    def _compute_amount_all(self):
+        """
+        Compute the total amounts of the SO.
+        """
+        for order in self:
+            material_total = labour_total = 0.0
+            machinery_total = overhead_total = 0.0
+            for line in order.item_cost_analysis_ids:
+                if line.job_type == "material":
+                    material_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == "labour":
+                    labour_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == "machinery":
+                    machinery_total += line.suma_impuesto_item_y_cost_price
+                if line.job_type == "overhead":
+                    overhead_total += line.suma_impuesto_item_y_cost_price
+            order.update(
+                {
+                    "material_total": material_total,
+                    "labor_total": labour_total,
+                    "machinerycost_total": machinery_total,
+                    "overhead_total": overhead_total,
+                }
+            )
+

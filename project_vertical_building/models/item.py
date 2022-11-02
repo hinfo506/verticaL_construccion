@@ -27,7 +27,8 @@ class VerticalItem(models.Model):
     )
     ###### FASES DEL PROYECTO ########
     project_id = fields.Many2one("project.project", string="Proyecto", ondelete="cascade")
-    vertical_stage_id = fields.Many2one(comodel_name="vertical.stage", string="Fase", required=False)
+    standard_stage_id = fields.Many2one(comodel_name="vertical.stage", string="Fase Standard", required=False)
+    cost_stage_id = fields.Many2one(comodel_name="vertical.stage", string="Fase Costes", required=False)
 
     type_item = fields.Selection(string='Tipo de Item', selection=[
                     ('cost_analysis', 'Analisis de coste'),
