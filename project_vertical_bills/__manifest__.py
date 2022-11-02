@@ -3,7 +3,7 @@
     "name": "Vertical Bills",
     "summary": """Vertical Bills""",
     "author": "OdooNext,Raul Rolando Jardinot Gonzalez",
-    "website": "http://odoonext.com",
+    "website": "https://odoonext.com",
     "category": "Uncategorized",
     "version": "15.0.1.0.0",
     "depends": ["base", "project_vertical_building"],
