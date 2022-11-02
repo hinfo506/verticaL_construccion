@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
-    <data>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_inherit_purchase_order" model="ir.ui.view">
+        <field name="name">Solicitudes de Presupuesto</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
 
-        <!-- Inherit Form View to Modify it -->
-        <record id="view_inherit_purchase_order" model="ir.ui.view">
-            <field name="name">Solicitudes de Presupuesto</field>
-            <field name="model">purchase.order</field>
-            <field name="inherit_id" ref="purchase.purchase_order_form"/>
-            <field name="arch" type="xml">
+            <!--                <xpath expr="//field[@name='name']" position="">-->
+            <xpath expr="//notebook//page//tree//field[@name='price_subtotal']" position="after">
+                <field name="item_id"/>
+            </xpath>
 
-                <!--                <xpath expr="//field[@name='name']" position="">-->
-                <xpath expr="//notebook//page//tree//field[@name='price_subtotal']" position="after">
-                    <field name="item_id"/>
-                </xpath>
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="project_id"/>
+                <field name="stage_id"/>
+            </xpath>
 
-                <xpath expr="//field[@name='currency_id']" position="after">
-                    <field name="project_id"/>
-                    <field name="stage_id"/>
-                </xpath>
-
-            </field>
-        </record>
-
-    </data>
+        </field>
+    </record>
 </odoo>

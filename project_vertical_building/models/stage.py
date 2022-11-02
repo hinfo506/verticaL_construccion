@@ -14,9 +14,7 @@ class VerticalStage(models.Model):
     cantidad = fields.Integer("Cantidad", default=1)
     fecha_inicio = fields.Date("Fecha Inicio")
     fecha_finalizacion = fields.Date("Acaba el")
-
     total = fields.Float("Precio Coste", compute="_compute_total_fase")
-
     # Campo  aprobar o no aprobar fase
     estado_fase = fields.Selection(string="Estado_partida",
                                    selection=[
