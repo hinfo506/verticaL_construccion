@@ -12,7 +12,7 @@ class VerticalItem(models.Model):
     )
     hours = fields.Char(string="Horas", required=False)
     actual_timesheet = fields.Char(string="Parte de Horas Actual", required=False)
-    base = fields.Char(string="Base", required=False)
+    base = fields.Char(string="Bases", required=False)
     total_prevision = fields.Float("Importe Total Previsto")
     date = fields.Date(string="Fecha", default=lambda self: fields.Date.today())
     fecha_finalizacion = fields.Date("Fecha Finalización")
@@ -47,10 +47,8 @@ class VerticalItem(models.Model):
     )
     # Campos Sumatorios
     item_volumetry_count = fields.Integer(
-        string="item_volumetry_count",
-        required=False,
-        compute="_compute_item_volumetry_count",
-    )
+        string="Item Volumetria Count", required=False,compute="_compute_item_volum_count",)
+
     color_item = fields.Selection(
         selection=[
             ("red", "Rojo"),
@@ -80,7 +78,7 @@ class VerticalItem(models.Model):
     cost_analysis_id = fields.Many2one(comodel_name='vertical.cost.analysis', string='Análisis de Coste', required=False)
     standard_id = fields.Many2one(comodel_name="standard", string="Standard", required=False)
 
-    def _compute_item_volumetry_count(self):
+    def _compute_item_volum_count(self):
         for r in self:
             r.item_volumetry_count = self.env["vertical.item.volumetry"].search_count([("item_id", "=", self.id)])
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<odoo noupdate="1">
     <data>
 
         <record id="item_view_form" model="ir.ui.view">
@@ -62,7 +62,7 @@
             <field name="name">item.tree</field>
             <field name="model">vertical.item</field>
             <field name="arch" type="xml">
-                <tree string="Items" decoration-danger="color_item=='red'" decoration-info="color_item=='blue'"
+                <tree decoration-danger="color_item=='red'" decoration-info="color_item=='blue'"
                       decoration-success="color_item=='green'" decoration-muted="color_item=='grey'"
                       decoration-warning="color_item=='brown'" decoration-primary="color_item=='purple'">
                     <field name="date"/>

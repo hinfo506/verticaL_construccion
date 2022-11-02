@@ -1,4 +1,4 @@
-<odoo>
+<odoo noupdate="1">
     <data>
         <record model="ir.actions.server" id="action_purchase_stage">
             <field name="name">Enviar a Compra</field>
