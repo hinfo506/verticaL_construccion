@@ -1,6 +1,6 @@
 import logging
 
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -63,9 +63,7 @@ class VerticalItem(models.Model):
         # items = stages.mapped('item_ids') # tomo las fases y mapeo por los item obteniendo el modelo vertical.item(5, 6, 7)
         for i in items:
             if not i.product_id.seller_ids:
-                raise ValidationError(
-                    '"No se pudo completar la venta: Hay Artículos sin proveedores"'
-                )
+                raise ValidationError(_('"No se pudo completar la venta: Hay Artículos sin proveedores"'))
 
     @api.model
     def purchase_from_item(self):

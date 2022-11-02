@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+    <data noupdate="1">
 
         <!-- Inherit Form View to Modify it -->
         <record id="stage_view_inherit" model="ir.ui.view">

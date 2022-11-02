@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -92,7 +92,7 @@ class VerticalStage(models.Model):
         # Comprobar que las fases a las que se va a agregar el standar sean partidas
         for active in active_ids:
             if not active.type_stage_id.is_end:
-                raise ValidationError('Debe seleccionar solo Fases de tipo Final')
+                raise ValidationError(_('Debe seleccionar solo Fases de tipo Final'))
 
         return {
             'name': 'Add Standard',

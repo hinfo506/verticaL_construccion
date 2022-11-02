@@ -29,8 +29,6 @@ class PurchaseOrder(models.Model):
             ###############################
             for line in order.order_line:
                 item = self.env["vertical.item"].search([("id", "=", line.item_id.id)])
-                # raise ValidationError(item)
-                # line.stage_id
                 item.update(
                     {"amount_confirm": line.product_qty, "purchase_stage": "confirm"}
                 )
@@ -70,7 +68,6 @@ class PurchaseOrder(models.Model):
             for line in order.order_line:
                 item = self.env["vertical.item"].search([("id", "=", line.item_id.id)])
                 amount = item.amount_confirm - line.product_qty
-                # raise ValidationError(amount_cancel)
                 item.update(
                     {
                         "amount_confirm": amount,
@@ -80,11 +77,3 @@ class PurchaseOrder(models.Model):
             #############################################
 
         return super(PurchaseOrder, self).button_cancel()
-
-    # def button_cancel(self):
-    #     for order in self:
-    #         for inv in order.invoice_ids:
-    #             if inv and inv.state not in ('cancel', 'draft'):
-    #                 raise UserError(_("Unable to cancel this purchase order. You must first cancel the related vendor bills."))
-    #
-    #     self.write({'state': 'cancel', 'mail_reminder_confirmed': False})

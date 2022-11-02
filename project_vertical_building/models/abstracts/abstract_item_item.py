@@ -61,7 +61,6 @@ class ItemItem(models.Model):
     # Importe Subtotal item Capitulo - Importe sin contar con los impuestos
     @api.depends('product_qty', 'cost_price')
     def _compute_subtotal(self):
-        # raise ValidationError('sda')
         for rec in self:
             if rec.job_type == 'material':
                 rec.subtotal_item_capitulo = rec.product_qty * rec.cost_price
