@@ -1,21 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <record id="stage_view_inherit" model="ir.ui.view">
+        <field name="name">Fase</field>
+        <field name="model">vertical.stage</field>
+        <field name="inherit_id" ref="project_vertical_building.fase_view_form" />
+        <field name="arch" type="xml">
 
-        <!-- Inherit Form View to Modify it -->
-        <record id="stage_view_inherit" model="ir.ui.view">
-            <field name="name">Fase</field>
-            <field name="model">vertical.stage</field>
-            <field name="inherit_id" ref="project_vertical_building.fase_view_form"/>
-            <field name="arch" type="xml">
+            <xpath expr="//sheet//div//button" position="before">
+                <button class="oe_stat_button" name="action_view_bills" type="object" icon="fa-archive"
+                        attrs="{'invisible':[('related_is_end','!=',True)]}">
+                    <field name="bills_count" string="Gastos" widget="statinfo"/>
+                </button>
+            </xpath>
 
-                <xpath expr="//sheet//div//button" position="before">
-                    <button class="oe_stat_button" name="action_view_bills" type="object" icon="fa-archive"
-                            attrs="{'invisible':[('related_is_end','!=',True)]}">
-                        <field name="bills_count" string="Gastos" widget="statinfo"/>
-                    </button>
-                </xpath>
-
-            </field>
-        </record>
-
+        </field>
+    </record>
 </odoo>
