@@ -195,7 +195,6 @@ class VerticalStage(models.Model):
 
         return record
 
-
     @api.onchange('cost_analysis_id')
     def onchange_project_id(self):
         if self.cost_analysis_id:
@@ -245,8 +244,6 @@ class VerticalStage(models.Model):
             self.item_cost_analysis_ids = item_cost_analysis_ids
             self.item_standard_ids = item_standard_ids
 
-
-
     @api.depends("cost_analysis_id")
     def _compute_amount_all(self):
         """
@@ -272,4 +269,3 @@ class VerticalStage(models.Model):
                     "overhead_total": overhead_total,
                 }
             )
-

@@ -13,10 +13,10 @@ class VerticalItem(models.Model):
     amount_delivered = fields.Float(string="Cantidad Entregada", required=False)
 
     purchase_item_count = fields.Integer(
-        string="purchase_item_count", required=False, compute="get_purchase_item_count"
+        string="purchase_item_count", required=False, compute="_compute_purchase_item_count"
     )
 
-    def get_purchase_item_count(self):
+    def _compute_purchase_item_count(self):
         for r in self:
             purchase = (
                 r.env["purchase.order.line"]

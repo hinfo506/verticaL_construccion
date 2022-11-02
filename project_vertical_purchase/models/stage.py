@@ -12,11 +12,11 @@ class VerticalStage(models.Model):
     _inherit = "vertical.stage"
 
     purchase_count = fields.Integer(
-        string="purchase_count", required=False, compute="get_purchase_count"
+        string="purchase_count", required=False, compute="_compute_purchase_count"
     )
 
     # @api.depends('item_ids')
-    def get_purchase_count(self):
+    def _compute_purchase_count(self):
         for r in self:
             r.purchase_count = self.env["purchase.order"].search_count(
                 [("stage_id", "=", r.id)]

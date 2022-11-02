@@ -10,10 +10,10 @@ class VerticalStage(models.Model):
         string="Bills_ids",
         required=False,
     )
-    bills_count = fields.Integer(string="Contador Gastos", compute="get_bills_count")
+    bills_count = fields.Integer(string="Contador Gastos", compute="_compute_bills_count")
 
     @api.depends("bills_ids")
-    def get_bills_count(self):
+    def _compute_bills_count(self):
         for r in self:
             # r.bills_count = self.env['vertical.bills'].search_count([('stage_id', '=', self.id)])
             r.bills_count = len(r.bills_ids)
