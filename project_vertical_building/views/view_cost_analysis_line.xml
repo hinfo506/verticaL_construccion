@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
 
         <record id="cost_line_view_form" model="ir.ui.view">
             <field name="name">Analisis de Coste Line</field>
@@ -44,5 +43,4 @@
             </field>
         </record>
 
-    </data>
 </odoo>
