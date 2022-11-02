@@ -22,7 +22,7 @@
                     <sheet>
                         <field name="related_is_prevision" invisible="1"/>
                         <field name="related_is_end" invisible="1"/>
-                        <field name="estado_fase" readonly="1"/>
+                        <field name="estado_fase" readonly="1" invisible="1"/>
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" name="action_view_childs" type="object" icon="fa-archive"
                                     attrs="{'invisible':[('related_is_end','=',True)]}">
