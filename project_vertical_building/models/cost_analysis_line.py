@@ -1,8 +1,8 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class CostAnalysisLine(models.Model):
-    _name = 'cost.analysis.line'
+    _name = "cost.analysis.line"
     _inherit = "item.item"
 
-    cost_analysis_id = fields.Many2one('vertical.cost.analysis', string='Estandar')
+    cost_analysis_id = fields.Many2one("vertical.cost.analysis", string="Estandar")

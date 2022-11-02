@@ -12,7 +12,8 @@ class ItemItem(models.Model):
         string="Cantidad Planificada", copy=False, digits=(12, 2), required=1
     )
     uom_id = fields.Many2one(
-        "uom.uom", string="Unid. de Medida",
+        "uom.uom",
+        string="Unid. de Medida",
     )
     reference = fields.Char(string="Referencia", copy=False)
     job_type = fields.Selection(
@@ -23,49 +24,49 @@ class ItemItem(models.Model):
             ("machinery", "Maquinaria"),
         ],
         string="Tipo de Costo",
-        required=True
+        required=True,
     )
 
     subtotal_item_capitulo = fields.Float(
         string="Subtotal", store=False, compute="_compute_subtotal_item_capitulo"
     )
     tipo_descuento = fields.Selection(
-        string='Tipo Dto.',
+        string="Tipo Dto.",
         selection=[
-            ('cantidad', 'cantidad'),
-            ('porciento', 'porciento'),
+            ("cantidad", "cantidad"),
+            ("porciento", "porciento"),
         ],
         required=False,
     )
-    cantidad_descuento = fields.Float(string='Imp. Dto.', required=False)
+    cantidad_descuento = fields.Float(string="Imp. Dto.", required=False)
     subtotal_descuento = fields.Float(
         string='Subtotal Con descuento',
         required=False,
-        compute='_compute_subtotal_descuento',
+        compute="_compute_subtotal_descuento",
         store=False
     )
-    beneficio_estimado = fields.Float(string='% Benef.', required=False)
+    beneficio_estimado = fields.Float(string="% Benef.", required=False)
     importe_venta = fields.Float(
-        string='Importe Venta (PVP)',
+        string="Importe Venta (PVP)",
         required=False,
-        compute='_compute_subtotal_descuento',
+        compute="_compute_subtotal_descuento",
         store=False
     )
-    impuesto_porciento = fields.Float(string='ITBIS %', required=False)
+    impuesto_porciento = fields.Float(string="ITBIS %", required=False)
     total_impuesto_item = fields.Float(
-        string='Importe ITBIS',
+        string="Importe ITBIS",
         required=False,
-        compute='_compute_subtotal_descuento',
+        compute="_compute_subtotal_descuento",
         store=False
     )
     suma_impuesto_item_y_cost_price = fields.Float(
-        string='Total (P.U. + ITBIS)',
+        string="Total (P.U. + ITBIS)",
         required=False,
-        compute='_compute_subtotal_descuento',
+        compute="_compute_subtotal_descuento",
         store=False
     )
     cost_price = fields.Float(
-        string='Coste',
+        string="Coste",
         copy=False,
     )
 
@@ -85,7 +86,7 @@ class ItemItem(models.Model):
                 rec.subtotal_item_capitulo = rec.product_qty * rec.cost_price
             elif rec.job_type == "machinery":
                 rec.subtotal_item_capitulo = (
-                    rec.product_qty * 3
+                        rec.product_qty * 3
                 )  # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
             else:
                 rec.subtotal_item_capitulo = 0
@@ -107,13 +108,13 @@ class ItemItem(models.Model):
 
     # Importe Subtotal item Capitulo - Importe con los impuestos
     @api.depends(
-        'tipo_descuento',
-        'product_qty',
-        'cost_price',
-        'subtotal_item_capitulo',
-        'cantidad_descuento',
-        'beneficio_estimado',
-        'impuesto_porciento'
+        "tipo_descuento",
+        "product_qty",
+        "cost_price",
+        "subtotal_item_capitulo",
+        "cantidad_descuento",
+        "beneficio_estimado",
+        "impuesto_porciento",
     )
     def _compute_subtotal_descuento(self):
         for record in self:
@@ -153,12 +154,12 @@ class ItemItem(models.Model):
 
     def action_standar_line(self):
         return {
-            'type': "ir.actions.act_window",
-            'res_model': self._name,
-            'res_id': self.id,
-            'view_type': "form",
-            'view_mode': "form",
-            'target': "new",
+            "type": "ir.actions.act_window",
+            "res_model": self._name,
+            "res_id": self.id,
+            "view_type": "form",
+            "view_mode": "form",
+            "target": "new",
         }
 
     # Onchage para cambiar el dominio
