@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data>
 
         <record id="ir_sequence_numero_proyecto" model="ir.sequence">
             <field name="name">Secuencia de Proyecto</field>
