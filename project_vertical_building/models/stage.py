@@ -112,7 +112,6 @@ class VerticalStage(models.Model):
             "view_mode": "tree,form",
             "domain": [
                 ("id", "in", self.item_standard_ids.ids),
-                ("type_item", "=", "standard")
             ],
         }
 
@@ -161,7 +160,6 @@ class VerticalStage(models.Model):
             "view_mode": "tree,form",
             "domain": [
                 ("id", "in", self.item_cost_analysis_ids.ids),
-                ("type_item", "=", 'cost_analysis')
             ],
         }
 
@@ -171,13 +169,19 @@ class VerticalStage(models.Model):
             r.childs_count = len(r.child_ids)
 
     def action_view_childs(self):
+        count = self.env['vertical.stage'].search([('id', 'in', self.child_ids.ids)])
+        # raise ValidationError(count)
         return {
             "type": "ir.actions.act_window",
             "name": "Create Childs",
             "res_model": "vertical.stage",
             "view_mode": "tree,form",
             "domain": [("id", "in", self.child_ids.ids)],
-            "context": dict(self._context, default_parent_id=self.id),
+            "context": dict(
+                self._context,
+                default_parent_id=self.id,
+                default_project_id=self.project_id.id,
+            ),
         }
 
     def _compute_total_fase(self):
@@ -289,6 +293,9 @@ class VerticalStage(models.Model):
 
             self.item_cost_analysis_ids = item_cost_analysis_ids
             self.item_standard_ids = item_standard_ids
+        if not self.cost_analysis_id:
+            self.item_cost_analysis_ids = [(5, 0, 0)]
+            self.item_standard_ids = [(5, 0, 0)]
 
     @api.depends("cost_analysis_id")
     def _compute_amount_all(self):
@@ -315,3 +322,25 @@ class VerticalStage(models.Model):
                     "overhead_total": overhead_total,
                 }
             )
+
+    def add_cost_in_parti(self):
+        act_ids = self.env.context.get("active_ids")
+        # raise ValidationError(act_ids)
+        active_ids = self.env["vertical.stage"].search([("id", "=", act_ids)])
+
+        # Comprobar que las fases a las que se va a agregar el standar sean partidas
+        for active in active_ids:
+            if active.type_stage_id.is_end:
+                raise ValidationError(_("Debe seleccionar solo Fases que no sean tipo Final"))
+
+        return {
+            "name": "Add Análisis de Coste",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "wizard.add.ac",
+            "context": {
+                "default_active_ids": act_ids,
+            },
+            "type": "ir.actions.act_window",
+            "target": "new",
+        }

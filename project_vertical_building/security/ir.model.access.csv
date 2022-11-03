@@ -9,3 +9,4 @@ access_standard_line,standard.line,model_standard_line,,1,1,1,1
 access_wizard_standard,wizard.standard,model_wizard_standard,,1,1,1,1
 access_vertical_cost_analysis,vertical.cost.analysis,model_vertical_cost_analysis,,1,1,1,1
 access_cost_analysis_line,cost.analysis.line,model_cost_analysis_line,,1,1,1,1
+access_wizard_add_ac,wizard_add_ac,model_wizard_add_ac,,1,1,1,1
