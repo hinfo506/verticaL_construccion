@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='label_tasks']" position="before">
-                    <field name="abreviatura_proyecto"/>
+                    <field name="project_abbreviation"/>
                     <field name="numero_proyecto"/>
                     <field name="is_building"/>
                 </xpath>
