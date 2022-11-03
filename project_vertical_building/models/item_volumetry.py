@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import api, fields, models
 
 
 class VerticalItemVolumetry(models.Model):
@@ -28,7 +28,7 @@ class VerticalItemVolumetry(models.Model):
         string="Precio Coste Volumetría", required=False
     )
 
-    total = fields.Float(string="Total", required=False, compute="_compute_total")
+    total = fields.Float(string="Total ", required=False, compute="_compute_total")
     item_id = fields.Many2one(
         comodel_name="vertical.item", string="Item", required=False, ondelete="cascade"
     )

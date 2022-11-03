@@ -12,7 +12,6 @@
     "version": "15.0.1",
     "depends": ["base", "project_vertical_building", "purchase"],
     "data": [
-        # 'security/ir.model.access.csv',
         # 'views/view_standar.xml',
         "views/menu.xml",
         "views/view_purchase_order.xml",

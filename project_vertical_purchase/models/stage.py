@@ -2,7 +2,7 @@
 
 import logging
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -12,11 +12,11 @@ class VerticalStage(models.Model):
     _inherit = "vertical.stage"
 
     purchase_count = fields.Integer(
-        string="purchase_count", required=False, compute="get_purchase_count"
+        string="purchase_count", required=False, compute="_compute_purchase_count"
     )
 
     # @api.depends('item_ids')
-    def get_purchase_count(self):
+    def _compute_purchase_count(self):
         for r in self:
             r.purchase_count = self.env["purchase.order"].search_count(
                 [("stage_id", "=", r.id)]
@@ -24,7 +24,6 @@ class VerticalStage(models.Model):
             # r.purchase_count = len(r.item_ids)
 
     def action_view_purchase(self):
-        # raise ValidationError('Abcdefuck')
         return {
             "type": "ir.actions.act_window",
             "name": "Compras",
@@ -46,9 +45,7 @@ class VerticalStage(models.Model):
         )  # tomo las fases y mapeo por los item obteniendo el modelo vertical.item(5, 6, 7)
         for i in items:
             if not i.product_id.seller_ids:
-                raise ValidationError(
-                    '"No se pudo completar la venta: Hay Artículos sin proveedores"'
-                )
+                raise ValidationError(_("No se pudo completar la venta: Hay Artículos sin proveedores"))
 
     @api.model
     def purchase_from_stage(self):
@@ -137,35 +134,3 @@ class VerticalStage(models.Model):
 
             current_po.order_line = purchase_data[vendor_key]["order_lines"]
             purchase_orders.append(current_po.id)
-
-        # Debo retornar la acción que abre las purchase orders, pero mostrando solo las PO creadas
-
-        # action = self.env["ir.actions.act_window"]._for_xml_id("purchase.purchase_rfq")
-        # action['domain'] = [('id', 'in', purchase_orders)]
-        # action['context'] = {
-        #     'create': False,
-        # }
-        # return action
-        # ir.actions.actions
-        # return self.env['ir.actions.actions']._for_xml_id('purchase.purchase_rfq')
-        # raise ValidationError(purchase_orders)
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'name': 'Compras',
-        #     'res_model': 'purchase.order',
-        #     'view_mode': 'tree,form',
-        #     'domain': [('id', 'in', purchase_orders.ids)],
-        #     'context': {'create': False, },
-        # }
-        # return {
-        #     'type': 'ir.actions.client',
-        #     'tag': 'display_notification',
-        #     'params': {
-        #         'type': 'success',
-        #         'title': _("Leads Assigned"),
-        #         'message': "notif_message",
-        #         'next': {
-        #             'type': 'ir.actions.act_window_close'
-        #         },
-        #     }
-        # }

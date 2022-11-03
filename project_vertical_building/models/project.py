@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from odoo import fields, models, api
+from odoo import api, fields, models
 
 
 class ProjectProject(models.Model):
@@ -10,9 +10,9 @@ class ProjectProject(models.Model):
 
     # DATOS PRINCIPALES
 
-    abreviatura_proyecto = fields.Char(string="Abreviatura Proyecto", required=False)
+    project_abbreviation = fields.Char(string="Abreviatura Proyecto", required=False)
     number = fields.Char(
-        string="Number",
+        string="Número",
         required=True,
         copy=False,
         readonly="True",
@@ -62,14 +62,14 @@ class ProjectProject(models.Model):
         comodel_name="res.currency", string="Moneda", required=False
     )
     surface = fields.Float(string="Superficie m2", required=False)
-    importe_m2 = fields.Float(string="Importe m2", required=False)
+    amount_m2 = fields.Float(string="Importe m2", required=False)
     hh_planned = fields.Float(string="HH planificado", required=False)
 
-    @api.depends("abreviatura_proyecto", "number")
+    @api.depends("project_abbreviation", "number")
     def _compute_numero_proyecto(self):
         for record in self:
             record.numero_proyecto = (
-                str(record.abreviatura_proyecto) + "-" + record.number
+                str(record.project_abbreviation) + "-" + record.number
             )
 
     # FASES DEL PROYECTO
