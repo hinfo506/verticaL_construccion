@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import fields, models
 
 
@@ -12,24 +11,20 @@ class VerticalCostAnalysis(models.Model):
         comodel_name="cost.analysis.line",
         inverse_name="cost_analysis_id",
         string="Cost_analysis_line_ids",
-        required=False
+        required=False,
     )
     cost_standard = fields.Float(
-        string="",
-        required=False,
-        related="standard_id.total_cost"
+        string="", required=False, related="standard_id.total_cost"
     )
     cost_cost_analysis = fields.Float(
-        string="Total Coste",
-        required=False,
-        compute="_compute_amount_cost_total"
+        string="Total Coste", required=False, compute="_compute_amount_cost_total"
     )
 
     item_ids = fields.One2many(
         comodel_name="vertical.item",
         inverse_name="cost_analysis_id",
         string="Item_ids",
-        required=False
+        required=False,
     )
 
     def _compute_amount_cost_total(self):
@@ -44,4 +39,4 @@ class VerticalCostAnalysis(models.Model):
 
     def throw_changes(self):
         # fases = self.env['vertical.stage'].search([('cost_analysis_id', '=', self.id)]).mapped('order_id')
-        fases = self.env['vertical.stage'].search([('cost_analysis_id', '=', self.id)])
+        fases = self.env["vertical.stage"].search([("cost_analysis_id", "=", self.id)])

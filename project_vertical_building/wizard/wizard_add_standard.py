@@ -26,7 +26,6 @@ class AddStandar(models.TransientModel):
                     {
                         "vertical_stage_id": self.active_id.id,
                         "project_id": self.active_id.project_id.id,
-                        "type_item": 'standard',
                         "standard_id": self.standard_id.id,
                         "job_type": line.job_type,
                         "product_id": line.product_id.id,
@@ -52,7 +51,6 @@ class AddStandar(models.TransientModel):
                         {
                             "vertical_stage_id": active.id,
                             "project_id": active.project_id.id,
-                            "type_item": 'standard',
                             "standard_id": self.standard_id.id,
                             "job_type": line.job_type,
                             "product_id": line.product_id.id,

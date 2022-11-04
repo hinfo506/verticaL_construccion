@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "project_vertical_building",
     "summary": """
@@ -7,7 +6,7 @@
         project_vertical_building
     """,
     "author": "OdooNext",
-    "website": "http://www.odoonext.com",
+    "website": "https://github.com/odoo-next/verticaL_construccion",
     "category": "Project Management",
     "version": "15.0.1",
     "depends": [

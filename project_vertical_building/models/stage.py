@@ -80,23 +80,23 @@ class VerticalStage(models.Model):
 
     # Cost Analysis
     cost_analysis_id = fields.Many2one(
-        comodel_name='vertical.cost.analysis',
-        string='Análisis de Coste',
-        required=False
+        comodel_name="vertical.cost.analysis",
+        string="Análisis de Coste",
+        required=False,
     )
     item_cost_count = fields.Integer(
-        string='Item Costo Count',
+        string="Item Costo Count",
         required=False,
-        compute='_compute_item_count',
-        hide=True
+        compute="_compute_item_count",
+        hide=True,
     )
 
     # Standard
     item_standard_count = fields.Integer(
-        string='Item Standard Count',
+        string="Item Standard Count",
         required=False,
-        compute='_compute_item_count',
-        hide=True
+        compute="_compute_item_count",
+        hide=True,
     )
 
     def _compute_item_count(self):
@@ -169,7 +169,7 @@ class VerticalStage(models.Model):
             r.childs_count = len(r.child_ids)
 
     def action_view_childs(self):
-        count = self.env['vertical.stage'].search([('id', 'in', self.child_ids.ids)])
+        count = self.env["vertical.stage"].search([("id", "in", self.child_ids.ids)])
         # raise ValidationError(count)
         return {
             "type": "ir.actions.act_window",
@@ -261,7 +261,7 @@ class VerticalStage(models.Model):
                             "beneficio_estimado": line.beneficio_estimado,
                             "importe_venta": line.importe_venta,
                             "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
-                        }
+                        },
                     )
                 )
             for line in self.cost_analysis_id.standard_id.line_ids:
@@ -287,7 +287,7 @@ class VerticalStage(models.Model):
                             "beneficio_estimado": line.beneficio_estimado,
                             "importe_venta": line.importe_venta,
                             "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
-                        }
+                        },
                     )
                 )
 
@@ -331,7 +331,9 @@ class VerticalStage(models.Model):
         # Comprobar que las fases a las que se va a agregar el standar sean partidas
         for active in active_ids:
             if active.type_stage_id.is_end:
-                raise ValidationError(_("Debe seleccionar solo Fases que no sean tipo Final"))
+                raise ValidationError(
+                    _("Debe seleccionar solo Fases que no sean tipo Final")
+                )
 
         return {
             "name": "Add Análisis de Coste",

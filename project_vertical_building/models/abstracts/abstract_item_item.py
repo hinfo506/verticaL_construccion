@@ -40,30 +40,30 @@ class ItemItem(models.Model):
     )
     cantidad_descuento = fields.Float(string="Imp. Dto.", required=False)
     subtotal_descuento = fields.Float(
-        string='Subtotal Con descuento',
+        string="Subtotal Con descuento",
         required=False,
         compute="_compute_subtotal_descuento",
-        store=False
+        store=False,
     )
     beneficio_estimado = fields.Float(string="% Benef.", required=False)
     importe_venta = fields.Float(
         string="Importe Venta (PVP)",
         required=False,
         compute="_compute_subtotal_descuento",
-        store=False
+        store=False,
     )
     impuesto_porciento = fields.Float(string="ITBIS %", required=False)
     total_impuesto_item = fields.Float(
         string="Importe ITBIS",
         required=False,
         compute="_compute_subtotal_descuento",
-        store=False
+        store=False,
     )
     suma_impuesto_item_y_cost_price = fields.Float(
         string="Total (P.U. + ITBIS)",
         required=False,
         compute="_compute_subtotal_descuento",
-        store=False
+        store=False,
     )
     cost_price = fields.Float(
         string="Coste",
@@ -86,7 +86,7 @@ class ItemItem(models.Model):
                 rec.subtotal_item_capitulo = rec.product_qty * rec.cost_price
             elif rec.job_type == "machinery":
                 rec.subtotal_item_capitulo = (
-                        rec.product_qty * 3
+                    rec.product_qty * 3
                 )  # AQUI TIENE QUE IR, EN VEZ DE EL 3 EL TOTAL DE MATERIAL + LABOUR Y QUE PRODUCT_QTY SEA UN %
             else:
                 rec.subtotal_item_capitulo = 0
@@ -120,11 +120,11 @@ class ItemItem(models.Model):
         for record in self:
             if record.tipo_descuento == "cantidad":
                 record.subtotal_descuento = (
-                        record.subtotal_item_capitulo - record.cantidad_descuento
+                    record.subtotal_item_capitulo - record.cantidad_descuento
                 )
             elif record.tipo_descuento == "porciento":
                 record.subtotal_descuento = record.subtotal_item_capitulo - (
-                        (record.subtotal_item_capitulo * record.cantidad_descuento) / 100
+                    (record.subtotal_item_capitulo * record.cantidad_descuento) / 100
                 )
             else:
                 record.subtotal_descuento = record.subtotal_item_capitulo
