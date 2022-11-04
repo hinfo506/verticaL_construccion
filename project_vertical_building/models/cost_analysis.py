@@ -1,4 +1,5 @@
 from odoo import fields, models
+from odoo.exceptions import ValidationError
 
 
 class VerticalCostAnalysis(models.Model):
@@ -40,3 +41,4 @@ class VerticalCostAnalysis(models.Model):
     def action_throw_changes(self):
         # fases = self.env['vertical.stage'].search([('cost_analysis_id', '=', self.id)]).mapped('order_id')
         fases = self.env["vertical.stage"].search([("cost_analysis_id", "=", self.id)])
+        raise ValidationError(fases)
