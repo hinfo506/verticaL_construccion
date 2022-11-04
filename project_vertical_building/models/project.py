@@ -96,8 +96,7 @@ class ProjectProject(models.Model):
             "type": "ir.actions.act_window",
             "name": self.name,  # Nombre del proyecto,
             "res_model": "vertical.stage",
-            "view_mode": "tree,form",
-            "domain": [("id", "in", self.vertical_stage_ids.ids)],
+            "view_mode": "tree,form",           
             "context": dict(
                 self._context,
                 default_project_id=self.id,
