@@ -19,7 +19,7 @@ class AddStandar(models.TransientModel):
                 line = self.env["standard.line"].search(data)
                 record.list_ids = line
 
-    def action_insertar(self):
+    def action_add(self):
         if self.is_one:
             for line in self.list_ids:
                 self.env["vertical.item"].create(

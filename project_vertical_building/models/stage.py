@@ -323,7 +323,7 @@ class VerticalStage(models.Model):
                 }
             )
 
-    def add_cost_in_parti(self):
+    def action_add_cost(self):
         act_ids = self.env.context.get("active_ids")
         # raise ValidationError(act_ids)
         active_ids = self.env["vertical.stage"].search([("id", "=", act_ids)])

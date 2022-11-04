@@ -20,7 +20,7 @@
                     </notebook>
                 </sheet>
                 <footer>
-                    <button string="Insertar" name="action_insertar" type="object" class="oe_highlight"/>
+                    <button string="Insertar" name="action_add" type="object" class="oe_highlight"/>
                     <button string="Cancel" special="cancel"/>
                 </footer>
             </form>

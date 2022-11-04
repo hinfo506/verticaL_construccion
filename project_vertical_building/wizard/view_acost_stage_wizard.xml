@@ -35,7 +35,7 @@
 <!--                    </notebook>-->
                 </sheet>
                 <footer>
-                    <button string="Crear" name="action_insertar" type="object" class="oe_highlight"/>
+                    <button string="Crear" name="action_add" type="object" class="oe_highlight"/>
                     <button string="Cancel" special="cancel"/>
                 </footer>
             </form>

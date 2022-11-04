@@ -28,7 +28,7 @@
         "views/view_standard.xml",
         "views/view_standard_line.xml",
         "wizard/view_add_standard.xml",
-        "wizard/view_add_ac_form_stage_how_end.xml",
+        "wizard/view_acost_stage_wizard.xml",
         "views/view_cost_analysis.xml",
         "views/view_cost_analysis_line.xml",
         "views/menu.xml",

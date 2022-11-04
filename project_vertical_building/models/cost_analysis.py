@@ -37,6 +37,6 @@ class VerticalCostAnalysis(models.Model):
                 )
             record.cost_cost_analysis = sumatoria
 
-    def throw_changes(self):
+    def action_throw_changes(self):
         # fases = self.env['vertical.stage'].search([('cost_analysis_id', '=', self.id)]).mapped('order_id')
         fases = self.env["vertical.stage"].search([("cost_analysis_id", "=", self.id)])

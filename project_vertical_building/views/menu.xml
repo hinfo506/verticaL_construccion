@@ -107,7 +107,7 @@
             <field name="state">code</field>
             <field name="code">
                 if records:
-                action = records.add_cost_in_parti()
+                action = records.action_add_cost()
             </field>
         </record>
 

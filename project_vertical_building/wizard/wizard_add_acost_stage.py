@@ -17,7 +17,7 @@ class AddAcHowStageEnd(models.TransientModel):
 
     active_ids = fields.Many2many(comodel_name="vertical.stage", string="Ids activos")
 
-    def action_insertar(self):
+    def action_add(self):
         stage_end = self.env['vertical.stage.type'].search([('is_end', '=', True)])
         for active in self.active_ids:
             stage = self.env["vertical.stage"].create(
