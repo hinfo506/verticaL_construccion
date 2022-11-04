@@ -13,8 +13,8 @@
                         type="object"
                         icon="fa-archive"
                         attrs="{'invisible':[('related_is_end','!=',True)]}"
-                >
-                    <field name="bills_count" string="Gastos" widget="statinfo"/>
+                        >
+                            <field name="bills_count" string="Gastos" widget="statinfo" />
                 </button>
             </xpath>
 

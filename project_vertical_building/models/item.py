@@ -27,30 +27,13 @@ class VerticalItem(models.Model):
     )
     ###### FASES DEL PROYECTO ########
     project_id = fields.Many2one(
-        "project.project",
-        string="Proyecto",
-        ondelete="cascade"
+        "project.project", string="Proyecto", ondelete="cascade"
     )
     standard_stage_id = fields.Many2one(
-        comodel_name="vertical.stage",
-        string="Fase Standard",
-        required=False
+        comodel_name="vertical.stage", string="Fase Standard", required=False
     )
     cost_stage_id = fields.Many2one(
-        comodel_name="vertical.stage",
-        string="Fase Costes",
-        required=False
-    )
-
-    type_item = fields.Selection(
-        string="Tipo de Item",
-        selection=[
-            ("cost_analysis", "Analisis de coste"),
-            ("standard", "Standard"),
-            ("indefine", "Indefinido"),
-        ],
-        required=False,
-        default="indefine"
+        comodel_name="vertical.stage", string="Fase Costes", required=False
     )
 
     ###### CAMPOS DESECHADOS ########
@@ -102,9 +85,7 @@ class VerticalItem(models.Model):
         required=False,
     )
     standard_id = fields.Many2one(
-        comodel_name="standard",
-        string="Standard",
-        required=False
+        comodel_name="standard", string="Standard", required=False
     )
 
     def _compute_item_volum_count(self):
@@ -127,9 +108,9 @@ class VerticalItem(models.Model):
     def create(self, vals):
         record = super(VerticalItem, self).create(vals)
         if (
-                record.project_id
-                and record.project_id.stage_id
-                and record.project_id.stage_id.is_prevision
+            record.project_id
+            and record.project_id.stage_id
+            and record.project_id.stage_id.is_prevision
         ):
             state = (
                 "aprobada" if record.project_id.stage_id.is_prevision else "pendiente"

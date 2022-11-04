@@ -19,14 +19,13 @@ class AddStandar(models.TransientModel):
                 line = self.env["standard.line"].search(data)
                 record.list_ids = line
 
-    def action_insertar(self):
+    def action_add(self):
         if self.is_one:
             for line in self.list_ids:
                 self.env["vertical.item"].create(
                     {
                         "vertical_stage_id": self.active_id.id,
                         "project_id": self.active_id.project_id.id,
-                        "type_item": 'standard',
                         "standard_id": self.standard_id.id,
                         "job_type": line.job_type,
                         "product_id": line.product_id.id,
@@ -52,7 +51,6 @@ class AddStandar(models.TransientModel):
                         {
                             "vertical_stage_id": active.id,
                             "project_id": active.project_id.id,
-                            "type_item": 'standard',
                             "standard_id": self.standard_id.id,
                             "job_type": line.job_type,
                             "product_id": line.product_id.id,

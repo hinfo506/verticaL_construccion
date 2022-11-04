@@ -80,23 +80,23 @@ class VerticalStage(models.Model):
 
     # Cost Analysis
     cost_analysis_id = fields.Many2one(
-        comodel_name='vertical.cost.analysis',
-        string='Análisis de Coste',
-        required=False
+        comodel_name="vertical.cost.analysis",
+        string="Análisis de Coste",
+        required=False,
     )
     item_cost_count = fields.Integer(
-        string='Item Costo Count',
+        string="Item Costo Count",
         required=False,
-        compute='_compute_item_count',
-        hide=True
+        compute="_compute_item_count",
+        hide=True,
     )
 
     # Standard
     item_standard_count = fields.Integer(
-        string='Item Standard Count',
+        string="Item Standard Count",
         required=False,
-        compute='_compute_item_count',
-        hide=True
+        compute="_compute_item_count",
+        hide=True,
     )
 
     def _compute_item_count(self):
@@ -112,7 +112,6 @@ class VerticalStage(models.Model):
             "view_mode": "tree,form",
             "domain": [
                 ("id", "in", self.item_standard_ids.ids),
-                ("type_item", "=", "standard")
             ],
         }
 
@@ -161,7 +160,6 @@ class VerticalStage(models.Model):
             "view_mode": "tree,form",
             "domain": [
                 ("id", "in", self.item_cost_analysis_ids.ids),
-                ("type_item", "=", 'cost_analysis')
             ],
         }
 
@@ -171,13 +169,19 @@ class VerticalStage(models.Model):
             r.childs_count = len(r.child_ids)
 
     def action_view_childs(self):
+        count = self.env["vertical.stage"].search([("id", "in", self.child_ids.ids)])
+        # raise ValidationError(count)
         return {
             "type": "ir.actions.act_window",
             "name": "Create Childs",
             "res_model": "vertical.stage",
             "view_mode": "tree,form",
             "domain": [("id", "in", self.child_ids.ids)],
-            "context": dict(self._context, default_parent_id=self.id),
+            "context": dict(
+                self._context,
+                default_parent_id=self.id,
+                default_project_id=self.project_id.id,
+            ),
         }
 
     def _compute_total_fase(self):
@@ -257,7 +261,7 @@ class VerticalStage(models.Model):
                             "beneficio_estimado": line.beneficio_estimado,
                             "importe_venta": line.importe_venta,
                             "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
-                        }
+                        },
                     )
                 )
             for line in self.cost_analysis_id.standard_id.line_ids:
@@ -283,12 +287,15 @@ class VerticalStage(models.Model):
                             "beneficio_estimado": line.beneficio_estimado,
                             "importe_venta": line.importe_venta,
                             "suma_impuesto_item_y_cost_price": line.suma_impuesto_item_y_cost_price,
-                        }
+                        },
                     )
                 )
 
             self.item_cost_analysis_ids = item_cost_analysis_ids
             self.item_standard_ids = item_standard_ids
+        if not self.cost_analysis_id:
+            self.item_cost_analysis_ids = [(5, 0, 0)]
+            self.item_standard_ids = [(5, 0, 0)]
 
     @api.depends("cost_analysis_id")
     def _compute_amount_all(self):
@@ -315,3 +322,27 @@ class VerticalStage(models.Model):
                     "overhead_total": overhead_total,
                 }
             )
+
+    def action_add_cost(self):
+        act_ids = self.env.context.get("active_ids")
+        # raise ValidationError(act_ids)
+        active_ids = self.env["vertical.stage"].search([("id", "=", act_ids)])
+
+        # Comprobar que las fases a las que se va a agregar el standar sean partidas
+        for active in active_ids:
+            if active.type_stage_id.is_end:
+                raise ValidationError(
+                    _("Debe seleccionar solo Fases que no sean tipo Final")
+                )
+
+        return {
+            "name": "Add Análisis de Coste",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "wizard.add.ac",
+            "context": {
+                "default_active_ids": act_ids,
+            },
+            "type": "ir.actions.act_window",
+            "target": "new",
+        }

@@ -45,7 +45,7 @@
                     <field name="retention"/>
                     <field name="currency"/>
                     <field name="surface"/>
-                    <field name="importe_m2"/>
+                    <field name="amount_m2"/>
                     <field name="hh_planned"/>
                 </xpath>
 

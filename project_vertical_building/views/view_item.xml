@@ -87,7 +87,6 @@
                     <field name="cost_stage_id" optional="hide"/>
                     <field name="standard_stage_id" optional="hide"/>
                     <field name="project_id" optional="hide"/>
-                    <field name="type_item" optional="hide"/>
                     <button type="object" string=" Volumetria" name="met_itemvolumetria" class="btn btn-primary"
                             icon="fa-hand-o-right"/>
                 </tree>
