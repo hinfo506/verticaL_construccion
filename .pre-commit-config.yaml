@@ -34,21 +34,7 @@ repos:
       - id: oca-update-pre-commit-excluded-addons
       - id: oca-fix-manifest-website
         args: ["https://github.com/odoo-next/verticaL_construccion"]
-  - repo: https://github.com/myint/autoflake
-    rev: v1.4
-    hooks:
-      - id: autoflake
-        args:
-          - --expand-star-imports
-          - --ignore-init-module-imports
-          - --in-place
-          - --remove-all-unused-imports
-          - --remove-duplicate-keys
-          - --remove-unused-variables
-  - repo: https://github.com/psf/black
-    rev: 22.3.0
-    hooks:
-      - id: black
+  
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.4.1
     hooks:
