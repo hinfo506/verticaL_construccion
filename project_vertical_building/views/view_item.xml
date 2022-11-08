@@ -64,6 +64,7 @@
                 <tree decoration-danger="color_item=='red'" decoration-info="color_item=='blue'"
                       decoration-success="color_item=='green'" decoration-muted="color_item=='grey'"
                       decoration-warning="color_item=='brown'" decoration-primary="color_item=='purple'">
+                    <field name="id"/>
                     <field name="date"/>
                     <field name="job_type"/>
                     <field name="color_item" invisible="1"/>

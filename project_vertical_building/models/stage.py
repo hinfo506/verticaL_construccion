@@ -328,7 +328,7 @@ class VerticalStage(models.Model):
         # raise ValidationError(act_ids)
         active_ids = self.env["vertical.stage"].search([("id", "=", act_ids)])
 
-        # Comprobar que las fases a las que se va a agregar el standar sean partidas
+        # Comprobar que las fases a las que se va a agregar el ac sean partidas
         for active in active_ids:
             if active.type_stage_id.is_end:
                 raise ValidationError(
